@@ -1,0 +1,44 @@
+﻿@using VastVoyages.Model
+@model VastVoyages.Model.LoginDTO
+
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm" style="width:40%">
+            @using (Html.BeginForm("Login", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <br />
+                <h2 style="text-align:center">Sign In</h2>
+                <hr />
+                <br />
+                <br />
+                <div class="form-group">
+                    @Html.LabelFor(m => m.EmployeeId, new { @class = "control-label" })
+                    <br />
+                    @Html.TextBoxFor(m => m.EmployeeId, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.EmployeeId, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                    <br />
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+
+                </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <p class="text-danger">@ViewBag.Msg</p>
+                <div class="form-group" style="text-align:center">
+                    <input type="submit" value="Sign in" class="btn btn-createAccount" />
+                </div>
+
+
+            }
+        </section>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
