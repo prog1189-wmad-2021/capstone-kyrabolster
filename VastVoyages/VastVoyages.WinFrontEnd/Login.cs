@@ -14,11 +14,11 @@ namespace VastVoyages.WinFrontEnd
 {
     public partial class Login : Form
     {
-        internal LoginDTO loginInfo;
+        internal Login loginInfo;
         public Login()
         {
             InitializeComponent();
-            loginInfo = new LoginDTO();
+            loginInfo = new Login();
             txtPassword.UseSystemPasswordChar = true;
         }
 
@@ -27,8 +27,9 @@ namespace VastVoyages.WinFrontEnd
             try
             {
                 LoginService service = new LoginService();
+                loginInfo = new Login();
 
-                loginInfo.EmployeeId = txtEmpId.Text.Trim() != string.Empty ? Convert.ToInt32(txtEmpId.Text.Trim()) : 0;
+                loginInfo.EmployeeId = txtEmpId.Text.Trim();
                 loginInfo.Password = txtPassword.Text.Trim();
 
                 if (service.AttemptLogin(loginInfo))

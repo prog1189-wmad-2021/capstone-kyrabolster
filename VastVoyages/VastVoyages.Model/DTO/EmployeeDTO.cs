@@ -9,7 +9,7 @@ namespace VastVoyages.Model
 {
     public class EmployeeDTO : BaseEntity
     {
-        public int EmployeeId { get; set; }
+        public string EmployeeId { get; set; }
         public string UserName { get; set; }
         public string FirstName { get; set; }
         public string MiddleInit { get; set; }
@@ -19,5 +19,6 @@ namespace VastVoyages.Model
         public string Department { get; set; }
         public int SupervisorId { get; set; }
         public string Supervisor { get; set; }
+        public string Role { get; set; }
     }
 }
