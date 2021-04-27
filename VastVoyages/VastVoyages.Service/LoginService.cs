@@ -25,7 +25,7 @@ namespace VastVoyages.Service
             repo = new LoginRepo();
         }
 
-        public bool AttemptLogin(LoginDTO loginInfo)
+        public bool AttemptLogin(Login loginInfo)
         {
             if (Validate(loginInfo))
                 return repo.Login(loginInfo);
@@ -33,7 +33,7 @@ namespace VastVoyages.Service
             return false;
         }
 
-        public EmployeeDTO GetEmpInfo(int employeeId)
+        public EmployeeDTO GetEmpInfo(string employeeId)
         {
             return repo.RetrieveEmpInfoById(employeeId);
         }
@@ -43,7 +43,7 @@ namespace VastVoyages.Service
 
         #region Private Methods
 
-        private bool Validate(LoginDTO loginToValidate)
+        private bool Validate(Login loginToValidate)
         {
             ValidationContext context = new ValidationContext(loginToValidate);
             List<ValidationResult> results = new List<ValidationResult>();
