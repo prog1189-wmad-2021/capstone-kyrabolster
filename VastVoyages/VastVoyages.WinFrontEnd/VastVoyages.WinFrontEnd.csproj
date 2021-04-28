@@ -61,6 +61,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmCreateDepartment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCreateDepartment.Designer.cs">
+      <DependentUpon>frmCreateDepartment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCreateEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCreateEmployee.Designer.cs">
+      <DependentUpon>frmCreateEmployee.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +93,12 @@
     <Compile Include="Splash.Designer.cs">
       <DependentUpon>Splash.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="frmCreateDepartment.resx">
+      <DependentUpon>frmCreateDepartment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCreateEmployee.resx">
+      <DependentUpon>frmCreateEmployee.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
