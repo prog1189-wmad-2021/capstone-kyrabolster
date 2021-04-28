@@ -103,12 +103,12 @@ namespace VastVoyages.WinFrontEnd
 
         private void ToolBarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            toolStrip.Visible = toolBarToolStripMenuItem.Checked;
+            
         }
 
         private void StatusBarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            statusStrip.Visible = statusBarToolStripMenuItem.Checked;
+            
         }
 
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -141,28 +141,46 @@ namespace VastVoyages.WinFrontEnd
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            LoginSplashLoad();
+        }
+
+        private void LoginSplashLoad()
+        {
             Splash mySplash = new Splash();
-            Login myLogin = new Login();
+            LoginForm myLogin = new LoginForm();
 
-            mySplash.ShowDialog();
-
-            if (mySplash.DialogResult != DialogResult.OK)
+            if (emp == null)
             {
-                this.Close();
+                mySplash.ShowDialog();
+
+                if (mySplash.DialogResult != DialogResult.OK)
+                {
+                    this.Close();
+                }
+
+                else
+                {
+                    myLogin.ShowDialog();
+                }
             }
 
             else
             {
                 myLogin.ShowDialog();
-            }
+            }                     
 
             if (myLogin.DialogResult == DialogResult.OK)
             {
                 try
                 {
+                    if(emp != null)
+                    {
+                        this.Controls.Clear();
+                        this.InitializeComponent();
+                    }
+
                     this.Show();
 
-               
                     LoginService service = new LoginService();
 
                     emp = service.GetEmpInfo(myLogin.loginInfo.EmployeeId);
@@ -180,7 +198,13 @@ namespace VastVoyages.WinFrontEnd
                     lbDepartment.Text = emp.Department;
                     lbSupervisor.Text = emp.Supervisor;
                     lbCurrentDate.Text = DateTime.Now.ToShortDateString();
-                                      
+
+                    if (emp.Role == "CEO" || emp.Role == "Supervisor" || emp.Role == "HR Supervisor")
+                    {
+                        btnSupervisor.Visible = true;
+                        processPOToolStripMenuItem.Visible = true;
+                    }
+
                     toolStripStatusLabel.Text = "Ready...";
                 }
                 catch (Exception ex)
@@ -191,8 +215,17 @@ namespace VastVoyages.WinFrontEnd
 
             else
             {
-                this.Close();
+                if (emp == null)
+                {
+                    this.Close();
+
+                }
             }
+        }
+
+        private void logOff_Click(object sender, EventArgs e)
+        {
+            LoginSplashLoad();
         }
     }
 }

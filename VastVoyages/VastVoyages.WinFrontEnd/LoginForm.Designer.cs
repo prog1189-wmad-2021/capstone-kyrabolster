@@ -1,7 +1,7 @@
 ﻿
 namespace VastVoyages.WinFrontEnd
 {
-    partial class Login
+    partial class LoginForm
     {
         /// <summary>
         /// Required designer variable.
@@ -90,7 +90,7 @@ namespace VastVoyages.WinFrontEnd
             this.label1.TabIndex = 6;
             this.label1.Text = "Employee Id:";
             // 
-            // Login
+            // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -101,7 +101,8 @@ namespace VastVoyages.WinFrontEnd
             this.Controls.Add(this.txtEmpId);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "Login";
+            this.Name = "LoginForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();

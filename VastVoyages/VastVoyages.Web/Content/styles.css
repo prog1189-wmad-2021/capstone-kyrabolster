@@ -1,0 +1,68 @@
+﻿body {
+    font-family: sans-serif;
+}
+
+.sidenav {
+    height: 100%;
+    width: 260px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.empInfo {
+    margin: 5%;
+    background-color: rgba(225, 225, 225, 0.39);
+    border-radius: 8px;
+    color: #fff;
+    padding: 6px 8px 6px 16px;
+}
+
+.workInfo{
+    font-size: 14px;
+}
+
+.sidenav a,
+.currentDate {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #cccccc;
+    display: block;
+}
+
+#logo{
+    margin:auto;
+}
+
+.currentDate {
+    text-align: center;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.main {
+    margin-left: 260px;
+    position: relative;
+}
+
+footer {
+    color: black;
+    font-size: 15px;
+    width: 100%;
+    height: 16%;
+    font-weight: bold;
+    background-color: #bbbbbb;
+    text-align: center;
+    padding-left: 7%;
+    padding-top: 20px;
+    position: absolute;
+    bottom: 0;
+}
+

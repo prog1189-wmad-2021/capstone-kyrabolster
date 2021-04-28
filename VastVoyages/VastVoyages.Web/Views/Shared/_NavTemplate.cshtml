@@ -1,0 +1,135 @@
+﻿@using VastVoyages.Types;
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+          crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
+
+    <link href="~/Content/styles.css" rel="stylesheet" />
+
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <div class="sidenav">
+            <img id="logo" style="width: 15rem;" src="@Url.Content("~/Content/")/images/logo.png" alt="logo" />
+            <p class="currentDate">Today: @DateTime.Now.ToShortDateString()</p>
+            @if (Session["employeeId"] != null)
+            { 
+                <div class="empInfo">
+                    <h3>@Session["employeeName"].ToString()</h3>
+                    <br />
+                    <h5>Work Information</h5>
+                    <ul class="list-unstyled workInfo">
+                        <li>Department: @Session["department"].ToString()</li>
+                        <li>Job Title: @Session["job"].ToString()</li>
+                        <li>Supervisor: @Session["supervisor"].ToString()</li>
+                    </ul>
+                </div>
+            
+            }
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#HRSubmenu" data-toggle="collapse" data-target="#HRSubmenu" aria-expanded="false" class="dropdown-toggle">HR</a>
+                    <ul class="collapse list-unstyled" style="padding-left:5%;" id="HRSubmenu">
+                        <li>
+                            <a href="#">Add Employee</a>
+                        </li>
+                        @if (Session["employeeId"] != null)
+                        {
+                            if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "Supervisor" || Session["role"].ToString() == "HR Supervisor")
+                            {
+                                <li>
+                                    <a href="#">Create Department</a>
+                                </li>
+                            }
+                        }
+                        </ul>
+                </li>
+                <li class="active">
+                    <a href="#POSubmenu" data-toggle="collapse" data-target="#POSubmenu" aria-expanded="false" class="dropdown-toggle">Purchase Order</a>
+                    <ul class="collapse list-unstyled" style="padding-left:5%;" id="POSubmenu">
+                        <li>
+                            <a href="#">Create PO</a>
+                        </li>
+                        <li>
+                            <a href="#">Modify PO</a>
+                        </li>
+                        @if (Session["employeeId"] != null)
+                        {
+                            if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "Supervisor" || Session["role"].ToString() == "HR Supervisor")
+                            {
+                                <li>
+                                    <a href="#">Process PO</a>
+                                </li>
+                            }
+                        }
+                        </ul>
+                </li>
+                <li>
+                    @if (Session["employeeId"] == null)
+                    {
+                        <a href="@Url.Action("Index", "Login")">Login</a>
+                    }
+                    else
+                    {
+                        using (Html.BeginForm("LogOff", "Login", FormMethod.Post, new { id = "logoutForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                        }
+                    }
+                </li>
+            </ul>
+        </div>
+
+        <!-- Page Content -->
+        <div class="main">
+            @RenderBody()
+        </div>
+
+    </div>
+
+
+    <footer>
+        <p>Copyright &copy; Team Delta</p>
+        <p>555-555-5555</p>
+        <p>1234 Main Street, Moncton, NB</p>
+        <br />
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+
+
+</html>
+

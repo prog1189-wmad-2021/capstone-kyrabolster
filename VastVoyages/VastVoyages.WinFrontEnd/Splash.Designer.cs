@@ -100,6 +100,7 @@ namespace VastVoyages.WinFrontEnd
             this.Controls.Add(this.lbVersion);
             this.Controls.Add(this.lbProductName);
             this.Name = "Splash";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Splash";
             this.Load += new System.EventHandler(this.Splash_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

@@ -12,10 +12,10 @@ using VastVoyages.Model;
 
 namespace VastVoyages.WinFrontEnd
 {
-    public partial class Login : Form
+    public partial class LoginForm : Form
     {
         internal Login loginInfo;
-        public Login()
+        public LoginForm()
         {
             InitializeComponent();
             loginInfo = new Login();
