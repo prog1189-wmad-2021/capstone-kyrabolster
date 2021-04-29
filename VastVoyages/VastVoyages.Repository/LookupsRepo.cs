@@ -14,6 +14,10 @@ namespace VastVoyages.Repository
     {
         DataAccess db = new DataAccess();
 
+        /// <summary>
+        /// Retrieve all job assignments
+        /// </summary>
+        /// <returns></returns>
         public List<JobAssignmentsLookupsDTO> RetrieveJobAssignments()
         {
             List<ParmStruct> parms = new List<ParmStruct>();
@@ -36,6 +40,10 @@ namespace VastVoyages.Repository
             return jobAssignments;
         }
 
+        /// <summary>
+        /// Retrieve all Departments
+        /// </summary>
+        /// <returns></returns>
         public List<DepartmentLookupsDTO> RetrieveDepartments()
         {
             List<ParmStruct> parms = new List<ParmStruct>();
@@ -58,12 +66,43 @@ namespace VastVoyages.Repository
             return departments;
         }
 
+        /// <summary>
+        /// Retrieve all supervisors
+        /// Supervisors are characterised as employees whose supervisor is the CEO,
+        /// or the CEO themselves.
+        /// </summary>
+        /// <param name="departmentId"></param>
+        /// <returns></returns>
         public List<SupervisorLookupsDTO> RetrieveSupervisors(int departmentId)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
             parms.Add(new ParmStruct("@DepartmentId", departmentId, SqlDbType.Int));
 
             DataTable dt = db.Execute("spGetSupervisors", parms);
+
+            List<SupervisorLookupsDTO> supervisors = new List<SupervisorLookupsDTO>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                supervisors.Add(
+                    new SupervisorLookupsDTO
+                    {
+                        SupervisorId = Convert.ToInt32(row["EmployeeId"]),
+                        SupervisorName = row["FirstName"].ToString() + row["LastName"].ToString()
+                    }
+                );
+            }
+
+            return supervisors;
+        }
+
+        /// <summary>
+        /// Retrieve CEO
+        /// </summary>
+        /// <returns></returns>
+        public List<SupervisorLookupsDTO> RetrieveCEO()
+        {
+            DataTable dt = db.Execute("spGetCEO");
 
             List<SupervisorLookupsDTO> supervisors = new List<SupervisorLookupsDTO>();
 

@@ -16,6 +16,11 @@ namespace VastVoyages.Service
 
         #region Public Methods
 
+        /// <summary>
+        /// Add new department
+        /// </summary>
+        /// <param name="department"></param>
+        /// <returns></returns>
         public bool AddDepartment(Department department)
         {
             if (ValidateDepartment(department))
@@ -27,6 +32,12 @@ namespace VastVoyages.Service
         #endregion
 
         #region Private Methods
+
+        /// <summary>
+        /// Validate department to be added to satisfy the model and business rules
+        /// </summary>
+        /// <param name="department"></param>
+        /// <returns></returns>
         private bool ValidateDepartment(Department department)
         {
             List<ValidationResult> results = new List<ValidationResult>();

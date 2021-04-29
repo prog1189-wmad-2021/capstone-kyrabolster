@@ -26,5 +26,10 @@ namespace VastVoyages.Service
         {
             return repo.RetrieveSupervisors(departmentId);
         }
+
+        public List<SupervisorLookupsDTO> GetCEO()
+        {
+            return repo.RetrieveCEO();
+        }
     }
 }

@@ -26,8 +26,9 @@ namespace VastVoyages.Repository
             parms.Add(new ParmStruct("@UserName", employee.UserName, SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@FirstName", employee.FirstName, SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@LastName", employee.LastName, SqlDbType.NVarChar));
-            parms.Add(new ParmStruct("@MiddleInit", employee.MiddleInitial, SqlDbType.NVarChar));
-
+            parms.Add(new ParmStruct("@MiddleInit", 
+                (!string.IsNullOrEmpty(employee.MiddleInitial) ? employee.MiddleInitial : (object)DBNull.Value),
+                SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@DateOfBirth", employee.DateOfBirth, SqlDbType.DateTime));
             parms.Add(new ParmStruct("@Street", employee.Street, SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@City", employee.City, SqlDbType.NVarChar));
@@ -127,7 +128,7 @@ namespace VastVoyages.Repository
 
             foreach (DataRow row in dt.Rows)
             {
-                employees.Add(new EmployeeDTO
+                    employees.Add(new EmployeeDTO
                 {
                     EmpId = Convert.ToInt32(row["EmployeeId"]),
                     FirstName = row["FirstName"].ToString(),

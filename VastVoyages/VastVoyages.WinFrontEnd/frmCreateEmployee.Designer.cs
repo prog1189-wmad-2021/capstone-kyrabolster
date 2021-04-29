@@ -81,6 +81,9 @@
             this.label16 = new System.Windows.Forms.Label();
             this.dtpJobStartDate = new System.Windows.Forms.DateTimePicker();
             this.grpContactInfo = new System.Windows.Forms.GroupBox();
+            this.chkIsSupervisor = new System.Windows.Forms.CheckBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.lblSupervisorMsg = new System.Windows.Forms.Label();
             this.grpCreateEmployee.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.grpUserInfo.SuspendLayout();
@@ -351,7 +354,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(90, 96);
+            this.label2.Location = new System.Drawing.Point(70, 99);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(67, 17);
             this.label2.TabIndex = 14;
@@ -367,7 +370,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(90, 68);
+            this.label3.Location = new System.Drawing.Point(70, 71);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 17);
             this.label3.TabIndex = 12;
@@ -376,7 +379,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(90, 40);
+            this.label4.Location = new System.Drawing.Point(70, 43);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(50, 17);
             this.label4.TabIndex = 11;
@@ -399,7 +402,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(90, 154);
+            this.label5.Location = new System.Drawing.Point(70, 157);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(88, 17);
             this.label5.TabIndex = 19;
@@ -415,7 +418,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(90, 126);
+            this.label6.Location = new System.Drawing.Point(70, 129);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(61, 17);
             this.label6.TabIndex = 17;
@@ -424,7 +427,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(90, 207);
+            this.label13.Location = new System.Drawing.Point(70, 210);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(90, 17);
             this.label13.TabIndex = 24;
@@ -440,7 +443,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(90, 235);
+            this.label14.Location = new System.Drawing.Point(70, 238);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(80, 17);
             this.label14.TabIndex = 26;
@@ -456,7 +459,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(90, 263);
+            this.label15.Location = new System.Drawing.Point(70, 266);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(46, 17);
             this.label15.TabIndex = 28;
@@ -471,6 +474,9 @@
             // 
             // grpEmploymentDetails
             // 
+            this.grpEmploymentDetails.Controls.Add(this.lblSupervisorMsg);
+            this.grpEmploymentDetails.Controls.Add(this.label21);
+            this.grpEmploymentDetails.Controls.Add(this.chkIsSupervisor);
             this.grpEmploymentDetails.Controls.Add(this.label20);
             this.grpEmploymentDetails.Controls.Add(this.cmbDepartment);
             this.grpEmploymentDetails.Controls.Add(this.label19);
@@ -491,7 +497,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(716, 47);
+            this.label20.Location = new System.Drawing.Point(696, 47);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(86, 17);
             this.label20.TabIndex = 15;
@@ -509,7 +515,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(716, 77);
+            this.label19.Location = new System.Drawing.Point(696, 97);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(80, 17);
             this.label19.TabIndex = 13;
@@ -518,7 +524,7 @@
             // cmbSupervisor
             // 
             this.cmbSupervisor.FormattingEnabled = true;
-            this.cmbSupervisor.Location = new System.Drawing.Point(812, 74);
+            this.cmbSupervisor.Location = new System.Drawing.Point(812, 97);
             this.cmbSupervisor.Name = "cmbSupervisor";
             this.cmbSupervisor.Size = new System.Drawing.Size(340, 24);
             this.cmbSupervisor.TabIndex = 12;
@@ -596,6 +602,34 @@
             this.grpContactInfo.TabIndex = 37;
             this.grpContactInfo.TabStop = false;
             this.grpContactInfo.Text = "Contact Information";
+            // 
+            // chkIsSupervisor
+            // 
+            this.chkIsSupervisor.AutoSize = true;
+            this.chkIsSupervisor.Location = new System.Drawing.Point(812, 74);
+            this.chkIsSupervisor.Name = "chkIsSupervisor";
+            this.chkIsSupervisor.Size = new System.Drawing.Size(18, 17);
+            this.chkIsSupervisor.TabIndex = 16;
+            this.chkIsSupervisor.UseVisualStyleBackColor = true;
+            this.chkIsSupervisor.CheckedChanged += new System.EventHandler(this.chkIsSupervisor_CheckedChanged);
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(696, 73);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(110, 17);
+            this.label21.TabIndex = 17;
+            this.label21.Text = "Is a Supervisor?";
+            // 
+            // lblSupervisorMsg
+            // 
+            this.lblSupervisorMsg.AutoSize = true;
+            this.lblSupervisorMsg.Location = new System.Drawing.Point(809, 124);
+            this.lblSupervisorMsg.Name = "lblSupervisorMsg";
+            this.lblSupervisorMsg.Size = new System.Drawing.Size(116, 17);
+            this.lblSupervisorMsg.TabIndex = 18;
+            this.lblSupervisorMsg.Text = "lblSupervisorMsg";
             // 
             // frmCreateEmployee
             // 
@@ -678,5 +712,8 @@
         private System.Windows.Forms.ComboBox cmbJobAssignment;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.ComboBox cmbDepartment;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.CheckBox chkIsSupervisor;
+        private System.Windows.Forms.Label lblSupervisorMsg;
     }
 }

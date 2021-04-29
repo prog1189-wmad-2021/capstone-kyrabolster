@@ -16,6 +16,11 @@ namespace VastVoyages.Repository
 
         #region Public Methods
 
+        /// <summary>
+        /// Add new department to the database
+        /// </summary>
+        /// <param name="department"></param>
+        /// <returns></returns>
         public bool AddDepartment(Department department)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
