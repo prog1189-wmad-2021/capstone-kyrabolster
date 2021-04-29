@@ -30,6 +30,14 @@ namespace VastVoyages.Model
             }
         }
 
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
+
         //Transfer to LoginDTO 
 
         public string EmployeeId { get; set; }
