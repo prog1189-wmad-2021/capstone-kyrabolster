@@ -9,11 +9,34 @@ namespace VastVoyages.Model
 {
     public class EmployeeDTO : BaseEntity
     {
+        public int EmpId { get; set; } //change to EmployeeId when LoginDTO created
+        public string FirstName { get; set; }
+        public string MiddleInitial { get; set; }
+        public string LastName { get; set; }
+        public string Street { get; set; }
+        public string City { get; set; }
+        public string Province { get; set; }
+        public string Country { get; set; }
+        public string PostalCode { get; set; }
+        public string WorkPhone { get; set; }
+        public string CellPhone { get; set; }
+        public string Email { get; set; }
+
+        public virtual string FullAddress
+        {
+            get
+            {
+                return Street + ", " + City + ", " + Province + ", " + Country + ", " + PostalCode;
+            }
+        }
+
+        //Transfer to LoginDTO 
+
         public string EmployeeId { get; set; }
         public string UserName { get; set; }
-        public string FirstName { get; set; }
+        //public string FirstName { get; set; }
         public string MiddleInit { get; set; }
-        public string LastName { get; set; }
+        //public string LastName { get; set; }
         public string Job { get; set; }
         public int DepartmentId { get; set; }
         public string Department { get; set; }

@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VastVoyages.Model;
 using VastVoyages.Model.Entities;
 using VastVoyages.Types;
 
@@ -118,6 +119,130 @@ namespace VastVoyages.Repository
         //    return supervisorCount;
         //}
 
+        public List<EmployeeDTO> RetrieveAllEmployees()
+        {
+            DataTable dt = db.Execute("spGetAllEmployees");
+
+            List<EmployeeDTO> employees = new List<EmployeeDTO>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                employees.Add(new EmployeeDTO
+                {
+                    EmpId = Convert.ToInt32(row["EmployeeId"]),
+                    FirstName = row["FirstName"].ToString(),
+                    LastName = row["LastName"].ToString(),
+                    MiddleInitial = row["MiddleInit"].ToString(),
+                    Street = row["Street"].ToString(),
+                    City = row["City"].ToString(),
+                    Province = row["Province"].ToString(),
+                    Country = row["Country"].ToString(),
+                    PostalCode = row["PostalCode"].ToString(),
+                    WorkPhone = row["WorkPhone"].ToString(),
+                    CellPhone = row["CellPhone"].ToString(),
+                    Email = row["Email"].ToString()
+                });
+            }
+
+            return employees;
+        }
+
+        public List<EmployeeDTO> SearchEmployeesById(int employeeId)
+        {
+            List<ParmStruct> parms = new List<ParmStruct>();
+
+            parms.Add(new ParmStruct("@EmployeeId", employeeId, SqlDbType.Int));
+
+            DataTable dt = db.Execute("spSearchEmployeesById", parms);
+
+            List<EmployeeDTO> employees = new List<EmployeeDTO>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                employees.Add(new EmployeeDTO
+                {
+                    EmpId = Convert.ToInt32(row["EmployeeId"]), //change to EmployeeId when LoginDTO created
+                    FirstName = row["FirstName"].ToString(),
+                    LastName = row["LastName"].ToString(),
+                    MiddleInitial = row["MiddleInit"].ToString(),
+                    Street = row["Street"].ToString(),
+                    City = row["City"].ToString(),
+                    Province = row["Province"].ToString(),
+                    Country = row["Country"].ToString(),
+                    PostalCode = row["PostalCode"].ToString(),
+                    WorkPhone = row["WorkPhone"].ToString(),
+                    CellPhone = row["CellPhone"].ToString(),
+                    Email = row["Email"].ToString()
+                });
+            }
+
+            return employees;
+        }
+
+        public List<EmployeeDTO> SearchEmployeesByLastName(string lastName)
+        {
+            List<ParmStruct> parms = new List<ParmStruct>();
+
+            parms.Add(new ParmStruct("@LastName", lastName, SqlDbType.VarChar));
+
+            DataTable dt = db.Execute("spSearchEmployeesByLastName", parms);
+
+            List<EmployeeDTO> employees = new List<EmployeeDTO>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                employees.Add(new EmployeeDTO
+                {
+                    EmpId = Convert.ToInt32(row["EmployeeId"]), //change to EmployeeId when LoginDTO created
+                    FirstName = row["FirstName"].ToString(),
+                    LastName = row["LastName"].ToString(),
+                    MiddleInitial = row["MiddleInit"].ToString(),
+                    Street = row["Street"].ToString(),
+                    City = row["City"].ToString(),
+                    Province = row["Province"].ToString(),
+                    Country = row["Country"].ToString(),
+                    PostalCode = row["PostalCode"].ToString(),
+                    WorkPhone = row["WorkPhone"].ToString(),
+                    CellPhone = row["CellPhone"].ToString(),
+                    Email = row["Email"].ToString()
+                });
+            }
+
+            return employees;
+        }
+               
+        //public List<EmployeeDTO> SearchEmployees(int? employeeId, string lastName = null )
+        //{
+        //    List<ParmStruct> parms = new List<ParmStruct>();
+
+        //    parms.Add(new ParmStruct("@EmployeeId", employeeId, SqlDbType.Int));
+        //    parms.Add(new ParmStruct("@LastName", lastName, SqlDbType.VarChar));
+
+        //    DataTable dt = db.Execute("spSearchEmployees", parms);
+
+        //    List<EmployeeDTO> employees = new List<EmployeeDTO>();
+
+        //    foreach (DataRow row in dt.Rows)
+        //    {
+        //        employees.Add(new EmployeeDTO
+        //        {
+        //            EmpId = Convert.ToInt32(row["EmployeeId"]), //change to EmployeeId when LoginDTO created
+        //            FirstName = row["FirstName"].ToString(),
+        //            LastName = row["LastName"].ToString(),
+        //            MiddleInitial = row["MiddleInit"].ToString(),
+        //            Street = row["Street"].ToString(),
+        //            City = row["City"].ToString(),
+        //            Province = row["Province"].ToString(),
+        //            Country = row["Country"].ToString(),
+        //            PostalCode = row["PostalCode"].ToString(),
+        //            WorkPhone = row["WorkPhone"].ToString(),
+        //            CellPhone = row["CellPhone"].ToString(),
+        //            Email = row["Email"].ToString()
+        //        });
+        //    }
+
+        //    return employees;
+        //}
         #endregion
     }
 }

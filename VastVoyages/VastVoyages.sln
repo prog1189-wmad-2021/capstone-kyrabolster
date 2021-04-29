@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VastVoyages.WinFrontEnd", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VastVoyages.Web", "VastVoyages.Web\VastVoyages.Web.csproj", "{F59A0B25-F34E-4B14-95B7-329FFF4DE16D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VastVoyages.API", "VastVoyages.API\VastVoyages.API.csproj", "{24150317-C536-4271-B838-B66DB4392180}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{F59A0B25-F34E-4B14-95B7-329FFF4DE16D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F59A0B25-F34E-4B14-95B7-329FFF4DE16D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F59A0B25-F34E-4B14-95B7-329FFF4DE16D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24150317-C536-4271-B838-B66DB4392180}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24150317-C536-4271-B838-B66DB4392180}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24150317-C536-4271-B838-B66DB4392180}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24150317-C536-4271-B838-B66DB4392180}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

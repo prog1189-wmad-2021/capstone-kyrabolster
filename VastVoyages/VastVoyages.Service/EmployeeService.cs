@@ -32,6 +32,28 @@ namespace VastVoyages.Service
             else
                 return false;
         }
+
+        public List<EmployeeDTO> GetAllEmployees()
+        {
+            return repo.RetrieveAllEmployees();
+        }
+
+        //public List<EmployeeDTO> SearchEmployees(int? employeeId, string lastName = null)
+        //{
+        //    return repo.SearchEmployees(employeeId, lastName);
+        //}
+
+        public List<EmployeeDTO> SearchEmployeesById(int employeeId)
+        {
+            List <EmployeeDTO> employees = repo.SearchEmployeesById(employeeId);
+
+            return employees;
+        }
+
+        public List<EmployeeDTO> SearchEmployeesByLastName(string lastName)
+        {
+            return repo.SearchEmployeesByLastName(lastName);
+        }
         #endregion
 
         #region Private Methods
