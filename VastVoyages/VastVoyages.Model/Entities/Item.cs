@@ -9,6 +9,7 @@ namespace VastVoyages.Model
 {
     public class Item : BaseEntity
     {
+        [Display(Name ="Item Id")]
         public int ItemId { get; set; }
 
         [Display(Name = "Item Name")]
@@ -17,7 +18,7 @@ namespace VastVoyages.Model
         public string ItemName { get; set; }
 
         [Display(Name = "Item Description")]
-        [Required(ErrorMessage = "Item escription is required")]
+        [Required(ErrorMessage = "Item Description is required")]
         [StringLength(100, ErrorMessage = "The item description cannot exceed 100 characters.")]
         public string ItemDescription { get; set; }
 

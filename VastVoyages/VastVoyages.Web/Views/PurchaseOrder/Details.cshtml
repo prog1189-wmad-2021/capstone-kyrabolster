@@ -1,0 +1,162 @@
+﻿@model VastVoyages.Model.PurchaseOrderDTO
+
+@{
+    ViewBag.Title = "Purchase Order Detail";
+    Layout = "~/Views/Shared/_NavTemplate.cshtml";
+}
+
+<div class="container" style="width: 95%; margin-top: 5%;">
+    <h1 style="text-align:center;">Purchase Order Detail</h1>
+    <br /><br />
+    <div class="col-md-offset-4">
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.PONumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PONumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SubmissionDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SubmissionDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SubTotal)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SubTotal)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Tax)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Tax)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Total)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Total)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Employee)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Employee)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Supervisor)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Supervisor)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.POStatus)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.POStatus)
+            </dd>
+
+        </dl>
+    </div>
+    <br />
+    <div class="col-md-offset-4">
+        <hr />
+        <h3 style="text-align:center;">Items</h3>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.items[0].ItemId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.items[0].ItemName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.items[0].ItemDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.items[0].Justification)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.items[0].Location)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.items[0].Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.items[0].Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.items[0].ItemStatus)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.items[0].DecisionReason)
+                </th>
+                <th></th>
+            </tr>
+
+            @if (Model.items.Any())
+            {
+                foreach (var item in Model.items)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemDescription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Justification)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Location)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemStatus)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DecisionReason)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        </td>
+                    </tr>
+                }
+            }
+
+        </table>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>
+    

@@ -41,7 +41,7 @@ namespace VastVoyages.Repository
                     new PurchaseOrderDTO
                     {
                         PONumber = row["PONumber"].ToString(),
-                        SubmissionDate = Convert.ToDateTime(row["SubmissionDate"]),
+                        SubmissionDate = row["SubmissionDate"] == DBNull.Value ? (DateTime?) null : Convert.ToDateTime(row["SubmissionDate"]),
                         SubTotal = Convert.ToDecimal(row["SubTotal"]),
                         Tax = Convert.ToDecimal(row["Tax"]),
                         Total = Convert.ToDecimal(row["Total"]),
@@ -53,6 +53,41 @@ namespace VastVoyages.Repository
             }
 
             return purchaseOrders;
+        }
+
+        /// <summary>
+        /// Retrieve Purchase order by PO Number
+        /// </summary>
+        /// <param name="PONumber"></param>
+        /// <returns></returns>
+        public PurchaseOrderDTO RetrievePurchaseOrderByPONumber(int PONumber)
+        {
+            List<ParmStruct> parms = new List<ParmStruct>();
+            parms.Add(new ParmStruct("@PurchaseOrderNumber", PONumber, SqlDbType.Int));
+
+            DataTable dt = db.Execute("spGetPurchaseOrderByPOnumber", parms);
+
+            List<PurchaseOrderDTO> purchaseOrders = new List<PurchaseOrderDTO>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                purchaseOrders.Add(
+                    new PurchaseOrderDTO
+                    {
+                        PONumber = row["PONumber"].ToString(),                        
+                        SubmissionDate = dt.Rows[0]["SubmissionDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dt.Rows[0]["SubmissionDate"]),
+                        SubTotal = Convert.ToDecimal(row["SubTotal"]),
+                        Tax = Convert.ToDecimal(row["Tax"]),
+                        Total = Convert.ToDecimal(row["Total"]),
+                        Employee = row["Employee"].ToString(),
+                        Supervisor = row["Supervisor"].ToString(),
+                        POStatus = row["POStatus"].ToString(),
+                        RecordVersion = (byte[])row["RecordVersion"]
+                    }
+                );
+            }
+
+            return purchaseOrders.Count == 0 ? null : purchaseOrders[0];
         }
 
         /// <summary>

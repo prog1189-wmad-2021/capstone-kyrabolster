@@ -39,11 +39,15 @@ namespace VastVoyages.WinFrontEnd
             this.lbTotal = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btnAddItem = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.txtLocation = new System.Windows.Forms.TextBox();
             this.txtJustification = new System.Windows.Forms.TextBox();
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.lbRecordVersion = new System.Windows.Forms.Label();
+            this.btnReset = new System.Windows.Forms.Button();
+            this.lbItemIDValue = new System.Windows.Forms.Label();
+            this.lbItemID = new System.Windows.Forms.Label();
+            this.btnSave = new System.Windows.Forms.Button();
             this.numQty = new System.Windows.Forms.NumericUpDown();
             this.txtItemName = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
@@ -83,7 +87,7 @@ namespace VastVoyages.WinFrontEnd
             // btnSubmit
             // 
             this.btnSubmit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSubmit.Location = new System.Drawing.Point(725, 796);
+            this.btnSubmit.Location = new System.Drawing.Point(839, 786);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(99, 36);
             this.btnSubmit.TabIndex = 39;
@@ -167,23 +171,13 @@ namespace VastVoyages.WinFrontEnd
             // btnAddItem
             // 
             this.btnAddItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddItem.Location = new System.Drawing.Point(670, 155);
+            this.btnAddItem.Location = new System.Drawing.Point(695, 183);
             this.btnAddItem.Name = "btnAddItem";
             this.btnAddItem.Size = new System.Drawing.Size(138, 36);
             this.btnAddItem.TabIndex = 38;
             this.btnAddItem.Text = "Add Item";
             this.btnAddItem.UseVisualStyleBackColor = true;
             this.btnAddItem.Click += new System.EventHandler(this.btnAddItem_Click);
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(830, 796);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(100, 36);
-            this.button2.TabIndex = 37;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
             // 
             // txtLocation
             // 
@@ -213,6 +207,11 @@ namespace VastVoyages.WinFrontEnd
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.lbRecordVersion);
+            this.groupBox5.Controls.Add(this.btnReset);
+            this.groupBox5.Controls.Add(this.lbItemIDValue);
+            this.groupBox5.Controls.Add(this.lbItemID);
+            this.groupBox5.Controls.Add(this.btnSave);
             this.groupBox5.Controls.Add(this.numQty);
             this.groupBox5.Controls.Add(this.txtLocation);
             this.groupBox5.Controls.Add(this.txtJustification);
@@ -233,6 +232,60 @@ namespace VastVoyages.WinFrontEnd
             this.groupBox5.TabIndex = 36;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Item Details";
+            // 
+            // lbRecordVersion
+            // 
+            this.lbRecordVersion.AutoSize = true;
+            this.lbRecordVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbRecordVersion.Location = new System.Drawing.Point(528, 152);
+            this.lbRecordVersion.Name = "lbRecordVersion";
+            this.lbRecordVersion.Size = new System.Drawing.Size(0, 17);
+            this.lbRecordVersion.TabIndex = 69;
+            this.lbRecordVersion.Visible = false;
+            // 
+            // btnReset
+            // 
+            this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReset.Location = new System.Drawing.Point(839, 183);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(79, 36);
+            this.btnReset.TabIndex = 68;
+            this.btnReset.Text = "Reset";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
+            // lbItemIDValue
+            // 
+            this.lbItemIDValue.AutoSize = true;
+            this.lbItemIDValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbItemIDValue.Location = new System.Drawing.Point(583, 125);
+            this.lbItemIDValue.Name = "lbItemIDValue";
+            this.lbItemIDValue.Size = new System.Drawing.Size(0, 17);
+            this.lbItemIDValue.TabIndex = 67;
+            this.lbItemIDValue.Visible = false;
+            // 
+            // lbItemID
+            // 
+            this.lbItemID.AutoSize = true;
+            this.lbItemID.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbItemID.Location = new System.Drawing.Point(528, 125);
+            this.lbItemID.Name = "lbItemID";
+            this.lbItemID.Size = new System.Drawing.Size(55, 17);
+            this.lbItemID.TabIndex = 66;
+            this.lbItemID.Text = "Item ID:";
+            this.lbItemID.Visible = false;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.Location = new System.Drawing.Point(551, 183);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(138, 36);
+            this.btnSave.TabIndex = 65;
+            this.btnSave.Text = "Save Item";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Visible = false;
+            this.btnSave.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // numQty
             // 
@@ -326,6 +379,7 @@ namespace VastVoyages.WinFrontEnd
             this.dgvItem.RowTemplate.Height = 30;
             this.dgvItem.Size = new System.Drawing.Size(918, 257);
             this.dgvItem.TabIndex = 22;
+            this.dgvItem.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvItem_CellClick);
             // 
             // groupBox3
             // 
@@ -520,11 +574,10 @@ namespace VastVoyages.WinFrontEnd
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox3);
             this.Name = "frmCreatePO";
-            this.Text = "CreatePO";
+            this.Text = "Create Purchase Order";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CreatePO_FormClosed);
             this.Load += new System.EventHandler(this.CreatePO_Load);
             this.groupBox1.ResumeLayout(false);
@@ -553,7 +606,6 @@ namespace VastVoyages.WinFrontEnd
         private System.Windows.Forms.Label lbTotal;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnAddItem;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox txtLocation;
         private System.Windows.Forms.TextBox txtJustification;
         private System.Windows.Forms.TextBox txtDescription;
@@ -585,5 +637,10 @@ namespace VastVoyages.WinFrontEnd
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.Label lbItemIDValue;
+        private System.Windows.Forms.Label lbItemID;
+        private System.Windows.Forms.Label lbRecordVersion;
     }
 }

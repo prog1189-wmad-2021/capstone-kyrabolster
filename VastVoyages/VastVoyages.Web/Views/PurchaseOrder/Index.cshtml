@@ -6,77 +6,130 @@
 }
 
 <div class="container" style="width: 95%; margin-top: 5%;">
-
-    <h2>Purchase Order</h2>
-    
+    <h1 style="text-align:center;">Purchase Order</h1>
+    <br /><br />
     <div class="col-md-offset-4">
-        <p>
-            @Html.ActionLink("Create New", "Create")
-        </p>
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.PONumber)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SubmissionDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SubTotal)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Tax)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Total)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Employee)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Supervisor)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.POStatus)
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
+        @using (Html.BeginForm("index", "PurchaseOrder", FormMethod.Get, new { enctype = "form-search" }))
+        {
+            <form>
+                <div class="form-row">
+                    <div class="col">
+                        <label for="inputName">Employee Name</label>
+                        <input type="text" class="form-control" placeholder="Name">
+                    </div>
+                    <div class="col">
+                        <label for="inputPONumber">PO Number</label>
+                        <input type="text" class="form-control" placeholder="PO Number">
+                    </div>
+                    <div class="col">
+                        <label for="inputStatus">Status</label>
+                        <select id="inputState" class="form-control">
+                            <option selected>Choose...</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="inputDate">From</label>
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="col">
+                        <label for="">To</label>
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="col" style="text-align:center">
+                        <br />
+                        <button type="submit" value="@Session["employeeId"]" name="employeeId" class="btn btn-info">Search</button>
+                    </div>
+                </div>
+            </form>
+            <br /><br />
+        }
+        @if (Model.Any())
+        {
+            <table class="table">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PONumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SubmissionDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SubTotal)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Tax)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Total)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Employee)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Supervisor)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.POStatus)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
-                    </td>
+                    <th>
+                        PO Number
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SubmissionDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SubTotal)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Tax)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Total)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Employee)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Supervisor)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.POStatus)
+                    </th>
+                    <th></th>
                 </tr>
-            }
 
-        </table>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PONumber)
+                        </td>
+                        
+                            @if (item.SubmissionDate == null)
+                            {
+                                <td>
+                                    Not submitted
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SubmissionDate)
+                                </td>
+                            }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubTotal)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tax)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Total)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Employee)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Supervisor)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.POStatus)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { PONumber = item.PONumber}) |
+                            @Html.ActionLink("Details", "Details", new { PONumber = item.PONumber }) |
+                            @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p>No Purchase Order</p>
+        }
+        @using (Html.BeginForm("Create", "PurchaseOrder", FormMethod.Get, new { enctype = "form-create" }))
+        {
+            <div style="text-align:center">
+                <button type="submit" value="@Session["employeeId"]" name="employeeId" class="btn btn-info">Create New PO</button>
+            </div>
+        }
     </div>
 </div>

@@ -30,6 +30,11 @@ namespace VastVoyages.Service
             return repo.RetrieveItemListByPONumber(PONumber);
         }
 
+        public ItemDTO GetItemByItemId(int itemId)
+        {
+            return repo.RetrieveItemByItemId(itemId);
+        }
+
         public Item InsertItem(Item item, PurchaseOrder PO)
         {
             if(Validate(item))
@@ -40,7 +45,7 @@ namespace VastVoyages.Service
                 {
                     duplicatedItem.Quantity += item.Quantity;
 
-                    return UpdateItem(duplicatedItem);
+                    return UpdateItem(duplicatedItem, true);
                 }
 
                 return repo.Insert(item, PO);
@@ -49,12 +54,38 @@ namespace VastVoyages.Service
             return item;
         }
 
-        public Item UpdateItem(Item item)
+        public Item UpdateItem(Item item, bool newItem)
         {
             if (Validate(item))
-                return repo.Update(item);
+            {
+                if(newItem)
+                {
+                    return repo.Update(item);
+                }
+                else
+                {
+                    Item duplicatedItem = DuplicatedItemId(item, Convert.ToInt32(item.PONumber));
 
+                    if (duplicatedItem != null)
+                    {
+                        duplicatedItem.Quantity += item.Quantity;
+                        Item i = repo.Update(duplicatedItem);
+                        if (i != null)
+                        {
+                            repo.Delete(item.ItemId);
+                        }
+                        return i;
+                    }
+
+                    return repo.Update(item);
+                }               
+            }
             return item;
+        }
+
+        public bool DeleteItem(int itemId)
+        {
+            return repo.Delete(itemId);
         }
 
         #endregion

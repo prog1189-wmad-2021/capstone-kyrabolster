@@ -49,7 +49,7 @@ namespace VastVoyages.Repository
                     new ItemStatusLookUpsDTO
                     {
                         ItemStatusId = Convert.ToInt32(row["ItemStatusId"]),
-                        ItemStatus = row["FROM"].ToString()
+                        ItemStatus = row["ItemStatus"].ToString()
                     }
                 );
             }

@@ -18,6 +18,13 @@ namespace VastVoyages.WinFrontEnd
 
         internal LoginDTO loginInfo;
 
+        public ToolStripStatusLabel StatusLabel
+        {
+            get { return toolStripStatusLabel; }
+            set { toolStripStatusLabel = value; }
+        }
+
+
         public MainForm()
         {
             InitializeComponent();

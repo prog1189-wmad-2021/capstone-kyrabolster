@@ -118,7 +118,6 @@ namespace VastVoyages.WinFrontEnd
             this.dgvItem.RowTemplate.Height = 30;
             this.dgvItem.Size = new System.Drawing.Size(918, 335);
             this.dgvItem.TabIndex = 22;
-            this.dgvItem.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvItem_CellClick);
             // 
             // groupBox1
             // 

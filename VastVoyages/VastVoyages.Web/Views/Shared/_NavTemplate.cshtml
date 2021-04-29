@@ -78,7 +78,10 @@
                     <a href="#POSubmenu" data-toggle="collapse" data-target="#POSubmenu" aria-expanded="false" class="dropdown-toggle">Purchase Order</a>
                     <ul class="collapse list-unstyled" style="padding-left:5%;" id="POSubmenu">
                         <li>
-                            <a href="@Url.Action("Index", "PurchaseOrder")">Create PO</a>
+                            <a href="@Url.Action("Index", "PurchaseOrder")">View PO</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Create", "PurchaseOrder")">Create PO</a>
                         </li>
                         <li>
                             <a href="#">Modify PO</a>
@@ -92,7 +95,7 @@
                                 </li>
                             }
                         }
-                        </ul>
+                    </ul>
                 </li>
                 <li>
                     @if (Session["employeeId"] == null)

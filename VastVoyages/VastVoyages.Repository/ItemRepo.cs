@@ -52,6 +52,38 @@ namespace VastVoyages.Repository
             return items;
         }
 
+        public ItemDTO RetrieveItemByItemId(int itemId)
+        {
+            List<ParmStruct> parms = new List<ParmStruct>();
+            parms.Add(new ParmStruct("@ItemId", itemId, SqlDbType.Int));
+
+            DataTable dt = db.Execute("spGetItemByItemId", parms);
+
+            List<ItemDTO> items = new List<ItemDTO>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                items.Add(
+                    new ItemDTO
+                    {
+                        ItemId = Convert.ToInt32(row["ItemId"]),
+                        ItemName = row["ItemName"].ToString(),
+                        ItemDescription = row["ItemDescription"].ToString(),
+                        Justification = row["Justification"].ToString(),
+                        Location = row["Location"].ToString(),
+                        Price = Convert.ToDecimal(row["Price"]),
+                        Quantity = Convert.ToInt32(row["Quantity"]),
+                        PONumber = row["PONumber"].ToString(),
+                        ItemStatus = row["ItemStatus"].ToString(),
+                        DecisionReason = row["DescisionReason"].ToString(),
+                        RecordVersion = (byte[])row["RecordVersion"]
+                    }
+                );
+            }
+
+            return items[0];
+        }
+
         public Item Insert(Item item, PurchaseOrder PO)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
@@ -79,7 +111,7 @@ namespace VastVoyages.Repository
         {
             List<ParmStruct> parms = new List<ParmStruct>();
 
-            parms.Add(new ParmStruct("@RecordVersion", item.RecordVersion, SqlDbType.Timestamp, 0, ParameterDirection.Output));
+            parms.Add(new ParmStruct("@RecordVersion", item.RecordVersion, SqlDbType.Timestamp, 0, ParameterDirection.InputOutput));
             parms.Add(new ParmStruct("@ItemId", item.ItemId, SqlDbType.Int));
             parms.Add(new ParmStruct("@ItemName", item.ItemName, SqlDbType.NVarChar, 50));
             parms.Add(new ParmStruct("@ItemDescription", item.ItemDescription, SqlDbType.NVarChar, 100));
@@ -88,6 +120,7 @@ namespace VastVoyages.Repository
             parms.Add(new ParmStruct("@Price", item.Price, SqlDbType.Decimal));
             parms.Add(new ParmStruct("@Quantity", item.Quantity, SqlDbType.Int));
             parms.Add(new ParmStruct("@DescisionReason", item.DecisionReason, SqlDbType.NVarChar, 255));
+            parms.Add(new ParmStruct("@PONumber", item.PONumber, SqlDbType.Int));
             parms.Add(new ParmStruct("@ItemStatusId", item.ItemStatusId, SqlDbType.Int));
 
             if (db.ExecuteNonQuery("spUpdateItems", parms) > 0)
@@ -98,10 +131,22 @@ namespace VastVoyages.Repository
             return item;
         }
 
+        public bool Delete (int itemId)
+        {
+            List<ParmStruct> parms = new List<ParmStruct>();
+
+            parms.Add(new ParmStruct("@ItemId", itemId, SqlDbType.Int));
+
+            int retVal = db.ExecuteNonQuery("spDeleteItemByItemId", parms);
+
+            return retVal > 0;
+        }
+
         public Item FindDuplicatedItem(Item item, int PONumber)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
 
+            parms.Add(new ParmStruct("@ItemId", item.ItemId, SqlDbType.Int));
             parms.Add(new ParmStruct("@PONumber", PONumber, SqlDbType.Int));
             parms.Add(new ParmStruct("@ItemName", item.ItemName, SqlDbType.NVarChar, 50));
             parms.Add(new ParmStruct("@ItemDescription", item.ItemDescription, SqlDbType.NVarChar, 100));
@@ -126,7 +171,8 @@ namespace VastVoyages.Repository
                         Quantity = Convert.ToInt32(row["Quantity"]),
                         PONumber = Convert.ToInt32(row["PONumber"]),
                         ItemStatusId = Convert.ToInt32(row["ItemStatusId"]),
-                        DecisionReason = row["DescisionReason"].ToString()
+                        DecisionReason = row["DescisionReason"].ToString(),
+                        RecordVersion = (byte[])row["RecordVersion"]
                     }
                 );
             }

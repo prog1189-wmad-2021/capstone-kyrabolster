@@ -35,6 +35,11 @@ namespace VastVoyages.Service
             return repo.RetrievePurchaseOrderList(employeeId);
         }
 
+        public PurchaseOrderDTO GetPurchaseOrderByPONumber(int PONumber)
+        {
+            return repo.RetrievePurchaseOrderByPONumber(PONumber);
+        }
+
         /// <summary>
         /// Insert purchase order record when first item added
         /// </summary>
@@ -61,6 +66,7 @@ namespace VastVoyages.Service
         {
             if (Validate(purchaseOrder))
             {
+                purchaseOrder.SubTotal = purchaseOrder.items.Sum(i => i.Price * i.Quantity);
                 purchaseOrder.Tax = purchaseOrder.SubTotal * 0.15m;
                 return repo.Update(purchaseOrder);
             }

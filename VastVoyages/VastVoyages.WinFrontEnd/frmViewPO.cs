@@ -14,6 +14,8 @@ namespace VastVoyages.WinFrontEnd
 {
     public partial class frmViewPO : Form
     {
+        internal bool edit;
+
         public frmViewPO()
         {
             InitializeComponent();
@@ -30,6 +32,7 @@ namespace VastVoyages.WinFrontEnd
                 lbSupervisor.Text = ((MainForm)this.MdiParent).loginInfo.Supervisor;
                 lbCurrentDate.Text = DateTime.Now.ToShortDateString();
 
+                LoadStatus();
                 GetPurchaseOrderList(Convert.ToInt32(((MainForm)this.MdiParent).loginInfo.EmployeeId));
             }
 
@@ -38,42 +41,48 @@ namespace VastVoyages.WinFrontEnd
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void GetPurchaseOrderList(int employeeId)
         {
-            PurchaseOrderService service = new PurchaseOrderService();
-            List<PurchaseOrderDTO> purchaseOrders = new List<PurchaseOrderDTO>();
+            try
+            {
+                PurchaseOrderService service = new PurchaseOrderService();
+                List<PurchaseOrderDTO> purchaseOrders = new List<PurchaseOrderDTO>();
 
-            purchaseOrders = service.GetPurchaseOrderList(employeeId);
+                purchaseOrders = service.GetPurchaseOrderList(employeeId);
 
-            dgvPO.DataSource = purchaseOrders;
-            dgvPO.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            dgvPO.Columns[0].HeaderText = "Purchase Order #";
-            dgvPO.Columns[1].HeaderText = "Submission Date";
-            dgvPO.Columns[2].HeaderText = "Sub Total";
-            dgvPO.Columns[3].HeaderText = "Tax";
-            dgvPO.Columns[4].HeaderText = "Total";
-            dgvPO.Columns[5].HeaderText = "Employee";
-            dgvPO.Columns[6].HeaderText = "Supervisor";
-            dgvPO.Columns[7].HeaderText = "Status";
+                dgvPO.DataSource = purchaseOrders;
+                dgvPO.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+                dgvPO.Columns[0].HeaderText = "Purchase Order #";
+                dgvPO.Columns[1].HeaderText = "Submission Date";
+                dgvPO.Columns[2].HeaderText = "Sub Total";
+                dgvPO.Columns[3].HeaderText = "Tax";
+                dgvPO.Columns[4].HeaderText = "Total";
+                dgvPO.Columns[5].HeaderText = "Employee";
+                dgvPO.Columns[6].HeaderText = "Supervisor";
+                dgvPO.Columns[7].HeaderText = "Status";
 
-            dgvPO.Columns[2].DefaultCellStyle.Format = "C";
-            dgvPO.Columns[3].DefaultCellStyle.Format = "C";
-            dgvPO.Columns[4].DefaultCellStyle.Format = "C";
+                dgvPO.Columns[2].DefaultCellStyle.Format = "C";
+                dgvPO.Columns[3].DefaultCellStyle.Format = "C";
+                dgvPO.Columns[4].DefaultCellStyle.Format = "C";
 
-            // don't need to show employee's name and supervisor's name in this form
-            dgvPO.Columns[5].Visible = false;
-            dgvPO.Columns[6].Visible = false;
-            dgvPO.Columns[8].Visible = false;
+                // don't need to show employee's name and supervisor's name in this form
+                dgvPO.Columns[5].Visible = false;
+                dgvPO.Columns[6].Visible = false;
+                dgvPO.Columns[8].Visible = false;
 
-            dgvPO.AutoResizeColumns();
+                dgvPO.AutoResizeColumns();
 
-            DataGridViewButtonColumn dgvBtnDetail = new DataGridViewButtonColumn();
-            dgvPO.Columns.Insert(dgvPO.Columns.Count, dgvBtnDetail);
-            dgvBtnDetail.HeaderText = "Edit";
-            dgvBtnDetail.Text = "Edit";
-            dgvBtnDetail.Name = "btnEdit";
-            dgvBtnDetail.UseColumnTextForButtonValue = true;
+                DataGridViewButtonColumn dgvBtnDetail = new DataGridViewButtonColumn();
+                dgvPO.Columns.Insert(dgvPO.Columns.Count, dgvBtnDetail);
+                dgvBtnDetail.HeaderText = "Edit";
+                dgvBtnDetail.Text = "Edit";
+                dgvBtnDetail.Name = "btnEdit";
+                dgvBtnDetail.UseColumnTextForButtonValue = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ViewPO_FormClosed(object sender, FormClosedEventArgs e)
@@ -89,9 +98,25 @@ namespace VastVoyages.WinFrontEnd
 
                 if (e.ColumnIndex > -1 && dgvPO.Columns[e.ColumnIndex].Name == "btnEdit")
                 {
+                    // only pending PO can be edited
                     if (e.RowIndex >= 0 && dgvPO.Rows[e.RowIndex].Cells[8].Value.ToString() == "Pending")
                     {
-                        MessageBox.Show("Edit");
+                        PurchaseOrderService service = new PurchaseOrderService();
+
+                        PurchaseOrderDTO purchaseOrderDTO = service.GetPurchaseOrderByPONumber(PONumber);
+
+                        frmCreatePO createForm = new frmCreatePO();
+                        
+                        createForm.edit = true;
+                        
+                        createForm._purchaseOrder = new PurchaseOrder{
+                            PONumber = purchaseOrderDTO.PONumber,
+                            SubmissionDate = purchaseOrderDTO.SubmissionDate,
+                            RecordVersion = purchaseOrderDTO.RecordVersion
+                        };
+
+                        createForm.MdiParent = this.MdiParent;
+                        createForm.Show();
                     }
                     else
                     {
@@ -114,6 +139,7 @@ namespace VastVoyages.WinFrontEnd
                     dgvItem.Columns[7].Visible = false; //PO Number
                     dgvItem.Columns[8].HeaderText = "Status";
                     dgvItem.Columns[9].HeaderText = "Decision Reason";
+                    dgvItem.Columns[10].Visible = false; // Record version
 
                     dgvItem.Columns[5].DefaultCellStyle.Format = "C";
                     dgvItem.AutoResizeColumns();
@@ -121,9 +147,18 @@ namespace VastVoyages.WinFrontEnd
             }
         }
 
-        private void dgvItem_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void LoadStatus()
         {
+            POLookUpsService service = new POLookUpsService();
+            List<ItemStatusLookUpsDTO> itemStatus = service.GetItemStatus();
 
+            itemStatus.Insert(0, new ItemStatusLookUpsDTO { ItemStatusId = 0, ItemStatus = "--Select a status--" });
+
+            cmbPOStatus.DataSource = itemStatus;
+            cmbPOStatus.DisplayMember = "ItemStatus";
+            cmbPOStatus.ValueMember = "ItemStatusId";
+            cmbPOStatus.SelectedIndex = 0;
         }
+
     }
 }
