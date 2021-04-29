@@ -56,6 +56,7 @@ namespace VastVoyages.WinFrontEnd
                     MessageBox.Show("New Employee Id is: " + employee.EmployeeId.ToString() +
                                     "\nUsername: " + employee.UserName.ToString()
                                     );
+                    LoadSupervisors();
                 }
                 else
                 {
