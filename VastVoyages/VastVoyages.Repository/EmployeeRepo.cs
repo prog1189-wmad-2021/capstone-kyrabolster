@@ -55,6 +55,16 @@ namespace VastVoyages.Repository
             return false;
         }
 
+        public bool InsertPassword(int employeeId, string password)
+        {
+            List<ParmStruct> parms = new List<ParmStruct>();
+
+            parms.Add(new ParmStruct("@Password", password, SqlDbType.VarChar));
+            parms.Add(new ParmStruct("@EmployeeId", employeeId, SqlDbType.Int));
+
+            return (db.ExecuteNonQuery("spInsertPassword", parms) > 0);
+        }
+
         public int CheckDuplicateUsername(string username)
         {
             int uNameCount = 0;
@@ -70,6 +80,43 @@ namespace VastVoyages.Repository
 
             return uNameCount;
         }
+
+        //Get the number of employees for specified supervisor (excludes CEO)
+        public int GetEmployeeCount(int departmentId, int supervisorId)
+        {
+            int employeeCount = 0;
+
+            List<ParmStruct> parms = new List<ParmStruct>();
+
+            parms.Add(new ParmStruct("@DepartmentId", departmentId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@SupervisorId", supervisorId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@EmployeeCount", employeeCount, SqlDbType.Int, 0, ParameterDirection.Output));
+            parms.Add(new ParmStruct("@SupervisorCount", 0, SqlDbType.Int, 0, ParameterDirection.Output));
+
+            db.ExecuteNonQuery("spGetSuperEmployeeCount", parms);
+
+            employeeCount = (int)parms.Where(p => p.Name == "@EmployeeCount").FirstOrDefault().Value;
+
+            return employeeCount;
+        }
+
+        //public int GetSupervisorCount(int departmentId, int supervisorId)
+        //{
+        //    int supervisorCount = 0;
+
+        //    List<ParmStruct> parms = new List<ParmStruct>();
+
+        //    parms.Add(new ParmStruct("@DepartmentId", departmentId, SqlDbType.Int));
+        //    parms.Add(new ParmStruct("@SupervisorId", supervisorId, SqlDbType.Int));
+        //    parms.Add(new ParmStruct("@SupervisorCount", supervisorCount, SqlDbType.Int, 0, ParameterDirection.Output));
+        //    parms.Add(new ParmStruct("@EmployeeCount", 0, SqlDbType.Int, 0, ParameterDirection.Output));
+
+        //    db.ExecuteNonQuery("spGetSuperEmployeeCount", parms);
+
+        //    supervisorCount = (int)parms.Where(p => p.Name == "@SupervisorCount").FirstOrDefault().Value;
+
+        //    return supervisorCount;
+        //}
 
         #endregion
     }
