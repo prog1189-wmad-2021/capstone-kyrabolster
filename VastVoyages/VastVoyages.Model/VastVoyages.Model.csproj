@@ -42,8 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Department.cs" />
+    <Compile Include="Entities\Department.cs" />
     <Compile Include="DTO\EmployeeDTO.cs" />
+    <Compile Include="DTO\LookupsDTO.cs" />
+    <Compile Include="Entities\Employee.cs" />
     <Compile Include="Entities\Login.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

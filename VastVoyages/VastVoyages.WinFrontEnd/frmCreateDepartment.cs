@@ -28,14 +28,11 @@ namespace VastVoyages.WinFrontEnd
 
                 DepartmentService departmentService = new DepartmentService();
 
-                //statusStrip1.Visible = true;
-
                 Department department = PopulateDepartmentObject();
 
                 if (departmentService.AddDepartment(department))
                 {
                     MessageBox.Show("New Department Id is: " + department.DepartmentId.ToString());
-                    //statusStrip1.Items[0].Text = "Insert Successful!";
                 }
                 else
                 {
@@ -45,7 +42,6 @@ namespace VastVoyages.WinFrontEnd
                         msg += error.Description + Environment.NewLine;
                     }
                     MessageBox.Show(msg);
-                    //statusStrip1.Items[0].Text = "Insert Failed!";
                 }
             }
 

@@ -12,9 +12,9 @@ namespace VastVoyages.Service
 {
     public class DepartmentService
     {
-        #region Public Methods
-
         private DepartmentRepo repo = new DepartmentRepo();
+
+        #region Public Methods
 
         public bool AddDepartment(Department department)
         {

@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DepartmentRepo.cs" />
+    <Compile Include="EmployeeRepo.cs" />
     <Compile Include="LoginRepo.cs" />
+    <Compile Include="LookupsRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
