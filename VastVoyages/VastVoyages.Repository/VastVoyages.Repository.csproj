@@ -46,7 +46,6 @@
     <Compile Include="LoginRepo.cs" />
     <Compile Include="LookupsRepo.cs" />
     <Compile Include="ItemRepo.cs" />
-    <Compile Include="LoginRepo.cs" />
     <Compile Include="POLookUpsRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseOrderRepo.cs" />

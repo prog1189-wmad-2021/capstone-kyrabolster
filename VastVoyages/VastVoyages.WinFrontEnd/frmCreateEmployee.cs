@@ -31,6 +31,7 @@ namespace VastVoyages.WinFrontEnd
         {
             try
             {
+                LoadLoginInfo();
                 LoadJobAssignments();
                 LoadDepartments();
                 LoadSupervisors();
@@ -193,6 +194,16 @@ namespace VastVoyages.WinFrontEnd
                 EmployeeStatusId = 1,
                 JobAssignmentId = Convert.ToInt32(cmbJobAssignment.SelectedValue)
             };
+        }
+
+        private void LoadLoginInfo()
+        {
+            lbEmpName.Text = ((MainForm)this.MdiParent).loginInfo.FullName;
+            lbUserName.Text = ((MainForm)this.MdiParent).loginInfo.UserName;
+            lbJob.Text = ((MainForm)this.MdiParent).loginInfo.Job;
+            lbDepartment.Text = ((MainForm)this.MdiParent).loginInfo.Department;
+            lbSupervisor.Text = ((MainForm)this.MdiParent).loginInfo.Supervisor;
+            lbCurrentDate.Text = DateTime.Now.ToShortDateString();
         }
 
         /// <summary>

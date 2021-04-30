@@ -5,50 +5,53 @@
     Layout = "~/Views/Shared/_NavTemplate.cshtml";
 }
 
-<h2>Employees</h2>
+    <div class="container" style="width: 95%; margin-top: 5%;">
 
-@using (Html.BeginForm("index", "Employees", FormMethod.Get))
-{
-    <div class="m-1">
-        @Html.TextBox("Search", ViewBag.CurrentFilter as string)
-        <button type="submit" value="" id="search" class="btn btn-info m-1">Search</button>
-    </div>
+        <h2>Employees</h2>
 
-    if (Model.Any())
-    {
-        <table class="table">
-            <tr>
-                <th>
-                    Id
-                </th>
-                <th>
-                    Name
-                </th>
-                <th></th>
-            </tr>
+        @using (Html.BeginForm("index", "Employees", FormMethod.Get))
+        {
+            <div class="m-1">
+                @Html.TextBox("Search", ViewBag.CurrentFilter as string)
+                <button type="submit" value="" id="search" class="btn btn-info m-1">Search</button>
+            </div>
 
-            @foreach (var item in Model)
+            if (Model.Any())
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EmpId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FullName)
-                    </td>
-                    <td>
-                        @*@Html.ActionLink("Edit", "Edit", new { id = item.EmpId }) |*@
-                        @Html.ActionLink("Details", "Details", new { employeeId = item.EmpId })
-                        @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
-                    </td>
-                </tr>
+                <table class="table">
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmpId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FullName)
+                            </td>
+                            <td>
+                                @*@Html.ActionLink("Edit", "Edit", new { id = item.EmpId }) |*@
+                                @Html.ActionLink("Details", "Details", new { employeeId = item.EmpId })
+                                @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            }
+            else
+            {
+                @ViewBag.Employees
             }
 
-        </table>
-    }
-    else
-    {
-        @ViewBag.Employees
-    }
-
-}
+        }
+        </div>

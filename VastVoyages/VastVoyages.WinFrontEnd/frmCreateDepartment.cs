@@ -84,5 +84,20 @@ namespace VastVoyages.WinFrontEnd
         }
 
         #endregion
+
+        private void frmCreateDepartment_Load(object sender, EventArgs e)
+        {
+            LoadLoginInfo();
+        }
+
+        private void LoadLoginInfo()
+        {
+            lbEmpName.Text = ((MainForm)this.MdiParent).loginInfo.FullName;
+            lbUserName.Text = ((MainForm)this.MdiParent).loginInfo.UserName;
+            lbJob.Text = ((MainForm)this.MdiParent).loginInfo.Job;
+            lbDepartment.Text = ((MainForm)this.MdiParent).loginInfo.Department;
+            lbSupervisor.Text = ((MainForm)this.MdiParent).loginInfo.Supervisor;
+            lbCurrentDate.Text = DateTime.Now.ToShortDateString();
+        }
     }
 }

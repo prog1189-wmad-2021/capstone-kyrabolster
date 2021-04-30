@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using VastVoyages.Model;
 using VastVoyages.Service;
+using VastVoyages.Web.CustomAuthoize;
 
 namespace VastVoyages.Web.Controllers
 {
@@ -13,6 +14,7 @@ namespace VastVoyages.Web.Controllers
         private EmployeeService service = new EmployeeService();
 
         // GET: Employees
+        [CustomizeAuthorize(RoleName.CEO, RoleName.HRSupervisor, RoleName.HREmployee)]
         public ActionResult Index(string search)
         {
             try
@@ -47,6 +49,7 @@ namespace VastVoyages.Web.Controllers
         }
 
         // GET: Employees/Details/5
+        [CustomizeAuthorize(RoleName.CEO, RoleName.HRSupervisor, RoleName.HREmployee)]
         public ActionResult Details(int? employeeId)
         {
             try

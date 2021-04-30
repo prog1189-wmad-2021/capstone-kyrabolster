@@ -48,6 +48,15 @@ namespace VastVoyages.WinFrontEnd
                     case "ProcessPO":
                         childForm = new frmProcessPO();
                         break;
+                    case "AddEmployees":
+                        childForm = new frmCreateEmployee();
+                        break;
+                    case "AddDepartment":
+                        childForm = new frmCreateDepartment();
+                        break;
+                    case "ViewEmployees":
+                        childForm = new frmSearchEmployees();
+                        break;
 
                         //case "Book":
                         //    childForm = new frmMaintenanceBook();
@@ -218,6 +227,22 @@ namespace VastVoyages.WinFrontEnd
                         btnSupervisor.Visible = true;
                         processPOToolStripMenuItem.Visible = true;
                     }
+
+                    if(loginInfo.Role == "CEO" || loginInfo.Role == "HR Supervisor")
+                    {
+                        AddEmpToolStripMenuItem.Visible = true;
+                    }
+
+                    if (loginInfo.Role == "CEO" || loginInfo.Role == "HR Supervisor" || loginInfo.Role == "HR Employee")
+                    {
+                        addDepartmentToolStripMenuItem.Visible = true;
+                    }
+
+                    if (loginInfo.Role == "CEO" || loginInfo.Role == "HR Supervisor" || loginInfo.Role == "HR Employee")
+                    {
+                        viewEmpToolStripMenuItem.Visible = true;
+                    }
+
 
                     toolStripStatusLabel.Text = "Ready...";
                 }
