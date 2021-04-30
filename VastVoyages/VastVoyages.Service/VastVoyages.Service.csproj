@@ -47,7 +47,11 @@
     <Compile Include="EmployeeService.cs" />
     <Compile Include="LoginService.cs" />
     <Compile Include="LookupsService.cs" />
+    <Compile Include="ItemService.cs" />
+    <Compile Include="LoginService.cs" />
+    <Compile Include="POLookUpsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseOrderService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VastVoyages.Model\VastVoyages.Model.csproj">

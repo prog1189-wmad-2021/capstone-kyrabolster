@@ -33,9 +33,27 @@ namespace VastVoyages.Service
             return false;
         }
 
-        public EmployeeDTO GetEmpInfo(string employeeId)
+        public LoginDTO GetEmpInfo(string employeeId)
         {
-            return repo.RetrieveEmpInfoById(employeeId);
+            LoginDTO empInfo = repo.RetrieveEmpInfoById(employeeId);
+
+            if (empInfo.Supervisor == "")
+            {
+                empInfo.Role = "CEO";
+            }
+            else
+            {
+                if (empInfo.Department == "HR")
+                {
+                    empInfo.Role = empInfo.SupervisorId == 10000000 ? "HR Supervisor" : "HR Employee";
+                }
+                else
+                {
+                    empInfo.Role = empInfo.SupervisorId == 10000000 ? "Supervisor" : "Employee";
+                }
+            }
+
+            return empInfo;
         }
 
 

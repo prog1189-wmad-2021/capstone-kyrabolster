@@ -125,6 +125,7 @@
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PurchaseOrderController.cs" />
     <Compile Include="CustomAuthoize\CustomAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -174,6 +175,11 @@
     <Content Include="Views\Shared\PermissionError.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
     <Content Include="Views\Employees\Details.cshtml" />
+    <Content Include="Views\PurchaseOrder\Index.cshtml" />
+    <Content Include="Views\PurchaseOrder\Create.cshtml" />
+    <Content Include="Views\PurchaseOrder\Details.cshtml" />
+    <Content Include="Views\PurchaseOrder\Edit.cshtml" />
+    <Content Include="Views\PurchaseOrder\ItemEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

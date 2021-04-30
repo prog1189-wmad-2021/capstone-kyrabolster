@@ -7,14 +7,21 @@ using System.ComponentModel.DataAnnotations;
 
 namespace VastVoyages.Model
 {
-    public class Login : BaseEntity
+    public class LoginDTO
     {
         [Required(ErrorMessage = "Employee ID is required")]
         [Display(Name = "Employee ID")]
-        [RegularExpression("[0-9]{8}", ErrorMessage = "Employee ID must be 8 digit")]
         public string EmployeeId { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
+        public string UserName { get; set; }
+        public string FullName { get; set; }
+        public string Job { get; set; }
+        public int DepartmentId { get; set; }
+        public string Department { get; set; }
+        public int SupervisorId { get; set; }
+        public string Supervisor { get; set; }
+        public string Role { get; set; }
     }
 }

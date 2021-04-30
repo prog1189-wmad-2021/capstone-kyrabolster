@@ -1,0 +1,175 @@
+﻿@model Tuple<VastVoyages.Model.PurchaseOrder, VastVoyages.Model.Item>
+
+@{
+    ViewBag.Title = "Create Purchase Order";
+    Layout = "~/Views/Shared/_NavTemplate.cshtml";
+}
+<div class="container" style="width: 95%; margin-top: 5%;">
+    <h1 style="text-align:center;">Create Purchase Order</h1>
+    <br /><br />
+          <div class="col-md-offset-4">
+              @using (Html.BeginForm())
+              {
+                  @Html.AntiForgeryToken()
+
+                  @Html.HiddenFor(model => model.Item1.PONumber)
+                  @Html.HiddenFor(model => model.Item1.RecordVersion)
+
+                  <h4>Item Details</h4>
+                  <hr />
+                  <div class="form-row">
+                      <hr />
+                      @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                      <div class="col">
+                          <div class="form-group">
+                              @Html.LabelFor(model => model.Item2.ItemName, htmlAttributes: new { @class = "control-label col-md-10" })
+                              <div class="col-md-10">
+                                  @Html.EditorFor(model => model.Item2.ItemName, new { htmlAttributes = new { @class = "form-control" } })
+                                  @Html.ValidationMessageFor(model => model.Item2.ItemName, "", new { @class = "text-danger" })
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              @Html.LabelFor(model => model.Item2.ItemDescription, htmlAttributes: new { @class = "control-label col-md-10" })
+                              <div class="col-md-10">
+                                  @Html.TextAreaFor(model => model.Item2.ItemDescription, new { @class = "form-control", @rows = "6" })
+                                  @Html.ValidationMessageFor(model => model.Item2.ItemDescription, "", new { @class = "text-danger" })
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col">
+                          <div class="form-group">
+                              @Html.LabelFor(model => model.Item2.Justification, htmlAttributes: new { @class = "control-label col-md-10" })
+                              <div class="col-md-10">
+                                  @Html.TextAreaFor(model => model.Item2.Justification, new { @class = "form-control", @rows = "6" })
+                                  @Html.ValidationMessageFor(model => model.Item2.Justification, "", new { @class = "text-danger" })
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              @Html.LabelFor(model => model.Item2.Location, htmlAttributes: new { @class = "control-label col-md-10" })
+                              <div class="col-md-10">
+                                  @Html.EditorFor(model => model.Item2.Location, new { htmlAttributes = new { @class = "form-control" } })
+                                  @Html.ValidationMessageFor(model => model.Item2.Location, "", new { @class = "text-danger" })
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col">
+                          <div class="form-group">
+                              @Html.LabelFor(model => model.Item2.Quantity, htmlAttributes: new { @class = "control-label col-md-10" })
+                              <div class="col-md-10">
+                                  @Html.EditorFor(model => model.Item2.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                                  @Html.ValidationMessageFor(model => model.Item2.Quantity, "", new { @class = "text-danger" })
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              @Html.LabelFor(model => model.Item2.Price, htmlAttributes: new { @class = "control-label col-md-10" })
+                              <div class="col-md-10">
+                                  @Html.EditorFor(model => model.Item2.Price, new { htmlAttributes = new { @class = "form-control" } })
+                                  @Html.ValidationMessageFor(model => model.Item2.Price, "", new { @class = "text-danger" })
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div style="text-align:center">
+                                  <button type="submit" value="Create" class="btn btn-info">Add Item</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  if (Model.Item2.Errors.Count > 0)
+                  {
+                      <div class="text-danger">
+                          <ul>
+                              @foreach (var e in Model.Item2.Errors.Where(err => err.ErrorType == VastVoyages.Types.ErrorType.Business))
+                              {
+                                  <li>@e.Description</li>
+
+                              }
+                          </ul>
+                      </div>
+                  }
+              }
+              <br /><br />
+              @if (Model.Item1.PONumber != null)
+              {
+                  <h3>Purchase Order Number: @Html.DisplayFor(model => model.Item1.PONumber)</h3>
+              }
+              <br /><br />
+              <h4>Item List</h4>
+              <table class="table">
+                  <tr>
+                      <th>
+                          @Html.DisplayNameFor(model => model.Item1.items[0].ItemId)
+                      </th>
+                      <th>
+                          @Html.DisplayNameFor(model => model.Item1.items[0].ItemName)
+                      </th>
+                      <th>
+                          @Html.DisplayNameFor(model => model.Item1.items[0].ItemDescription)
+                      </th>
+                      <th>
+                          @Html.DisplayNameFor(model => model.Item1.items[0].Justification)
+                      </th>
+                      <th>
+                          @Html.DisplayNameFor(model => model.Item1.items[0].Location)
+                      </th>
+                      <th>
+                          @Html.DisplayNameFor(model => model.Item1.items[0].Price)
+                      </th>
+                      <th>
+                          @Html.DisplayNameFor(model => model.Item1.items[0].Quantity)
+                      </th>
+                  </tr>
+
+                  @if (Model.Item1.items != null)
+                  {
+                      foreach (var item in Model.Item1.items)
+                      {
+                          <tr>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.ItemId)
+                              </td>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.ItemName)
+                              </td>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.ItemDescription)
+                              </td>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.Justification)
+                              </td>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.Location)
+                              </td>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.Price)
+                              </td>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.Quantity)
+                              </td>
+                          </tr>
+                      }
+                  }
+              </table>
+              @if (Model.Item1.PONumber != null)
+              {
+                  <div style="text-align:right">
+                      <p>Sub Total: @ViewBag.subTotal</p>
+                      <p>Tax: @ViewBag.Tax</p>
+                      <p>Total: @ViewBag.Total</p>
+                  </div>
+
+                  <br />
+                  <div class="form-group">
+                      @using (Html.BeginForm("Submit", "PurchaseOrder", FormMethod.Post, new { enctype = "form-create" }))
+                      {
+                          <div style="text-align:right">
+                              <button type="submit" value="@Model.Item1.PONumber" name="PONumber" class="btn btn-info">Submit</button>
+                          </div>
+                      }
+                  </div>
+              }
+
+              <div>
+                  @Html.ActionLink("Back to List", "Index")
+              </div>
+          </div>
+</div>

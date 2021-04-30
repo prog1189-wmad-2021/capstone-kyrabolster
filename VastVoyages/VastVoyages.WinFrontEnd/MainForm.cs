@@ -16,7 +16,14 @@ namespace VastVoyages.WinFrontEnd
     {
         private int childFormNumber = 0;
 
-        internal EmployeeDTO emp;
+        internal LoginDTO loginInfo;
+
+        public ToolStripStatusLabel StatusLabel
+        {
+            get { return toolStripStatusLabel; }
+            set { toolStripStatusLabel = value; }
+        }
+
 
         public MainForm()
         {
@@ -32,13 +39,23 @@ namespace VastVoyages.WinFrontEnd
 
                 switch (m.Tag)
                 {
-                    //case "Book":
-                    //    childForm = new frmMaintenanceBook();
-                    //    break;
-                    //case "Author":
-                    //    childForm = new frmMaintenanceAuthor();
-                    //    break;
-              
+                    case "ViewPO":
+                        childForm = new frmViewPO();
+                        break;
+                    case "CreatePO":
+                        childForm = new frmCreatePO();
+                        break;
+                    case "ProcessPO":
+                        childForm = new frmProcessPO();
+                        break;
+
+                        //case "Book":
+                        //    childForm = new frmMaintenanceBook();
+                        //    break;
+                        //case "Author":
+                        //    childForm = new frmMaintenanceAuthor();
+                        //    break;
+
                 }
 
                 if (childForm != null)
@@ -54,6 +71,10 @@ namespace VastVoyages.WinFrontEnd
                 }
 
                 childForm.MdiParent = this;
+                groupBox4.Visible = false;
+                pictureBox1.Visible = false;
+                btnEmp.Visible = false;
+                btnSupervisor.Visible = false;
                 childForm.Show();
             }
             catch (Exception ex)
@@ -149,7 +170,7 @@ namespace VastVoyages.WinFrontEnd
             Splash mySplash = new Splash();
             LoginForm myLogin = new LoginForm();
 
-            if (emp == null)
+            if (loginInfo == null)
             {
                 mySplash.ShowDialog();
 
@@ -173,7 +194,7 @@ namespace VastVoyages.WinFrontEnd
             {
                 try
                 {
-                    if(emp != null)
+                    if(loginInfo != null)
                     {
                         this.Controls.Clear();
                         this.InitializeComponent();
@@ -183,23 +204,16 @@ namespace VastVoyages.WinFrontEnd
 
                     LoginService service = new LoginService();
 
-                    emp = service.GetEmpInfo(myLogin.loginInfo.EmployeeId);
+                    loginInfo = service.GetEmpInfo(myLogin.loginInfo.EmployeeId);
 
-                    if (emp.MiddleInit != null)
-                    {
-                        lbEmpName.Text = emp.FirstName + ' ' + emp.MiddleInit + ' ' + emp.LastName;
-                    }
-                    else
-                    {
-                        lbEmpName.Text = emp.FirstName + ' ' + emp.LastName;
-                    }
-
-                    lbJob.Text = emp.Job;
-                    lbDepartment.Text = emp.Department;
-                    lbSupervisor.Text = emp.Supervisor;
+                    lbEmpName.Text = loginInfo.FullName;
+                    lbUserName.Text = loginInfo.UserName;
+                    lbJob.Text = loginInfo.Job;
+                    lbDepartment.Text = loginInfo.Department;
+                    lbSupervisor.Text = loginInfo.Supervisor;
                     lbCurrentDate.Text = DateTime.Now.ToShortDateString();
 
-                    if (emp.Role == "CEO" || emp.Role == "Supervisor" || emp.Role == "HR Supervisor")
+                    if (loginInfo.Role == "CEO" || loginInfo.Role == "Supervisor" || loginInfo.Role == "HR Supervisor")
                     {
                         btnSupervisor.Visible = true;
                         processPOToolStripMenuItem.Visible = true;
@@ -215,7 +229,7 @@ namespace VastVoyages.WinFrontEnd
 
             else
             {
-                if (emp == null)
+                if (loginInfo == null)
                 {
                     this.Close();
 
@@ -226,6 +240,23 @@ namespace VastVoyages.WinFrontEnd
         private void logOff_Click(object sender, EventArgs e)
         {
             LoginSplashLoad();
+        }
+
+        internal void RefreshParent()
+        {
+            int openChildFormCount = Application.OpenForms.Cast<Form>().Count(openForm => openForm.IsMdiChild);
+            if (openChildFormCount == 0)
+            {
+                groupBox4.Visible = true;
+                pictureBox1.Visible = true;
+                btnEmp.Visible = true;
+
+                if (loginInfo.Role == "CEO" || loginInfo.Role == "Supervisor" || loginInfo.Role == "HR Supervisor")
+                {
+                    btnSupervisor.Visible = true;
+                    processPOToolStripMenuItem.Visible = true;
+                }
+            }
         }
     }
 }
