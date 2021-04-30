@@ -144,17 +144,14 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.DecisionReason)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        </td>
+                        </td>                       
                     </tr>
                 }
             }
 
         </table>
     </div>
-    <p>
+    <p style="text-align:right;">
         @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
         @Html.ActionLink("Back to List", "Index")
     </p>

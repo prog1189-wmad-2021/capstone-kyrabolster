@@ -38,7 +38,7 @@ namespace VastVoyages.Model
         [Range(1, int.MaxValue, ErrorMessage = "Quantity can not be less than 0")]
         public int Quantity { get; set; }
 
-        [Display(Name = "Decision Reason")]
+        [Display(Name = "Reason")]
         public string DecisionReason { get; set; }
         public int PONumber { get; set; }
         public int ItemStatusId { get; set; }

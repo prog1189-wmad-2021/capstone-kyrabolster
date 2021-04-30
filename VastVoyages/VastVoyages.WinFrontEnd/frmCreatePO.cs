@@ -325,10 +325,11 @@ namespace VastVoyages.WinFrontEnd
             dgvItem.Columns[4].HeaderText = "Location";
             dgvItem.Columns[5].HeaderText = "Price";
             dgvItem.Columns[6].HeaderText = "Qty";
-            dgvItem.Columns[7].Visible = false; //PO Number
-            dgvItem.Columns[8].HeaderText = "Status";
-            dgvItem.Columns[9].Visible = false; //Decision Reason
-            dgvItem.Columns[10].Visible = false; //Record version
+            dgvItem.Columns[7].Visible = false; //Status Id
+            dgvItem.Columns[8].Visible = false; //PO Number
+            dgvItem.Columns[9].HeaderText = "Status";
+            dgvItem.Columns[10].HeaderText = "Decision Reason";
+            dgvItem.Columns[11].Visible = false; // Record version      
 
             dgvItem.Columns[5].DefaultCellStyle.Format = "C";
             dgvItem.AutoResizeColumns();

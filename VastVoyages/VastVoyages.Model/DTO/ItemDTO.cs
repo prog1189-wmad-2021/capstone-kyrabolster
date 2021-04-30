@@ -25,11 +25,12 @@ namespace VastVoyages.Model
         public int Quantity { get; set; }
 
         public string PONumber { get; set; }
+        public int ItemStatusId { get; set; }
 
         [Display(Name = "Status")]
         public string ItemStatus { get; set; }
 
-        [Display(Name = "Decision Reason")]
+        [Display(Name = "Reason")]
         public string DecisionReason { get; set; }
         public byte[] RecordVersion { get; set; }
     }

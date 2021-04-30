@@ -42,6 +42,7 @@ namespace VastVoyages.Repository
                         Location = row["Location"].ToString(),
                         Price = Convert.ToDecimal(row["Price"]),
                         Quantity = Convert.ToInt32(row["Quantity"]),
+                        ItemStatusId = Convert.ToInt32(row["ItemStatusId"]),
                         PONumber = row["PONumber"].ToString(),
                         ItemStatus = row["ItemStatus"].ToString(),
                         DecisionReason = row["DescisionReason"].ToString()

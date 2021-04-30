@@ -35,9 +35,9 @@ namespace VastVoyages.Service
             return repo.RetrievePurchaseOrderList(employeeId);
         }
 
-        public PurchaseOrderDTO GetPurchaseOrderByPONumber(int PONumber)
+        public PurchaseOrderDTO GetPurchaseOrderByPONumber(int PONumber, int? employeeId)
         {
-            return repo.RetrievePurchaseOrderByPONumber(PONumber);
+            return repo.RetrievePurchaseOrderByPONumber(PONumber, employeeId);
         }
 
         /// <summary>

@@ -60,10 +60,11 @@ namespace VastVoyages.Repository
         /// </summary>
         /// <param name="PONumber"></param>
         /// <returns></returns>
-        public PurchaseOrderDTO RetrievePurchaseOrderByPONumber(int PONumber)
+        public PurchaseOrderDTO RetrievePurchaseOrderByPONumber(int PONumber, int? employeeId)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
             parms.Add(new ParmStruct("@PurchaseOrderNumber", PONumber, SqlDbType.Int));
+            parms.Add(new ParmStruct("@EmployeeID", employeeId, SqlDbType.Int));
 
             DataTable dt = db.Execute("spGetPurchaseOrderByPOnumber", parms);
 

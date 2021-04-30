@@ -81,19 +81,19 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.PONumber)
                         </td>
-                        
-                            @if (item.SubmissionDate == null)
-                            {
-                                <td>
-                                    Not submitted
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.SubmissionDate)
-                                </td>
-                            }
+
+                        @if (item.SubmissionDate == null)
+                        {
+                            <td>
+                                Not submitted
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SubmissionDate)
+                            </td>
+                        }
                         <td>
                             @Html.DisplayFor(modelItem => item.SubTotal)
                         </td>
@@ -112,11 +112,20 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.POStatus)
                         </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { PONumber = item.PONumber}) |
-                            @Html.ActionLink("Details", "Details", new { PONumber = item.PONumber }) |
-                            @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
-                        </td>
+
+                        @if (item.POStatus == "Pending")
+                        {
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { PONumber = item.PONumber }) |
+                                @Html.ActionLink("Details", "Details", new { PONumber = item.PONumber }) |
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.ActionLink("Details", "Details", new { PONumber = item.PONumber }) |
+                            </td>
+                        }
                     </tr>
                 }
             </table>
@@ -133,3 +142,16 @@
         }
     </div>
 </div>
+
+
+
+@{
+    if (TempData["Error"] != null)
+    {
+        <script type="text/javascript">
+        alert(@Html.Raw(Json.Encode(TempData["Error"])));
+        var url = '@Url.Action("Index", "PurchaseOrder")';
+        window.location.href = url;
+        </script>
+    }
+}
