@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Security;
 using VastVoyages.Model;
+using VastVoyages.Model.DTO;
 using VastVoyages.Model.Entities;
 using VastVoyages.Repository;
 using VastVoyages.Types;
@@ -15,8 +16,16 @@ namespace VastVoyages.Service
     public class EmployeeService
     {
         private EmployeeRepo repo = new EmployeeRepo();
+        LookupsRepo lookupsRepo = new LookupsRepo();
+
 
         #region Public Methods
+
+        /// <summary>
+        /// Add new employee
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
         public bool AddEmployee(Employee employee)
         {
             if (ValidateEmployee(employee))
@@ -33,16 +42,20 @@ namespace VastVoyages.Service
                 return false;
         }
 
+        /// <summary>
+        /// Get list of all employees
+        /// </summary>
+        /// <returns></returns>
         public List<EmployeeDTO> GetAllEmployees()
         {
             return repo.RetrieveAllEmployees();
         }
 
-        //public List<EmployeeDTO> SearchEmployees(int? employeeId, string lastName = null)
-        //{
-        //    return repo.SearchEmployees(employeeId, lastName);
-        //}
-
+        /// <summary>
+        /// Search employees by employee Id
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
         public List<EmployeeDTO> SearchEmployeesById(int employeeId)
         {
             List <EmployeeDTO> employees = repo.SearchEmployeesById(employeeId);
@@ -50,13 +63,33 @@ namespace VastVoyages.Service
             return employees;
         }
 
+        /// <summary>
+        /// Search employees by last name
+        /// </summary>
+        /// <param name="lastName"></param>
+        /// <returns></returns>
         public List<EmployeeDTO> SearchEmployeesByLastName(string lastName)
         {
             return repo.SearchEmployeesByLastName(lastName);
         }
+
+        /// <summary>
+        /// Get CEO information
+        /// </summary>
+        /// <returns></returns>
+        public List<SupervisorLookupsDTO> GetCEO()
+        {
+            return lookupsRepo.RetrieveCEO();
+        }
         #endregion
 
         #region Private Methods
+
+        /// <summary>
+        /// Generate employee username 
+        /// Format: Last name plus First name initial, and append incremented number if duplicated
+        /// </summary>
+        /// <param name="employee"></param>
         private void GenerateUsername(Employee employee)
         {
             string username = employee.LastName + employee.FirstName[0];
@@ -71,11 +104,20 @@ namespace VastVoyages.Service
             employee.UserName = username;
         }
 
+        /// <summary>
+        /// Count number of duplicate usernames (excluding appended number)
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         private int DuplicateUsernameCount(string username)
         {
             return repo.CheckDuplicateUsername(username);
         }
 
+        /// <summary>
+        /// Generate random 8 character password
+        /// </summary>
+        /// <returns></returns>
         private string GeneratePassword()
         {
             return Membership.GeneratePassword(8, 1);
@@ -85,10 +127,19 @@ namespace VastVoyages.Service
             return (jobStartDate < seniorityDate);
         }
 
+        /// <summary>
+        /// Verify if supervisor has maximum number of employees (10)
+        /// </summary>
+        /// <param name="departmentId"></param>
+        /// <param name="supervisorId"></param>
+        /// <returns></returns>
         private bool IsSupervisorRatioExceeded(int departmentId, int supervisorId)
         {
+            SupervisorLookupsDTO ceo = new SupervisorLookupsDTO();
+            ceo = lookupsRepo.RetrieveCEO()[0];
+
             // if they are not a supervisor
-            if (supervisorId != 10000000)
+            if (supervisorId != ceo.SupervisorId)
             {
                 int employeeCount = repo.GetEmployeeCount(departmentId, supervisorId);
                 //int supervisorCount = repo.GetSupervisorCount(departmentId, supervisorId);
@@ -101,6 +152,11 @@ namespace VastVoyages.Service
             }
         }
 
+        /// <summary>
+        /// Validate new employee object
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
         private bool ValidateEmployee(Employee employee)
         {
             List<ValidationResult> results = new List<ValidationResult>();

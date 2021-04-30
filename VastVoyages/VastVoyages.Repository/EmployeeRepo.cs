@@ -17,6 +17,11 @@ namespace VastVoyages.Repository
 
         #region Public Methods
 
+        /// <summary>
+        /// Add new employee to the database
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
         public bool AddEmployee(Employee employee)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
@@ -57,6 +62,12 @@ namespace VastVoyages.Repository
             return false;
         }
 
+        /// <summary>
+        /// Insert password into database login table for specific employee
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public bool InsertPassword(int employeeId, string password)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
@@ -67,6 +78,11 @@ namespace VastVoyages.Repository
             return (db.ExecuteNonQuery("spInsertPassword", parms) > 0);
         }
 
+        /// <summary>
+        /// Check if username exists in the database
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         public int CheckDuplicateUsername(string username)
         {
             int uNameCount = 0;
@@ -83,7 +99,12 @@ namespace VastVoyages.Repository
             return uNameCount;
         }
 
-        //Get the number of employees for specified supervisor (excludes CEO)
+        /// <summary>
+        /// Get the number of employees for specified supervisor (excludes CEO)
+        /// </summary>
+        /// <param name="departmentId"></param>
+        /// <param name="supervisorId"></param>
+        /// <returns></returns>
         public int GetEmployeeCount(int departmentId, int supervisorId)
         {
             int employeeCount = 0;
@@ -93,8 +114,7 @@ namespace VastVoyages.Repository
             parms.Add(new ParmStruct("@DepartmentId", departmentId, SqlDbType.Int));
             parms.Add(new ParmStruct("@SupervisorId", supervisorId, SqlDbType.Int));
             parms.Add(new ParmStruct("@EmployeeCount", employeeCount, SqlDbType.Int, 0, ParameterDirection.Output));
-            parms.Add(new ParmStruct("@SupervisorCount", 0, SqlDbType.Int, 0, ParameterDirection.Output));
-
+  
             db.ExecuteNonQuery("spGetSuperEmployeeCount", parms);
 
             employeeCount = (int)parms.Where(p => p.Name == "@EmployeeCount").FirstOrDefault().Value;
@@ -102,24 +122,10 @@ namespace VastVoyages.Repository
             return employeeCount;
         }
 
-        //public int GetSupervisorCount(int departmentId, int supervisorId)
-        //{
-        //    int supervisorCount = 0;
-
-        //    List<ParmStruct> parms = new List<ParmStruct>();
-
-        //    parms.Add(new ParmStruct("@DepartmentId", departmentId, SqlDbType.Int));
-        //    parms.Add(new ParmStruct("@SupervisorId", supervisorId, SqlDbType.Int));
-        //    parms.Add(new ParmStruct("@SupervisorCount", supervisorCount, SqlDbType.Int, 0, ParameterDirection.Output));
-        //    parms.Add(new ParmStruct("@EmployeeCount", 0, SqlDbType.Int, 0, ParameterDirection.Output));
-
-        //    db.ExecuteNonQuery("spGetSuperEmployeeCount", parms);
-
-        //    supervisorCount = (int)parms.Where(p => p.Name == "@SupervisorCount").FirstOrDefault().Value;
-
-        //    return supervisorCount;
-        //}
-
+        /// <summary>
+        /// Retrieve all employees
+        /// </summary>
+        /// <returns></returns>
         public List<EmployeeDTO> RetrieveAllEmployees()
         {
             DataTable dt = db.Execute("spGetAllEmployees");
@@ -148,6 +154,11 @@ namespace VastVoyages.Repository
             return employees;
         }
 
+        /// <summary>
+        /// Get list of employees by employee Id search parameter
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
         public List<EmployeeDTO> SearchEmployeesById(int employeeId)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
@@ -162,7 +173,7 @@ namespace VastVoyages.Repository
             {
                 employees.Add(new EmployeeDTO
                 {
-                    EmpId = Convert.ToInt32(row["EmployeeId"]), //change to EmployeeId when LoginDTO created
+                    EmpId = Convert.ToInt32(row["EmployeeId"]),
                     FirstName = row["FirstName"].ToString(),
                     LastName = row["LastName"].ToString(),
                     MiddleInitial = row["MiddleInit"].ToString(),
@@ -180,6 +191,11 @@ namespace VastVoyages.Repository
             return employees;
         }
 
+        /// <summary>
+        /// Get employees by last name search parameter
+        /// </summary>
+        /// <param name="lastName"></param>
+        /// <returns></returns>
         public List<EmployeeDTO> SearchEmployeesByLastName(string lastName)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
@@ -194,7 +210,7 @@ namespace VastVoyages.Repository
             {
                 employees.Add(new EmployeeDTO
                 {
-                    EmpId = Convert.ToInt32(row["EmployeeId"]), //change to EmployeeId when LoginDTO created
+                    EmpId = Convert.ToInt32(row["EmployeeId"]),
                     FirstName = row["FirstName"].ToString(),
                     LastName = row["LastName"].ToString(),
                     MiddleInitial = row["MiddleInit"].ToString(),
@@ -211,39 +227,7 @@ namespace VastVoyages.Repository
 
             return employees;
         }
-               
-        //public List<EmployeeDTO> SearchEmployees(int? employeeId, string lastName = null )
-        //{
-        //    List<ParmStruct> parms = new List<ParmStruct>();
-
-        //    parms.Add(new ParmStruct("@EmployeeId", employeeId, SqlDbType.Int));
-        //    parms.Add(new ParmStruct("@LastName", lastName, SqlDbType.VarChar));
-
-        //    DataTable dt = db.Execute("spSearchEmployees", parms);
-
-        //    List<EmployeeDTO> employees = new List<EmployeeDTO>();
-
-        //    foreach (DataRow row in dt.Rows)
-        //    {
-        //        employees.Add(new EmployeeDTO
-        //        {
-        //            EmpId = Convert.ToInt32(row["EmployeeId"]), //change to EmployeeId when LoginDTO created
-        //            FirstName = row["FirstName"].ToString(),
-        //            LastName = row["LastName"].ToString(),
-        //            MiddleInitial = row["MiddleInit"].ToString(),
-        //            Street = row["Street"].ToString(),
-        //            City = row["City"].ToString(),
-        //            Province = row["Province"].ToString(),
-        //            Country = row["Country"].ToString(),
-        //            PostalCode = row["PostalCode"].ToString(),
-        //            WorkPhone = row["WorkPhone"].ToString(),
-        //            CellPhone = row["CellPhone"].ToString(),
-        //            Email = row["Email"].ToString()
-        //        });
-        //    }
-
-        //    return employees;
-        //}
+              
         #endregion
     }
 }

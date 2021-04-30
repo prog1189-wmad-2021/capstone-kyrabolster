@@ -9,7 +9,7 @@ namespace VastVoyages.Model
 {
     public class EmployeeDTO : BaseEntity
     {
-        public int EmpId { get; set; } //change to EmployeeId when LoginDTO created
+        public int EmpId { get; set; }
         public string FirstName { get; set; }
         public string MiddleInitial { get; set; }
         public string LastName { get; set; }

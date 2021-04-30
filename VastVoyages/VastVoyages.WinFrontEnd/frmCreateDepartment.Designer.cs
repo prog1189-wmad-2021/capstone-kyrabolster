@@ -219,7 +219,7 @@
             this.btnCreateDepartment.Location = new System.Drawing.Point(596, 244);
             this.btnCreateDepartment.Name = "btnCreateDepartment";
             this.btnCreateDepartment.Size = new System.Drawing.Size(78, 39);
-            this.btnCreateDepartment.TabIndex = 6;
+            this.btnCreateDepartment.TabIndex = 3;
             this.btnCreateDepartment.Text = "Create";
             this.btnCreateDepartment.UseVisualStyleBackColor = true;
             this.btnCreateDepartment.Click += new System.EventHandler(this.btnCreateDepartment_Click);

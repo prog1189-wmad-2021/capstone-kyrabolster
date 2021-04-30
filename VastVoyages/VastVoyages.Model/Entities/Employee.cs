@@ -50,16 +50,16 @@ namespace VastVoyages.Model.Entities
         [DataType(DataType.PostalCode)]
         public string PostalCode { get; set; }
 
-        //[Required(ErrorMessage = "Work Phone is required")]
-        //[Phone(ErrorMessage = "Work Phone must be a valid phone number")]
+        [Required(ErrorMessage = "Work Phone is required")]
+        [Phone(ErrorMessage = "Work Phone must be a valid phone number")]
         public string WorkPhone { get; set; }
 
-        //[Required(ErrorMessage = "Cell Phone is required")]
-        //[Phone(ErrorMessage = "Cell Phone must be a valid phone number")]
+        [Required(ErrorMessage = "Cell Phone is required")]
+        [Phone(ErrorMessage = "Cell Phone must be a valid phone number")]
         public string CellPhone { get; set; }
 
-        //[Required(ErrorMessage = "Email is required")]
-        //[EmailAddress(ErrorMessage = "Email must be in valid Email address format")]
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Email must be in valid Email address format")]
         public string Email { get; set; }
 
         [DataType(DataType.Date)]
@@ -72,9 +72,9 @@ namespace VastVoyages.Model.Entities
         [Required(ErrorMessage = "Seniority Date is required.")]
         public DateTime SeniorityDate { get; set; }
 
-        //[Required(ErrorMessage = "SIN is required")]
-        //[RegularExpression("[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9]",
-        //ErrorMessage = "SIN must be in correct Canadian format (###-###-###).")]
+        [Required(ErrorMessage = "SIN is required")]
+        [RegularExpression("[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9]",
+        ErrorMessage = "SIN must be in correct Canadian format (###-###-###).")]
         public string SIN { get; set; }
 
         public int SupervisorId { get; set; }

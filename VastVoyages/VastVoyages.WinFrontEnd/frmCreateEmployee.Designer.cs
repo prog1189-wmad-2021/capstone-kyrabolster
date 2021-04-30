@@ -70,6 +70,9 @@
             this.label15 = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.grpEmploymentDetails = new System.Windows.Forms.GroupBox();
+            this.lblSupervisorMsg = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.chkIsSupervisor = new System.Windows.Forms.CheckBox();
             this.label20 = new System.Windows.Forms.Label();
             this.cmbDepartment = new System.Windows.Forms.ComboBox();
             this.label19 = new System.Windows.Forms.Label();
@@ -81,9 +84,6 @@
             this.label16 = new System.Windows.Forms.Label();
             this.dtpJobStartDate = new System.Windows.Forms.DateTimePicker();
             this.grpContactInfo = new System.Windows.Forms.GroupBox();
-            this.chkIsSupervisor = new System.Windows.Forms.CheckBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.lblSupervisorMsg = new System.Windows.Forms.Label();
             this.grpCreateEmployee.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.grpUserInfo.SuspendLayout();
@@ -96,7 +96,7 @@
             this.dtpDOB.Location = new System.Drawing.Point(182, 129);
             this.dtpDOB.Name = "dtpDOB";
             this.dtpDOB.Size = new System.Drawing.Size(340, 22);
-            this.dtpDOB.TabIndex = 2;
+            this.dtpDOB.TabIndex = 3;
             // 
             // txtFirstName
             // 
@@ -188,7 +188,7 @@
             this.btnCreateEmployee.Location = new System.Drawing.Point(577, 660);
             this.btnCreateEmployee.Name = "btnCreateEmployee";
             this.btnCreateEmployee.Size = new System.Drawing.Size(111, 39);
-            this.btnCreateEmployee.TabIndex = 6;
+            this.btnCreateEmployee.TabIndex = 19;
             this.btnCreateEmployee.Text = "Create";
             this.btnCreateEmployee.UseVisualStyleBackColor = true;
             this.btnCreateEmployee.Click += new System.EventHandler(this.btnCreateEmployee_Click);
@@ -268,7 +268,7 @@
             this.grpCreateEmployee.Location = new System.Drawing.Point(13, 161);
             this.grpCreateEmployee.Name = "grpCreateEmployee";
             this.grpCreateEmployee.Size = new System.Drawing.Size(600, 316);
-            this.grpCreateEmployee.TabIndex = 35;
+            this.grpCreateEmployee.TabIndex = 0;
             this.grpCreateEmployee.TabStop = false;
             this.grpCreateEmployee.Text = "Personal Information";
             // 
@@ -286,14 +286,14 @@
             this.txtSIN.Location = new System.Drawing.Point(182, 157);
             this.txtSIN.Name = "txtSIN";
             this.txtSIN.Size = new System.Drawing.Size(340, 22);
-            this.txtSIN.TabIndex = 21;
+            this.txtSIN.TabIndex = 4;
             // 
             // txtLastName
             // 
             this.txtLastName.Location = new System.Drawing.Point(182, 96);
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(340, 22);
-            this.txtLastName.TabIndex = 9;
+            this.txtLastName.TabIndex = 2;
             // 
             // label1
             // 
@@ -309,7 +309,7 @@
             this.txtMiddleInit.Location = new System.Drawing.Point(182, 68);
             this.txtMiddleInit.Name = "txtMiddleInit";
             this.txtMiddleInit.Size = new System.Drawing.Size(126, 22);
-            this.txtMiddleInit.TabIndex = 7;
+            this.txtMiddleInit.TabIndex = 1;
             // 
             // pbLogo
             // 
@@ -349,7 +349,7 @@
             this.txtProvince.Location = new System.Drawing.Point(186, 96);
             this.txtProvince.Name = "txtProvince";
             this.txtProvince.Size = new System.Drawing.Size(340, 22);
-            this.txtProvince.TabIndex = 15;
+            this.txtProvince.TabIndex = 7;
             // 
             // label2
             // 
@@ -365,7 +365,7 @@
             this.txtCity.Location = new System.Drawing.Point(186, 68);
             this.txtCity.Name = "txtCity";
             this.txtCity.Size = new System.Drawing.Size(340, 22);
-            this.txtCity.TabIndex = 13;
+            this.txtCity.TabIndex = 6;
             // 
             // label3
             // 
@@ -390,14 +390,14 @@
             this.txtStreet.Location = new System.Drawing.Point(186, 40);
             this.txtStreet.Name = "txtStreet";
             this.txtStreet.Size = new System.Drawing.Size(340, 22);
-            this.txtStreet.TabIndex = 10;
+            this.txtStreet.TabIndex = 5;
             // 
             // txtPostalCode
             // 
             this.txtPostalCode.Location = new System.Drawing.Point(186, 154);
             this.txtPostalCode.Name = "txtPostalCode";
             this.txtPostalCode.Size = new System.Drawing.Size(340, 22);
-            this.txtPostalCode.TabIndex = 20;
+            this.txtPostalCode.TabIndex = 9;
             // 
             // label5
             // 
@@ -413,7 +413,7 @@
             this.txtCountry.Location = new System.Drawing.Point(186, 126);
             this.txtCountry.Name = "txtCountry";
             this.txtCountry.Size = new System.Drawing.Size(340, 22);
-            this.txtCountry.TabIndex = 18;
+            this.txtCountry.TabIndex = 8;
             // 
             // label6
             // 
@@ -438,7 +438,7 @@
             this.txtWorkPhone.Location = new System.Drawing.Point(186, 207);
             this.txtWorkPhone.Name = "txtWorkPhone";
             this.txtWorkPhone.Size = new System.Drawing.Size(340, 22);
-            this.txtWorkPhone.TabIndex = 23;
+            this.txtWorkPhone.TabIndex = 10;
             // 
             // label14
             // 
@@ -454,7 +454,7 @@
             this.txtCellPhone.Location = new System.Drawing.Point(186, 235);
             this.txtCellPhone.Name = "txtCellPhone";
             this.txtCellPhone.Size = new System.Drawing.Size(340, 22);
-            this.txtCellPhone.TabIndex = 25;
+            this.txtCellPhone.TabIndex = 11;
             // 
             // label15
             // 
@@ -470,7 +470,7 @@
             this.txtEmail.Location = new System.Drawing.Point(186, 263);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(340, 22);
-            this.txtEmail.TabIndex = 27;
+            this.txtEmail.TabIndex = 12;
             // 
             // grpEmploymentDetails
             // 
@@ -490,9 +490,37 @@
             this.grpEmploymentDetails.Location = new System.Drawing.Point(13, 483);
             this.grpEmploymentDetails.Name = "grpEmploymentDetails";
             this.grpEmploymentDetails.Size = new System.Drawing.Size(1226, 161);
-            this.grpEmploymentDetails.TabIndex = 36;
+            this.grpEmploymentDetails.TabIndex = 13;
             this.grpEmploymentDetails.TabStop = false;
             this.grpEmploymentDetails.Text = "Employment Information";
+            // 
+            // lblSupervisorMsg
+            // 
+            this.lblSupervisorMsg.AutoSize = true;
+            this.lblSupervisorMsg.Location = new System.Drawing.Point(809, 124);
+            this.lblSupervisorMsg.Name = "lblSupervisorMsg";
+            this.lblSupervisorMsg.Size = new System.Drawing.Size(116, 17);
+            this.lblSupervisorMsg.TabIndex = 18;
+            this.lblSupervisorMsg.Text = "lblSupervisorMsg";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(696, 73);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(110, 17);
+            this.label21.TabIndex = 17;
+            this.label21.Text = "Is a Supervisor?";
+            // 
+            // chkIsSupervisor
+            // 
+            this.chkIsSupervisor.AutoSize = true;
+            this.chkIsSupervisor.Location = new System.Drawing.Point(812, 74);
+            this.chkIsSupervisor.Name = "chkIsSupervisor";
+            this.chkIsSupervisor.Size = new System.Drawing.Size(18, 17);
+            this.chkIsSupervisor.TabIndex = 17;
+            this.chkIsSupervisor.UseVisualStyleBackColor = true;
+            this.chkIsSupervisor.CheckedChanged += new System.EventHandler(this.chkIsSupervisor_CheckedChanged);
             // 
             // label20
             // 
@@ -509,7 +537,7 @@
             this.cmbDepartment.Location = new System.Drawing.Point(812, 44);
             this.cmbDepartment.Name = "cmbDepartment";
             this.cmbDepartment.Size = new System.Drawing.Size(340, 24);
-            this.cmbDepartment.TabIndex = 14;
+            this.cmbDepartment.TabIndex = 16;
             this.cmbDepartment.SelectionChangeCommitted += new System.EventHandler(this.cmbDepartment_SelectionChangeCommitted);
             // 
             // label19
@@ -527,7 +555,7 @@
             this.cmbSupervisor.Location = new System.Drawing.Point(812, 97);
             this.cmbSupervisor.Name = "cmbSupervisor";
             this.cmbSupervisor.Size = new System.Drawing.Size(340, 24);
-            this.cmbSupervisor.TabIndex = 12;
+            this.cmbSupervisor.TabIndex = 18;
             // 
             // label18
             // 
@@ -544,7 +572,7 @@
             this.cmbJobAssignment.Location = new System.Drawing.Point(182, 102);
             this.cmbJobAssignment.Name = "cmbJobAssignment";
             this.cmbJobAssignment.Size = new System.Drawing.Size(340, 24);
-            this.cmbJobAssignment.TabIndex = 10;
+            this.cmbJobAssignment.TabIndex = 15;
             // 
             // label17
             // 
@@ -560,7 +588,7 @@
             this.dtpSeniorityDate.Location = new System.Drawing.Point(182, 46);
             this.dtpSeniorityDate.Name = "dtpSeniorityDate";
             this.dtpSeniorityDate.Size = new System.Drawing.Size(340, 22);
-            this.dtpSeniorityDate.TabIndex = 8;
+            this.dtpSeniorityDate.TabIndex = 13;
             // 
             // label16
             // 
@@ -576,7 +604,7 @@
             this.dtpJobStartDate.Location = new System.Drawing.Point(182, 74);
             this.dtpJobStartDate.Name = "dtpJobStartDate";
             this.dtpJobStartDate.Size = new System.Drawing.Size(340, 22);
-            this.dtpJobStartDate.TabIndex = 6;
+            this.dtpJobStartDate.TabIndex = 14;
             // 
             // grpContactInfo
             // 
@@ -599,37 +627,9 @@
             this.grpContactInfo.Location = new System.Drawing.Point(639, 161);
             this.grpContactInfo.Name = "grpContactInfo";
             this.grpContactInfo.Size = new System.Drawing.Size(600, 316);
-            this.grpContactInfo.TabIndex = 37;
+            this.grpContactInfo.TabIndex = 5;
             this.grpContactInfo.TabStop = false;
             this.grpContactInfo.Text = "Contact Information";
-            // 
-            // chkIsSupervisor
-            // 
-            this.chkIsSupervisor.AutoSize = true;
-            this.chkIsSupervisor.Location = new System.Drawing.Point(812, 74);
-            this.chkIsSupervisor.Name = "chkIsSupervisor";
-            this.chkIsSupervisor.Size = new System.Drawing.Size(18, 17);
-            this.chkIsSupervisor.TabIndex = 16;
-            this.chkIsSupervisor.UseVisualStyleBackColor = true;
-            this.chkIsSupervisor.CheckedChanged += new System.EventHandler(this.chkIsSupervisor_CheckedChanged);
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(696, 73);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(110, 17);
-            this.label21.TabIndex = 17;
-            this.label21.Text = "Is a Supervisor?";
-            // 
-            // lblSupervisorMsg
-            // 
-            this.lblSupervisorMsg.AutoSize = true;
-            this.lblSupervisorMsg.Location = new System.Drawing.Point(809, 124);
-            this.lblSupervisorMsg.Name = "lblSupervisorMsg";
-            this.lblSupervisorMsg.Size = new System.Drawing.Size(116, 17);
-            this.lblSupervisorMsg.TabIndex = 18;
-            this.lblSupervisorMsg.Text = "lblSupervisorMsg";
             // 
             // frmCreateEmployee
             // 
