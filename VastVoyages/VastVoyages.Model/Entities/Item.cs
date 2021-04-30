@@ -31,7 +31,7 @@ namespace VastVoyages.Model
         public string Location { get; set; }
 
         [Required(ErrorMessage = "Price is required")]
-        [Range(0.01f, double.MaxValue, ErrorMessage = "Price can not be less than 0")]
+        [Range(0.01f, double.MaxValue, ErrorMessage = "Price must be numeric and greater than zero")]
         public decimal Price { get; set; }
 
         [Required(ErrorMessage = "Quantity is required")]

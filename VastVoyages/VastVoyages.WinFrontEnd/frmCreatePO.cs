@@ -87,6 +87,7 @@ namespace VastVoyages.WinFrontEnd
                         else
                         {
                             ItemValidationErrorMsg(item);
+                            return;
                         }
                     }
 
@@ -95,6 +96,18 @@ namespace VastVoyages.WinFrontEnd
                     {
                         item.RecordVersion = _purchaseOrder.RecordVersion;
                         itemService.InsertItem(item, _purchaseOrder);
+
+                        if(item.Errors.Count > 0)
+                        {
+                            string errorMsg = "";
+
+                            foreach (ValidationError error in item.Errors)
+                            {
+                                errorMsg += error.Description + Environment.NewLine;
+                            }
+
+                            MessageBox.Show(errorMsg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
 
                     // Refresh data grive view
@@ -124,7 +137,7 @@ namespace VastVoyages.WinFrontEnd
         {
             try
             {
-                if(_purchaseOrder != null)
+                if(_purchaseOrder.PONumber != null)
                 {
                     PurchaseOrderService POservice = new PurchaseOrderService();
 
@@ -223,7 +236,9 @@ namespace VastVoyages.WinFrontEnd
                     else
                     {
                         MessageBox.Show($"Item Id: {lbItemIDValue.Text} has been updated successful!");
+                        ClearForm();
                         GenerateItemDataGridView(_purchaseOrder.PONumber);
+                        btnAddItem.Enabled = true;
                     }
                 }
                 else
@@ -245,6 +260,7 @@ namespace VastVoyages.WinFrontEnd
                 {
                     if (e.RowIndex > -1 && e.ColumnIndex > -1)
                     {
+                        btnAddItem.Enabled = false;
                         ItemService itemService = new ItemService();
                         int itemId = Convert.ToInt32(dgvItem.Rows[e.RowIndex].Cells[0].Value.ToString());
 
@@ -283,7 +299,7 @@ namespace VastVoyages.WinFrontEnd
                 ItemDescription = txtDescription.Text,
                 Justification = txtJustification.Text,
                 Location = txtLocation.Text,
-                Price = txtPrice.Text != "" ? Convert.ToDecimal(txtPrice.Text) : 0,
+                Price = txtPrice.Text == "" || !decimal.TryParse(txtPrice.Text, out decimal priceParam) ? 0 : Convert.ToDecimal(txtPrice.Text),
                 Quantity = Convert.ToInt32(numQty.Value)
             };
         }
@@ -353,6 +369,7 @@ namespace VastVoyages.WinFrontEnd
             txtPrice.Text = "";
             numQty.Value = 0;
             lbItemIDValue.Text = "";
+            btnAddItem.Enabled = true;
         }
 
         private void LoadLoginInfo()
