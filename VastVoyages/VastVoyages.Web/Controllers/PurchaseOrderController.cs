@@ -58,23 +58,8 @@ namespace VastVoyages.Web.Controllers
             if (TempData["PO"] != null)
             {
                 PO = TempData["PO"] as PurchaseOrder;
-                PO.items = new List<Item>();
-                List<ItemDTO> items = itemService.GetItemList(Convert.ToInt32(PO.PONumber));
-
-                foreach (ItemDTO i in items)
-                {
-                    PO.items.Add(new Item
-                    {
-                        ItemId = i.ItemId,
-                        ItemName = i.ItemName,
-                        ItemDescription = i.ItemDescription,
-                        Justification = i.Justification,
-                        Location = i.Location,
-                        Price = i.Price,
-                        Quantity = i.Quantity
-                    });
-                }
-
+                PO.items = GeneratePOItemList(PO).items;
+              
                 ViewBag.subTotal = (PO.items.Sum(i => i.Price * i.Quantity)).ToString("C");
                 ViewBag.Tax = (PO.items.Sum(i => i.Price * i.Quantity) * 0.15m).ToString("C");
                 ViewBag.Total = (PO.items.Sum(i => i.Price * i.Quantity) * 1.15m).ToString("C");
@@ -111,10 +96,16 @@ namespace VastVoyages.Web.Controllers
                     itemService.InsertItem(item, PO);
                 }
                 if (item.Errors.Count == 0)
-                {                    
+                {
                     TempData["PO"] = PO;
                     return RedirectToAction("Create");
                 }
+
+                PO.items = GeneratePOItemList(PO).items;
+
+                ViewBag.subTotal = (PO.items.Sum(i => i.Price * i.Quantity)).ToString("C");
+                ViewBag.Tax = (PO.items.Sum(i => i.Price * i.Quantity) * 0.15m).ToString("C");
+                ViewBag.Total = (PO.items.Sum(i => i.Price * i.Quantity) * 1.15m).ToString("C");
 
                 return View(new Tuple<PurchaseOrder, Item>(PO, item));
             }
@@ -141,22 +132,7 @@ namespace VastVoyages.Web.Controllers
 
                 if (PO.PONumber != null)
                 {
-                    PO.items = new List<Item>();
-                    List<ItemDTO> items = itemService.GetItemList(Convert.ToInt32(PO.PONumber));
-
-                    foreach (ItemDTO i in items)
-                    {
-                        PO.items.Add(new Item
-                        {
-                            ItemId = i.ItemId,
-                            ItemName = i.ItemName,
-                            ItemDescription = i.ItemDescription,
-                            Justification = i.Justification,
-                            Location = i.Location,
-                            Price = i.Price,
-                            Quantity = i.Quantity
-                        });
-                    }
+                    PO.items = GeneratePOItemList(PO).items;
 
                     if (PO.items.Count > 0)
                     {
@@ -203,28 +179,13 @@ namespace VastVoyages.Web.Controllers
                         SubmissionDate = purchaseOrderDTO.SubmissionDate,
                         RecordVersion = purchaseOrderDTO.RecordVersion,
                         SubTotal = purchaseOrderDTO.SubTotal,
-                        Tax = purchaseOrderDTO.Tax,
-                        items = new List<Item>()
+                        Tax = purchaseOrderDTO.Tax
                     };
 
                     ViewBag.Total = (purchaseOrder.SubTotal + purchaseOrder.Tax).ToString("C");
 
-                    List<ItemDTO> items = itemService.GetItemList(PONumber.Value);
 
-                    foreach (ItemDTO i in items)
-                    {
-                        purchaseOrder.items.Add(new Item
-                        {
-                            ItemId = i.ItemId,
-                            ItemName = i.ItemName,
-                            ItemDescription = i.ItemDescription,
-                            Justification = i.Justification,
-                            Location = i.Location,
-                            Price = i.Price,
-                            Quantity = i.Quantity,
-                            ItemStatusId = i.ItemStatusId
-                        });
-                    }
+                    purchaseOrder.items = GeneratePOItemList(purchaseOrder).items;
 
                     Item item = new Item();
 
@@ -275,24 +236,8 @@ namespace VastVoyages.Web.Controllers
                     items = new List<Item>()
                 };
 
-                List<ItemDTO> items = itemService.GetItemList(Convert.ToInt32(PO.PONumber));
+                PO.items = GeneratePOItemList(PO).items;
 
-                foreach (ItemDTO i in items)
-                {
-                    PO.items.Add(new Item
-                    {
-                        ItemId = i.ItemId,
-                        ItemName = i.ItemName,
-                        ItemDescription = i.ItemDescription,
-                        Justification = i.Justification,
-                        Location = i.Location,
-                        Price = i.Price,
-                        Quantity = i.Quantity,
-                        ItemStatusId = i.ItemStatusId,
-                        DecisionReason = i.DecisionReason,
-                        RecordVersion = i.RecordVersion
-                    });
-                }
                 ViewBag.Total = (PO.SubTotal + PO.Tax).ToString("C");
                 var tuple = new Tuple<PurchaseOrder, Item>(PO, item);
 
@@ -380,6 +325,32 @@ namespace VastVoyages.Web.Controllers
                 ViewBag.errMsg = ex.Message;
                 return View("Error", new HandleErrorInfo(ex, "PurchaseOrder", "Index"));
             }
+        }
+
+        private PurchaseOrder GeneratePOItemList(PurchaseOrder PO)
+        {
+            PO.items = new List<Item>();
+
+            List<ItemDTO> items = itemService.GetItemList(Convert.ToInt32(PO.PONumber));
+
+            foreach (ItemDTO i in items)
+            {
+                PO.items.Add(new Item
+                {
+                    ItemId = i.ItemId,
+                    ItemName = i.ItemName,
+                    ItemDescription = i.ItemDescription,
+                    Justification = i.Justification,
+                    Location = i.Location,
+                    Price = i.Price,
+                    Quantity = i.Quantity,
+                    ItemStatusId = i.ItemStatusId,
+                    DecisionReason = i.DecisionReason,
+                    RecordVersion = i.RecordVersion
+                });
+            }
+
+            return PO;
         }
     }
 }
