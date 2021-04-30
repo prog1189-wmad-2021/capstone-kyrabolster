@@ -49,9 +49,18 @@ namespace VastVoyages.WinFrontEnd
                         { Id = o.EmpId, Name = o.FirstName + ' ' + o.LastName }).ToList();
                         break;
                     case "Employee Id":
-                        int employeeId = Convert.ToInt32(txtSearchCriteria.Text.Trim());
-                        dgvEmployees.DataSource = employeeService.SearchEmployeesById(employeeId).Select(o => new
-                        { Id = o.EmpId, Name = o.FirstName + ' ' + o.LastName }).ToList();
+                        string empSearch = txtSearchCriteria.Text.Trim();
+                        if (!int.TryParse(empSearch, out int empId))
+                        {
+                            MessageBox.Show("Please enter an 8 digit employee Id.");
+                            return;
+                        }
+                        else
+                        {
+                            int employeeId = Convert.ToInt32(txtSearchCriteria.Text.Trim());
+                            dgvEmployees.DataSource = employeeService.SearchEmployeesById(employeeId).Select(o => new
+                            { Id = o.EmpId, Name = o.FirstName + ' ' + o.LastName }).ToList();
+                        }
                         break;
                     case "Last Name":
                         string lastName = txtSearchCriteria.Text.Trim();

@@ -30,12 +30,11 @@ namespace VastVoyages.Web.Controllers
                     else
                     {
                         employees = service.SearchEmployeesByLastName(search);
+                    }
 
-                        if (employees.Count() == 0)
-                        {
-                            ViewBag.Employees = "No Employees matching your search criteria.";
-                        }
-
+                    if (employees.Count() == 0)
+                    {
+                        ViewBag.Employees = "No Employees matching your search criteria.";
                     }
                 }
 
