@@ -1,0 +1,15 @@
+GET https://localhost:44315/api/employees
+###
+
+GET https://localhost:44315/api/employees?employeeId=10000000
+###
+
+GET https://localhost:44315/api/employees?employeeId=10000003
+###
+
+GET https://localhost:44315/api/employees?lastName=Bhentli
+###
+
+GET https://localhost:44315/api/employees?lastName=a
+###
+

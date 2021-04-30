@@ -16,14 +16,20 @@ namespace VastVoyages.API.Controllers
         EmployeeService service = new EmployeeService();
 
         [Route("")]
-        public IHttpActionResult Get()
+        public IHttpActionResult Get(int employeeId = 0, string lastName = null)
         {
-            //List<Artist> artists = service.GetAll();
-            //return Ok(artists);
-
             try
             {
                 List<EmployeeDTO> employees = service.GetAllEmployees();
+
+                if (employeeId > 0)
+                {
+                    employees = employees.Where(a => a.EmpId.Equals(employeeId)).ToList();
+                }
+                if (!string.IsNullOrEmpty(lastName))
+                {
+                    employees = employees.Where(a => a.LastName.ToLower().Contains(lastName.ToLower())).ToList();
+                }
 
                 return Ok(employees);
 
