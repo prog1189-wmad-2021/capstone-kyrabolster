@@ -219,6 +219,7 @@ namespace VastVoyages.WinFrontEnd
                     item.DecisionReason = "";
                     item.ItemStatusId = 1;
                     item.RecordVersion = recordVersion;
+                    item.PORecordVersion = _purchaseOrder.RecordVersion;
                     itemService.UpdateItem(item, false);
 
                     if(item.Errors.Count > 0)
@@ -239,6 +240,7 @@ namespace VastVoyages.WinFrontEnd
                         ClearForm();
                         GenerateItemDataGridView(_purchaseOrder.PONumber);
                         btnAddItem.Enabled = true;
+                        _purchaseOrder.RecordVersion = item.PORecordVersion;
                     }
                 }
                 else

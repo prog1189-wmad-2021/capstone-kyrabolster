@@ -113,6 +113,7 @@ namespace VastVoyages.Repository
             List<ParmStruct> parms = new List<ParmStruct>();
 
             parms.Add(new ParmStruct("@RecordVersion", item.RecordVersion, SqlDbType.Timestamp, 0, ParameterDirection.InputOutput));
+            parms.Add(new ParmStruct("@PORecordVersion", item.PORecordVersion, SqlDbType.Timestamp, 0, ParameterDirection.Output));
             parms.Add(new ParmStruct("@ItemId", item.ItemId, SqlDbType.Int));
             parms.Add(new ParmStruct("@ItemName", item.ItemName, SqlDbType.NVarChar, 50));
             parms.Add(new ParmStruct("@ItemDescription", item.ItemDescription, SqlDbType.NVarChar, 100));
@@ -127,6 +128,7 @@ namespace VastVoyages.Repository
             if (db.ExecuteNonQuery("spUpdateItems", parms) > 0)
             {
                 item.RecordVersion = (byte[])parms.Where(p => p.Name == "@RecordVersion").FirstOrDefault().Value;
+                item.PORecordVersion = (byte[])parms.Where(p => p.Name == "@PORecordVersion").FirstOrDefault().Value;
             }
 
             return item;

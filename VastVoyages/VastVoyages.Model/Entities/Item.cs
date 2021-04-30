@@ -43,5 +43,6 @@ namespace VastVoyages.Model
         public int PONumber { get; set; }
         public int ItemStatusId { get; set; }
         public byte[] RecordVersion { get; set; }
+        public byte[] PORecordVersion { get; set; }
     }
 }
