@@ -33,6 +33,11 @@ namespace VastVoyages.Service
 
         #region Private Methods
 
+        private bool IsInvocationDateInPast(DateTime invocationDate)
+        {
+            return (invocationDate.Date < DateTime.Now.Date);
+        }
+
         /// <summary>
         /// Validate department to be added to satisfy the model and business rules
         /// </summary>
@@ -47,6 +52,11 @@ namespace VastVoyages.Service
             foreach (ValidationResult e in results)
             {
                 department.AddError(new ValidationError(e.ErrorMessage, ErrorType.Model));
+            }
+
+            if (IsInvocationDateInPast(department.InvocationDate))
+            {
+                department.AddError(new ValidationError("Invocation date cannot be in the past", ErrorType.Business));
             }
 
             return department.Errors.Count == 0;

@@ -23,13 +23,13 @@ namespace VastVoyages.WinFrontEnd
         {
             LoadLoginInfo();
             PopulateSearchOptions();
+            HideEmployeeDetails();
         }
 
         private void btnSearchEmployees_Click(object sender, EventArgs e)
         {
             try
             {
-                dgvEmployees.Visible = true;
                 dgvEmployees.DataSource = null;
                 txtSearchCriteria.Enabled = true;
                 HideEmployeeDetails();
@@ -45,10 +45,10 @@ namespace VastVoyages.WinFrontEnd
 
                 switch (cmbSearchEmployees.SelectedItem.ToString())
                 {
-                    case "View All Employees":
-                        dgvEmployees.DataSource = employeeService.GetAllEmployees().Select(o => new
-                        { Id = o.EmpId, Name = o.FirstName + ' ' + o.LastName }).ToList();
-                        break;
+                    //case "View All Employees":
+                    //    dgvEmployees.DataSource = employeeService.GetAllEmployees().Select(o => new
+                    //    { Id = o.EmpId, Name =  o.FullName }).ToList();
+                    //    break;
                     case "Employee Id":
                         string empSearch = txtSearchCriteria.Text.Trim();
                         if (!int.TryParse(empSearch, out int empId))
@@ -60,19 +60,25 @@ namespace VastVoyages.WinFrontEnd
                         {
                             int employeeId = Convert.ToInt32(txtSearchCriteria.Text.Trim());
                             dgvEmployees.DataSource = employeeService.SearchEmployeesById(employeeId).Select(o => new
-                            { Id = o.EmpId, Name = o.FirstName + ' ' + o.LastName }).ToList();
+                            { Id = o.EmpId, Name = o.FullName }).ToList();
                         }
                         break;
                     case "Last Name":
                         string lastName = txtSearchCriteria.Text.Trim();
+
+                        if (string.IsNullOrEmpty(lastName))
+                        {
+                            MessageBox.Show("Please enter an employee last name or partial last name.");
+                            return;
+                        }
                         dgvEmployees.DataSource = employeeService.SearchEmployeesByLastName(lastName).Select(o => new
-                        { Id = o.EmpId, Name = o.FirstName + ' ' + o.LastName }).ToList();
+                        { Id = o.EmpId, Name = o.FullName }).ToList();
                         break;
                 }
 
                 if (dgvEmployees.Rows.Count == 0 && isValid == true)
                 {
-                    dgvEmployees.Visible = false;
+                    dgvEmployees.DataSource = null;
                     MessageBox.Show("No employees found matching this search criteria");
                 }
             }
@@ -122,7 +128,7 @@ namespace VastVoyages.WinFrontEnd
 
         private void PopulateSearchOptions()
         {
-            cmbSearchEmployees.Items.Add("View All Employees");
+            //cmbSearchEmployees.Items.Add("View All Employees");
             cmbSearchEmployees.Items.Add("Employee Id");
             cmbSearchEmployees.Items.Add("Last Name");
             cmbSearchEmployees.SelectedIndex = 0;

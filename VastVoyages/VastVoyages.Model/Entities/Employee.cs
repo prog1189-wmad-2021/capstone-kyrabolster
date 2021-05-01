@@ -17,36 +17,38 @@ namespace VastVoyages.Model.Entities
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "First Name is required")]
-        [StringLength(40, ErrorMessage = ("First name cannot exceed 40 characters"))]
+        [StringLength(40, ErrorMessage = "First name must be between 2 and 40 characters", MinimumLength = 2)]
         public string FirstName { get; set; }
 
-        [StringLength(1, ErrorMessage = ("Middle initial cannot exceed 1 character"))]
+        [StringLength(2, ErrorMessage = "Middle initial cannot exceed 2 character")]
         public string MiddleInitial { get; set; }
 
         [Required(ErrorMessage = "Last Name is required")]
-        [StringLength(40, ErrorMessage = ("Last name cannot exceed 40 characters"))]
+        [StringLength(40, ErrorMessage = "Last name must be between 2 and 40 characters", MinimumLength = 2)]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Date Of Birth is required")]
+        [DataType(DataType.Date, ErrorMessage = "Please enter a valid date.")]
         public DateTime DateOfBirth { get; set; }
 
         [Required(ErrorMessage = "Street is required")]
-        [StringLength(50, ErrorMessage = ("Street cannot exceed 50 characters"))]
+        [StringLength(50, ErrorMessage = "Street must be between 2 and 50 characters", MinimumLength = 2)]
         public string Street { get; set; }
 
         [Required(ErrorMessage = "City is required")]
-        [StringLength(20, ErrorMessage = ("City cannot exceed 20 characters"))]
+        [StringLength(20, ErrorMessage = "City must be between 2 and 20 characters", MinimumLength = 2)]
         public string City { get; set; }
 
         [Required(ErrorMessage = "Province is required")]
-        [StringLength(2, ErrorMessage = ("Province cannot exceed 2 characters"))]
+        [StringLength(2, ErrorMessage = "Province must be between 2 and 2 characters", MinimumLength = 2)]
         public string Province { get; set; }
 
         [Required(ErrorMessage = "Country is required")]
-        [StringLength(100, ErrorMessage = ("Country cannot exceed 100 characters"))]
+        [StringLength(100, ErrorMessage = "Country must be between 2 and 100 characters", MinimumLength = 2)]
         public string Country { get; set; }
 
         [Required(ErrorMessage = "PostalCode is required")]
+        [StringLength(7, ErrorMessage = "Postal code / zipcode length is invalid", MinimumLength = 4)]
         [DataType(DataType.PostalCode)]
         public string PostalCode { get; set; }
 
@@ -62,12 +64,12 @@ namespace VastVoyages.Model.Entities
         [EmailAddress(ErrorMessage = "Email must be in valid Email address format")]
         public string Email { get; set; }
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.Date, ErrorMessage = "Please enter a valid date.")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Job Start Date is required.")]
         public DateTime JobStartDate { get; set; }
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.Date, ErrorMessage = "Please enter a valid date.")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Seniority Date is required.")]
         public DateTime SeniorityDate { get; set; }
@@ -86,5 +88,16 @@ namespace VastVoyages.Model.Entities
 
         [Required(ErrorMessage = "Job Assignment is required.")]
         public int JobAssignmentId { get; set; }
+
+        public string FullName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(MiddleInitial))
+                    return FirstName + " " + LastName;
+                else
+                    return FirstName + " " + MiddleInitial + " " + LastName;
+            }
+        }
     }
 }

@@ -7,12 +7,12 @@
 
     <div class="container" style="width: 95%; margin-top: 5%;">
 
-        <h2>Employees</h2>
+        <h2>Search Employee Directory</h2>
 
         @using (Html.BeginForm("index", "Employees", FormMethod.Get))
         {
             <div class="m-1">
-                @Html.TextBox("Search", ViewBag.CurrentFilter as string)
+                @Html.TextBox("Search", ViewBag.CurrentFilter as string, new { Style="min-width:300px", placeholder = "Search by Employee Id or Last Name" })
                 <button type="submit" value="" id="search" class="btn btn-info m-1">Search</button>
             </div>
 

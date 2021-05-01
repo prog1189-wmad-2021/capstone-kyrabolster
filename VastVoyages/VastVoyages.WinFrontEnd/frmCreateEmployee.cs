@@ -32,6 +32,8 @@ namespace VastVoyages.WinFrontEnd
             try
             {
                 LoadLoginInfo();
+                LoadCountries();
+                LoadProvinceStates();
                 LoadJobAssignments();
                 LoadDepartments();
                 LoadSupervisors();
@@ -41,6 +43,16 @@ namespace VastVoyages.WinFrontEnd
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        /// <summary>
+        /// Populate provinces/states when country changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmbCountry_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            LoadProvinceStates();
         }
 
         /// <summary>
@@ -167,6 +179,103 @@ namespace VastVoyages.WinFrontEnd
         }
 
         /// <summary>
+        /// Load countries
+        /// </summary>
+        private void LoadCountries()
+        {
+            Dictionary<string, string> countries = new Dictionary<string, string>();
+            countries.Add("Canada", "Canada");
+            countries.Add("United States Of America", "United States Of America");
+           
+            cmbCountry.DataSource = new BindingSource(countries, null);
+            cmbCountry.DisplayMember = "Value";
+            cmbCountry.ValueMember = "Key";
+        }
+
+        /// <summary>
+        /// Load provinces and states
+        /// </summary>
+        private void LoadProvinceStates()
+        {
+            Dictionary<string, string> provinces = new Dictionary<string, string>();
+
+            if (cmbCountry.SelectedValue.Equals("Canada"))
+            {
+                provinces.Add("AB", "Alberta");
+                provinces.Add("BC", "British Columbia");
+                provinces.Add("MB", "Manitoba");
+                provinces.Add("NL", "Newfoundland and Labrador");
+                provinces.Add("NB", "New Brunswick");
+                provinces.Add("NT", "Northwest Territories");
+                provinces.Add("NS", "Nova Scotia");
+                provinces.Add("NU", "Nunavut");
+                provinces.Add("ON", "Ontario");
+                provinces.Add("PE", "Prince Edward Island");
+                provinces.Add("QC", "Quebec");
+                provinces.Add("SK", "Saskatchewan");
+                provinces.Add("YT", "Yukon");
+            } 
+            else
+            {
+                provinces.Add("AL", "Alabama");
+                provinces.Add("AK", "Alaska");
+                provinces.Add("AZ", "Arizona");
+                provinces.Add("AR", "Arkansas");
+                provinces.Add("CA", "California");
+                provinces.Add("CO", "Colorado");
+                provinces.Add("CT", "Connecticut");
+                provinces.Add("DE", "Delaware");
+                provinces.Add("DC", "District of Columbia");
+                provinces.Add("FL", "Florida");
+                provinces.Add("GA", "Georgia");
+                provinces.Add("HI", "Hawaii");
+                provinces.Add("ID", "Idaho");
+                provinces.Add("IL", "Illinois");
+                provinces.Add("IN", "Indiana");
+                provinces.Add("IA", "Iowa");
+                provinces.Add("KS", "Kansas");
+                provinces.Add("KY", "Kentucky");
+                provinces.Add("LA", "Louisiana");
+                provinces.Add("ME", "Maine");
+                provinces.Add("MD", "Maryland");
+                provinces.Add("MA", "Massachusetts");
+                provinces.Add("MI", "Michigan");
+                provinces.Add("MN", "Minnesota");
+                provinces.Add("MS", "Mississippi");
+                provinces.Add("MO", "Missouri");
+                provinces.Add("MT", "Montana");
+                provinces.Add("NE", "Nebraska");
+                provinces.Add("NV", "Nevada");
+                provinces.Add("NH", "New Hampshire");
+                provinces.Add("NJ", "New Jersey");
+                provinces.Add("NM", "New Mexico");
+                provinces.Add("NY", "New York");
+                provinces.Add("NC", "North Carolina");
+                provinces.Add("ND", "North Dakota");
+                provinces.Add("OH", "Ohio");
+                provinces.Add("OK", "Oklahoma");
+                provinces.Add("OR", "Oregon");
+                provinces.Add("PA", "Pennsylvania");
+                provinces.Add("RI", "Rhode Island");
+                provinces.Add("SC", "South Carolina");
+                provinces.Add("SD", "South Dakota");
+                provinces.Add("TN", "Tennessee");
+                provinces.Add("TX", "Texas");
+                provinces.Add("UT", "Utah");
+                provinces.Add("VT", "Vermont");
+                provinces.Add("VA", "Virginia");
+                provinces.Add("WA", "Washington");
+                provinces.Add("WV", "West Virginia");
+                provinces.Add("WI", "Wisconsin");
+                provinces.Add("WY", "Wyoming");
+            }
+            
+            cmbProvince.DataSource = new BindingSource(provinces, null);
+            cmbProvince.DisplayMember = "Value";
+            cmbProvince.ValueMember = "Key";
+        }
+
+        /// <summary>
         /// Populate employee object from form data
         /// </summary>
         /// <returns></returns>
@@ -180,8 +289,8 @@ namespace VastVoyages.WinFrontEnd
                 DateOfBirth = dtpDOB.Value.Date,
                 Street = txtStreet.Text.Trim(),
                 City = txtCity.Text.Trim(),
-                Province = txtProvince.Text.Trim(),
-                Country = txtCountry.Text.Trim(),
+                Province = cmbProvince.SelectedValue.ToString(),
+                Country = cmbCountry.SelectedValue.ToString(),
                 PostalCode = txtPostalCode.Text.Trim(),
                 WorkPhone = txtWorkPhone.Text.Trim(),
                 CellPhone = txtCellPhone.Text.Trim(),
@@ -217,8 +326,8 @@ namespace VastVoyages.WinFrontEnd
             dtpDOB.Value = DateTime.Now;
             txtStreet.Text = "";
             txtCity.Text = "";
-            txtProvince.Text = "";
-            txtCountry.Text = "";
+            LoadProvinceStates();
+            LoadCountries();
             txtPostalCode.Text = "";
             txtWorkPhone.Text = "";
             txtCellPhone.Text = "";

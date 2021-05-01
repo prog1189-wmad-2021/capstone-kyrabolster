@@ -19,7 +19,8 @@ namespace VastVoyages.Web.Controllers
         {
             try
             {
-                List<EmployeeDTO> employees = service.GetAllEmployees();
+                //List<EmployeeDTO> employees = service.GetAllEmployees();
+                List<EmployeeDTO> employees = new List<EmployeeDTO>();
 
                 ViewBag.CurrentFilter = search;
 
@@ -38,6 +39,10 @@ namespace VastVoyages.Web.Controllers
                     {
                         ViewBag.Employees = "No Employees matching your search criteria.";
                     }
+                }
+                else
+                {
+                    ViewBag.Employees = "Please enter and Employee Id, last name, or partial last name to search.";
                 }
 
                 return View(employees);

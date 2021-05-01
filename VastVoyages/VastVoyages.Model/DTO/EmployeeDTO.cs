@@ -34,7 +34,10 @@ namespace VastVoyages.Model
         {
             get
             {
-                return FirstName + " " + LastName;
+                if (string.IsNullOrEmpty(MiddleInitial))
+                    return FirstName + " " + LastName;
+                else
+                    return FirstName + " " + MiddleInitial + " " + LastName;
             }
         }
 

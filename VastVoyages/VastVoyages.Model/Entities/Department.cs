@@ -13,11 +13,11 @@ namespace VastVoyages.Model
         public int DepartmentId { get; set; }
 
         [Required(ErrorMessage = "Department name is required")]
-        [StringLength(255, ErrorMessage = "Department name cannot exceed 255 characters in length.")]
+        [StringLength(255, ErrorMessage = "Department name must be between 2 and 255 characters in length.", MinimumLength = 2)]
         public string DepartmentName { get; set; }
 
         [Required(ErrorMessage = "Department description is required")]
-        [StringLength(255, ErrorMessage = "Department description cannot exceed 255 characters in length.")]
+        [StringLength(255, ErrorMessage = "Department description must be between 2 and 255 characters in length.", MinimumLength = 2)]
         public string DepartmentDescription { get; set; }
 
         [Required(ErrorMessage = "Invocation date is required")]

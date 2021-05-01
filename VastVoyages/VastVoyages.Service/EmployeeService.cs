@@ -122,6 +122,13 @@ namespace VastVoyages.Service
         {
             return Membership.GeneratePassword(8, 1);
         }
+
+        /// <summary>
+        /// Check that job start date is not prior to seniority date
+        /// </summary>
+        /// <param name="jobStartDate"></param>
+        /// <param name="seniorityDate"></param>
+        /// <returns></returns>
         private bool IsJobStartDateInValid(DateTime jobStartDate, DateTime seniorityDate)
         {
             return (jobStartDate < seniorityDate);
@@ -153,6 +160,17 @@ namespace VastVoyages.Service
         }
 
         /// <summary>
+        /// Check employee is 18 years old or older
+        /// </summary>
+        /// <param name="dateOfBirth"></param>
+        /// <returns></returns>
+        private bool IsBelowLegalAge(DateTime dateOfBirth)
+        {
+            return (dateOfBirth.Date > DateTime.Now.Date.AddYears(-18));
+        }
+
+
+        /// <summary>
         /// Validate new employee object
         /// </summary>
         /// <param name="employee"></param>
@@ -166,6 +184,11 @@ namespace VastVoyages.Service
             foreach (ValidationResult e in results)
             {
                 employee.AddError(new ValidationError(e.ErrorMessage, ErrorType.Model));
+            }
+
+            if (IsBelowLegalAge(employee.DateOfBirth))
+            {
+                employee.AddError(new ValidationError("The employee must be of legal.", ErrorType.Business));
             }
 
             if (IsJobStartDateInValid(employee.JobStartDate, employee.SeniorityDate))

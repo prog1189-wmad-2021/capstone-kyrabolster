@@ -42,7 +42,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtMiddleInit = new System.Windows.Forms.TextBox();
             this.pbLogo = new System.Windows.Forms.PictureBox();
-            this.txtProvince = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtCity = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -50,7 +49,6 @@
             this.txtStreet = new System.Windows.Forms.TextBox();
             this.txtPostalCode = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtCountry = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.txtWorkPhone = new System.Windows.Forms.TextBox();
@@ -86,6 +84,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
+            this.cmbCountry = new System.Windows.Forms.ComboBox();
+            this.cmbProvince = new System.Windows.Forms.ComboBox();
             this.grpCreateEmployee.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.grpEmploymentDetails.SuspendLayout();
@@ -214,13 +214,6 @@
             this.pbLogo.TabIndex = 34;
             this.pbLogo.TabStop = false;
             // 
-            // txtProvince
-            // 
-            this.txtProvince.Location = new System.Drawing.Point(186, 96);
-            this.txtProvince.Name = "txtProvince";
-            this.txtProvince.Size = new System.Drawing.Size(340, 22);
-            this.txtProvince.TabIndex = 7;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -277,13 +270,6 @@
             this.label5.Size = new System.Drawing.Size(88, 17);
             this.label5.TabIndex = 19;
             this.label5.Text = "Postal Code:";
-            // 
-            // txtCountry
-            // 
-            this.txtCountry.Location = new System.Drawing.Point(186, 126);
-            this.txtCountry.Name = "txtCountry";
-            this.txtCountry.Size = new System.Drawing.Size(340, 22);
-            this.txtCountry.TabIndex = 8;
             // 
             // label6
             // 
@@ -478,8 +464,9 @@
             // 
             // grpContactInfo
             // 
+            this.grpContactInfo.Controls.Add(this.cmbProvince);
+            this.grpContactInfo.Controls.Add(this.cmbCountry);
             this.grpContactInfo.Controls.Add(this.label15);
-            this.grpContactInfo.Controls.Add(this.txtCountry);
             this.grpContactInfo.Controls.Add(this.txtEmail);
             this.grpContactInfo.Controls.Add(this.label14);
             this.grpContactInfo.Controls.Add(this.txtStreet);
@@ -490,7 +477,6 @@
             this.grpContactInfo.Controls.Add(this.txtWorkPhone);
             this.grpContactInfo.Controls.Add(this.txtCity);
             this.grpContactInfo.Controls.Add(this.label2);
-            this.grpContactInfo.Controls.Add(this.txtProvince);
             this.grpContactInfo.Controls.Add(this.label6);
             this.grpContactInfo.Controls.Add(this.txtPostalCode);
             this.grpContactInfo.Controls.Add(this.label5);
@@ -657,6 +643,25 @@
             this.label22.TabIndex = 5;
             this.label22.Text = "Name:";
             // 
+            // cmbCountry
+            // 
+            this.cmbCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCountry.FormattingEnabled = true;
+            this.cmbCountry.Location = new System.Drawing.Point(186, 124);
+            this.cmbCountry.Name = "cmbCountry";
+            this.cmbCountry.Size = new System.Drawing.Size(340, 24);
+            this.cmbCountry.TabIndex = 29;
+            this.cmbCountry.SelectionChangeCommitted += new System.EventHandler(this.cmbCountry_SelectionChangeCommitted);
+            // 
+            // cmbProvince
+            // 
+            this.cmbProvince.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbProvince.FormattingEnabled = true;
+            this.cmbProvince.Location = new System.Drawing.Point(186, 96);
+            this.cmbProvince.Name = "cmbProvince";
+            this.cmbProvince.Size = new System.Drawing.Size(340, 24);
+            this.cmbProvince.TabIndex = 30;
+            // 
             // frmCreateEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -699,7 +704,6 @@
         private System.Windows.Forms.PictureBox pbLogo;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtSIN;
-        private System.Windows.Forms.TextBox txtProvince;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtCity;
         private System.Windows.Forms.Label label3;
@@ -707,7 +711,6 @@
         private System.Windows.Forms.TextBox txtStreet;
         private System.Windows.Forms.TextBox txtPostalCode;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtCountry;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtWorkPhone;
@@ -743,5 +746,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.ComboBox cmbCountry;
+        private System.Windows.Forms.ComboBox cmbProvince;
     }
 }
