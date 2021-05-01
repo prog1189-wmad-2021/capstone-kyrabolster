@@ -1,0 +1,103 @@
+﻿@model  VastVoyages.Model.EmployeeDTO
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_NavTemplate.cshtml";
+}
+
+<div class="container" style="width: 95%; margin-top: 5%;">
+
+    <h2>Employee Id: @Model.EmpId</h2>
+    <h3>@Model.FullName</h3>
+
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <div class="container">
+                <div class="row border p-5">
+                    <div class="col-sm">
+                        <h5>Name:</h5>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.FirstName):
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.FirstName)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.MiddleInitial):
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.MiddleInitial)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.LastName):
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.LastName)
+                        </dd>
+                    </div>
+                    <div class="col-sm">
+                        <h5>Address:</h5>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Street):
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Street)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.City):
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.City)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Province):
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Province)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Country):
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Country)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PostalCode):
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.PostalCode)
+                        </dd>
+                    </div>
+                    <div class="col-sm">
+                        <h5>Contact:</h5>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.WorkPhone):
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.WorkPhone)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CellPhone):
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.CellPhone)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Email):
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Email)
+                        </dd>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </dl>
+    </div>
+
+    @Html.ActionLink("Back to Employee List", "Index", new { /* id=item.PrimaryKey */ })
+
+</div>

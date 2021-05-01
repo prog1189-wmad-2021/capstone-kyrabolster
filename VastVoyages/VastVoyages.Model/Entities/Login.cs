@@ -11,6 +11,7 @@ namespace VastVoyages.Model
     {
         [Required(ErrorMessage = "Employee ID is required")]
         [Display(Name = "Employee ID")]
+        [RegularExpression("[0-9]{8}", ErrorMessage = "Employee ID must be 8 digit")]
         public string EmployeeId { get; set; }
 
         [Required(ErrorMessage = "Password is required")]

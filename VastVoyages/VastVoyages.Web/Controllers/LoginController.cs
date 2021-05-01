@@ -37,22 +37,15 @@ namespace VastVoyages.Web.Controllers
 
                 if (service.AttemptLogin(model))
                 {
-                    EmployeeDTO emp = service.GetEmpInfo(model.EmployeeId);
-                    Session["employeeId"] = emp.EmployeeId;
+                    LoginDTO loginInfo = service.GetEmpInfo(model.EmployeeId);
 
-                    if (emp.MiddleInit != null)
-                    {
-                        Session["employeeName"] = emp.FirstName + ' ' + emp.MiddleInit + ' ' + emp.LastName;
-                    }
-                    else
-                    {
-                        Session["employeeName"] = emp.FirstName + ' ' + emp.LastName;
-                    }
-
-                    Session["department"] = emp.Department;
-                    Session["job"] = emp.Job;
-                    Session["supervisor"] = emp.Supervisor;
-                    Session["role"] = emp.Role;
+                    Session["employeeId"] = loginInfo.EmployeeId;
+                    Session["employeeName"] = loginInfo.FullName;
+                    Session["userName"] = loginInfo.UserName;
+                    Session["department"] = loginInfo.Department;
+                    Session["job"] = loginInfo.Job;
+                    Session["supervisor"] = loginInfo.Supervisor;
+                    Session["role"] = loginInfo.Role;
 
                     return RedirectToAction("Index", "Home");
                 }

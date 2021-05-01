@@ -50,6 +50,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -61,6 +62,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmCreateDepartment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCreateDepartment.Designer.cs">
+      <DependentUpon>frmCreateDepartment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCreateEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCreateEmployee.Designer.cs">
+      <DependentUpon>frmCreateEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSearchEmployees.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSearchEmployees.Designer.cs">
+      <DependentUpon>frmSearchEmployees.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCreatePO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCreatePO.Designer.cs">
+      <DependentUpon>frmCreatePO.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +106,30 @@
     <Compile Include="Splash.Designer.cs">
       <DependentUpon>Splash.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="frmCreateDepartment.resx">
+      <DependentUpon>frmCreateDepartment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCreateEmployee.resx">
+      <DependentUpon>frmCreateEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSearchEmployees.resx">
+      <DependentUpon>frmSearchEmployees.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="frmProcessPO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProcessPO.Designer.cs">
+      <DependentUpon>frmProcessPO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmViewPO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmViewPO.Designer.cs">
+      <DependentUpon>frmViewPO.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="frmCreatePO.resx">
+      <DependentUpon>frmCreatePO.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -99,6 +148,12 @@
     </Compile>
     <EmbeddedResource Include="Splash.resx">
       <DependentUpon>Splash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProcessPO.resx">
+      <DependentUpon>frmProcessPO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmViewPO.resx">
+      <DependentUpon>frmViewPO.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

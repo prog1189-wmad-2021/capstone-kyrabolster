@@ -43,71 +43,84 @@
             <p class="currentDate">Today: @DateTime.Now.ToShortDateString()</p>
             @if (Session["employeeId"] != null)
             { 
-                <div class="empInfo">
-                    <h3>@Session["employeeName"].ToString()</h3>
-                    <br />
-                    <h5>Work Information</h5>
-                    <ul class="list-unstyled workInfo">
-                        <li>Department: @Session["department"].ToString()</li>
-                        <li>Job Title: @Session["job"].ToString()</li>
-                        <li>Supervisor: @Session["supervisor"].ToString()</li>
-                    </ul>
-                </div>
+        <div class="empInfo">
+            <h3>@Session["employeeName"].ToString()</h3>
+            <h6>User Name: @Session["userName"].ToString()</h6>
+            <br />
+            <h5>Work Information</h5>
+            <ul class="list-unstyled workInfo">
+                <li>Department: @Session["department"].ToString()</li>
+                <li>Job Title: @Session["job"].ToString()</li>
+                <li>Supervisor: @Session["supervisor"].ToString()</li>
+            </ul>
+        </div>
             
             }
-            <ul class="list-unstyled components">
+        <ul class="list-unstyled components">
+            @if (Session["employeeId"] != null)
+            {
                 <li class="active">
                     <a href="#HRSubmenu" data-toggle="collapse" data-target="#HRSubmenu" aria-expanded="false" class="dropdown-toggle">HR</a>
                     <ul class="collapse list-unstyled" style="padding-left:5%;" id="HRSubmenu">
-                        <li>
-                            <a href="#">Add Employee</a>
-                        </li>
-                        @if (Session["employeeId"] != null)
+                         @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "HR Supervisor")
+                         {
+                            <li>
+                                <a href="#">Add Employee</a>
+                            </li>
+                         }
+
+                        @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "HR Supervisor" || Session["role"].ToString() == "HR Employee")
                         {
-                            if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "Supervisor" || Session["role"].ToString() == "HR Supervisor")
-                            {
-                                <li>
-                                    <a href="#">Create Department</a>
-                                </li>
-                            }
+                            <li>
+                                <a href="@Url.Action("Index", "Employees")">View Employees</a>
+                            </li>
                         }
-                        </ul>
-                </li>
-                <li class="active">
-                    <a href="#POSubmenu" data-toggle="collapse" data-target="#POSubmenu" aria-expanded="false" class="dropdown-toggle">Purchase Order</a>
-                    <ul class="collapse list-unstyled" style="padding-left:5%;" id="POSubmenu">
-                        <li>
-                            <a href="#">Create PO</a>
-                        </li>
-                        <li>
-                            <a href="#">Modify PO</a>
-                        </li>
-                        @if (Session["employeeId"] != null)
+                        @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "HR Supervisor" || Session["role"].ToString() == "HR Employee")
                         {
-                            if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "Supervisor" || Session["role"].ToString() == "HR Supervisor")
-                            {
-                                <li>
-                                    <a href="#">Process PO</a>
-                                </li>
-                            }
+                            <li>
+                                <a href="#">Create Department</a>
+                            </li>
                         }
-                        </ul>
+                    </ul>
                 </li>
-                <li>
-                    @if (Session["employeeId"] == null)
+
+            <li class="active">
+                <a href="#POSubmenu" data-toggle="collapse" data-target="#POSubmenu" aria-expanded="false" class="dropdown-toggle">Purchase Order</a>
+                <ul class="collapse list-unstyled" style="padding-left:5%;" id="POSubmenu">
+                    <li>
+                        <a href="@Url.Action("Index", "PurchaseOrder")">View PO</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Create", "PurchaseOrder")">Create PO</a>
+                    </li>
+                    <li>
+                        <a href="#">Modify PO</a>
+                    </li>                    
+                        @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "Supervisor" || Session["role"].ToString() == "HR Supervisor")
+                        {
+                            <li>
+                                <a href="#">Process PO</a>
+                            </li>
+                        }
+                    
+                </ul>
+            </li>
+            }
+            <li>
+                @if (Session["employeeId"] == null)
+                {
+                    <a href="@Url.Action("Index", "Login")">Login</a>
+                }
+                else
+                {
+                    using (Html.BeginForm("LogOff", "Login", FormMethod.Post, new { id = "logoutForm" }))
                     {
-                        <a href="@Url.Action("Index", "Login")">Login</a>
+                        @Html.AntiForgeryToken()
+                        <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
                     }
-                    else
-                    {
-                        using (Html.BeginForm("LogOff", "Login", FormMethod.Post, new { id = "logoutForm" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
-                        }
-                    }
-                </li>
-            </ul>
+                }
+            </li>
+        </ul>
         </div>
 
         <!-- Page Content -->

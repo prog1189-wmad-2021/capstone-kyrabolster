@@ -22,7 +22,7 @@ namespace VastVoyages.Repository
         public bool Login(Login loginInfo)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
-            parms.Add(new ParmStruct("@EmployeeId", loginInfo.EmployeeId, SqlDbType.NVarChar, 8));
+            parms.Add(new ParmStruct("@EmployeeId", loginInfo.EmployeeId, SqlDbType.Int));
             parms.Add(new ParmStruct("@Password", loginInfo.Password, SqlDbType.NVarChar, 100));
 
             DataTable dt = db.Execute("spLogin", parms);
@@ -30,29 +30,26 @@ namespace VastVoyages.Repository
             return Convert.ToInt32(dt.Rows[0]["EmployeeId"]) > 0;
         }
 
-        public EmployeeDTO RetrieveEmpInfoById(string employeeId)
+        public LoginDTO RetrieveEmpInfoById(string employeeId)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
             parms.Add(new ParmStruct("@EmployeeId", employeeId, SqlDbType.NVarChar, 8));
 
             DataTable dt = db.Execute("spGetEmployeeById", parms);
 
-            EmployeeDTO emp = new EmployeeDTO
+            LoginDTO loginInfo = new LoginDTO
             {
                 EmployeeId = dt.Rows[0]["EmployeeId"].ToString(),
                 UserName = dt.Rows[0]["UserName"].ToString(),
-                FirstName = dt.Rows[0]["FirstName"].ToString(),
-                MiddleInit = dt.Rows[0]["MiddleInit"].ToString(),
-                LastName = dt.Rows[0]["LastName"].ToString(),
+                FullName = dt.Rows[0]["FullName"].ToString(),
                 Job = dt.Rows[0]["JobAssignment"].ToString(),
                 DepartmentId = Convert.ToInt32(dt.Rows[0]["DepartmentId"]),
                 Department = dt.Rows[0]["DepartmentName"].ToString(),
-                SupervisorId = Convert.ToInt32(dt.Rows[0]["SupervisorId"] != DBNull.Value ? dt.Rows[0]["SupervisorId"] : 0),
-                Supervisor = dt.Rows[0]["Supervisor"] != DBNull.Value ? dt.Rows[0]["Supervisor"].ToString() : "",
-                Role = dt.Rows[0]["Role"].ToString()
+                SupervisorId = dt.Rows[0]["SupervisorId"] != DBNull.Value ? Convert.ToInt32(dt.Rows[0]["SupervisorId"]) : 0,
+                Supervisor = dt.Rows[0]["Supervisor"] != DBNull.Value ? dt.Rows[0]["Supervisor"].ToString() : ""
             };
 
-            return emp;
+            return loginInfo;
         }
     }
 }
