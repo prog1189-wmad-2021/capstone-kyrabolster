@@ -34,7 +34,10 @@ namespace VastVoyages.Service
 
                 repo.AddEmployee(employee);
 
-                repo.InsertPassword(employee.EmployeeId, GeneratePassword());
+                HashCode hc = new HashCode();
+                string password = GeneratePassword();
+
+                repo.InsertPassword(employee.EmployeeId, hc.CalculateSHA256(password));
 
                 return true;
             }
