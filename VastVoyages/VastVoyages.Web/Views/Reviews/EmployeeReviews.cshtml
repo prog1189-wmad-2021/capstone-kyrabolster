@@ -7,7 +7,7 @@
 
     <div class="container" style="width: 95%; margin-top: 5%;">
 
-        <h2>Select an Employee To Review</h2>
+        <h2>Performance Reviews</h2>
 
         @using (Html.BeginForm("index", "Reviews", FormMethod.Get))
         {
@@ -23,7 +23,7 @@
                             Quarter
                         </th>
                         <th>
-                            Date
+                            Review Date
                         </th>
                         <th></th>
                     </tr>
@@ -32,7 +32,7 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.ReviewDate.Year)
+                                @Html.DisplayFor(modelItem => item.Year)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Quarter)

@@ -103,6 +103,7 @@ namespace VastVoyages.WinFrontEnd
             {
                 employees = employeeService.GetAllEmployees().Where(x => x.SupervisorId.Equals(supervisor.EmpId)).ToList();
                 employees = reviewService.GetEmployeesDueFoReviewThisQuarter(employees);
+                //employees = reviewService.GetEmployeesDueFoReviewLastQuarter(employees);
 
                 if (employees.Count() > 0)
                 {
@@ -118,7 +119,7 @@ namespace VastVoyages.WinFrontEnd
                     }
 
                     //check overdue
-                    if (reviewService.Is30DaysIntoQuarter())
+                    if (reviewService.Is30DaysPastQuarter())
                     {
                         //hr staff
                         List<EmployeeDTO> hrStaff = employeeService.GetAllEmployees().Where(x => x.DepartmentId.Equals(2)).ToList();
@@ -132,6 +133,9 @@ namespace VastVoyages.WinFrontEnd
                         email.cc = hrStaffList;
                         //email.cc = String.Join(";", hrStaff);
                         //email.cc = hrStaff.Select(r => String.Join(";", r.Split(',', ';'))).ToList();
+                    }else
+                    {
+                        email.cc = null;
                     }
 
                     email.body += $"</ul><br><i>HR staff is notified when reviews are due 30 days past the start of the quarter.</i><br>";

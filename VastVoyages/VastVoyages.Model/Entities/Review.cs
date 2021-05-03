@@ -39,7 +39,7 @@ namespace VastVoyages.Model
         public string SupervisorLastName { get; set; }
 
         public int Quarter { get; set; }
-
+        public int Year { get; set; }
         public virtual Rating Rating { get; set; }
         public string RatingString
         {

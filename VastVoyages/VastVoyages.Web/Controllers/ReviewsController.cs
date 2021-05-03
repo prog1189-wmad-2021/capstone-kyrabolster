@@ -29,6 +29,7 @@ namespace VastVoyages.API.Controllers
 
                 //only return employees that are due for review ***
                 employees = service.GetEmployeesDueFoReviewThisQuarter(employees);
+                //employees = service.GetEmployeesDueFoReviewLastQuarter(employees);
 
                 if (employees.Count <= 0)
                 {
@@ -62,6 +63,7 @@ namespace VastVoyages.API.Controllers
                 List<Review> employeesReviews = service.GetEmployeeReviews(employee.EmpId);
 
                 if (employee.SupervisorId != reviewerId || service.HadEmployeeReviewThisQuarter(employeesReviews))
+                    //if (employee.SupervisorId != reviewerId || service.HadEmployeeReviewLastQuarter(employeesReviews))
                 {
                     return View("PageNotFound");
                 }
