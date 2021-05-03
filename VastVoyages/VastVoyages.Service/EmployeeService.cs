@@ -44,6 +44,30 @@ namespace VastVoyages.Service
         }
 
         /// <summary>
+        /// Get Employee to modify by id
+        /// </summary>
+        /// <param name="lastName"></param>
+        /// <returns></returns>
+        public Employee UpdatePersonalInfoWeb(Employee employee)
+        {
+            if (ValidateEmployee(employee))
+                return repo.UpdatePersonalInfoWeb(employee);
+
+            return employee;
+        }
+
+        /// <summary>
+        /// Get Employee to modify by id
+        /// </summary>
+        /// <param name="lastName"></param>
+        /// <returns></returns>
+        public Employee GetEmployeeToModifyById(int employeeId)
+        {
+            return repo.RetrieveEmployeeToModify(employeeId);
+        }
+
+
+        /// <summary>
         /// Get list of all employees
         /// </summary>
         /// <returns></returns>
@@ -59,7 +83,7 @@ namespace VastVoyages.Service
         /// <returns></returns>
         public List<EmployeeDTO> SearchEmployeesById(int employeeId)
         {
-            List <EmployeeDTO> employees = repo.SearchEmployeesById(employeeId);
+            List<EmployeeDTO> employees = repo.SearchEmployeesById(employeeId);
 
             return employees;
         }
@@ -228,6 +252,19 @@ namespace VastVoyages.Service
             return employee.Errors.Count == 0;
         }
 
+        private bool ValidateEmployeeDTO(EmployeeDTO employee)
+        {
+            List<ValidationResult> results = new List<ValidationResult>();
+
+            Validator.TryValidateObject(employee, new ValidationContext(employee), results, true);
+
+            foreach (ValidationResult e in results)
+            {
+                employee.AddError(new ValidationError(e.ErrorMessage, ErrorType.Model));
+            }
+
+            return employee.Errors.Count == 0;
+        }
         #endregion
     }
 }

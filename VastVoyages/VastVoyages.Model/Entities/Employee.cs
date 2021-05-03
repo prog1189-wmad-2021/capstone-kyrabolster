@@ -40,7 +40,7 @@ namespace VastVoyages.Model.Entities
         public string City { get; set; }
 
         [Required(ErrorMessage = "Province is required")]
-        [StringLength(2, ErrorMessage = "Province must be between 2 and 2 characters", MinimumLength = 2)]
+        [StringLength(2, ErrorMessage = "Province must be 2 characters", MinimumLength = 2)]
         public string Province { get; set; }
 
         [Required(ErrorMessage = "Country is required")]

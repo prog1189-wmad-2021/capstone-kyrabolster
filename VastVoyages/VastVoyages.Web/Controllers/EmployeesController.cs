@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using VastVoyages.Model;
+using VastVoyages.Model.Entities;
 using VastVoyages.Service;
 using VastVoyages.Web.CustomAuthoize;
 
@@ -92,6 +93,76 @@ namespace VastVoyages.Web.Controllers
             catch (Exception ex)
             {
                 return View("Error", new HandleErrorInfo(ex, "Employee", "Details"));
+            }
+        }
+
+        // GET: Employees/Edit/5
+        [CustomizeAuthorize(RoleName.CEO, RoleName.HRSupervisor, RoleName.HREmployee, RoleName.Employee)] //should only be employee logged in
+        public ActionResult Edit(int? employeeId)
+        {
+            try
+            {
+                if (employeeId != Convert.ToInt32(Session["employeeId"]))
+                {
+                    return View("PageNotFound");
+                }
+                else
+                {
+                    if (employeeId == null)
+                        return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+
+                    Employee employeeDetails = service.GetEmployeeToModifyById(employeeId.Value);
+
+                    if (employeeDetails == null)
+                        return HttpNotFound();
+
+                    Employee employee = new Employee()
+                    {
+                        EmployeeId = employeeId.Value,
+                        FirstName = employeeDetails.FirstName,
+                        MiddleInitial = employeeDetails.MiddleInitial,
+                        LastName = employeeDetails.LastName,
+                        SIN = employeeDetails.SIN,
+
+                        Street = employeeDetails.Street,
+                        City = employeeDetails.City,
+                        Province = employeeDetails.Province,
+                        Country = employeeDetails.Country,
+                        PostalCode = employeeDetails.PostalCode,
+
+                        WorkPhone = employeeDetails.WorkPhone,
+                        CellPhone = employeeDetails.CellPhone,
+                        Email = employeeDetails.Email
+                    };
+
+                    return View(employee);
+                }
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Employee", "Edit"));
+            }
+        }
+
+        // POST: Employees/Edit/5
+        [HttpPost]
+        public ActionResult Edit(Employee employee)
+        {
+            try
+            {
+                employee = service.UpdatePersonalInfoWeb(employee);
+
+                if (employee.Errors.Count == 0)
+                {
+                    TempData["Success"] = "Employee Id : " + employee.EmployeeId + " sucessfully updated. ";
+                    return RedirectToAction("Index");
+                }
+
+                return View(employee);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Recipe", "Edit"));
             }
         }
     }

@@ -62,6 +62,43 @@ namespace VastVoyages.Repository
             return false;
         }
 
+        public Employee UpdatePersonalInfoWeb(Employee employee)
+        {
+            List<ParmStruct> parms = new List<ParmStruct>();
+
+            parms.Add(new ParmStruct("@RecordVersion", employee.RecordVersion, SqlDbType.Timestamp, 0, ParameterDirection.Output));
+            parms.Add(new ParmStruct("@EmployeeId", employee.EmployeeId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@Street", employee.Street, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@City", employee.City, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@Province", employee.Province, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@Country", employee.Country, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@PostalCode", employee.PostalCode, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@WorkPhone", employee.WorkPhone, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@CellPhone", employee.CellPhone, SqlDbType.NVarChar));
+
+            db.ExecuteNonQuery("spUpdatePersonalInfoWeb", parms);
+
+            return employee;
+        }
+
+
+        /// <summary>
+        /// Retrieve employee to modify by id
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
+        public Employee RetrieveEmployeeToModify(int employeeId)
+        {
+            List<ParmStruct> parms = new List<ParmStruct>()
+            {
+                new ParmStruct("@EmployeeId", employeeId, SqlDbType.Int)
+            };
+
+            DataTable dt = db.Execute("spGetEmployeeToModify", parms);
+
+            return dt.Rows.Count > 0 ? PopulateEmployee(dt.Rows[0]) : null;
+        }
+
         /// <summary>
         /// Insert password into database login table for specific employee
         /// </summary>
@@ -227,7 +264,34 @@ namespace VastVoyages.Repository
 
             return employees;
         }
-              
+
+        private Employee PopulateEmployee(DataRow row)
+        {
+            return new Employee
+            {
+                EmployeeId = Convert.ToInt32(row["EmployeeId"]),
+                UserName = row["UserName"].ToString(),
+                FirstName = row["FirstName"].ToString(),
+                LastName = row["LastName"].ToString(),
+                //MiddleInitial = row["MiddleInit"].ToString(),
+                DateOfBirth = Convert.ToDateTime(row["DateOfBirth"]),
+                Street = row["Street"].ToString(),
+                City = row["City"].ToString(),
+                Province = row["Province"].ToString(),
+                Country = row["Country"].ToString(),
+                PostalCode = row["PostalCode"].ToString(),
+                WorkPhone = row["WorkPhone"].ToString(),
+                CellPhone = row["CellPhone"].ToString(),
+                Email = row["Email"].ToString(),
+                JobStartDate = Convert.ToDateTime(row["JobStartDate"]),
+                SeniorityDate = Convert.ToDateTime(row["SeniorityDate"]),
+                SIN = row["SIN"].ToString(),
+                //SupervisorId = Convert.ToInt32(row["SupervisorId"]),
+                //DepartmentId = Convert.ToInt32(row["DepartmentId"]),
+                //EmployeeStatusId = Convert.ToInt32(row["EmployeeStatusId"]),
+                //JobAssignmentId = Convert.ToInt32(row["JobAssignmentId"])
+            };
+        }
         #endregion
     }
 }
