@@ -201,6 +201,8 @@ namespace VastVoyages.WinFrontEnd
 
             if (cmbCountry.SelectedValue.Equals("Canada"))
             {
+                lblPostalCode.Text = "Postal Code:";
+
                 provinces.Add("AB", "Alberta");
                 provinces.Add("BC", "British Columbia");
                 provinces.Add("MB", "Manitoba");
@@ -217,6 +219,8 @@ namespace VastVoyages.WinFrontEnd
             } 
             else
             {
+                lblPostalCode.Text = "Zip Code:";
+
                 provinces.Add("AL", "Alabama");
                 provinces.Add("AK", "Alaska");
                 provinces.Add("AZ", "Arizona");

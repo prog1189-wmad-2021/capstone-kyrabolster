@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Security;
 using VastVoyages.Model;
@@ -169,6 +170,21 @@ namespace VastVoyages.Service
             return (dateOfBirth.Date > DateTime.Now.Date.AddYears(-18));
         }
 
+        private bool IsValidatePostalCode(Employee employee)
+        {
+            if (employee.Country == "Canada")
+            {
+                //Regex rgx = new Regex(@"^[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]$");
+                Regex rgx = new Regex(@"^([ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ])\ {0,1}(\d[ABCEGHJKLMNPRSTVWXYZ]\d)$");
+                return rgx.IsMatch(employee.PostalCode);
+            }
+            else
+            {
+                Regex rgx = new Regex(@"^\d{5}(?:[-\s]\d{4})?$");
+                return rgx.IsMatch(employee.PostalCode);
+            }
+        }
+
 
         /// <summary>
         /// Validate new employee object
@@ -184,6 +200,14 @@ namespace VastVoyages.Service
             foreach (ValidationResult e in results)
             {
                 employee.AddError(new ValidationError(e.ErrorMessage, ErrorType.Model));
+            }
+
+            if (!IsValidatePostalCode(employee))
+            {
+                if (employee.Country == "Canada")
+                    employee.AddError(new ValidationError("Postal Code must be in correct Canadian format.", ErrorType.Business));
+                else
+                    employee.AddError(new ValidationError("ZipCode must be in correct US format.", ErrorType.Business));
             }
 
             if (IsBelowLegalAge(employee.DateOfBirth))

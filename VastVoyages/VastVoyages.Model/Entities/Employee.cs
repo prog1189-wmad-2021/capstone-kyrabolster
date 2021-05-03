@@ -99,5 +99,6 @@ namespace VastVoyages.Model.Entities
                     return FirstName + " " + MiddleInitial + " " + LastName;
             }
         }
+
     }
 }
