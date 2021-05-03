@@ -28,10 +28,9 @@
     tools:context=".MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/employee_recycler"
         android:layout_width="match_parent"
+        android:id="@+id/employee_recycler"
         android:layout_height="match_parent"
-        android:theme="@style/Theme.VastVoyages"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

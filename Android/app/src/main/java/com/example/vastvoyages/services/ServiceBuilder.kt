@@ -5,10 +5,15 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ServiceBuilder {
-//    private const val URL ="https://localhost:44315/api/employees"
-//    private const val URL ="http://127.0.0.1"
-//private const val URL ="https://10.0.2.2"
-//    private const val URL ="https://localhost:44315/api/employees?employeeId=10000000"
+//    private const val URL ="https://localhost:44315/api/employees/"
+//    private const val URL ="http://127.0.0.1/"
+//private const val URL ="https://10.0.2.2/"
+
+    //socket timeout : failed to connect
+private const val URL ="http://10.0.2.2:56769/api/"
+
+    //failed to connect
+//    private const val URL ="https://127.0.0.1:44315/api/employees/"
 
     //CREATE HTTP CLIENT
     private val okHttp = OkHttpClient.Builder()
