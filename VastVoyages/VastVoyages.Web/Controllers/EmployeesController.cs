@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using VastVoyages.Model;
 using VastVoyages.Model.Entities;
 using VastVoyages.Service;
+using VastVoyages.Types;
 using VastVoyages.Web.CustomAuthoize;
 
 namespace VastVoyages.Web.Controllers
@@ -119,6 +120,7 @@ namespace VastVoyages.Web.Controllers
                     Employee employee = new Employee()
                     {
                         EmployeeId = employeeId.Value,
+                        RecordVersion = employeeDetails.RecordVersion,
                         FirstName = employeeDetails.FirstName,
                         MiddleInitial = employeeDetails.MiddleInitial,
                         LastName = employeeDetails.LastName,
@@ -155,14 +157,15 @@ namespace VastVoyages.Web.Controllers
                 if (employee.Errors.Count == 0)
                 {
                     TempData["Success"] = "Employee Id : " + employee.EmployeeId + " sucessfully updated. ";
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home");
                 }
 
                 return View(employee);
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Employee", "Edit"));
+                employee.AddError(new ValidationError(ex.Message, ErrorType.Business));
+                return View(employee);
             }
         }
     }

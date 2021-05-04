@@ -15,6 +15,8 @@ namespace VastVoyages.Web.Controllers
         private DepartmentService service = new DepartmentService();
         private EmployeeService empService = new EmployeeService();
 
+        //DateTime originalInvocationDate;
+
         // GET: Departments
         [CustomizeAuthorize(RoleName.CEO, RoleName.HRSupervisor, RoleName.HREmployee, RoleName.Supervisor)]
         public ActionResult Index()
@@ -72,6 +74,8 @@ namespace VastVoyages.Web.Controllers
                     InvocationDate = departmentDetails.InvocationDate
                 };
 
+                //originalInvocationDate = department.InvocationDate;
+
                 return View(department);
             }
             catch (Exception ex)
@@ -86,7 +90,9 @@ namespace VastVoyages.Web.Controllers
         {
             try
             {
-                department = service.UpdateDepartment(department);
+                string role = Session["role"].ToString();
+                //department = service.UpdateDepartment(department, originalInvocationDate, role);
+                department = service.UpdateDepartment(department, role);
 
                 if (department.Errors.Count == 0)
                 {

@@ -32,6 +32,7 @@
                 </div>
             }
             @Html.HiddenFor(model => model.EmployeeId)
+            @Html.HiddenFor(model => model.RecordVersion)
             @Html.HiddenFor(model => model.FirstName)
             @Html.HiddenFor(model => model.LastName)
             @Html.HiddenFor(model => model.SIN)
@@ -97,7 +98,7 @@
             </div>
         </div>
 
-
+        @* hide for non-hr employees *@
         <div>
             @Html.ActionLink("Back to List", "Index")
         </div>

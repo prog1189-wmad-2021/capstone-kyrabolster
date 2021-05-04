@@ -55,6 +55,7 @@ namespace VastVoyages.Repository
 
             if (db.ExecuteNonQuery("spInsertEmployee", parms) > 0)
             {
+                employee.RecordVersion = (byte[])parms.Where(p => p.Name == "@RecordVersion").FirstOrDefault().Value;
                 employee.EmployeeId = (int)parms.Where(p => p.Name == "@EmployeeId").FirstOrDefault().Value;
                 return true;
             }
@@ -71,7 +72,7 @@ namespace VastVoyages.Repository
         {
             List<ParmStruct> parms = new List<ParmStruct>();
 
-            parms.Add(new ParmStruct("@RecordVersion", employee.RecordVersion, SqlDbType.Timestamp, 0, ParameterDirection.Output));
+            parms.Add(new ParmStruct("@RecordVersion", employee.RecordVersion, SqlDbType.Timestamp, 0, ParameterDirection.InputOutput));
             parms.Add(new ParmStruct("@EmployeeId", employee.EmployeeId, SqlDbType.Int));
             parms.Add(new ParmStruct("@Street", employee.Street, SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@City", employee.City, SqlDbType.NVarChar));
@@ -81,7 +82,10 @@ namespace VastVoyages.Repository
             parms.Add(new ParmStruct("@WorkPhone", employee.WorkPhone, SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@CellPhone", employee.CellPhone, SqlDbType.NVarChar));
 
-            db.ExecuteNonQuery("spUpdatePersonalInfoWeb", parms);
+            if (db.ExecuteNonQuery("spUpdatePersonalInfoWeb", parms) > 0)
+            {
+                employee.RecordVersion = (byte[])parms.Where(p => p.Name == "@RecordVersion").FirstOrDefault().Value;
+            }
 
             return employee;
         }
@@ -277,6 +281,7 @@ namespace VastVoyages.Repository
             return new Employee
             {
                 EmployeeId = Convert.ToInt32(row["EmployeeId"]),
+                RecordVersion = (byte[])row["RecordVersion"],
                 UserName = row["UserName"].ToString(),
                 FirstName = row["FirstName"].ToString(),
                 LastName = row["LastName"].ToString(),

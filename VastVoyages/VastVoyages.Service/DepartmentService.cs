@@ -37,11 +37,27 @@ namespace VastVoyages.Service
         public Department UpdateDepartment(Department department, string role = null)
         {
             if (role == "Supervisor")
+            {
                 if (ValidateDepartmentModelOnly(department))
                     return repo.UpdateDepartment(department);
+            }
+            else
+            {
+                DateTime originalInvocationDate = repo.GetDepartmentById(department.DepartmentId).InvocationDate;
 
-            if (ValidateDepartment(department))
-                return repo.UpdateDepartment(department);
+                if (department.InvocationDate.Date == originalInvocationDate.Date)
+                {
+                    if (ValidateDepartmentModelOnly(department))
+                        return repo.UpdateDepartment(department);
+                }
+                else
+                {
+                    if (ValidateDepartment(department))
+                        return repo.UpdateDepartment(department);
+                    else
+                        department.AddError(new ValidationError("Invocation Date Exception: The invocation date can be in the past if it is the original invocation date : " + originalInvocationDate.ToShortDateString(), ErrorType.Business));
+                }
+            }
 
             return department;
         }

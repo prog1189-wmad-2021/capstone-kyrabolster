@@ -5,6 +5,15 @@
 
 <div>
     <div>
-        <h2>Getting started</h2>     
+        <h2>Getting started</h2>
     </div>
 </div>
+
+@{
+    if (TempData["Success"] != null)
+    {
+        <script type="text/javascript">
+        alert(@Html.Raw(Json.Encode(TempData["Success"])));
+        </script>
+    }
+}
