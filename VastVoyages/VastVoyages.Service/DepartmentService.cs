@@ -34,21 +34,31 @@ namespace VastVoyages.Service
         /// </summary>
         /// <param name="department"></param>
         /// <returns></returns>
-        public Department UpdateDepartment(Department department)
+        public Department UpdateDepartment(Department department, string role = null)
         {
+            if (role == "Supervisor")
+                if (ValidateDepartmentModelOnly(department))
+                    return repo.UpdateDepartment(department);
+
             if (ValidateDepartment(department))
                 return repo.UpdateDepartment(department);
-          
-                return department;
+
+            return department;
         }
 
         /// <summary>
         /// Get all departments
         /// </summary>
         /// <returns></returns>
-        public List<Department> GetDepartments()
+        public List<Department> GetDepartments(string role = null, int? departmentId = 0)
         {
-            return repo.RetrieveDepartments();
+            List<Department> departments = new List<Department>();
+            departments = repo.RetrieveDepartments();
+
+            if (role == "Supervisor" && departmentId > 0)
+                departments = departments.Where(d => d.DepartmentId.Equals(departmentId)).ToList();
+
+            return departments;
         }
 
         /// <summary>
@@ -92,6 +102,21 @@ namespace VastVoyages.Service
 
             return department.Errors.Count == 0;
         }
+
+        private bool ValidateDepartmentModelOnly(Department department)
+        {
+            List<ValidationResult> results = new List<ValidationResult>();
+
+            Validator.TryValidateObject(department, new ValidationContext(department), results, true);
+
+            foreach (ValidationResult e in results)
+            {
+                department.AddError(new ValidationError(e.ErrorMessage, ErrorType.Model));
+            }
+
+            return department.Errors.Count == 0;
+        }
+
         #endregion
     }
 }

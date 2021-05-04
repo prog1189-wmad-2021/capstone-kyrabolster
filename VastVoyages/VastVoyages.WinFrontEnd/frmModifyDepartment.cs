@@ -45,9 +45,11 @@ namespace VastVoyages.WinFrontEnd
         {
             try
             {
+                string role = ((MainForm)this.MdiParent).loginInfo.Role;
+
                 Department department = PopulateDepartmentObject();
 
-                departmentService.UpdateDepartment(department);
+                departmentService.UpdateDepartment(department, role);
 
                 if (department.Errors.Count <= 0)
                 {
@@ -75,11 +77,16 @@ namespace VastVoyages.WinFrontEnd
 
         private void LoadDepartments()
         {
-            dgvDepartments.DataSource = departmentService.GetDepartments();
+            string role  = ((MainForm)this.MdiParent).loginInfo.Role;
+            int departmentId = ((MainForm)this.MdiParent).loginInfo.DepartmentId;
+
+            dgvDepartments.DataSource = departmentService.GetDepartments(role, departmentId);
         }
 
         private void PopulateDepartmentDetails()
         {
+            string role = ((MainForm)this.MdiParent).loginInfo.Role;
+            
             int departmentId = Convert.ToInt32(dgvDepartments.CurrentRow.Cells["DepartmentId"].Value);
 
             Department department = departmentService.GetDepartmentById(departmentId);
@@ -87,6 +94,12 @@ namespace VastVoyages.WinFrontEnd
             txtDepartmentName.Text = (department.DepartmentName).ToString();
             txtDepartmentDescription.Text = (department.DepartmentDescription).ToString();
             dtpInvocationDate.Text = (department.InvocationDate).ToString();
+
+            if (role == "Supervisor")
+            {
+                txtDepartmentName.ReadOnly = true;
+                dtpInvocationDate.Enabled = false;
+            }
         }
 
         private Department PopulateDepartmentObject()

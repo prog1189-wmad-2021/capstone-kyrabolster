@@ -148,6 +148,7 @@ namespace VastVoyages.WinFrontEnd
             this.modifyDepartmentToolStripMenuItem.Size = new System.Drawing.Size(250, 26);
             this.modifyDepartmentToolStripMenuItem.Tag = "ModifyDepartment";
             this.modifyDepartmentToolStripMenuItem.Text = "Modify Department";
+            this.modifyDepartmentToolStripMenuItem.Visible = false;
             this.modifyDepartmentToolStripMenuItem.Click += new System.EventHandler(this.ShowNewForm);
             // 
             // editMenu

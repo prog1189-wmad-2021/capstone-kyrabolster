@@ -22,18 +22,17 @@ namespace VastVoyages.Web.Controllers
             try
             {
                 List<Department> departments = new List<Department>();
-                departments = service.GetDepartments();
+                //departments = service.GetDepartments();
 
-                if (Session["role"].ToString() == "Supervisor")
-                {
-                    EmployeeDTO employee = new EmployeeDTO();
-                    employee = empService.SearchEmployeesById(Convert.ToInt32(Session["employeeId"]))[0];
+                EmployeeDTO employee = new EmployeeDTO();
+                employee = empService.SearchEmployeesById(Convert.ToInt32(Session["employeeId"]))[0];
 
-                    //get their department
-                    int departmentId = employee.DepartmentId;
+                int departmentId = employee.DepartmentId;
+                //int departmentId = (int)Session["departmentId"];
 
-                    departments = departments.Where(d => d.DepartmentId.Equals(departmentId)).ToList();
-                }
+                string role = Session["role"].ToString();
+
+                departments = service.GetDepartments(role, departmentId);
 
                 return View(departments);
             }
@@ -58,22 +57,22 @@ namespace VastVoyages.Web.Controllers
                 }
 
                 if (departmentId == null)
-                        return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
 
-                    Department departmentDetails = service.GetDepartmentById(departmentId.Value);
+                Department departmentDetails = service.GetDepartmentById(departmentId.Value);
 
-                    if (departmentDetails == null)
-                        return HttpNotFound();
+                if (departmentDetails == null)
+                    return HttpNotFound();
 
-                    Department department = new Department()
-                    {
-                        DepartmentId = departmentId.Value,
-                        DepartmentName = departmentDetails.DepartmentName,
-                        DepartmentDescription = departmentDetails.DepartmentDescription,
-                        InvocationDate = departmentDetails.InvocationDate
-                    };
+                Department department = new Department()
+                {
+                    DepartmentId = departmentId.Value,
+                    DepartmentName = departmentDetails.DepartmentName,
+                    DepartmentDescription = departmentDetails.DepartmentDescription,
+                    InvocationDate = departmentDetails.InvocationDate
+                };
 
-                    return View(department);
+                return View(department);
             }
             catch (Exception ex)
             {

@@ -241,6 +241,11 @@ namespace VastVoyages.WinFrontEnd
                         addDepartmentToolStripMenuItem.Visible = true;
                     }
 
+                    if (loginInfo.Role == "CEO" || loginInfo.Role == "HR Supervisor" || loginInfo.Role == "HR Employee" || loginInfo.Role == "Supervisor")
+                    {
+                        modifyDepartmentToolStripMenuItem.Visible = true;
+                    }
+
                     if (loginInfo.Role == "CEO" || loginInfo.Role == "HR Supervisor" || loginInfo.Role == "HR Employee")
                     {
                         viewEmpToolStripMenuItem.Visible = true;
