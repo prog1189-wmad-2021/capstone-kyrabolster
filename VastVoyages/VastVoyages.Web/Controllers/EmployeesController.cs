@@ -97,7 +97,7 @@ namespace VastVoyages.Web.Controllers
         }
 
         // GET: Employees/Edit/5
-        [CustomizeAuthorize(RoleName.CEO, RoleName.HRSupervisor, RoleName.HREmployee, RoleName.Employee)] //should only be employee logged in
+        [CustomizeAuthorize(RoleName.CEO, RoleName.HRSupervisor, RoleName.HREmployee, RoleName.Supervisor, RoleName.Employee)]
         public ActionResult Edit(int? employeeId)
         {
             try
@@ -162,7 +162,7 @@ namespace VastVoyages.Web.Controllers
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Recipe", "Edit"));
+                return View("Error", new HandleErrorInfo(ex, "Employee", "Edit"));
             }
         }
     }

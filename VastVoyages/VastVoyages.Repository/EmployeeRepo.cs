@@ -31,7 +31,7 @@ namespace VastVoyages.Repository
             parms.Add(new ParmStruct("@UserName", employee.UserName, SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@FirstName", employee.FirstName, SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@LastName", employee.LastName, SqlDbType.NVarChar));
-            parms.Add(new ParmStruct("@MiddleInit", 
+            parms.Add(new ParmStruct("@MiddleInit",
                 (!string.IsNullOrEmpty(employee.MiddleInitial) ? employee.MiddleInitial : (object)DBNull.Value),
                 SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@DateOfBirth", employee.DateOfBirth, SqlDbType.DateTime));
@@ -62,6 +62,11 @@ namespace VastVoyages.Repository
             return false;
         }
 
+        /// <summary>
+        /// Update Employee information for web application
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
         public Employee UpdatePersonalInfoWeb(Employee employee)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
@@ -151,7 +156,7 @@ namespace VastVoyages.Repository
             parms.Add(new ParmStruct("@DepartmentId", departmentId, SqlDbType.Int));
             parms.Add(new ParmStruct("@SupervisorId", supervisorId, SqlDbType.Int));
             parms.Add(new ParmStruct("@EmployeeCount", employeeCount, SqlDbType.Int, 0, ParameterDirection.Output));
-  
+
             db.ExecuteNonQuery("spGetSuperEmployeeCount", parms);
 
             employeeCount = (int)parms.Where(p => p.Name == "@EmployeeCount").FirstOrDefault().Value;
@@ -171,7 +176,7 @@ namespace VastVoyages.Repository
 
             foreach (DataRow row in dt.Rows)
             {
-                    employees.Add(new EmployeeDTO
+                employees.Add(new EmployeeDTO
                 {
                     EmpId = Convert.ToInt32(row["EmployeeId"]),
                     FirstName = row["FirstName"].ToString(),
@@ -221,7 +226,9 @@ namespace VastVoyages.Repository
                     PostalCode = row["PostalCode"].ToString(),
                     WorkPhone = row["WorkPhone"].ToString(),
                     CellPhone = row["CellPhone"].ToString(),
-                    Email = row["Email"].ToString()
+                    Email = row["Email"].ToString(),
+                    DepartmentId = Convert.ToInt32(row["DepartmentId"])
+
                 });
             }
 

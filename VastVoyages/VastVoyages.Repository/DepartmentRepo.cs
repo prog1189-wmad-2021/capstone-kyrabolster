@@ -38,6 +38,86 @@ namespace VastVoyages.Repository
 
             return false;
         }
+
+        /// <summary>
+        /// Update Department
+        /// </summary>
+        /// <param name="department"></param>
+        /// <returns></returns>
+        public Department UpdateDepartment(Department department)
+        {
+            List<ParmStruct> parms = new List<ParmStruct>();
+
+            //parms.Add(new ParmStruct("@RecordVersion", department.RecordVersion, SqlDbType.Timestamp, 0, ParameterDirection.Output));
+            parms.Add(new ParmStruct("@DepartmentId", department.DepartmentId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@DepartmentName", department.DepartmentName, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@DepartmentDescription", department.DepartmentDescription, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@InvocationDate", department.InvocationDate, SqlDbType.DateTime2));
+
+            db.ExecuteNonQuery("spUpdateDepartment", parms);
+
+            return department;
+        }
+
+        /// <summary>
+        /// Retrieve all Departments
+        /// </summary>
+        /// <returns></returns>
+        public List<Department> RetrieveDepartments()
+        {
+            List<ParmStruct> parms = new List<ParmStruct>();
+
+            DataTable dt = db.Execute("spGetDepartments", parms);
+
+            List<Department> departments = new List<Department>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                departments.Add(
+                    new Department
+                    {
+                        DepartmentId = Convert.ToInt32(row["DepartmentId"]),
+                        DepartmentName = row["DepartmentName"].ToString(),
+                        DepartmentDescription = row["DepartmentDescription"].ToString(),
+                        InvocationDate = Convert.ToDateTime(row["InvocationDate"])
+                    }
+                );
+            }
+
+            return departments;
+        }
+
+        /// <summary>
+        /// Retrieve department by Id
+        /// </summary>
+        /// <param name="departmentId"></param>
+        /// <returns></returns>
+        public Department GetDepartmentById(int departmentId)
+        {
+            List<ParmStruct> parms = new List<ParmStruct>()
+            {
+                new ParmStruct("@DepartmentId", departmentId, SqlDbType.Int)
+            };
+
+            DataTable dt = db.Execute("spGetDepartmentById", parms);
+
+            return dt.Rows.Count > 0 ? PopulateDepartment(dt.Rows[0]) : null;
+        }
+
+        #endregion
+
+        #region Private Methods
+        private Department PopulateDepartment(DataRow row)
+        {
+            return new Department
+            {
+                DepartmentId = Convert.ToInt32(row["DepartmentId"]),
+                DepartmentName = row["DepartmentName"].ToString(),
+                DepartmentDescription = row["DepartmentDescription"].ToString(),
+                InvocationDate = Convert.ToDateTime(row["InvocationDate"])
+            };
+        }
+
         #endregion
     }
 }

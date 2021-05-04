@@ -29,6 +29,37 @@ namespace VastVoyages.Service
                 return false;
         }
 
+        /// <summary>
+        /// Update department
+        /// </summary>
+        /// <param name="department"></param>
+        /// <returns></returns>
+        public Department UpdateDepartment(Department department)
+        {
+            if (ValidateDepartment(department))
+                return repo.UpdateDepartment(department);
+          
+                return department;
+        }
+
+        /// <summary>
+        /// Get all departments
+        /// </summary>
+        /// <returns></returns>
+        public List<Department> GetDepartments()
+        {
+            return repo.RetrieveDepartments();
+        }
+
+        /// <summary>
+        /// Get department by id
+        /// </summary>
+        /// <param name="departmentId"></param>
+        /// <returns></returns>
+        public Department GetDepartmentById(int departmentId)
+        {
+            return repo.GetDepartmentById(departmentId);
+        }
         #endregion
 
         #region Private Methods

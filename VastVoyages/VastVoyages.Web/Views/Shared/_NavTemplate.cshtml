@@ -75,10 +75,10 @@
                                 <a href="@Url.Action("Index", "Employees")">View Employees</a>
                             </li>
                         }
-                        @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "HR Supervisor" || Session["role"].ToString() == "HR Employee")
+                        @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "HR Supervisor" || Session["role"].ToString() == "HR Employee" || Session["role"].ToString() == "Supervisor")
                         {
                             <li>
-                                <a href="#">Create Department</a>
+                                <a href="@Url.Action("Index", "Departments")">Modify Departments</a>
                             </li>
                         }
                         @* For all employees *@

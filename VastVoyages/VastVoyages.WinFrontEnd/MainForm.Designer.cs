@@ -35,6 +35,8 @@ namespace VastVoyages.WinFrontEnd
             this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.viewEmpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AddEmpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addDepartmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modifyDepartmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,7 +78,6 @@ namespace VastVoyages.WinFrontEnd
             this.btnSupervisor = new System.Windows.Forms.Button();
             this.btnEmp = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.addDepartmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -104,7 +105,8 @@ namespace VastVoyages.WinFrontEnd
             this.fileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.viewEmpToolStripMenuItem,
             this.AddEmpToolStripMenuItem,
-            this.addDepartmentToolStripMenuItem});
+            this.addDepartmentToolStripMenuItem,
+            this.modifyDepartmentToolStripMenuItem});
             this.fileMenu.ImageTransparentColor = System.Drawing.SystemColors.ActiveBorder;
             this.fileMenu.Name = "fileMenu";
             this.fileMenu.Size = new System.Drawing.Size(43, 24);
@@ -131,6 +133,23 @@ namespace VastVoyages.WinFrontEnd
             this.AddEmpToolStripMenuItem.Visible = false;
             this.AddEmpToolStripMenuItem.Click += new System.EventHandler(this.ShowNewForm);
             // 
+            // addDepartmentToolStripMenuItem
+            // 
+            this.addDepartmentToolStripMenuItem.Name = "addDepartmentToolStripMenuItem";
+            this.addDepartmentToolStripMenuItem.Size = new System.Drawing.Size(250, 26);
+            this.addDepartmentToolStripMenuItem.Tag = "AddDepartment";
+            this.addDepartmentToolStripMenuItem.Text = "Add Department";
+            this.addDepartmentToolStripMenuItem.Visible = false;
+            this.addDepartmentToolStripMenuItem.Click += new System.EventHandler(this.ShowNewForm);
+            // 
+            // modifyDepartmentToolStripMenuItem
+            // 
+            this.modifyDepartmentToolStripMenuItem.Name = "modifyDepartmentToolStripMenuItem";
+            this.modifyDepartmentToolStripMenuItem.Size = new System.Drawing.Size(250, 26);
+            this.modifyDepartmentToolStripMenuItem.Tag = "ModifyDepartment";
+            this.modifyDepartmentToolStripMenuItem.Text = "Modify Department";
+            this.modifyDepartmentToolStripMenuItem.Click += new System.EventHandler(this.ShowNewForm);
+            // 
             // editMenu
             // 
             this.editMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -148,7 +167,7 @@ namespace VastVoyages.WinFrontEnd
             this.undoToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(211, 26);
             this.undoToolStripMenuItem.Tag = "ViewPO";
             this.undoToolStripMenuItem.Text = "&View PO";
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.ShowNewForm);
@@ -158,7 +177,7 @@ namespace VastVoyages.WinFrontEnd
             this.redoToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
             this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(211, 26);
             this.redoToolStripMenuItem.Tag = "CreatePO";
             this.redoToolStripMenuItem.Text = "&Create PO";
             this.redoToolStripMenuItem.Click += new System.EventHandler(this.ShowNewForm);
@@ -166,17 +185,17 @@ namespace VastVoyages.WinFrontEnd
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(221, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(208, 6);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(221, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(208, 6);
             // 
             // processPOToolStripMenuItem
             // 
             this.processPOToolStripMenuItem.Name = "processPOToolStripMenuItem";
-            this.processPOToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.processPOToolStripMenuItem.Size = new System.Drawing.Size(211, 26);
             this.processPOToolStripMenuItem.Tag = "ProcessPO";
             this.processPOToolStripMenuItem.Text = "Process PO";
             this.processPOToolStripMenuItem.Visible = false;
@@ -352,9 +371,9 @@ namespace VastVoyages.WinFrontEnd
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(565, 64);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox4.Size = new System.Drawing.Size(701, 140);
             this.groupBox4.TabIndex = 28;
             this.groupBox4.TabStop = false;
@@ -495,7 +514,7 @@ namespace VastVoyages.WinFrontEnd
             // btnSupervisor
             // 
             this.btnSupervisor.Location = new System.Drawing.Point(237, 378);
-            this.btnSupervisor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSupervisor.Margin = new System.Windows.Forms.Padding(4);
             this.btnSupervisor.Name = "btnSupervisor";
             this.btnSupervisor.Size = new System.Drawing.Size(220, 130);
             this.btnSupervisor.TabIndex = 31;
@@ -506,7 +525,7 @@ namespace VastVoyages.WinFrontEnd
             // btnEmp
             // 
             this.btnEmp.Location = new System.Drawing.Point(595, 378);
-            this.btnEmp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEmp.Margin = new System.Windows.Forms.Padding(4);
             this.btnEmp.Name = "btnEmp";
             this.btnEmp.Size = new System.Drawing.Size(220, 130);
             this.btnEmp.TabIndex = 32;
@@ -517,21 +536,12 @@ namespace VastVoyages.WinFrontEnd
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(40, 64);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(499, 140);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 29;
             this.pictureBox1.TabStop = false;
-            // 
-            // addDepartmentToolStripMenuItem
-            // 
-            this.addDepartmentToolStripMenuItem.Name = "addDepartmentToolStripMenuItem";
-            this.addDepartmentToolStripMenuItem.Size = new System.Drawing.Size(250, 26);
-            this.addDepartmentToolStripMenuItem.Tag = "AddDepartment";
-            this.addDepartmentToolStripMenuItem.Text = "Add Department";
-            this.addDepartmentToolStripMenuItem.Visible = false;
-            this.addDepartmentToolStripMenuItem.Click += new System.EventHandler(this.ShowNewForm);
             // 
             // MainForm
             // 
@@ -547,7 +557,7 @@ namespace VastVoyages.WinFrontEnd
             this.Controls.Add(this.menuStrip);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Vast Voyages Management System";
@@ -614,6 +624,7 @@ namespace VastVoyages.WinFrontEnd
         private System.Windows.Forms.Label lbUserName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem addDepartmentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem modifyDepartmentToolStripMenuItem;
     }
 }
 

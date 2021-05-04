@@ -57,6 +57,9 @@ namespace VastVoyages.WinFrontEnd
                     case "ViewEmployees":
                         childForm = new frmSearchEmployees();
                         break;
+                    case "ModifyDepartment":
+                        childForm = new frmModifyDepartment();
+                        break;
 
                         //case "Book":
                         //    childForm = new frmMaintenanceBook();
