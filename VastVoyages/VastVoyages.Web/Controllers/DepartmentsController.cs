@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using VastVoyages.Model;
 using VastVoyages.Model.Entities;
 using VastVoyages.Service;
+using VastVoyages.Types;
 using VastVoyages.Web.CustomAuthoize;
 
 namespace VastVoyages.Web.Controllers
@@ -71,7 +72,8 @@ namespace VastVoyages.Web.Controllers
                     DepartmentId = departmentId.Value,
                     DepartmentName = departmentDetails.DepartmentName,
                     DepartmentDescription = departmentDetails.DepartmentDescription,
-                    InvocationDate = departmentDetails.InvocationDate
+                    InvocationDate = departmentDetails.InvocationDate,
+                    RecordVersion = departmentDetails.RecordVersion
                 };
 
                 //originalInvocationDate = department.InvocationDate;
@@ -97,14 +99,15 @@ namespace VastVoyages.Web.Controllers
                 if (department.Errors.Count == 0)
                 {
                     TempData["Success"] = department.DepartmentName + " department sucessfully updated. ";
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home");
                 }
 
                 return View(department);
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Department", "Edit"));
+                department.AddError(new ValidationError(ex.Message, ErrorType.Business));
+                return View(department);
             }
         }
     }

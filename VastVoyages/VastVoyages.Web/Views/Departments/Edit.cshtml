@@ -33,6 +33,7 @@
                 </div>
             }
             @Html.HiddenFor(model => model.DepartmentId)
+            @Html.HiddenFor(model => model.RecordVersion)
 
             <div class="form-group">
                 @Html.LabelFor(model => model.DepartmentName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -65,7 +66,7 @@
                 <div class="col-md-10">
                     @if (Session["role"].ToString() == "Supervisor")
                     {
-                        @Html.EditorFor(model => model.InvocationDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly"} })
+                        @Html.EditorFor(model => model.InvocationDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                     }
                     else
                     {

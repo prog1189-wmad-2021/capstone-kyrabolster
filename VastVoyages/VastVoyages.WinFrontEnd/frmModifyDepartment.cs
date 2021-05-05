@@ -20,6 +20,7 @@ namespace VastVoyages.WinFrontEnd
         }
 
         DepartmentService departmentService = new DepartmentService();
+        byte[] _recordVersion;
 
         private void frmModifyDepartment_Load(object sender, EventArgs e)
         {
@@ -80,7 +81,12 @@ namespace VastVoyages.WinFrontEnd
             string role  = ((MainForm)this.MdiParent).loginInfo.Role;
             int departmentId = ((MainForm)this.MdiParent).loginInfo.DepartmentId;
 
+            //dgvDepartments.DataSource = departmentService.GetDepartments(role, departmentId).Select(o => new
+            //{ DepartmentId = o.DepartmentId, Name = o.DepartmentName, Date = o.InvocationDate }).ToList();
+
             dgvDepartments.DataSource = departmentService.GetDepartments(role, departmentId);
+            dgvDepartments.Columns["RecordVersion"].Visible = false;
+
         }
 
         private void PopulateDepartmentDetails()
@@ -94,6 +100,7 @@ namespace VastVoyages.WinFrontEnd
             txtDepartmentName.Text = (department.DepartmentName).ToString();
             txtDepartmentDescription.Text = (department.DepartmentDescription).ToString();
             dtpInvocationDate.Text = (department.InvocationDate).ToString();
+            _recordVersion = (byte[])(department.RecordVersion);
 
             if (role == "Supervisor")
             {
@@ -110,6 +117,7 @@ namespace VastVoyages.WinFrontEnd
                 DepartmentName = txtDepartmentName.Text.Trim(),
                 DepartmentDescription = txtDepartmentDescription.Text.Trim(),
                 InvocationDate = dtpInvocationDate.Value,
+                RecordVersion = _recordVersion
             };
         }
 

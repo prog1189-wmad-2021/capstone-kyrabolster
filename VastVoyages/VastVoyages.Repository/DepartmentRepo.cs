@@ -50,13 +50,16 @@ namespace VastVoyages.Repository
         {
             List<ParmStruct> parms = new List<ParmStruct>();
 
-            //parms.Add(new ParmStruct("@RecordVersion", department.RecordVersion, SqlDbType.Timestamp, 0, ParameterDirection.Output));
+            parms.Add(new ParmStruct("@RecordVersion", department.RecordVersion, SqlDbType.Timestamp, 0, ParameterDirection.InputOutput));
             parms.Add(new ParmStruct("@DepartmentId", department.DepartmentId, SqlDbType.Int));
             parms.Add(new ParmStruct("@DepartmentName", department.DepartmentName, SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@DepartmentDescription", department.DepartmentDescription, SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@InvocationDate", department.InvocationDate, SqlDbType.DateTime2));
 
-            db.ExecuteNonQuery("spUpdateDepartment", parms);
+            if (db.ExecuteNonQuery("spUpdateDepartment", parms) > 0)
+            {
+                department.RecordVersion = (byte[])parms.Where(p => p.Name == "@RecordVersion").FirstOrDefault().Value;
+            }
 
             return department;
         }
@@ -79,6 +82,7 @@ namespace VastVoyages.Repository
                     new Department
                     {
                         DepartmentId = Convert.ToInt32(row["DepartmentId"]),
+                        RecordVersion = (byte[])row["RecordVersion"],
                         DepartmentName = row["DepartmentName"].ToString(),
                         DepartmentDescription = row["DepartmentDescription"].ToString(),
                         InvocationDate = Convert.ToDateTime(row["InvocationDate"])
@@ -114,6 +118,7 @@ namespace VastVoyages.Repository
             return new Department
             {
                 DepartmentId = Convert.ToInt32(row["DepartmentId"]),
+                RecordVersion = (byte[])row["RecordVersion"],
                 DepartmentName = row["DepartmentName"].ToString(),
                 DepartmentDescription = row["DepartmentDescription"].ToString(),
                 InvocationDate = Convert.ToDateTime(row["InvocationDate"])
