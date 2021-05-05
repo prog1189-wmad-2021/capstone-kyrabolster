@@ -49,6 +49,7 @@ namespace VastVoyages.Repository
             parms.Add(new ParmStruct("@SeniorityDate", employee.SeniorityDate, SqlDbType.DateTime));
             parms.Add(new ParmStruct("@SIN", employee.SIN, SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@SupervisorId", employee.SupervisorId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@IsHeadSupervisor", employee.IsHeadSupervisor, SqlDbType.Bit));
             parms.Add(new ParmStruct("@DepartmentId", employee.DepartmentId, SqlDbType.Int));
             parms.Add(new ParmStruct("@EmployeeStatusId", employee.EmployeeStatusId, SqlDbType.Int));
             parms.Add(new ParmStruct("@JobAssignmentId", employee.JobAssignmentId, SqlDbType.Int));
@@ -304,6 +305,7 @@ namespace VastVoyages.Repository
                 //JobAssignmentId = Convert.ToInt32(row["JobAssignmentId"])
             };
         }
+
         #endregion
     }
 }

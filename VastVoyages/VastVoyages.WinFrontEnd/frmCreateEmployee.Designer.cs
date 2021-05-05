@@ -57,6 +57,8 @@
             this.label15 = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.grpEmploymentDetails = new System.Windows.Forms.GroupBox();
+            this.lblHeadSupervisor = new System.Windows.Forms.Label();
+            this.chkHeadSupervisor = new System.Windows.Forms.CheckBox();
             this.lblSupervisorMsg = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.chkIsSupervisor = new System.Windows.Forms.CheckBox();
@@ -110,7 +112,7 @@
             // btnCreateEmployee
             // 
             this.btnCreateEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCreateEmployee.Location = new System.Drawing.Point(577, 660);
+            this.btnCreateEmployee.Location = new System.Drawing.Point(578, 684);
             this.btnCreateEmployee.Name = "btnCreateEmployee";
             this.btnCreateEmployee.Size = new System.Drawing.Size(111, 39);
             this.btnCreateEmployee.TabIndex = 19;
@@ -330,6 +332,8 @@
             // 
             // grpEmploymentDetails
             // 
+            this.grpEmploymentDetails.Controls.Add(this.lblHeadSupervisor);
+            this.grpEmploymentDetails.Controls.Add(this.chkHeadSupervisor);
             this.grpEmploymentDetails.Controls.Add(this.lblSupervisorMsg);
             this.grpEmploymentDetails.Controls.Add(this.label21);
             this.grpEmploymentDetails.Controls.Add(this.chkIsSupervisor);
@@ -345,10 +349,28 @@
             this.grpEmploymentDetails.Controls.Add(this.dtpJobStartDate);
             this.grpEmploymentDetails.Location = new System.Drawing.Point(13, 483);
             this.grpEmploymentDetails.Name = "grpEmploymentDetails";
-            this.grpEmploymentDetails.Size = new System.Drawing.Size(1226, 161);
+            this.grpEmploymentDetails.Size = new System.Drawing.Size(1226, 185);
             this.grpEmploymentDetails.TabIndex = 13;
             this.grpEmploymentDetails.TabStop = false;
             this.grpEmploymentDetails.Text = "Employment Information";
+            // 
+            // lblHeadSupervisor
+            // 
+            this.lblHeadSupervisor.AutoSize = true;
+            this.lblHeadSupervisor.Location = new System.Drawing.Point(870, 74);
+            this.lblHeadSupervisor.Name = "lblHeadSupervisor";
+            this.lblHeadSupervisor.Size = new System.Drawing.Size(136, 17);
+            this.lblHeadSupervisor.TabIndex = 19;
+            this.lblHeadSupervisor.Text = "Is Head Supervisor?";
+            // 
+            // chkHeadSupervisor
+            // 
+            this.chkHeadSupervisor.AutoSize = true;
+            this.chkHeadSupervisor.Location = new System.Drawing.Point(1012, 75);
+            this.chkHeadSupervisor.Name = "chkHeadSupervisor";
+            this.chkHeadSupervisor.Size = new System.Drawing.Size(18, 17);
+            this.chkHeadSupervisor.TabIndex = 20;
+            this.chkHeadSupervisor.UseVisualStyleBackColor = true;
             // 
             // lblSupervisorMsg
             // 
@@ -748,5 +770,7 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.ComboBox cmbCountry;
         private System.Windows.Forms.ComboBox cmbProvince;
+        private System.Windows.Forms.Label lblHeadSupervisor;
+        private System.Windows.Forms.CheckBox chkHeadSupervisor;
     }
 }
