@@ -25,6 +25,7 @@ namespace VastVoyages.Repository
         {
             List<ParmStruct> parms = new List<ParmStruct>();
 
+            parms.Add(new ParmStruct("@RecordVersion", department.RecordVersion, SqlDbType.Timestamp, 0, ParameterDirection.Output));
             parms.Add(new ParmStruct("@DepartmentId", department.DepartmentId, SqlDbType.Int, 0, ParameterDirection.Output));
             parms.Add(new ParmStruct("@DepartmentName", department.DepartmentName, SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@DepartmentDescription", department.DepartmentDescription, SqlDbType.NVarChar));
@@ -32,6 +33,7 @@ namespace VastVoyages.Repository
 
             if (db.ExecuteNonQuery("spInsertDepartment", parms) > 0)
             {
+                department.RecordVersion = (byte[])parms.Where(p => p.Name == "@RecordVersion").FirstOrDefault().Value;
                 department.DepartmentId = (int)parms.Where(p => p.Name == "@DepartmentId").FirstOrDefault().Value;
                 return true;
             }

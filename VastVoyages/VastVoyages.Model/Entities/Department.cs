@@ -12,6 +12,8 @@ namespace VastVoyages.Model
         [Key]
         public int DepartmentId { get; set; }
 
+        public byte[] RecordVersion { get; set; }
+
         [Display(Name = "Name")]
         [Required(ErrorMessage = "Department name is required")]
         [StringLength(255, ErrorMessage = "Department name must be between 2 and 255 characters in length.", MinimumLength = 2)]
