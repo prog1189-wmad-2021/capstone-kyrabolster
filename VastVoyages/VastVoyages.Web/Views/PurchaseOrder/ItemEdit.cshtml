@@ -69,11 +69,16 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <div class="col-md-10">
+                            <input type="checkbox" id="chkNoNeed" name="chkNoNeed" value="1"/> @Html.Label("No longer needed")
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div style="text-align:center">
                             <button type="submit" value="Create" class="btn btn-info">Save Item</button>
                         </div>
                     </div>
-                </div>
+                    </div>
             </div>
             if (Model.Errors.Count > 0)
             {

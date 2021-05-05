@@ -45,6 +45,7 @@ namespace VastVoyages.Web.Controllers
                     Session["department"] = loginInfo.Department;
                     Session["job"] = loginInfo.Job;
                     Session["supervisor"] = loginInfo.Supervisor;
+                    Session["isHeadSupervisor"] = loginInfo.IsHeadSupervisor;
                     Session["role"] = loginInfo.Role;
 
                     return RedirectToAction("Index", "Home");

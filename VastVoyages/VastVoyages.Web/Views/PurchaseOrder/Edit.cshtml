@@ -175,9 +175,12 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.DecisionReason)
                         </td>
-                        <td>
-                            @Html.ActionLink("Edit", "ItemEdit", new { ItemId = item.ItemId })
-                        </td>
+                        @if(item.ItemStatusId == 1)
+                        {
+                            <td>
+                                @Html.ActionLink("Edit", "ItemEdit", new { ItemId = item.ItemId })
+                            </td>
+                        }
                     </tr>
                 }
                         }

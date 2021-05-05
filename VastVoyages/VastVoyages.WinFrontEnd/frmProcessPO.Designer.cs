@@ -30,7 +30,10 @@ namespace VastVoyages.WinFrontEnd
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProcessPO));
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.grpItemDetails = new System.Windows.Forms.GroupBox();
+            this.lbItemId = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtLocation = new System.Windows.Forms.TextBox();
             this.numQty = new System.Windows.Forms.NumericUpDown();
             this.lbSubTotal = new System.Windows.Forms.Label();
             this.lbItemDescription = new System.Windows.Forms.Label();
@@ -41,32 +44,15 @@ namespace VastVoyages.WinFrontEnd
             this.cmbItemStatus = new System.Windows.Forms.ComboBox();
             this.label25 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
-            this.btnSave = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.lbItemName = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.lbLocation = new System.Windows.Forms.Label();
             this.lbJustification = new System.Windows.Forms.Label();
-            this.txtPONumber = new System.Windows.Forms.TextBox();
-            this.rdbStatus = new System.Windows.Forms.RadioButton();
-            this.cmbPOStatus = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.rdbPONumber = new System.Windows.Forms.RadioButton();
-            this.rdbName = new System.Windows.Forms.RadioButton();
-            this.rdbDate = new System.Windows.Forms.RadioButton();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.btnExit = new System.Windows.Forms.Button();
-            this.txtEmpName = new System.Windows.Forms.TextBox();
             this.dgvItem = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dtpend = new System.Windows.Forms.DateTimePicker();
-            this.dtpStart = new System.Windows.Forms.DateTimePicker();
-            this.dgvPO = new System.Windows.Forms.DataGridView();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.lbUserName = new System.Windows.Forms.Label();
@@ -81,50 +67,93 @@ namespace VastVoyages.WinFrontEnd
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.groupBox5.SuspendLayout();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dgvPO = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnSearchCriteriaReset = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtEmpName = new System.Windows.Forms.TextBox();
+            this.cmbPOStatus = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.dtpEnd = new System.Windows.Forms.DateTimePicker();
+            this.dtpStart = new System.Windows.Forms.DateTimePicker();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.grpItemDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numQty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItem)).BeginInit();
             this.groupBox3.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPO)).BeginInit();
-            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox4.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPO)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox5
+            // grpItemDetails
             // 
-            this.groupBox5.Controls.Add(this.numQty);
-            this.groupBox5.Controls.Add(this.lbSubTotal);
-            this.groupBox5.Controls.Add(this.lbItemDescription);
-            this.groupBox5.Controls.Add(this.label22);
-            this.groupBox5.Controls.Add(this.txtReason);
-            this.groupBox5.Controls.Add(this.txtPrice);
-            this.groupBox5.Controls.Add(this.label24);
-            this.groupBox5.Controls.Add(this.cmbItemStatus);
-            this.groupBox5.Controls.Add(this.label25);
-            this.groupBox5.Controls.Add(this.label23);
-            this.groupBox5.Controls.Add(this.btnSave);
-            this.groupBox5.Controls.Add(this.label19);
-            this.groupBox5.Controls.Add(this.label21);
-            this.groupBox5.Controls.Add(this.label20);
-            this.groupBox5.Controls.Add(this.label18);
-            this.groupBox5.Controls.Add(this.lbItemName);
-            this.groupBox5.Controls.Add(this.label6);
-            this.groupBox5.Controls.Add(this.lbLocation);
-            this.groupBox5.Controls.Add(this.lbJustification);
-            this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(627, 425);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(317, 380);
-            this.groupBox5.TabIndex = 35;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Item Details";
+            this.grpItemDetails.Controls.Add(this.lbItemId);
+            this.grpItemDetails.Controls.Add(this.label11);
+            this.grpItemDetails.Controls.Add(this.txtLocation);
+            this.grpItemDetails.Controls.Add(this.numQty);
+            this.grpItemDetails.Controls.Add(this.lbSubTotal);
+            this.grpItemDetails.Controls.Add(this.lbItemDescription);
+            this.grpItemDetails.Controls.Add(this.label22);
+            this.grpItemDetails.Controls.Add(this.txtReason);
+            this.grpItemDetails.Controls.Add(this.txtPrice);
+            this.grpItemDetails.Controls.Add(this.label24);
+            this.grpItemDetails.Controls.Add(this.cmbItemStatus);
+            this.grpItemDetails.Controls.Add(this.label25);
+            this.grpItemDetails.Controls.Add(this.label23);
+            this.grpItemDetails.Controls.Add(this.btnSave);
+            this.grpItemDetails.Controls.Add(this.label19);
+            this.grpItemDetails.Controls.Add(this.label21);
+            this.grpItemDetails.Controls.Add(this.label20);
+            this.grpItemDetails.Controls.Add(this.label18);
+            this.grpItemDetails.Controls.Add(this.lbItemName);
+            this.grpItemDetails.Controls.Add(this.label6);
+            this.grpItemDetails.Controls.Add(this.lbJustification);
+            this.grpItemDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpItemDetails.Location = new System.Drawing.Point(627, 425);
+            this.grpItemDetails.Name = "grpItemDetails";
+            this.grpItemDetails.Size = new System.Drawing.Size(317, 414);
+            this.grpItemDetails.TabIndex = 35;
+            this.grpItemDetails.TabStop = false;
+            this.grpItemDetails.Text = "Item Details";
+            // 
+            // lbItemId
+            // 
+            this.lbItemId.AutoSize = true;
+            this.lbItemId.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbItemId.Location = new System.Drawing.Point(91, 31);
+            this.lbItemId.Name = "lbItemId";
+            this.lbItemId.Size = new System.Drawing.Size(0, 17);
+            this.lbItemId.TabIndex = 68;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(30, 31);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(55, 17);
+            this.label11.TabIndex = 67;
+            this.label11.Text = "Item ID:";
+            // 
+            // txtLocation
+            // 
+            this.txtLocation.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLocation.Location = new System.Drawing.Point(89, 206);
+            this.txtLocation.Name = "txtLocation";
+            this.txtLocation.Size = new System.Drawing.Size(212, 21);
+            this.txtLocation.TabIndex = 66;
             // 
             // numQty
             // 
             this.numQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numQty.Location = new System.Drawing.Point(89, 200);
+            this.numQty.Location = new System.Drawing.Point(89, 234);
             this.numQty.Name = "numQty";
             this.numQty.Size = new System.Drawing.Size(82, 20);
             this.numQty.TabIndex = 65;
@@ -133,26 +162,24 @@ namespace VastVoyages.WinFrontEnd
             // 
             this.lbSubTotal.AutoSize = true;
             this.lbSubTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSubTotal.Location = new System.Drawing.Point(91, 230);
+            this.lbSubTotal.Location = new System.Drawing.Point(91, 264);
             this.lbSubTotal.Name = "lbSubTotal";
-            this.lbSubTotal.Size = new System.Drawing.Size(48, 17);
+            this.lbSubTotal.Size = new System.Drawing.Size(0, 17);
             this.lbSubTotal.TabIndex = 58;
-            this.lbSubTotal.Text = "$ 9.88";
             // 
             // lbItemDescription
             // 
             this.lbItemDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbItemDescription.Location = new System.Drawing.Point(91, 53);
+            this.lbItemDescription.Location = new System.Drawing.Point(91, 87);
             this.lbItemDescription.Name = "lbItemDescription";
             this.lbItemDescription.Size = new System.Drawing.Size(220, 44);
             this.lbItemDescription.TabIndex = 57;
-            this.lbItemDescription.Text = "Black color pen to write on the paper";
             // 
             // label22
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(3, 53);
+            this.label22.Location = new System.Drawing.Point(3, 87);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(83, 17);
             this.label22.TabIndex = 56;
@@ -160,7 +187,8 @@ namespace VastVoyages.WinFrontEnd
             // 
             // txtReason
             // 
-            this.txtReason.Location = new System.Drawing.Point(92, 288);
+            this.txtReason.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtReason.Location = new System.Drawing.Point(92, 322);
             this.txtReason.Multiline = true;
             this.txtReason.Name = "txtReason";
             this.txtReason.Size = new System.Drawing.Size(209, 42);
@@ -169,17 +197,16 @@ namespace VastVoyages.WinFrontEnd
             // txtPrice
             // 
             this.txtPrice.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPrice.Location = new System.Drawing.Point(223, 200);
+            this.txtPrice.Location = new System.Drawing.Point(223, 234);
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(78, 21);
             this.txtPrice.TabIndex = 50;
-            this.txtPrice.Text = "4.99";
             // 
             // label24
             // 
             this.label24.AutoSize = true;
             this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(34, 258);
+            this.label24.Location = new System.Drawing.Point(34, 292);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(52, 17);
             this.label24.TabIndex = 52;
@@ -187,18 +214,18 @@ namespace VastVoyages.WinFrontEnd
             // 
             // cmbItemStatus
             // 
-            this.cmbItemStatus.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbItemStatus.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbItemStatus.FormattingEnabled = true;
-            this.cmbItemStatus.Location = new System.Drawing.Point(92, 257);
+            this.cmbItemStatus.Location = new System.Drawing.Point(92, 291);
             this.cmbItemStatus.Name = "cmbItemStatus";
-            this.cmbItemStatus.Size = new System.Drawing.Size(209, 22);
+            this.cmbItemStatus.Size = new System.Drawing.Size(209, 24);
             this.cmbItemStatus.TabIndex = 53;
             // 
             // label25
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(25, 290);
+            this.label25.Location = new System.Drawing.Point(25, 324);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(61, 17);
             this.label25.TabIndex = 54;
@@ -208,27 +235,17 @@ namespace VastVoyages.WinFrontEnd
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(16, 230);
+            this.label23.Location = new System.Drawing.Point(16, 264);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(73, 17);
             this.label23.TabIndex = 49;
             this.label23.Text = "Sub Total:";
             // 
-            // btnSave
-            // 
-            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(139, 336);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(100, 36);
-            this.btnSave.TabIndex = 16;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            // 
             // label19
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(177, 202);
+            this.label19.Location = new System.Drawing.Point(177, 236);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(44, 17);
             this.label19.TabIndex = 48;
@@ -238,7 +255,7 @@ namespace VastVoyages.WinFrontEnd
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(36, 29);
+            this.label21.Location = new System.Drawing.Point(36, 59);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(49, 17);
             this.label21.TabIndex = 40;
@@ -248,7 +265,7 @@ namespace VastVoyages.WinFrontEnd
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(24, 200);
+            this.label20.Location = new System.Drawing.Point(24, 234);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(65, 17);
             this.label20.TabIndex = 41;
@@ -258,7 +275,7 @@ namespace VastVoyages.WinFrontEnd
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(23, 173);
+            this.label18.Location = new System.Drawing.Point(23, 207);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(66, 17);
             this.label18.TabIndex = 42;
@@ -268,151 +285,38 @@ namespace VastVoyages.WinFrontEnd
             // 
             this.lbItemName.AutoSize = true;
             this.lbItemName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbItemName.Location = new System.Drawing.Point(91, 29);
+            this.lbItemName.Location = new System.Drawing.Point(91, 59);
             this.lbItemName.Name = "lbItemName";
-            this.lbItemName.Size = new System.Drawing.Size(70, 17);
+            this.lbItemName.Size = new System.Drawing.Size(0, 17);
             this.lbItemName.TabIndex = 44;
-            this.lbItemName.Text = "Black pen";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(3, 104);
+            this.label6.Location = new System.Drawing.Point(3, 138);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(86, 17);
             this.label6.TabIndex = 43;
             this.label6.Text = "Justification:";
             // 
-            // lbLocation
-            // 
-            this.lbLocation.AutoSize = true;
-            this.lbLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbLocation.Location = new System.Drawing.Point(91, 173);
-            this.lbLocation.Name = "lbLocation";
-            this.lbLocation.Size = new System.Drawing.Size(55, 17);
-            this.lbLocation.TabIndex = 46;
-            this.lbLocation.Text = "Staples";
-            // 
             // lbJustification
             // 
             this.lbJustification.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbJustification.Location = new System.Drawing.Point(91, 104);
+            this.lbJustification.Location = new System.Drawing.Point(91, 138);
             this.lbJustification.Name = "lbJustification";
             this.lbJustification.Size = new System.Drawing.Size(220, 69);
             this.lbJustification.TabIndex = 47;
-            this.lbJustification.Text = "The old black pen is broken, and we need more pen for paper work";
-            // 
-            // txtPONumber
-            // 
-            this.txtPONumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPONumber.Location = new System.Drawing.Point(409, 54);
-            this.txtPONumber.Name = "txtPONumber";
-            this.txtPONumber.Size = new System.Drawing.Size(166, 20);
-            this.txtPONumber.TabIndex = 24;
-            // 
-            // rdbStatus
-            // 
-            this.rdbStatus.AutoSize = true;
-            this.rdbStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbStatus.Location = new System.Drawing.Point(592, 55);
-            this.rdbStatus.Name = "rdbStatus";
-            this.rdbStatus.Size = new System.Drawing.Size(58, 17);
-            this.rdbStatus.TabIndex = 23;
-            this.rdbStatus.TabStop = true;
-            this.rdbStatus.Text = "Status:";
-            this.rdbStatus.UseVisualStyleBackColor = true;
-            // 
-            // cmbPOStatus
-            // 
-            this.cmbPOStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbPOStatus.FormattingEnabled = true;
-            this.cmbPOStatus.Location = new System.Drawing.Point(652, 54);
-            this.cmbPOStatus.Name = "cmbPOStatus";
-            this.cmbPOStatus.Size = new System.Drawing.Size(102, 21);
-            this.cmbPOStatus.TabIndex = 22;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(297, 28);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(16, 17);
-            this.label2.TabIndex = 21;
-            this.label2.Text = "~";
-            // 
-            // rdbPONumber
-            // 
-            this.rdbPONumber.AutoSize = true;
-            this.rdbPONumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbPONumber.Location = new System.Drawing.Point(317, 54);
-            this.rdbPONumber.Name = "rdbPONumber";
-            this.rdbPONumber.Size = new System.Drawing.Size(92, 17);
-            this.rdbPONumber.TabIndex = 20;
-            this.rdbPONumber.TabStop = true;
-            this.rdbPONumber.Text = "P.O. Number :";
-            this.rdbPONumber.UseVisualStyleBackColor = true;
-            // 
-            // rdbName
-            // 
-            this.rdbName.AutoSize = true;
-            this.rdbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbName.Location = new System.Drawing.Point(14, 53);
-            this.rdbName.Name = "rdbName";
-            this.rdbName.Size = new System.Drawing.Size(105, 17);
-            this.rdbName.TabIndex = 19;
-            this.rdbName.TabStop = true;
-            this.rdbName.Text = "Employee Name:";
-            this.rdbName.UseVisualStyleBackColor = true;
-            // 
-            // rdbDate
-            // 
-            this.rdbDate.AutoSize = true;
-            this.rdbDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbDate.Location = new System.Drawing.Point(13, 24);
-            this.rdbDate.Name = "rdbDate";
-            this.rdbDate.Size = new System.Drawing.Size(86, 17);
-            this.rdbDate.TabIndex = 18;
-            this.rdbDate.TabStop = true;
-            this.rdbDate.Text = "Date Range:";
-            this.rdbDate.UseVisualStyleBackColor = true;
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Location = new System.Drawing.Point(785, 26);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(121, 48);
-            this.btnSearch.TabIndex = 15;
-            this.btnSearch.Text = "Search";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            // 
-            // btnExit
-            // 
-            this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.Location = new System.Drawing.Point(840, 811);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(100, 36);
-            this.btnExit.TabIndex = 36;
-            this.btnExit.Text = "Exit";
-            this.btnExit.UseVisualStyleBackColor = true;
-            // 
-            // txtEmpName
-            // 
-            this.txtEmpName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmpName.Location = new System.Drawing.Point(125, 53);
-            this.txtEmpName.Name = "txtEmpName";
-            this.txtEmpName.Size = new System.Drawing.Size(166, 20);
-            this.txtEmpName.TabIndex = 14;
             // 
             // dgvItem
             // 
             this.dgvItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvItem.Location = new System.Drawing.Point(8, 19);
             this.dgvItem.Name = "dgvItem";
-            this.dgvItem.Size = new System.Drawing.Size(591, 355);
+            this.dgvItem.ReadOnly = true;
+            this.dgvItem.Size = new System.Drawing.Size(591, 391);
             this.dgvItem.TabIndex = 22;
+            this.dgvItem.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvItem_CellClick);
             // 
             // groupBox3
             // 
@@ -420,66 +324,10 @@ namespace VastVoyages.WinFrontEnd
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(12, 423);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(605, 382);
+            this.groupBox3.Size = new System.Drawing.Size(605, 416);
             this.groupBox3.TabIndex = 31;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Item List";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.txtPONumber);
-            this.groupBox1.Controls.Add(this.rdbStatus);
-            this.groupBox1.Controls.Add(this.cmbPOStatus);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.rdbPONumber);
-            this.groupBox1.Controls.Add(this.rdbName);
-            this.groupBox1.Controls.Add(this.rdbDate);
-            this.groupBox1.Controls.Add(this.btnSearch);
-            this.groupBox1.Controls.Add(this.txtEmpName);
-            this.groupBox1.Controls.Add(this.dtpend);
-            this.groupBox1.Controls.Add(this.dtpStart);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 132);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(932, 93);
-            this.groupBox1.TabIndex = 34;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Search PO";
-            // 
-            // dtpend
-            // 
-            this.dtpend.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpend.Location = new System.Drawing.Point(317, 22);
-            this.dtpend.Name = "dtpend";
-            this.dtpend.Size = new System.Drawing.Size(190, 20);
-            this.dtpend.TabIndex = 3;
-            // 
-            // dtpStart
-            // 
-            this.dtpStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpStart.Location = new System.Drawing.Point(101, 22);
-            this.dtpStart.Name = "dtpStart";
-            this.dtpStart.Size = new System.Drawing.Size(190, 20);
-            this.dtpStart.TabIndex = 2;
-            // 
-            // dgvPO
-            // 
-            this.dgvPO.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPO.Location = new System.Drawing.Point(8, 19);
-            this.dgvPO.Name = "dgvPO";
-            this.dgvPO.Size = new System.Drawing.Size(918, 148);
-            this.dgvPO.TabIndex = 22;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.dgvPO);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(12, 244);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(932, 173);
-            this.groupBox2.TabIndex = 33;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Purchase Order List";
             // 
             // pictureBox1
             // 
@@ -633,72 +481,203 @@ namespace VastVoyages.WinFrontEnd
             this.label7.TabIndex = 5;
             this.label7.Text = "Name:";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.dgvPO);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(12, 231);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(932, 188);
+            this.groupBox2.TabIndex = 45;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Purchase Order List";
+            // 
+            // dgvPO
+            // 
+            this.dgvPO.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPO.Location = new System.Drawing.Point(8, 19);
+            this.dgvPO.Name = "dgvPO";
+            this.dgvPO.ReadOnly = true;
+            this.dgvPO.Size = new System.Drawing.Size(918, 163);
+            this.dgvPO.TabIndex = 22;
+            this.dgvPO.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPO_CellClick);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnSearchCriteriaReset);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.txtEmpName);
+            this.groupBox1.Controls.Add(this.cmbPOStatus);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.btnSearch);
+            this.groupBox1.Controls.Add(this.dtpEnd);
+            this.groupBox1.Controls.Add(this.dtpStart);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(12, 132);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(932, 93);
+            this.groupBox1.TabIndex = 65;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Search PO";
+            // 
+            // btnSearchCriteriaReset
+            // 
+            this.btnSearchCriteriaReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearchCriteriaReset.Location = new System.Drawing.Point(742, 30);
+            this.btnSearchCriteriaReset.Name = "btnSearchCriteriaReset";
+            this.btnSearchCriteriaReset.Size = new System.Drawing.Size(121, 48);
+            this.btnSearchCriteriaReset.TabIndex = 28;
+            this.btnSearchCriteriaReset.Text = "Reset";
+            this.btnSearchCriteriaReset.UseVisualStyleBackColor = true;
+            this.btnSearchCriteriaReset.Click += new System.EventHandler(this.btnSearchCriteriaReset_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(341, 61);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(52, 17);
+            this.label5.TabIndex = 27;
+            this.label5.Text = "Status:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(7, 61);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(115, 17);
+            this.label4.TabIndex = 26;
+            this.label4.Text = "Employee Name:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(34, 28);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(88, 17);
+            this.label3.TabIndex = 25;
+            this.label3.Text = "Date Range:";
+            // 
+            // txtEmpName
+            // 
+            this.txtEmpName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmpName.Location = new System.Drawing.Point(128, 60);
+            this.txtEmpName.Name = "txtEmpName";
+            this.txtEmpName.Size = new System.Drawing.Size(190, 23);
+            this.txtEmpName.TabIndex = 24;
+            // 
+            // cmbPOStatus
+            // 
+            this.cmbPOStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbPOStatus.FormattingEnabled = true;
+            this.cmbPOStatus.Location = new System.Drawing.Point(399, 60);
+            this.cmbPOStatus.Name = "cmbPOStatus";
+            this.cmbPOStatus.Size = new System.Drawing.Size(135, 24);
+            this.cmbPOStatus.TabIndex = 22;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(324, 30);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(16, 17);
+            this.label2.TabIndex = 21;
+            this.label2.Text = "~";
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearch.Location = new System.Drawing.Point(594, 30);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(121, 48);
+            this.btnSearch.TabIndex = 15;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // dtpEnd
+            // 
+            this.dtpEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpEnd.Location = new System.Drawing.Point(344, 24);
+            this.dtpEnd.Name = "dtpEnd";
+            this.dtpEnd.Size = new System.Drawing.Size(190, 23);
+            this.dtpEnd.TabIndex = 3;
+            // 
+            // dtpStart
+            // 
+            this.dtpStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpStart.Location = new System.Drawing.Point(128, 24);
+            this.dtpStart.Name = "dtpStart";
+            this.dtpStart.Size = new System.Drawing.Size(190, 23);
+            this.dtpStart.TabIndex = 2;
+            this.dtpStart.ValueChanged += new System.EventHandler(this.dtp_ValueChanged);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.Location = new System.Drawing.Point(139, 370);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(100, 36);
+            this.btnSave.TabIndex = 16;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
             // frmProcessPO
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(954, 851);
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.btnExit);
-            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.grpItemDetails);
+            this.Controls.Add(this.groupBox3);
             this.Name = "frmProcessPO";
+            this.Tag = "ProcessPO";
             this.Text = "View Purchase Order";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ProcessPO_FormClosed);
             this.Load += new System.EventHandler(this.ProcessPO_Load);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
+            this.grpItemDetails.ResumeLayout(false);
+            this.grpItemDetails.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numQty)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItem)).EndInit();
             this.groupBox3.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPO)).EndInit();
-            this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPO)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox grpItemDetails;
         private System.Windows.Forms.Label lbSubTotal;
         private System.Windows.Forms.Label lbItemDescription;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox txtPrice;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label lbItemName;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label lbLocation;
         private System.Windows.Forms.Label lbJustification;
-        private System.Windows.Forms.TextBox txtPONumber;
-        private System.Windows.Forms.RadioButton rdbStatus;
-        private System.Windows.Forms.ComboBox cmbPOStatus;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RadioButton rdbPONumber;
-        private System.Windows.Forms.RadioButton rdbName;
-        private System.Windows.Forms.RadioButton rdbDate;
-        private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.Button btnExit;
-        private System.Windows.Forms.TextBox txtEmpName;
         private System.Windows.Forms.DataGridView dgvItem;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DateTimePicker dtpend;
-        private System.Windows.Forms.DateTimePicker dtpStart;
-        private System.Windows.Forms.DataGridView dgvPO;
-        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox txtReason;
         private System.Windows.Forms.Label label24;
@@ -718,5 +697,22 @@ namespace VastVoyages.WinFrontEnd
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.DataGridView dgvPO;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnSearchCriteriaReset;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtEmpName;
+        private System.Windows.Forms.ComboBox cmbPOStatus;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.DateTimePicker dtpEnd;
+        private System.Windows.Forms.DateTimePicker dtpStart;
+        private System.Windows.Forms.TextBox txtLocation;
+        private System.Windows.Forms.Label lbItemId;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button btnSave;
     }
 }

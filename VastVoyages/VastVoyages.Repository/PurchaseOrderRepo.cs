@@ -23,15 +23,20 @@ namespace VastVoyages.Repository
 
         /// <summary>
         /// Retrieve Purchase order list by employee Id
+        /// If search keyword is provided, retrieved search result
         /// </summary>
         /// <param name="employeeId"></param>
         /// <returns></returns>
-        public List<PurchaseOrderDTO> RetrievePurchaseOrderList(int employeeId)
+        public List<PurchaseOrderDTO> RetrievePurchaseOrderList(int employeeId, int? PONumber, DateTime? start, DateTime? end, int? status)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
             parms.Add(new ParmStruct("@EmployeeId", employeeId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@PurchaseOrderNumber", PONumber, SqlDbType.Int));
+            parms.Add(new ParmStruct("@StartDate", start, SqlDbType.DateTime2));
+            parms.Add(new ParmStruct("@EndDate", end, SqlDbType.DateTime2));
+            parms.Add(new ParmStruct("@Status", status, SqlDbType.Int));
 
-            DataTable dt = db.Execute("spGetPurchaseOrderByEmployee", parms);
+            DataTable dt = db.Execute("spGetPurchaseOrderByKeyword", parms);
 
             List<PurchaseOrderDTO> purchaseOrders = new List<PurchaseOrderDTO>();
 
@@ -45,6 +50,7 @@ namespace VastVoyages.Repository
                         SubTotal = Convert.ToDecimal(row["SubTotal"]),
                         Tax = Convert.ToDecimal(row["Tax"]),
                         Total = Convert.ToDecimal(row["Total"]),
+                        EmployeeId = Convert.ToInt32(row["EmployeeId"]),
                         Employee = row["Employee"].ToString(),
                         Supervisor = row["Supervisor"].ToString(),
                         POStatus = row["POStatus"].ToString()
@@ -55,16 +61,60 @@ namespace VastVoyages.Repository
             return purchaseOrders;
         }
 
+
+        /// <summary>
+        /// Retrieve Purchase order list by employee Id
+        /// If search keyword is provided, retrieved search result
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
+        public List<PurchaseOrderDTO> RetrievePurchaseOrderListBySupervisor(int supervisorId, int? status, string EmployeeName, DateTime? start, DateTime? end)
+        {
+            List<ParmStruct> parms = new List<ParmStruct>();
+
+            parms.Add(new ParmStruct("@SupervisorId", supervisorId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@Status", status, SqlDbType.Int));
+            parms.Add(new ParmStruct("@EmployeeName", EmployeeName, SqlDbType.VarChar, 120));
+            parms.Add(new ParmStruct("@StartDate", start, SqlDbType.DateTime2));
+            parms.Add(new ParmStruct("@EndDate", end, SqlDbType.DateTime2));
+
+            DataTable dt = db.Execute("spGetPurchaseOrderByDepartmentId", parms);
+
+            List<PurchaseOrderDTO> purchaseOrders = new List<PurchaseOrderDTO>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                purchaseOrders.Add(
+                    new PurchaseOrderDTO
+                    {
+                        PONumber = row["PONumber"].ToString(),
+                        SubmissionDate = row["SubmissionDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(row["SubmissionDate"]),
+                        SubTotal = Convert.ToDecimal(row["SubTotal"]),
+                        Tax = Convert.ToDecimal(row["Tax"]),
+                        Total = Convert.ToDecimal(row["Total"]),
+                        EmployeeId = Convert.ToInt32(row["EmployeeId"]),
+                        Employee = row["Employee"].ToString(),
+                        Supervisor = row["Supervisor"].ToString(),
+                        POStatus = row["POStatus"].ToString()
+                    }
+                );
+            }
+
+            return purchaseOrders;
+        }
+
+
         /// <summary>
         /// Retrieve Purchase order by PO Number
         /// </summary>
         /// <param name="PONumber"></param>
         /// <returns></returns>
-        public PurchaseOrderDTO RetrievePurchaseOrderByPONumber(int PONumber, int? employeeId)
+        public PurchaseOrderDTO RetrievePurchaseOrderByPONumber(int PONumber, int? employeeId, int? supervisorId)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
             parms.Add(new ParmStruct("@PurchaseOrderNumber", PONumber, SqlDbType.Int));
             parms.Add(new ParmStruct("@EmployeeID", employeeId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@SupervisorID", supervisorId, SqlDbType.Int));
 
             DataTable dt = db.Execute("spGetPurchaseOrderByPOnumber", parms);
 
@@ -80,6 +130,7 @@ namespace VastVoyages.Repository
                         SubTotal = Convert.ToDecimal(row["SubTotal"]),
                         Tax = Convert.ToDecimal(row["Tax"]),
                         Total = Convert.ToDecimal(row["Total"]),
+                        EmployeeId = Convert.ToInt32(row["EmployeeId"]),
                         Employee = row["Employee"].ToString(),
                         Supervisor = row["Supervisor"].ToString(),
                         POStatus = row["POStatus"].ToString(),
@@ -132,8 +183,10 @@ namespace VastVoyages.Repository
 
             parms.Add(new ParmStruct("@RecordVersion", purchaseOrder.RecordVersion, SqlDbType.Timestamp, 0, ParameterDirection.Output));
             parms.Add(new ParmStruct("@PONumber", purchaseOrder.PONumber, SqlDbType.Int));
+            parms.Add(new ParmStruct("@SubmissionDate", purchaseOrder.SubmissionDate, SqlDbType.DateTime2));
             parms.Add(new ParmStruct("@SubTotal", purchaseOrder.SubTotal, SqlDbType.Decimal));
             parms.Add(new ParmStruct("@Tax", purchaseOrder.Tax, SqlDbType.Decimal));
+            parms.Add(new ParmStruct("@POStatusId", purchaseOrder.POstatusId, SqlDbType.Int));
 
             if (db.ExecuteNonQuery("spSubmitPurchaseOrder", parms) > 0)
             {
@@ -143,6 +196,7 @@ namespace VastVoyages.Repository
             return purchaseOrder;
 
         }
+
         #endregion
 
     }

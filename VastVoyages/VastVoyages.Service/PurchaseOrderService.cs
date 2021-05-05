@@ -30,14 +30,59 @@ namespace VastVoyages.Service
         /// </summary>
         /// <param name="employeeId"></param>
         /// <returns></returns>
-        public List<PurchaseOrderDTO> GetPurchaseOrderList(int employeeId)
+        public List<PurchaseOrderDTO> GetPurchaseOrderList(int employeeId, int? PONumber = null, DateTime? start = null, DateTime? end = null, int? status = null)
         {
-            return repo.RetrievePurchaseOrderList(employeeId);
+            List<PurchaseOrderDTO> purchaseOrders = repo.RetrievePurchaseOrderList(employeeId, PONumber, start, end, status);
+
+            // if status is pending, include purchase orders that are under review
+            if(status == 1)
+            {
+                List<PurchaseOrderDTO> underReviews = repo.RetrievePurchaseOrderList(employeeId, PONumber, start, end, 2);
+
+                foreach(PurchaseOrderDTO po in underReviews)
+                {
+                    purchaseOrders.Add(po);
+                }
+            }
+
+            purchaseOrders = purchaseOrders.OrderByDescending(p => p.SubmissionDate).ToList();
+
+            return purchaseOrders;
         }
 
-        public PurchaseOrderDTO GetPurchaseOrderByPONumber(int PONumber, int? employeeId)
+        /// <summary>
+        /// Retrieve purchase order list by employee id. The user can see only purchase order list they created.
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
+        public List<PurchaseOrderDTO> GetPurchaseOrderListBySupervisor(int supervisorId, int? status = null, string employeeName = null, DateTime? start = null, DateTime? end = null)
         {
-            return repo.RetrievePurchaseOrderByPONumber(PONumber, employeeId);
+            List<PurchaseOrderDTO> purchaseOrders = repo.RetrievePurchaseOrderListBySupervisor(supervisorId, status, employeeName, start, end);
+
+            // if status is pending, include purchase orders that are under review
+            if (status == 1)
+            {
+                List<PurchaseOrderDTO> underReviews = repo.RetrievePurchaseOrderListBySupervisor(supervisorId, 2, employeeName, start, end);
+
+                foreach (PurchaseOrderDTO po in underReviews)
+                {
+                    purchaseOrders.Add(po);
+                }
+            }
+            purchaseOrders = purchaseOrders.OrderBy(p => p.SubmissionDate).ToList();
+
+            return purchaseOrders;
+        }
+
+        /// <summary>
+        /// Retrieve purchase order by purchase order number
+        /// </summary>
+        /// <param name="PONumber"></param>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
+        public PurchaseOrderDTO GetPurchaseOrderByPONumber(int PONumber, int? employeeId, int? supervisorId)
+        {
+            return repo.RetrievePurchaseOrderByPONumber(PONumber, employeeId, supervisorId);
         }
 
         /// <summary>
@@ -45,29 +90,39 @@ namespace VastVoyages.Service
         /// </summary>
         /// <param name="purchaseOrder"></param>
         /// <returns></returns>
-        public PurchaseOrder InsertPurchaseOrder(PurchaseOrder purchaseOrder, Item item)
+        public PurchaseOrder AddPurchaseOrder(PurchaseOrder purchaseOrder, Item item)
         {
-            if(ValidateItem(item))
+            if (ValidateItem(item))
             {
                 purchaseOrder.items = new List<Item>();
                 purchaseOrder.items.Add(item);
-                purchaseOrder.SubTotal = purchaseOrder.items[0].Price * purchaseOrder.items[0].Quantity;
-                purchaseOrder.Tax = purchaseOrder.SubTotal * 0.15m;
+                purchaseOrder.SubTotal = CalculateSubTotal(purchaseOrder);
+                purchaseOrder.Tax = CalculateTax(purchaseOrder);
 
                 if (Validate(purchaseOrder))
                     return repo.Insert(purchaseOrder);
             }
 
             return purchaseOrder;
-            
+
         }
 
+        /// <summary>
+        /// Update purchase order
+        /// </summary>
+        /// <param name="purchaseOrder"></param>
+        /// <returns></returns>
         public PurchaseOrder UpdatePurcaseOrder(PurchaseOrder purchaseOrder)
         {
             if (Validate(purchaseOrder))
             {
-                purchaseOrder.SubTotal = purchaseOrder.items.Sum(i => i.Price * i.Quantity);
-                purchaseOrder.Tax = purchaseOrder.SubTotal * 0.15m;
+                purchaseOrder.SubmissionDate = purchaseOrder.SubmissionDate == null ? DateTime.Now : purchaseOrder.SubmissionDate;
+                purchaseOrder.SubTotal = CalculateSubTotal(purchaseOrder);
+                purchaseOrder.Tax = CalculateTax(purchaseOrder);
+    
+                if(purchaseOrder.POstatusId == 0)
+                    SetPOStatus(purchaseOrder);
+                
                 return repo.Update(purchaseOrder);
             }
 
@@ -95,14 +150,33 @@ namespace VastVoyages.Service
                 POToValidate.AddError(new ValidationError(e.ErrorMessage, ErrorType.Model));
             }
 
-            if(POToValidate.items.Count == 0)
+            if (POToValidate.items.Count == 0)
             {
                 POToValidate.AddError(new ValidationError("Purchase order must habe at least one item.", ErrorType.Business));
+            }
+
+            if (POToValidate.POstatusId == 3)
+            {
+                if (POToValidate.items.Where(i => i.ItemStatusId == 1).ToList().Count > 0)
+                {
+                    POToValidate.AddError(new ValidationError("There is a pending item in the purchase order. All items must be processed.", ErrorType.Business));
+                }
+
+                if(GetPurchaseOrderByPONumber(Convert.ToInt32(POToValidate.PONumber), null, null).POStatus == "Closed")
+                {
+                    POToValidate.AddError(new ValidationError("This purchase order is already closed.", ErrorType.Business));
+                }
             }
 
             return POToValidate.Errors.Count == 0;
         }
 
+
+        /// <summary>
+        /// Validation for item in purchase order
+        /// </summary>
+        /// <param name="ItemoValidate"></param>
+        /// <returns></returns>
         private bool ValidateItem(Item ItemoValidate)
         {
             ValidationContext context = new ValidationContext(ItemoValidate);
@@ -116,6 +190,47 @@ namespace VastVoyages.Service
             }
 
             return ItemoValidate.Errors.Count == 0;
+        }
+
+        /// <summary>
+        /// Calculate subtotal
+        /// </summary>
+        /// <param name="po"></param>
+        /// <returns></returns>
+        private decimal CalculateSubTotal(PurchaseOrder po)
+        {
+            decimal subTotal = po.items.Sum(i => i.Price * i.Quantity);
+            return subTotal;
+        }
+
+        /// <summary>
+        /// Calculate tax
+        /// </summary>
+        /// <param name="po"></param>
+        /// <returns></returns>
+        private decimal CalculateTax(PurchaseOrder po) 
+        {
+            decimal tax = po.Tax = po.SubTotal * 0.15m;
+            return tax;
+        }
+
+        /// <summary>
+        /// Set purchase order status
+        /// </summary>
+        /// <param name="PO"></param>
+        /// <returns></returns>
+        private PurchaseOrder SetPOStatus(PurchaseOrder PO)
+        {
+            List<Item> processedItem = PO.items.Where(i => i.ItemStatusId != 1).ToList();
+
+            PO.POstatusId = 1;
+
+            if (processedItem.Count == 1)
+            {
+                PO.POstatusId = 2;
+            }
+
+            return PO;
         }
         #endregion
     }

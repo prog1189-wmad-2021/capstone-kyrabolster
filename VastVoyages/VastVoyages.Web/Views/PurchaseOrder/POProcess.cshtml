@@ -1,0 +1,140 @@
+﻿@model Tuple<VastVoyages.Model.PurchaseOrder, VastVoyages.Model.Item>
+
+@{
+    ViewBag.Title = "Process Purchase Order";
+    Layout = "~/Views/Shared/_NavTemplate.cshtml";
+}
+<div class="container" style="width: 95%; margin-top: 5%;">
+    <h1 style="text-align:center;">Edit Purchase Order</h1>
+    <br /><br />
+    <div class="col-md-offset-4">
+
+        @Html.HiddenFor(model => model.Item1.PONumber)
+        @Html.HiddenFor(model => model.Item1.RecordVersion)
+
+        <br /><br />
+        @if (Model.Item1.PONumber != null)
+        {
+            <h3>Purchase Order Number: @Html.DisplayFor(model => model.Item1.PONumber)</h3>
+        }
+        <br /><br />
+        <h4>Item List</h4>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item1.items[0].ItemId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item1.items[0].ItemName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item1.items[0].ItemDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item1.items[0].Justification)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item1.items[0].Location)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item1.items[0].Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item1.items[0].Quantity)
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item1.items[0].DecisionReason)
+                </th>
+                <th>
+                </th>
+            </tr>
+
+            @if (Model.Item1.items != null)
+            {
+                foreach (var item in Model.Item1.items)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemDescription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Justification)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Location)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        @switch (item.ItemStatusId)
+                        {
+                            case 1:
+                                <td>
+                                    Pending
+                                </td>
+                                break;
+                            case 2:
+                                <td>
+                                    Approved
+                                </td>
+                                break;
+                            case 3:
+                                <td>
+                                    Denied
+                                </td>
+                                break;
+                        }
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DecisionReason)
+                        </td>
+                        @if (item.ItemStatusId == 1)
+                        {
+                            <td>
+                                @Html.ActionLink("Edit", "ItemEdit", new { ItemId = item.ItemId })
+                            </td>
+                        }
+                    </tr>
+                }
+            }
+        </table>
+        @if (Model.Item1.PONumber != null)
+        {
+            <div style="text-align:right">
+                <p>Sub Total: @string.Format("{0:C}", @Model.Item1.SubTotal)</p>
+                <p>Tax: @string.Format("{0:C}", @Model.Item1.Tax)</p>
+                <p>Total: @ViewBag.Total</p>
+            </div>
+
+            <br />
+            if (Model.Item1.SubmissionDate == null)
+            {
+                <div class="form-group">
+                    @using (Html.BeginForm("Submit", "PurchaseOrder", FormMethod.Post, new { enctype = "form-create" }))
+                    {
+                        <div style="text-align:right">
+                            <button type="submit" value="@Model.Item1.PONumber" name="PONumber" class="btn btn-info">Submit</button>
+                        </div>
+                    }
+                </div>
+            }
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+</div>
+

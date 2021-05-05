@@ -24,6 +24,7 @@ namespace VastVoyages.Model
 
         [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
         public decimal Total { get; set; } 
+        public int EmployeeId { get; set; }
         public string Employee { get; set; }
         public string Supervisor { get; set; }
         public string POStatus { get; set; }

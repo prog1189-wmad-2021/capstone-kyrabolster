@@ -22,6 +22,7 @@ namespace VastVoyages.Model
         public string Department { get; set; }
         public int SupervisorId { get; set; }
         public string Supervisor { get; set; }
+        public bool IsHeadSupervisor { get; set; }
         public string Role { get; set; }
     }
 }

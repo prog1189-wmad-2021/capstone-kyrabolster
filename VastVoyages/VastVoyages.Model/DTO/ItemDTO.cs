@@ -25,6 +25,7 @@ namespace VastVoyages.Model
         public int Quantity { get; set; }
 
         public string PONumber { get; set; }
+        public int POStatusId { get; set; }
         public int ItemStatusId { get; set; }
 
         [Display(Name = "Status")]
