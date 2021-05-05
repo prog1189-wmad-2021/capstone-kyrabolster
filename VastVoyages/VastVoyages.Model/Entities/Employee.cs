@@ -81,6 +81,8 @@ namespace VastVoyages.Model.Entities
 
         public int SupervisorId { get; set; }
 
+        public bool IsHeadSupervisor { get; set; }
+
         [Required(ErrorMessage = "Department is required.")]
         public int DepartmentId { get; set; }
 

@@ -31,7 +31,7 @@ namespace VastVoyages.Repository
             parms.Add(new ParmStruct("@UserName", employee.UserName, SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@FirstName", employee.FirstName, SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@LastName", employee.LastName, SqlDbType.NVarChar));
-            parms.Add(new ParmStruct("@MiddleInit", 
+            parms.Add(new ParmStruct("@MiddleInit",
                 (!string.IsNullOrEmpty(employee.MiddleInitial) ? employee.MiddleInitial : (object)DBNull.Value),
                 SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@DateOfBirth", employee.DateOfBirth, SqlDbType.DateTime));
@@ -49,6 +49,7 @@ namespace VastVoyages.Repository
             parms.Add(new ParmStruct("@SeniorityDate", employee.SeniorityDate, SqlDbType.DateTime));
             parms.Add(new ParmStruct("@SIN", employee.SIN, SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@SupervisorId", employee.SupervisorId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@IsHeadSupervisor", employee.IsHeadSupervisor, SqlDbType.Bit));
             parms.Add(new ParmStruct("@DepartmentId", employee.DepartmentId, SqlDbType.Int));
             parms.Add(new ParmStruct("@EmployeeStatusId", employee.EmployeeStatusId, SqlDbType.Int));
             parms.Add(new ParmStruct("@JobAssignmentId", employee.JobAssignmentId, SqlDbType.Int));
@@ -114,7 +115,7 @@ namespace VastVoyages.Repository
             parms.Add(new ParmStruct("@DepartmentId", departmentId, SqlDbType.Int));
             parms.Add(new ParmStruct("@SupervisorId", supervisorId, SqlDbType.Int));
             parms.Add(new ParmStruct("@EmployeeCount", employeeCount, SqlDbType.Int, 0, ParameterDirection.Output));
-  
+
             db.ExecuteNonQuery("spGetSuperEmployeeCount", parms);
 
             employeeCount = (int)parms.Where(p => p.Name == "@EmployeeCount").FirstOrDefault().Value;
@@ -134,7 +135,7 @@ namespace VastVoyages.Repository
 
             foreach (DataRow row in dt.Rows)
             {
-                    employees.Add(new EmployeeDTO
+                employees.Add(new EmployeeDTO
                 {
                     EmpId = Convert.ToInt32(row["EmployeeId"]),
                     FirstName = row["FirstName"].ToString(),
@@ -227,7 +228,7 @@ namespace VastVoyages.Repository
 
             return employees;
         }
-              
+
         #endregion
     }
 }
