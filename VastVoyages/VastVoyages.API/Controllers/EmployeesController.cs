@@ -20,7 +20,7 @@ namespace VastVoyages.API.Controllers
         {
             try
             {
-                List<EmployeeDTO> employees = service.GetAllEmployees();
+                List<EmployeeDTO> employees = service.GetAllEmployees().OrderBy(e => e.LastName).ToList();
 
                 if (employeeId > 0)
                 {
