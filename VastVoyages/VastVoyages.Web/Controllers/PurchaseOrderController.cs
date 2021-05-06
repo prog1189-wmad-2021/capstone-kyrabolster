@@ -362,7 +362,6 @@ namespace VastVoyages.Web.Controllers
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
                 }
 
-              
                 List<ItemDTO> items = itemService.GetItemListByPO(PONumber.Value, true);
                 PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(PONumber.Value, null, Convert.ToInt32(Session["employeeId"]));
                 purchaseOrderDTO.items = items;

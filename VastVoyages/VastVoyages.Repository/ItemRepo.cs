@@ -225,10 +225,10 @@ namespace VastVoyages.Repository
         {
             List<ParmStruct> parms = new List<ParmStruct>();
 
-            parms.Add(new ParmStruct("@ItemId", item.ItemId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@PONumber", item.PONumber, SqlDbType.Int));
             parms.Add(new ParmStruct("@SupervisorId", supervisorId, SqlDbType.Int));
 
-            DataTable dt = db.Execute("spCheckHeadSupervisorIdOfItem", parms);
+            DataTable dt = db.Execute("spCheckHeadSupervisorIdOfPO", parms);
 
             return supervisorId == Convert.ToInt32(dt.Rows[0]["HeadSupervisor"]);
 
