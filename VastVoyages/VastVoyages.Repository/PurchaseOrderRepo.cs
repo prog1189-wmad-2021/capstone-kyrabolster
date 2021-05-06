@@ -188,7 +188,7 @@ namespace VastVoyages.Repository
             parms.Add(new ParmStruct("@Tax", purchaseOrder.Tax, SqlDbType.Decimal));
             parms.Add(new ParmStruct("@POStatusId", purchaseOrder.POstatusId, SqlDbType.Int));
 
-            if (db.ExecuteNonQuery("spSubmitPurchaseOrder", parms) > 0)
+            if (db.ExecuteNonQuery("spUpdatePurchaseOrder", parms) > 0)
             {
                 purchaseOrder.RecordVersion = (byte[])parms.Where(p => p.Name == "@RecordVersion").FirstOrDefault().Value;
             }

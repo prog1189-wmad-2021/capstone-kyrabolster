@@ -5,11 +5,11 @@
     Layout = "~/Views/Shared/_NavTemplate.cshtml";
 }
 
-<div class="container" style="width: 95%; margin-top: 5%;">
-    <h1 style="text-align:center;">Process Purchase Order</h1>
+<div class="container" style="width: 100%; margin-top: 5%;">
+    <h1 style="text-align:center;">Purchase Order List</h1>
     <br /><br />
     <div class="col-md-offset-4">
-        @using (Html.BeginForm("Process", "PurchaseOrder", FormMethod.Get, new { enctype = "form-search" }))
+        @using (Html.BeginForm("ProcessList", "PurchaseOrder", FormMethod.Get, new { enctype = "form-search" }))
         {
             <input type="hidden" value=@Session["employeeId"] name="supervisorId" />
             <form>
@@ -68,6 +68,9 @@
                         @Html.DisplayNameFor(model => model.Employee)
                     </th>
                     <th>
+                        @Html.DisplayNameFor(model => model.Supervisor)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.POStatus)
                     </th>
                     <th></th>
@@ -79,19 +82,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.PONumber)
                         </td>
-
-                        @if (item.SubmissionDate == null)
-                        {
-                            <td>
-                                Not submitted
-                            </td>
-                        }
-                        else
-                        {
-                            <td>
-                                @Html.DisplayFor(modelItem => item.SubmissionDate)
-                            </td>
-                        }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubmissionDate)
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.SubTotal)
                         </td>
@@ -105,20 +98,23 @@
                             @Html.DisplayFor(modelItem => item.Employee)
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => item.Supervisor)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.POStatus)
                         </td>
 
-                        @if (item.POStatus != "Closed")
+                        @if (item.POStatus != "Closed" && (Convert.ToBoolean(Session["isHeadSupervisor"]) || Session["department"].ToString() == "CEO"))
                         {
                             <td>
-                                @Html.ActionLink("Process", "POProcess", new { PONumber = item.PONumber}) |
-                                @Html.ActionLink("Details", "ProcessDetails", new { PONumber = item.PONumber}) |
+                                @Html.ActionLink("Select", "POProcess", new { PONumber = item.PONumber }) |
+                                @Html.ActionLink("Details", "ProcessDetails", new { PONumber = item.PONumber })
                             </td>
                         }
                         else
                         {
                             <td>
-                                @Html.ActionLink("Details", "ProcessDetails", new { PONumber = item.PONumber }) |
+                                @Html.ActionLink("Details", "ProcessDetails", new { PONumber = item.PONumber })
                             </td>
                         }
                     </tr>
@@ -127,20 +123,45 @@
         }
         else
         {
-            <p>No Purchase Order</p>
+            <p>No Purchase Order matching your search criteria.</p>
         }
     </div>
 </div>
-
-
-
-@{
-    if (TempData["Error"] != null)
-    {
+<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to close this purchase order?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+    @{
+        if (TempData["Error"] != null)
+        {
         <script type="text/javascript">
-        alert(@Html.Raw(Json.Encode(TempData["Error"])));
-        var url = '@Url.Action("Index", "PurchaseOrder")';
-        window.location.href = url;
+            $('#alertModal').modal('show');
+            $("#alertModal .modal-title").html("Error");
+            $("#alertModal .modal-body").html(@Html.Raw(Json.Encode(TempData["Error"])));
         </script>
+        }
+
+        if (TempData["EmailSent"] != null)
+        {
+            <script type="text/javascript">
+                $('#alertModal').modal('show'); 
+                $("#alertModal .modal-title").html("Email Sent");
+                $("#alertModal .modal-body").html(@Html.Raw(Json.Encode(TempData["EmailSent"])));
+            </script>
+        }
     }
-}
+

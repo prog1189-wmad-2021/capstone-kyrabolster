@@ -161,8 +161,18 @@
         </table>
     </div>
     <p style="text-align:right;">
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-        @Html.ActionLink("Back to List", "Index")
+        @if (TempData["ProcessDetail"] == null)
+        {
+            if (Model.POStatus == "Pending")
+            {
+                @Html.ActionLink("Edit", "Edit", new { PONumber = Model.PONumber }) @Html.Raw(" | ")
+            }
+            @Html.ActionLink("Back to List", "Index")
+        }
+        else
+        {
+            @Html.ActionLink("Back to List", "ProcessList")
+        }
     </p>
 </div>
     

@@ -14,6 +14,9 @@ namespace VastVoyages.WinFrontEnd
 {
     public partial class frmCreatePO : Form
     {
+        ItemService itemService = new ItemService();
+        PurchaseOrderService POservice = new PurchaseOrderService();
+
         internal PurchaseOrder _purchaseOrder;
         internal bool edit = false;
         private decimal _subTotal = 0;
@@ -38,6 +41,7 @@ namespace VastVoyages.WinFrontEnd
             {
                 this.Text = "Edit Purchase Order";
                 btnSave.Visible = true;
+                btnSave.Enabled = false;
                 lbItemIDValue.Visible = true;
                 GenerateItemDataGridView(_purchaseOrder.PONumber);
                 lbPONumber.Text = _purchaseOrder.PONumber;
@@ -67,8 +71,6 @@ namespace VastVoyages.WinFrontEnd
         {
             try
             {
-                PurchaseOrderService POservice = new PurchaseOrderService();
-                ItemService itemService = new ItemService();
                 Item item = PopulateItemObject();                
 
                 if(item.Errors.Count == 0)
@@ -142,12 +144,8 @@ namespace VastVoyages.WinFrontEnd
             {
                 if(_purchaseOrder.PONumber != null)
                 {
-                    PurchaseOrderService POservice = new PurchaseOrderService();
-
                     if(edit)
                     {
-                        ItemService itemService = new ItemService();
-
                         if (_purchaseOrder.items == null)
                         {
                             _purchaseOrder.items = new List<Item>();
@@ -225,8 +223,6 @@ namespace VastVoyages.WinFrontEnd
             {
                 if (lbItemIDValue.Text != "")
                 {
-                    ItemService itemService = new ItemService();
-
                     Item item = PopulateItemObject();
                     item.ItemId = Convert.ToInt32(lbItemIDValue.Text);
                     item.PONumber = Convert.ToInt32(_purchaseOrder.PONumber);
@@ -250,7 +246,34 @@ namespace VastVoyages.WinFrontEnd
                     else
                     {
                         MessageBox.Show($"Item Id: {lbItemIDValue.Text} has been updated successful!");
+                        _purchaseOrder.RecordVersion = item.PORecordVersion;
                         ClearForm();
+
+                        List<ItemDTO> items = itemService.GetItemListByPO(Convert.ToInt32(_purchaseOrder.PONumber), false);
+
+                        if (items.Where(i => i.ItemStatusId != 1).ToList().Count == items.Count)
+                        {
+                            _purchaseOrder.items = new List<Item>();
+
+                            foreach (ItemDTO i in items)
+                            {
+                                _purchaseOrder.items.Add(new Item
+                                {
+                                    ItemId = i.ItemId,
+                                    ItemName = i.ItemName,
+                                    ItemDescription = i.ItemDescription,
+                                    Justification = i.Justification,
+                                    Location = i.Location,
+                                    Price = i.Price,
+                                    Quantity = i.Quantity,
+                                    DecisionReason = i.DecisionReason,
+                                    ItemStatusId = i.ItemStatusId,
+                                    RecordVersion = i.RecordVersion
+                                });
+                            }
+                            POservice.UpdatePurcaseOrder(_purchaseOrder);
+                        }
+
                         GenerateItemDataGridView(_purchaseOrder.PONumber);
                         btnAddItem.Enabled = true;
                         _purchaseOrder.RecordVersion = item.PORecordVersion;
@@ -282,9 +305,9 @@ namespace VastVoyages.WinFrontEnd
                     {
                         ClearForm();
                         lbItemID.Visible = true;
+                        btnSave.Enabled = true;
                         btnAddItem.Enabled = false;
                         chkNoNeed.Visible = true;
-                        ItemService itemService = new ItemService();
                         int itemId = Convert.ToInt32(dgvItem.Rows[e.RowIndex].Cells[0].Value.ToString());
 
                         ItemDTO ItemDTO = itemService.GetItemByItemId(itemId, Convert.ToInt32(((MainForm)this.MdiParent).loginInfo.EmployeeId), null);
@@ -313,7 +336,6 @@ namespace VastVoyages.WinFrontEnd
                             btnSave.Enabled = false;
                             btnAddItem.Enabled = false;
                         }
-
                     }
                 }
 
@@ -370,8 +392,6 @@ namespace VastVoyages.WinFrontEnd
         /// <param name="PONumber"></param>
         private void GenerateItemDataGridView(string PONumber)
         {
-            ItemService itemService = new ItemService();
-
             dgvItem.DataSource = null;
             List<ItemDTO> items = itemService.GetItemListByPO(Convert.ToInt32(PONumber), false);
             dgvItem.DataSource = items;
@@ -422,7 +442,7 @@ namespace VastVoyages.WinFrontEnd
             numQty.Value = 0;
             numQty.Enabled = true;
             chkNoNeed.Enabled = true;
-            btnSave.Enabled = true;
+            btnSave.Enabled = false;            
             btnAddItem.Enabled = true;
         }
 

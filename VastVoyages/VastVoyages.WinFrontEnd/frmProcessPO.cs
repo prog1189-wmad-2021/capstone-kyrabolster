@@ -143,7 +143,7 @@ namespace VastVoyages.WinFrontEnd
                     txtPrice.Text = ItemDTO.Price.ToString();
                     numQty.Value = ItemDTO.Quantity;
                     lbSubTotal.Text = (ItemDTO.Quantity * ItemDTO.Price).ToString("C");
-                    cmbItemStatus.SelectedIndex = ItemDTO.ItemStatusId;
+                    cmbItemStatus.SelectedValue = ItemDTO.ItemStatusId;
                     txtReason.Text = ItemDTO.DecisionReason;
 
                     if (itemService.GetItemListByPO(Convert.ToInt32(ItemDTO.PONumber), true).FirstOrDefault().POStatusId == 3)
@@ -302,6 +302,7 @@ namespace VastVoyages.WinFrontEnd
                     };
 
                     item.RecordVersion = recordVersion;
+                    item.PORecordVersion = _purchaseOrder.RecordVersion;
 
                     itemService.ApproveOrDenyItem(item, Convert.ToInt32(((MainForm)this.MdiParent).loginInfo.EmployeeId));
 
@@ -325,6 +326,7 @@ namespace VastVoyages.WinFrontEnd
                         ClearItemForm();
 
                         PurchaseOrder purchaseOrder = GeneratePurchaseOrderObject(_purchaseOrder);
+                        purchaseOrder.POstatusId = 2;
 
                         POService.UpdatePurcaseOrder(purchaseOrder);
                         GenerateItemGridView(Convert.ToInt32(_purchaseOrder.PONumber));
@@ -388,12 +390,9 @@ namespace VastVoyages.WinFrontEnd
             POLookUpsService service = new POLookUpsService();
             List<ItemStatusLookUpsDTO> itemStatus = service.GetItemStatus();
 
-            itemStatus.Insert(0, new ItemStatusLookUpsDTO { ItemStatusId = 0, ItemStatus = "--Select a status--" });
-
             cmbItemStatus.DataSource = itemStatus;
             cmbItemStatus.DisplayMember = "ItemStatus";
             cmbItemStatus.ValueMember = "ItemStatusId";
-            cmbItemStatus.SelectedIndex = 0;
         }
 
 
@@ -506,10 +505,11 @@ namespace VastVoyages.WinFrontEnd
             }
 
             email.body += $"</table>";
+            email.body += $"<br><a href='https://localhost:44370/PurchaseOrder/Details?PONumber={purchaseOrder.PONumber}'>View Purchase Order</a>";
 
             emailService.SendNotificationEmail(email);
 
-            MessageBox.Show("Notification Email sent successful!");
+            MessageBox.Show("Notification Email has been sent successful!");
         }
 
 
@@ -541,7 +541,7 @@ namespace VastVoyages.WinFrontEnd
                     else
                     {
                         EmployeeService employeeService = new EmployeeService();
-                        EmployeeDTO emp = employeeService.GetAllEmployees().Where(employee => employee.EmpId == purchaseOrder.employeeId).FirstOrDefault();
+                        EmployeeDTO emp = employeeService.SearchEmployeesById(purchaseOrder.employeeId).FirstOrDefault();
 
                         SendEmail(emp, purchaseOrder);
                         GetPurchaseOrderList(Convert.ToInt32(((MainForm)this.MdiParent).loginInfo.EmployeeId));

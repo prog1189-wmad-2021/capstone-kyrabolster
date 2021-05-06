@@ -75,7 +75,7 @@ namespace VastVoyages.Service
                 if (duplicatedItem != null)
                 {
                     duplicatedItem.Quantity += item.Quantity;
-
+                    duplicatedItem.PORecordVersion = item.PORecordVersion;
                     return UpdateItem(duplicatedItem, true, false);
                 }
 
@@ -118,6 +118,7 @@ namespace VastVoyages.Service
                         if (duplicatedItem != null)
                         {
                             duplicatedItem.Quantity += item.Quantity;
+                            duplicatedItem.PORecordVersion = item.PORecordVersion;
                             Item i = repo.Update(duplicatedItem);
                             if (i != null)
                             {
@@ -147,7 +148,9 @@ namespace VastVoyages.Service
         public Item ApproveOrDenyItem(Item item, int supervisorId)
         {
             if (Validate(item) && IsReasonNeed(item) && CheckIsHeadSupervisor(item, supervisorId))
+            {
                 return repo.Update(item);
+            }
 
             return item;
         }
@@ -189,9 +192,9 @@ namespace VastVoyages.Service
         private bool IsReasonNeed(Item item)
         {
             //if denied
-            if(item.ItemStatusId == 3 && item.DecisionReason == "")
+            if(item.ItemStatusId == 3 && string.IsNullOrEmpty(item.DecisionReason))
             {
-                item.AddError(new ValidationError("Decision reason must provide for deny the item", ErrorType.Business));
+                item.AddError(new ValidationError("Decision reason must be provided for denying the item", ErrorType.Business));
             }
 
             else
@@ -199,9 +202,9 @@ namespace VastVoyages.Service
                 ItemDTO originalItem = repo.RetrieveItemByItemId(item.ItemId, null, null);
                 if(item.Quantity != originalItem.Quantity || item.Location != originalItem.Location || item.Price != originalItem.Price)
                 {
-                    if(item.DecisionReason == "")
+                    if(string.IsNullOrEmpty(item.DecisionReason))
                     {
-                        item.AddError(new ValidationError("Decision reason must provide for modify the item", ErrorType.Business));
+                        item.AddError(new ValidationError("Decision reason must be provided for modifying the item", ErrorType.Business));
                     }
                 }
             }

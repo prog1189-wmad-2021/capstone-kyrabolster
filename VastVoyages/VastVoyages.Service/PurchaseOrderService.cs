@@ -225,9 +225,14 @@ namespace VastVoyages.Service
 
             PO.POstatusId = 1;
 
-            if (processedItem.Count == 1)
+            if (processedItem.Count >= 1)
             {
                 PO.POstatusId = 2;
+            }
+
+            if (processedItem.Count == PO.items.Count)
+            {
+                PO.POstatusId = 3;
             }
 
             return PO;

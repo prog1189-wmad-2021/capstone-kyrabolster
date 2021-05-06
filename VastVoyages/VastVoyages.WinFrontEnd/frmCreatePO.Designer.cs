@@ -175,7 +175,7 @@ namespace VastVoyages.WinFrontEnd
             this.btnAddItem.Location = new System.Drawing.Point(695, 183);
             this.btnAddItem.Name = "btnAddItem";
             this.btnAddItem.Size = new System.Drawing.Size(138, 36);
-            this.btnAddItem.TabIndex = 38;
+            this.btnAddItem.TabIndex = 67;
             this.btnAddItem.Text = "Add Item";
             this.btnAddItem.UseVisualStyleBackColor = true;
             this.btnAddItem.Click += new System.EventHandler(this.btnAddItem_Click);
@@ -294,7 +294,7 @@ namespace VastVoyages.WinFrontEnd
             this.btnSave.Location = new System.Drawing.Point(551, 183);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(138, 36);
-            this.btnSave.TabIndex = 65;
+            this.btnSave.TabIndex = 66;
             this.btnSave.Text = "Save Item";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Visible = false;
@@ -332,7 +332,7 @@ namespace VastVoyages.WinFrontEnd
             this.txtPrice.Location = new System.Drawing.Point(586, 91);
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(320, 21);
-            this.txtPrice.TabIndex = 50;
+            this.txtPrice.TabIndex = 65;
             // 
             // label19
             // 

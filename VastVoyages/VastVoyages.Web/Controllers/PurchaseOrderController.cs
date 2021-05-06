@@ -35,9 +35,17 @@ namespace VastVoyages.Web.Controllers
                 ViewBag.POStatusList = new SelectList(POStatusList, "POStatusId", "POStatus");
 
                 if (Start != null)
+                {
                     ViewBag.startDate = Start.Value.Date.ToShortDateString();
+                }
+
                 ViewBag.endDate = End == null ? DateTime.Now.ToShortDateString() : End.Value.Date.ToShortDateString();
                 ViewBag.poNumber = PONumber;
+                
+                if (POStatusId == null)
+                {
+                    POStatusId = 1;
+                }
 
                 var searchValidation = ValidationSearch(PONumber, null, POStatusId, Start, End);
                 ViewBag.searchError = searchValidation.Item6;
@@ -46,6 +54,7 @@ namespace VastVoyages.Web.Controllers
             }
             catch (Exception ex)
             {
+                ViewBag.errMsg = ex.Message;
                 return View("Error", new HandleErrorInfo(ex, "PurchaseOrder", "Index"));
             }
         }
@@ -70,32 +79,6 @@ namespace VastVoyages.Web.Controllers
                 purchaseOrderDTO.items = items;
 
                 return View(purchaseOrderDTO);
-            }
-            catch (Exception ex)
-            {
-                return View("Error", new HandleErrorInfo(ex, "PurchaseOrder", "Index"));
-            }
-        }
-
-        /// <summary>
-        /// View purchase order details
-        /// </summary>
-        /// <param name="PONumber"></param>
-        /// <returns></returns>
-        [CustomizeAuthorize(RoleName.CEO, RoleName.HRSupervisor, RoleName.Supervisor)]
-        public ActionResult ProcessDetails(int? PONumber)
-        {
-            try
-            {
-                if (PONumber == null)
-                {
-                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-                }
-                List<ItemDTO> items = itemService.GetItemListByPO(PONumber.Value, true);
-                PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(PONumber.Value, null, Convert.ToInt32(Session["employeeId"]));
-                purchaseOrderDTO.items = items;
-
-                return View("Details", purchaseOrderDTO);
             }
             catch (Exception ex)
             {
@@ -156,19 +139,24 @@ namespace VastVoyages.Web.Controllers
                 }
                 else
                 {
+                    item.PONumber = Convert.ToInt32(PO.PONumber);
                     itemService.AddItem(item, PO);
                 }
+
                 if (item.Errors.Count == 0)
                 {
                     TempData["PO"] = PO;
                     return RedirectToAction("Create");
                 }
 
-                PO.items = GeneratePOItemList(PO, false).items;
+                if(PO.PONumber != null)
+                {
+                    PO.items = GeneratePOItemList(PO, false).items;
 
-                ViewBag.subTotal = (PO.items.Sum(i => i.Price * i.Quantity)).ToString("C");
-                ViewBag.Tax = (PO.items.Sum(i => i.Price * i.Quantity) * 0.15m).ToString("C");
-                ViewBag.Total = (PO.items.Sum(i => i.Price * i.Quantity) * 1.15m).ToString("C");
+                    ViewBag.subTotal = (PO.items.Sum(i => i.Price * i.Quantity)).ToString("C");
+                    ViewBag.Tax = (PO.items.Sum(i => i.Price * i.Quantity) * 0.15m).ToString("C");
+                    ViewBag.Total = (PO.items.Sum(i => i.Price * i.Quantity) * 1.15m).ToString("C");
+                }                              
 
                 return View(new Tuple<PurchaseOrder, Item>(PO, item));
             }
@@ -213,7 +201,8 @@ namespace VastVoyages.Web.Controllers
                             return RedirectToAction("Create");
                         }
                     }
-
+                    TempData["PO"] = null;
+                    TempData["Create"] = "Purchase order has been submitted successful!";
                     return RedirectToAction("Index", "PurchaseOrder");
                 }
                 else
@@ -248,14 +237,7 @@ namespace VastVoyages.Web.Controllers
 
                 if (purchaseOrderDTO.POStatus == "Pending" && purchaseOrderDTO != null)
                 {
-                    PurchaseOrder purchaseOrder = new PurchaseOrder
-                    {
-                        PONumber = purchaseOrderDTO.PONumber,
-                        SubmissionDate = purchaseOrderDTO.SubmissionDate,
-                        RecordVersion = purchaseOrderDTO.RecordVersion,
-                        SubTotal = purchaseOrderDTO.SubTotal,
-                        Tax = purchaseOrderDTO.Tax
-                    };
+                    PurchaseOrder purchaseOrder = GeneratePurchaseOrderObject(PONumber.Value, purchaseOrderDTO);
 
                     ViewBag.Total = (purchaseOrder.SubTotal + purchaseOrder.Tax).ToString("C");
 
@@ -296,6 +278,7 @@ namespace VastVoyages.Web.Controllers
             try
             {
                 PO.employeeId = Convert.ToInt32(Session["employeeId"]);
+                item.PONumber = Convert.ToInt32(PO.PONumber);
 
                 itemService.AddItem(item, PO);
 
@@ -307,116 +290,12 @@ namespace VastVoyages.Web.Controllers
 
                 PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(Convert.ToInt32(PO.PONumber), null, null);
 
-                PO = new PurchaseOrder
-                {
-                    PONumber = purchaseOrderDTO.PONumber,
-                    SubmissionDate = purchaseOrderDTO.SubmissionDate,
-                    RecordVersion = purchaseOrderDTO.RecordVersion,
-                    SubTotal = purchaseOrderDTO.SubTotal,
-                    Tax = purchaseOrderDTO.Tax,
-                    items = new List<Item>()
-                };
-
-                PO.items = GeneratePOItemList(PO, false).items;
+                PO = GeneratePurchaseOrderObject(item.PONumber, purchaseOrderDTO);
 
                 ViewBag.Total = (PO.SubTotal + PO.Tax).ToString("C");
                 var tuple = new Tuple<PurchaseOrder, Item>(PO, item);
 
                 return View(tuple);
-            }
-            catch (Exception ex)
-            {
-                ViewBag.errMsg = ex.Message;
-                return View("Error", new HandleErrorInfo(ex, "PurchaseOrder", "Index"));
-            }
-        }
-
-        /// <summary>
-        /// Update item page
-        /// </summary>
-        /// <param name="ItemId"></param>
-        /// <returns></returns>
-        [CustomizeAuthorize(RoleName.CEO, RoleName.HRSupervisor, RoleName.Supervisor, RoleName.HREmployee, RoleName.Employee)]
-        public ActionResult ItemEdit(int? ItemId)
-        {
-            try
-            {
-                if (ItemId == null)
-                {
-                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-                }
-
-                ItemDTO ItemDTO = itemService.GetItemByItemId(ItemId.Value, Convert.ToInt32(Session["employeeId"]), null);
-
-                if(ItemDTO != null)
-                {
-                    if (ItemDTO.ItemStatus == "Pending" && ItemDTO != null)
-                    {
-                        Item item = new Item
-                        {
-                            ItemId = ItemDTO.ItemId,
-                            ItemName = ItemDTO.ItemName,
-                            ItemDescription = ItemDTO.ItemDescription,
-                            Justification = ItemDTO.Justification,
-                            Location = ItemDTO.Location,
-                            Price = ItemDTO.Price,
-                            Quantity = ItemDTO.Quantity,
-                            PONumber = Convert.ToInt32(ItemDTO.PONumber),
-                            RecordVersion = ItemDTO.RecordVersion
-                        };
-
-                        return View(item);
-                    }
-                    else
-                    {
-                        ViewBag.errMsg = "The item can not be modified";
-                        return View("Error");
-                    }
-                }
-                else
-                {
-                    ViewBag.errMsg = "The item can not be modified";
-                    return View("Error");
-                }
-
-            }
-            catch (Exception ex)
-            {
-                ViewBag.errMsg = ex.Message;
-                return View("Error", new HandleErrorInfo(ex, "PurchaseOrder", "Index"));
-            }
-        }
-
-        /// <summary>
-        /// Update item
-        /// </summary>
-        /// <param name="item"></param>
-        /// <param name="chkNoNeed"></param>
-        /// <returns></returns>
-        [CustomizeAuthorize(RoleName.CEO, RoleName.HRSupervisor, RoleName.Supervisor, RoleName.HREmployee, RoleName.Employee)]
-        [HttpPost]
-        public ActionResult ItemEdit(Item item, int? chkNoNeed)
-        {
-            try
-            {
-                PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(item.PONumber, Convert.ToInt32(Session["employeeId"]), null);
-
-                PurchaseOrder PO = new PurchaseOrder
-                {
-                    PONumber = purchaseOrderDTO.PONumber,
-                    RecordVersion = purchaseOrderDTO.RecordVersion,
-                };
-
-                itemService.UpdateItem(item, false, chkNoNeed != null ? true: false);
-            
-                if (item.Errors.Count == 0)
-                {
-                    TempData["PO"] = PO;
-                    return RedirectToAction("Edit", new { PONumber = Convert.ToInt32(PO.PONumber) });
-                }
-
-                return View(item);
-
             }
             catch (Exception ex)
             {
@@ -434,26 +313,63 @@ namespace VastVoyages.Web.Controllers
         /// <param name="POStatusId"></param>
         /// <returns></returns>
         [CustomizeAuthorize(RoleName.CEO, RoleName.HRSupervisor, RoleName.Supervisor)]
-        public ActionResult Process(string EmpName, DateTime? Start, DateTime? End, int? POStatusId)
+        public ActionResult ProcessList(string EmpName, DateTime? Start, DateTime? End, int? POStatusId)
         {
             try
             {
                 var POStatusList = lookupsService.GetPOStatus();
                 POStatusLookUpsDTO poStatus = new POStatusLookUpsDTO { POStatusId = 0, POStatus = "All POs" };
                 POStatusList.Insert(0, poStatus);
+                POStatusList.RemoveAt(2);
 
                 ViewBag.POStatusList = new SelectList(POStatusList, "POStatusId", "POStatus");
 
                 if (Start != null)
+                {
                     ViewBag.startDate = Start.Value.Date.ToShortDateString();
+                }
+
                 ViewBag.endDate = End == null ? DateTime.Now.ToShortDateString() : End.Value.Date.ToShortDateString();
                 ViewBag.empName = EmpName;
 
                 var searchValidation = ValidationSearch(null, EmpName, POStatusId, Start, End);
+
                 ViewBag.searchError = searchValidation.Item6;
+
                 POStatusId = POStatusId == null ? 1 : POStatusId == 0 ? null : POStatusId;
 
                 return View(POservice.GetPurchaseOrderListBySupervisor(Convert.ToInt32(Session["employeeId"].ToString()), POStatusId, searchValidation.Item2, searchValidation.Item4, searchValidation.Item5));
+            }
+            catch (Exception ex)
+            {
+                ViewBag.errMsg = ex.Message;
+                return View("Error", new HandleErrorInfo(ex, "PurchaseOrder", "Index"));
+            }
+        }
+
+        /// <summary>
+        /// View purchase order details
+        /// </summary>
+        /// <param name="PONumber"></param>
+        /// <returns></returns>
+        [CustomizeAuthorize(RoleName.CEO, RoleName.HRSupervisor, RoleName.Supervisor)]
+        public ActionResult ProcessDetails(int? PONumber)
+        {
+            try
+            {
+                if (PONumber == null)
+                {
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+                }
+
+              
+                List<ItemDTO> items = itemService.GetItemListByPO(PONumber.Value, true);
+                PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(PONumber.Value, null, Convert.ToInt32(Session["employeeId"]));
+                purchaseOrderDTO.items = items;
+                TempData["ProcessDetail"] = "ProcessDetail";
+
+                return View("Details", purchaseOrderDTO);
+              
             }
             catch (Exception ex)
             {
@@ -477,34 +393,38 @@ namespace VastVoyages.Web.Controllers
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
                 }
 
-                PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(PONumber.Value, null, Convert.ToInt32(Session["employeeId"]));
-
-                if (purchaseOrderDTO.POStatus != "Closed" && purchaseOrderDTO != null)
+                if(Convert.ToBoolean(Session["isHeadSupervisor"]) || Session["department"].ToString() == "CEO")
                 {
-                    PurchaseOrder purchaseOrder = new PurchaseOrder
+                    PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(PONumber.Value, null, Convert.ToInt32(Session["employeeId"]));
+
+                    if (purchaseOrderDTO.POStatus != "Closed" && purchaseOrderDTO != null)
                     {
-                        PONumber = purchaseOrderDTO.PONumber,
-                        SubmissionDate = purchaseOrderDTO.SubmissionDate,
-                        RecordVersion = purchaseOrderDTO.RecordVersion,
-                        SubTotal = purchaseOrderDTO.SubTotal,
-                        Tax = purchaseOrderDTO.Tax
-                    };
+                        PurchaseOrder purchaseOrder = GeneratePurchaseOrderObject(PONumber.Value, purchaseOrderDTO);
 
-                    ViewBag.Total = (purchaseOrder.SubTotal + purchaseOrder.Tax).ToString("C");
+                        ViewBag.Total = (purchaseOrder.SubTotal + purchaseOrder.Tax).ToString("C");
 
+                        purchaseOrder.items = GeneratePOItemList(purchaseOrder, true).items;
 
-                    purchaseOrder.items = GeneratePOItemList(purchaseOrder, true).items;
+                        Item item = new Item();
 
-                    Item item = new Item();
+                        var tuple = new Tuple<PurchaseOrder, Item>(purchaseOrder, item);
 
-                    var tuple = new Tuple<PurchaseOrder, Item>(purchaseOrder, item);
+                        var ItemStatusList = lookupsService.GetItemStatus();
+                        ViewBag.ItemStatusList = new SelectList(ItemStatusList, "ItemStatusId", "ItemStatus");
 
-                    return View(tuple);
+                        return View(tuple);
+                    }
+                    else
+                    {
+                        TempData["Error"] = "The purchase order is already closed";
+                        return RedirectToAction("ProcessList", "PurchaseOrder");
+                    }
+
                 }
                 else
                 {
-                    TempData["Error"] = "The purchase order can not be modified";
-                    return RedirectToAction("Index", "PurchaseOrder");
+                    ViewBag.errMsg = "You don't have permission to process purchase order";
+                    return View("Error");
                 }
 
             }
@@ -515,8 +435,87 @@ namespace VastVoyages.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Close purchase order
+        /// </summary>
+        /// <param name="PONumber"></param>
+        /// <returns></returns>
+        [CustomizeAuthorize(RoleName.CEO, RoleName.HRSupervisor, RoleName.Supervisor)]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ClosePurchaseOrder(int? PONumber)
+        {
+            try
+            {
+                if (PONumber == null)
+                {
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+                }
+
+                PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(PONumber.Value, null, Convert.ToInt32(Session["employeeId"]));
+                
+                if(purchaseOrderDTO != null)
+                {
+                    PurchaseOrder purchaseOrder = GeneratePurchaseOrderObject(PONumber.Value, purchaseOrderDTO);
+                    purchaseOrder.POstatusId = 3;
+
+                    POservice.UpdatePurcaseOrder(purchaseOrder);
+
+                    if (purchaseOrder.Errors.Count == 0)
+                    {
+                        EmployeeService employeeService = new EmployeeService();
+                        EmployeeDTO emp = employeeService.SearchEmployeesById(purchaseOrder.employeeId).FirstOrDefault();
+
+                        SendEmail(emp, purchaseOrder);
+                        TempData["EmailSent"] = "Notification Email has been sent successful!";
+                        return RedirectToAction("ProcessList", "PurchaseOrder");
+                    }
+                    else
+                    {
+                        string errorMsg = "";
+
+                        foreach (ValidationError error in purchaseOrder.Errors)
+                        {
+                            errorMsg += error.Description + Environment.NewLine;
+                        }
+
+                        TempData["Error"] = errorMsg;
+                    }
+                }
+                return RedirectToAction("POProcess", "PurchaseOrder", new { PONumber = PONumber.Value });
+            }
+            catch (Exception ex)
+            {
+                ViewBag.errMsg = ex.Message;
+                return View("Error", new HandleErrorInfo(ex, "PurchaseOrder", "Index"));
+            }
+        }
 
         #region Helper methods
+
+        /// <summary>
+        /// Generate purchase order object using by purchase order number
+        /// </summary>
+        /// <param name="PONumber"></param>
+        /// <returns></returns>
+        private PurchaseOrder GeneratePurchaseOrderObject(int PONumber, PurchaseOrderDTO purchaseOrderDTO)
+        {
+            PurchaseOrder purchaseOrder = new PurchaseOrder();
+     
+            if (purchaseOrderDTO != null)
+            {   
+                purchaseOrder.PONumber = purchaseOrderDTO.PONumber;
+                purchaseOrder.SubmissionDate = purchaseOrderDTO.SubmissionDate;
+                purchaseOrder.RecordVersion = purchaseOrderDTO.RecordVersion;
+                purchaseOrder.SubTotal = purchaseOrderDTO.SubTotal;
+                purchaseOrder.Tax = purchaseOrderDTO.Tax;
+                purchaseOrder.employeeId = purchaseOrderDTO.EmployeeId;
+            }
+
+            purchaseOrder = GeneratePOItemList(purchaseOrder, true);
+
+            return purchaseOrder;
+        }
 
         /// <summary>
         /// Generate item list for specific purchase order
@@ -529,25 +528,64 @@ namespace VastVoyages.Web.Controllers
 
             List<ItemDTO> items = itemService.GetItemListByPO(Convert.ToInt32(PO.PONumber), isProcessing);
 
-            foreach (ItemDTO i in items)
+            if(items != null)
             {
-                PO.items.Add(new Item
+                foreach (ItemDTO i in items)
                 {
-                    ItemId = i.ItemId,
-                    ItemName = i.ItemName,
-                    ItemDescription = i.ItemDescription,
-                    Justification = i.Justification,
-                    Location = i.Location,
-                    Price = i.Price,
-                    Quantity = i.Quantity,
-                    ItemStatusId = i.ItemStatusId,
-                    DecisionReason = i.DecisionReason,
-                    RecordVersion = i.RecordVersion
-                });
-            }
+                    PO.items.Add(new Item
+                    {
+                        ItemId = i.ItemId,
+                        ItemName = i.ItemName,
+                        ItemDescription = i.ItemDescription,
+                        Justification = i.Justification,
+                        Location = i.Location,
+                        Price = i.Price,
+                        Quantity = i.Quantity,
+                        ItemStatusId = i.ItemStatusId,
+                        DecisionReason = i.DecisionReason,
+                        RecordVersion = i.RecordVersion
+                    });
+                }
+            }            
 
             return PO;
         }
+
+        /// <summary>
+        /// Send email notification
+        /// </summary>
+        /// <param name="emp"></param>
+        /// <param name="purchaseOrder"></param>
+        private void SendEmail(EmployeeDTO emp, PurchaseOrder purchaseOrder)
+        {
+            EmailService emailService = new EmailService();
+
+            PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(Convert.ToInt32(purchaseOrder.PONumber), emp.EmpId, null);
+            purchaseOrderDTO.items = itemService.GetItemListByPO(Convert.ToInt32(purchaseOrderDTO.PONumber), true);
+
+            Email email = new Email();
+
+            email.mailTo = emp.Email;
+            email.mailFrom = "Admin@VastVoyages.ca";
+            email.subject = "Purchase order final decision notification";
+            email.body = $"<h2>Your purchase order is closed.</h2>" +
+                         $"<p>Purchase Order Number: {purchaseOrderDTO.PONumber}</p>" +
+                         $"<p>Submission Date: {purchaseOrderDTO.SubmissionDate}</p>" +
+                         $"<p>Total cost: {purchaseOrderDTO.Total.ToString("C")}</p>" +
+                         "<hr><table style='border:1px solid #dddddd; border-collapse:collapse; width: 60%;'><tr><th style='border:1px solid #dddddd; text-align:left;'>Item Name</th><th style='text-align:left;'>Item Status</th></tr>";
+
+            foreach (ItemDTO item in purchaseOrderDTO.items)
+            {
+                email.body += $"<tr><td style='border:1px solid #dddddd;'> {item.ItemName}</td>" +
+                              $"<td style='border:1px solid #dddddd;'>{item.ItemStatus}</td></tr>";
+            }
+
+            email.body += $"</table>";
+            email.body += $"<br><a href='https://localhost:44370/PurchaseOrder/Details?PONumber={purchaseOrder.PONumber}'>View Purchase Order</a>";
+
+            emailService.SendNotificationEmail(email);
+        }
+
 
         /// <summary>
         /// Validation method for search criteria. All fiels are optional. Return search values and error list
