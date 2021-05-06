@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using VastVoyages.Model;
+using VastVoyages.Model.DTO;
+using VastVoyages.Model.Entities;
 using VastVoyages.Service;
 
 namespace VastVoyages.WinFrontEnd
@@ -24,6 +26,7 @@ namespace VastVoyages.WinFrontEnd
             LoadLoginInfo();
             PopulateSearchOptions();
             HideEmployeeDetails();
+            PopulateEmployeeInfoCategories();
         }
 
         private void btnSearchEmployees_Click(object sender, EventArgs e)
@@ -33,6 +36,7 @@ namespace VastVoyages.WinFrontEnd
                 dgvEmployees.DataSource = null;
                 txtSearchCriteria.Enabled = true;
                 HideEmployeeDetails();
+                grpEditEmployeeInfo.Visible = false;
                 bool isValid = true;
 
 
@@ -94,12 +98,48 @@ namespace VastVoyages.WinFrontEnd
             {
                 ShowEmployeeDetails();
                 PopulateEmployeeDetails();
+                grpEditEmployeeInfo.Visible = true;
+                HideEditEmployeeCategories();
+                btnSave.Visible = false;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void btnSelectInfoCategory_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string category = cmbSelectInfoCategory.SelectedItem.ToString();
+
+                HideEditEmployeeCategories();
+                btnSave.Visible = true;
+
+                switch (category)
+                {
+                    case ("Personal Information"):
+                        grpPersonalInfo.Visible = true;
+                        PopulatePersonalInformation();
+                        break;
+                    case ("Job Information"):
+                        grpJobInfo.Visible = true;
+                        PopulateJobInformation();
+                        break;
+                    case ("Employment Status"):
+                        grpEmploymentStatus.Visible = true;
+                        PopulateEmploymentStatus();
+                        break;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
 
         #region Helpers
         private void PopulateEmployeeDetails()
@@ -126,12 +166,85 @@ namespace VastVoyages.WinFrontEnd
 
         }
 
+        private void PopulatePersonalInformation()
+        {
+            LoadCountries();
+            LoadProvinceStates();
+
+            int employeeId = Convert.ToInt32(dgvEmployees.CurrentRow.Cells["Id"].Value);
+
+            EmployeeService employeeService = new EmployeeService();
+            Employee employee = employeeService.GetEmployeeToModifyById(employeeId);
+
+            txtFirstNameMod.Text = (employee.FirstName).ToString();
+            txtMiddleInitMod.Text = employee.MiddleInitial == null ? "" : (employee.MiddleInitial).ToString();
+            txtLastNameMod.Text = (employee.LastName).ToString();
+            dtpDOBMod.Value = Convert.ToDateTime(employee.DateOfBirth);
+
+
+            txtStreetMod.Text = (employee.Street).ToString();
+            txtCityMod.Text = (employee.City).ToString();
+            cmbProvince.SelectedItem = (employee.Province).ToString();
+            cmbCountry.SelectedItem = (employee.Country).ToString();
+            txtPostalCodeMod.Text = (employee.PostalCode).ToString();
+        }
+
+        private void PopulateJobInformation()
+        {
+            LoadJobAssignments();
+            LoadDepartments();
+
+            int employeeId = Convert.ToInt32(dgvEmployees.CurrentRow.Cells["Id"].Value);
+
+            EmployeeService employeeService = new EmployeeService();
+            Employee employee = employeeService.GetEmployeeToModifyById(employeeId);
+
+            txtSIN.Text = (employee.SIN).ToString();
+            cmbJobAssignment.SelectedValue = Convert.ToInt32(employee.JobAssignmentId);
+            dtpJobStartDate.Value = Convert.ToDateTime(employee.JobStartDate);
+            //validate for CEO **?
+            if (employee.DepartmentId == 1)
+            {
+                grpJobInfo.Visible = false;
+                btnSave.Visible = false;
+                MessageBox.Show("The CEO's job information cannot be modified at this time.", "No Access", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            cmbDepartment.SelectedItem = Convert.ToInt32(employee.DepartmentId);
+        }
+
+        private void PopulateEmploymentStatus()
+        {
+            LoadEmployeeStatus();
+
+            int employeeId = Convert.ToInt32(dgvEmployees.CurrentRow.Cells["Id"].Value);
+
+            EmployeeService employeeService = new EmployeeService();
+            Employee employee = employeeService.GetEmployeeToModifyById(employeeId);
+
+            txtSIN2.Text = (employee.SIN).ToString();
+            dtpSeniorityDate.Value = Convert.ToDateTime(employee.SeniorityDate);
+            cmbEmploymentStatus.SelectedItem = Convert.ToInt32(employee.EmployeeStatusId);
+
+            if(cmbEmploymentStatus.SelectedValue.ToString() == "Retired")
+            {
+                lblRetirementDate.Visible = true;
+                dtpRetirementDate.Visible = true;
+            }
+        }
+
         private void PopulateSearchOptions()
         {
             //cmbSearchEmployees.Items.Add("View All Employees");
             cmbSearchEmployees.Items.Add("Employee Id");
             cmbSearchEmployees.Items.Add("Last Name");
             cmbSearchEmployees.SelectedIndex = 0;
+        }
+
+        private void PopulateEmployeeInfoCategories()
+        {
+            cmbSelectInfoCategory.Items.Add("Personal Information");
+            cmbSelectInfoCategory.Items.Add("Job Information");
+            cmbSelectInfoCategory.Items.Add("Employment Status");
         }
 
         private void HideEmployeeDetails()
@@ -144,6 +257,14 @@ namespace VastVoyages.WinFrontEnd
             grpEmployeeDetails.Visible = true;
         }
 
+        private void HideEditEmployeeCategories()
+        {
+            grpPersonalInfo.Visible = false;
+            grpJobInfo.Visible = false;
+            grpEmploymentStatus.Visible = false;
+        }
+
+
         private void LoadLoginInfo()
         {
             lbEmpName.Text = ((MainForm)this.MdiParent).loginInfo.FullName;
@@ -154,7 +275,127 @@ namespace VastVoyages.WinFrontEnd
             lbCurrentDate.Text = DateTime.Now.ToShortDateString();
         }
 
-        #endregion
+        private void LoadJobAssignments()
+        {
+            LookupsService service = new LookupsService();
+            List<JobAssignmentsLookupsDTO> jobAssignments = service.GetJobAssignments();
+            cmbJobAssignment.DataSource = jobAssignments;
+            cmbJobAssignment.DisplayMember = "JobAssignment";
+            cmbJobAssignment.ValueMember = "JobAssignmentId";
+        }
 
+        private void LoadDepartments()
+        {
+            LookupsService service = new LookupsService();
+            List<DepartmentLookupsDTO> departments = service.GetDepartments();
+            cmbDepartment.DataSource = departments;
+            cmbDepartment.DisplayMember = "DepartmentName";
+            cmbDepartment.ValueMember = "DepartmentId";
+        }
+
+        private void LoadEmployeeStatus()
+        {
+            LookupsService service = new LookupsService();
+            List<EmployeeStatusLookupsDTO> status = service.GetEmployeeStatus();
+            cmbEmploymentStatus.DataSource = status;
+            cmbEmploymentStatus.DisplayMember = "EmployeeStatus";
+            cmbEmploymentStatus.ValueMember = "EmployeeStatusId";
+        }
+
+        private void LoadCountries()
+        {
+            Dictionary<string, string> countries = new Dictionary<string, string>();
+            countries.Add("Canada", "Canada");
+            countries.Add("United States Of America", "United States Of America");
+
+            cmbCountry.DataSource = new BindingSource(countries, null);
+            cmbCountry.DisplayMember = "Value";
+            cmbCountry.ValueMember = "Key";
+        }
+
+        private void LoadProvinceStates()
+        {
+            Dictionary<string, string> provinces = new Dictionary<string, string>();
+
+            if (cmbCountry.SelectedValue.Equals("Canada"))
+            {
+                lblPostalCode.Text = "Postal Code:";
+
+                provinces.Add("AB", "Alberta");
+                provinces.Add("BC", "British Columbia");
+                provinces.Add("MB", "Manitoba");
+                provinces.Add("NL", "Newfoundland and Labrador");
+                provinces.Add("NB", "New Brunswick");
+                provinces.Add("NT", "Northwest Territories");
+                provinces.Add("NS", "Nova Scotia");
+                provinces.Add("NU", "Nunavut");
+                provinces.Add("ON", "Ontario");
+                provinces.Add("PE", "Prince Edward Island");
+                provinces.Add("QC", "Quebec");
+                provinces.Add("SK", "Saskatchewan");
+                provinces.Add("YT", "Yukon");
+            }
+            else
+            {
+                lblPostalCode.Text = "Zip Code:";
+
+                provinces.Add("AL", "Alabama");
+                provinces.Add("AK", "Alaska");
+                provinces.Add("AZ", "Arizona");
+                provinces.Add("AR", "Arkansas");
+                provinces.Add("CA", "California");
+                provinces.Add("CO", "Colorado");
+                provinces.Add("CT", "Connecticut");
+                provinces.Add("DE", "Delaware");
+                provinces.Add("DC", "District of Columbia");
+                provinces.Add("FL", "Florida");
+                provinces.Add("GA", "Georgia");
+                provinces.Add("HI", "Hawaii");
+                provinces.Add("ID", "Idaho");
+                provinces.Add("IL", "Illinois");
+                provinces.Add("IN", "Indiana");
+                provinces.Add("IA", "Iowa");
+                provinces.Add("KS", "Kansas");
+                provinces.Add("KY", "Kentucky");
+                provinces.Add("LA", "Louisiana");
+                provinces.Add("ME", "Maine");
+                provinces.Add("MD", "Maryland");
+                provinces.Add("MA", "Massachusetts");
+                provinces.Add("MI", "Michigan");
+                provinces.Add("MN", "Minnesota");
+                provinces.Add("MS", "Mississippi");
+                provinces.Add("MO", "Missouri");
+                provinces.Add("MT", "Montana");
+                provinces.Add("NE", "Nebraska");
+                provinces.Add("NV", "Nevada");
+                provinces.Add("NH", "New Hampshire");
+                provinces.Add("NJ", "New Jersey");
+                provinces.Add("NM", "New Mexico");
+                provinces.Add("NY", "New York");
+                provinces.Add("NC", "North Carolina");
+                provinces.Add("ND", "North Dakota");
+                provinces.Add("OH", "Ohio");
+                provinces.Add("OK", "Oklahoma");
+                provinces.Add("OR", "Oregon");
+                provinces.Add("PA", "Pennsylvania");
+                provinces.Add("RI", "Rhode Island");
+                provinces.Add("SC", "South Carolina");
+                provinces.Add("SD", "South Dakota");
+                provinces.Add("TN", "Tennessee");
+                provinces.Add("TX", "Texas");
+                provinces.Add("UT", "Utah");
+                provinces.Add("VT", "Vermont");
+                provinces.Add("VA", "Virginia");
+                provinces.Add("WA", "Washington");
+                provinces.Add("WV", "West Virginia");
+                provinces.Add("WI", "Wisconsin");
+                provinces.Add("WY", "Wyoming");
+            }
+
+            cmbProvince.DataSource = new BindingSource(provinces, null);
+            cmbProvince.DisplayMember = "Value";
+            cmbProvince.ValueMember = "Key";
+        }
+        #endregion
     }
 }

@@ -287,7 +287,7 @@ namespace VastVoyages.Repository
                 UserName = row["UserName"].ToString(),
                 FirstName = row["FirstName"].ToString(),
                 LastName = row["LastName"].ToString(),
-                //MiddleInitial = row["MiddleInit"].ToString(),
+                MiddleInitial = row["MiddleInit"] == DBNull.Value ? "" : row["MiddleInit"].ToString(),
                 DateOfBirth = Convert.ToDateTime(row["DateOfBirth"]),
                 Street = row["Street"].ToString(),
                 City = row["City"].ToString(),
@@ -300,10 +300,11 @@ namespace VastVoyages.Repository
                 JobStartDate = Convert.ToDateTime(row["JobStartDate"]),
                 SeniorityDate = Convert.ToDateTime(row["SeniorityDate"]),
                 SIN = row["SIN"].ToString(),
-                //SupervisorId = Convert.ToInt32(row["SupervisorId"]),
-                //DepartmentId = Convert.ToInt32(row["DepartmentId"]),
-                //EmployeeStatusId = Convert.ToInt32(row["EmployeeStatusId"]),
-                //JobAssignmentId = Convert.ToInt32(row["JobAssignmentId"])
+                //the following were commented out...make sure nothing broke
+                SupervisorId = row["SupervisorId"] == DBNull.Value ? 0 : Convert.ToInt32(row["SupervisorId"]),
+                DepartmentId = Convert.ToInt32(row["DepartmentId"]),
+                EmployeeStatusId = Convert.ToInt32(row["EmployeeStatusId"]),
+                JobAssignmentId = Convert.ToInt32(row["JobAssignmentId"])
             };
         }
 

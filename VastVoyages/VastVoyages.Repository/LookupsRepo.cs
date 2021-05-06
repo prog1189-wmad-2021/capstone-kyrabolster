@@ -147,5 +147,31 @@ namespace VastVoyages.Repository
 
             return supervisors;
         }
+
+        /// <summary>
+        /// Get Employee Statuses
+        /// </summary>
+        /// <returns></returns>
+        public List<EmployeeStatusLookupsDTO> RetrieveEmployeeStatus()
+        {
+            List<ParmStruct> parms = new List<ParmStruct>();
+
+            DataTable dt = db.Execute("spGetEmployeeStatus", parms);
+
+            List<EmployeeStatusLookupsDTO> employeeStatus = new List<EmployeeStatusLookupsDTO>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                employeeStatus.Add(
+                    new EmployeeStatusLookupsDTO
+                    {
+                        EmployeeStatusId = Convert.ToInt32(row["EmployeeStatusId"]),
+                        EmployeeStatus = row["EmployeeStatus"].ToString()
+                    }
+                );
+            }
+
+            return employeeStatus;
+        }
     }
 }
