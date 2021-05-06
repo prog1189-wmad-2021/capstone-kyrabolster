@@ -27,6 +27,8 @@ namespace VastVoyages.Model
         public int EmployeeId { get; set; }
         public string Employee { get; set; }
         public string Supervisor { get; set; }
+        public int SupervisorId { get; set; }
+        public int HeadSupervisorId { get; set; }
         public string POStatus { get; set; }
         public byte[] RecordVersion { get; set; }
         public List<ItemDTO> items { get; set; } 

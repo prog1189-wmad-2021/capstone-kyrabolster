@@ -200,7 +200,7 @@ namespace VastVoyages.WinFrontEnd
                     {
                         PurchaseOrderService service = new PurchaseOrderService();
 
-                        PurchaseOrderDTO purchaseOrderDTO = service.GetPurchaseOrderByPONumber(PONumber, null, null);
+                        PurchaseOrderDTO purchaseOrderDTO = service.GetPurchaseOrderByPONumber(PONumber, null, null, false);
 
                         frmCreatePO createForm = new frmCreatePO();
                         
@@ -238,7 +238,10 @@ namespace VastVoyages.WinFrontEnd
                     dgvItem.Columns[9].Visible = false; //Item Status Id
                     dgvItem.Columns[10].HeaderText = "Status";
                     dgvItem.Columns[11].HeaderText = "Decision Reason";
-                    dgvItem.Columns[12].Visible = false; // Record version                                        
+                    dgvItem.Columns[12].Visible = false; // Record version      
+                    dgvItem.Columns[13].Visible = false;
+                    dgvItem.Columns[14].Visible = false;
+                    dgvItem.Columns[15].Visible = false;
 
                     dgvItem.Columns[5].DefaultCellStyle.Format = "C";
                     dgvItem.AutoResizeColumns();
@@ -335,8 +338,8 @@ namespace VastVoyages.WinFrontEnd
             dgvPO.Columns[4].HeaderText = "Total";
             dgvPO.Columns[6].HeaderText = "Employee";
             dgvPO.Columns[7].HeaderText = "Supervisor";
-            dgvPO.Columns[8].HeaderText = "Status";
-            dgvPO.Columns[8].Name = "Status";
+            dgvPO.Columns[10].HeaderText = "Status";
+            dgvPO.Columns[10].Name = "Status";
 
             dgvPO.Columns[2].DefaultCellStyle.Format = "C";
             dgvPO.Columns[3].DefaultCellStyle.Format = "C";
@@ -345,7 +348,9 @@ namespace VastVoyages.WinFrontEnd
             // don't need to show employee's name and supervisor's name in this form
             dgvPO.Columns[5].Visible = false;
             dgvPO.Columns[6].Visible = false;
+            dgvPO.Columns[8].Visible = false;
             dgvPO.Columns[9].Visible = false;
+            dgvPO.Columns[11].Visible = false;
 
             dgvPO.AutoResizeColumns();
 

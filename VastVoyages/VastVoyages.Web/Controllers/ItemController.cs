@@ -34,7 +34,7 @@ namespace VastVoyages.Web.Controllers
                
                 if (itemDTO != null)
                 {
-                    PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(Convert.ToInt32(itemDTO.PONumber), Convert.ToInt32(Session["employeeId"]), null);
+                    PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(Convert.ToInt32(itemDTO.PONumber), Convert.ToInt32(Session["employeeId"]), null, false);
 
                     if (itemDTO.ItemStatus == "Pending" && itemDTO != null)
                     {
@@ -56,14 +56,14 @@ namespace VastVoyages.Web.Controllers
                     }
                     else
                     {
-                        TempData["Error"] = "The item can not be modified";
+                        TempData["Error"] = "The item can not be modified.";
                         return RedirectToAction("Edit", "PurchaseOrder", new { PONumber = itemDTO.PONumber });
                     }
                 }
                 else
                 {
-                    TempData["Error"] = "The item can not be modified";
-                    return RedirectToAction("Edit", "PurchaseOrder", new { PONumber = itemDTO.PONumber });
+                    ViewBag.errMsg = "You don't have permission to view the item.";
+                    return View("Error");
                 }
 
             }
@@ -90,7 +90,7 @@ namespace VastVoyages.Web.Controllers
                                 
                 if (item.Errors.Count == 0)
                 {
-                    PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(item.PONumber, Convert.ToInt32(Session["employeeId"]), null);
+                    PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(item.PONumber, Convert.ToInt32(Session["employeeId"]), null, false);
                     PurchaseOrder PO = GeneratePurchaseOrderObject(purchaseOrderDTO);
 
                     if (PO.items.Where(i => i.ItemStatusId != 1).ToList().Count == PO.items.Count)
@@ -138,28 +138,51 @@ namespace VastVoyages.Web.Controllers
                 }
 
                 ItemDTO itemDTO = itemService.GetItemByItemId(itemId.Value, null, Convert.ToInt32(Session["employeeId"]));
+
                 Item item = new Item();
 
                 if (itemDTO != null)
                 {
-                    PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(Convert.ToInt32(itemDTO.PONumber), null, Convert.ToInt32(Session["employeeId"]));
-                
-                    item.ItemId = itemDTO.ItemId;
-                    item.ItemName = itemDTO.ItemName;
-                    item.ItemDescription = itemDTO.ItemDescription;
-                    item.Justification = itemDTO.Justification;
-                    item.Location = itemDTO.Location;
-                    item.Price = itemDTO.Price;
-                    item.Quantity = itemDTO.Quantity;
-                    item.PONumber = Convert.ToInt32(itemDTO.PONumber);
-                    item.ItemStatusId = itemDTO.ItemStatusId;
-                    item.RecordVersion = itemDTO.RecordVersion;
-                    item.DecisionReason = itemDTO.DecisionReason;
-                    item.PORecordVersion = purchaseOrderDTO.RecordVersion;
+                    if(itemDTO.POStatusId != 3)
+                    {
+                        PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(Convert.ToInt32(itemDTO.PONumber), null, Convert.ToInt32(Session["employeeId"]), true);
 
-                    var ItemStatusList = lookupsService.GetItemStatus();
+                        if(purchaseOrderDTO != null)
+                        {
+                            item.ItemId = itemDTO.ItemId;
+                            item.ItemName = itemDTO.ItemName;
+                            item.ItemDescription = itemDTO.ItemDescription;
+                            item.Justification = itemDTO.Justification;
+                            item.Location = itemDTO.Location;
+                            item.Price = itemDTO.Price;
+                            item.Quantity = itemDTO.Quantity;
+                            item.PONumber = Convert.ToInt32(itemDTO.PONumber);
+                            item.ItemStatusId = itemDTO.ItemStatusId;
+                            item.RecordVersion = itemDTO.RecordVersion;
+                            item.DecisionReason = itemDTO.DecisionReason;
+                            item.PORecordVersion = purchaseOrderDTO.RecordVersion;
 
-                    ViewBag.ItemStatusList = new SelectList(ItemStatusList, "ItemStatusId", "ItemStatus");
+                            var ItemStatusList = lookupsService.GetItemStatus();
+
+                            ViewBag.ItemStatusList = new SelectList(ItemStatusList, "ItemStatusId", "ItemStatus");
+                        }
+                        else
+                        {
+                            ViewBag.errMsg = "You don't have permission to view the item.";
+                            return View("Error");
+                        }
+
+                    }
+                    else
+                    {
+                        TempData["Error"] = "The Purchase order is already closed. The item can not be modified.";
+                        return RedirectToAction("ProcessList", "PurchaseOrder");
+                    }                    
+                }
+                else
+                {
+                    ViewBag.errMsg = "You don't have permission to process the item.";
+                    return View("Error");
                 }
                        
                 return View(item);
@@ -182,7 +205,7 @@ namespace VastVoyages.Web.Controllers
         {
             try
             {
-                PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(Convert.ToInt32(item.PONumber), null, Convert.ToInt32(Session["employeeId"]));
+                PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(Convert.ToInt32(item.PONumber), null, Convert.ToInt32(Session["employeeId"]), true);
 
                 //item.PORecordVersion = purchaseOrderDTO.RecordVersion;
                 item = itemService.ApproveOrDenyItem(item, Convert.ToInt32(Session["employeeId"]));

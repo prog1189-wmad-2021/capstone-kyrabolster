@@ -95,7 +95,7 @@ namespace VastVoyages.WinFrontEnd
             {
                 int PONumber = Convert.ToInt32(dgvPO.Rows[e.RowIndex].Cells["Purchase Order #"].Value.ToString());
 
-                _purchaseOrder = POService.GetPurchaseOrderByPONumber(PONumber, null, null);
+                _purchaseOrder = POService.GetPurchaseOrderByPONumber(PONumber, null, null, false);
 
                 if (e.ColumnIndex > -1 && dgvPO.Columns[e.ColumnIndex].Name == "btnClose")
                 {
@@ -419,15 +419,17 @@ namespace VastVoyages.WinFrontEnd
             dgvPO.Columns[5].Visible = false; //Employee Id
             dgvPO.Columns[6].HeaderText = "Employee";
             dgvPO.Columns[7].HeaderText = "Supervisor";
-            dgvPO.Columns[8].HeaderText = "Status";
-            dgvPO.Columns[8].Name = "Status";
+            dgvPO.Columns[10].HeaderText = "Status";
+            dgvPO.Columns[10].Name = "Status";
 
             dgvPO.Columns[2].DefaultCellStyle.Format = "C";
             dgvPO.Columns[3].DefaultCellStyle.Format = "C";
             dgvPO.Columns[4].DefaultCellStyle.Format = "C";
 
             // don't need to show record version
+            dgvPO.Columns[8].Visible = false;
             dgvPO.Columns[9].Visible = false;
+            dgvPO.Columns[11].Visible = false;
 
             dgvPO.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             dgvPO.AutoResizeColumns();
@@ -468,7 +470,10 @@ namespace VastVoyages.WinFrontEnd
             dgvItem.Columns[9].Visible = false; //PO Status
             dgvItem.Columns[10].HeaderText = "Status";
             dgvItem.Columns[11].HeaderText = "Decision Reason";
-            dgvItem.Columns[12].Visible = false; // Record version                    
+            dgvItem.Columns[12].Visible = false; // Record version                  
+            dgvItem.Columns[13].Visible = false;
+            dgvItem.Columns[14].Visible = false;
+            dgvItem.Columns[15].Visible = false;
 
             dgvItem.Columns[5].DefaultCellStyle.Format = "C";
             dgvItem.AutoResizeColumns();
@@ -484,7 +489,7 @@ namespace VastVoyages.WinFrontEnd
         {
             EmailService emailService = new EmailService();
 
-            PurchaseOrderDTO purchaseOrderDTO = POService.GetPurchaseOrderByPONumber(Convert.ToInt32(purchaseOrder.PONumber), emp.EmpId, null);
+            PurchaseOrderDTO purchaseOrderDTO = POService.GetPurchaseOrderByPONumber(Convert.ToInt32(purchaseOrder.PONumber), emp.EmpId, null, false);
             purchaseOrderDTO.items = itemService.GetItemListByPO(Convert.ToInt32(purchaseOrderDTO.PONumber), false);
 
             Email email = new Email();

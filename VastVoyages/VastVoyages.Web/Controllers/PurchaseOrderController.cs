@@ -74,11 +74,18 @@ namespace VastVoyages.Web.Controllers
                 {
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
                 }
-                List<ItemDTO> items = itemService.GetItemListByPO(PONumber.Value, false);
-                PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(PONumber.Value, Convert.ToInt32(Session["employeeId"]), null);               
-                purchaseOrderDTO.items = items;
-
-                return View(purchaseOrderDTO);
+                PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(PONumber.Value, Convert.ToInt32(Session["employeeId"]), null, false);
+                if (purchaseOrderDTO != null)
+                {
+                    List<ItemDTO> items = itemService.GetItemListByPO(PONumber.Value, false);
+                    purchaseOrderDTO.items = items;
+                    return View(purchaseOrderDTO);
+                }
+                else
+                {
+                    ViewBag.errMsg = "You don't have permission to view purchase order";
+                    return View("Error");
+                }
             }
             catch (Exception ex)
             {
@@ -179,7 +186,7 @@ namespace VastVoyages.Web.Controllers
             try
             {
                 List<ItemDTO> itemsDTO = itemService.GetItemListByPO(PONumber, false);
-                PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(PONumber, null, null);
+                PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(PONumber, null, null, false);
                 purchaseOrderDTO.items = itemsDTO;
 
                 PurchaseOrder PO = new PurchaseOrder();
@@ -233,29 +240,36 @@ namespace VastVoyages.Web.Controllers
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
                 }
 
-                PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(PONumber.Value, Convert.ToInt32(Session["employeeId"]), null);
+                PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(PONumber.Value, Convert.ToInt32(Session["employeeId"]), null, false);
 
-                if (purchaseOrderDTO.POStatus == "Pending" && purchaseOrderDTO != null)
+                if (purchaseOrderDTO != null)
                 {
-                    PurchaseOrder purchaseOrder = GeneratePurchaseOrderObject(PONumber.Value, purchaseOrderDTO);
+                    if (purchaseOrderDTO.POStatus == "Pending" && purchaseOrderDTO != null)
+                    {
+                        PurchaseOrder purchaseOrder = GeneratePurchaseOrderObject(PONumber.Value, purchaseOrderDTO);
 
-                    ViewBag.Total = (purchaseOrder.SubTotal + purchaseOrder.Tax).ToString("C");
+                        ViewBag.Total = (purchaseOrder.SubTotal + purchaseOrder.Tax).ToString("C");
 
 
-                    purchaseOrder.items = GeneratePOItemList(purchaseOrder, false).items;
+                        purchaseOrder.items = GeneratePOItemList(purchaseOrder, false).items;
 
-                    Item item = new Item();
+                        Item item = new Item();
 
-                    var tuple = new Tuple<PurchaseOrder, Item>(purchaseOrder, item);
+                        var tuple = new Tuple<PurchaseOrder, Item>(purchaseOrder, item);
 
-                    return View(tuple);
+                        return View(tuple);
+                    }
+                    else
+                    {
+                        TempData["Error"] = "The purchase order can not be modified";
+                        return RedirectToAction("Index", "PurchaseOrder");
+                    }
                 }
                 else
                 {
-                    TempData["Error"] = "The purchase order can not be modified";
-                    return RedirectToAction("Index", "PurchaseOrder");
+                    ViewBag.errMsg = "You don't have permission to view purchase order";
+                    return View("Error");
                 }
-
             }
             catch (Exception ex)
             {
@@ -288,7 +302,7 @@ namespace VastVoyages.Web.Controllers
                     return RedirectToAction("Edit", new { PONumber = Convert.ToInt32(PO.PONumber) });
                 }
 
-                PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(Convert.ToInt32(PO.PONumber), null, null);
+                PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(Convert.ToInt32(PO.PONumber), null, null, false);
 
                 PO = GeneratePurchaseOrderObject(item.PONumber, purchaseOrderDTO);
 
@@ -362,13 +376,20 @@ namespace VastVoyages.Web.Controllers
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
                 }
 
-                List<ItemDTO> items = itemService.GetItemListByPO(PONumber.Value, true);
-                PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(PONumber.Value, null, Convert.ToInt32(Session["employeeId"]));
-                purchaseOrderDTO.items = items;
-                TempData["ProcessDetail"] = "ProcessDetail";
+                PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(PONumber.Value, null, Convert.ToInt32(Session["employeeId"]), false);
+                if (purchaseOrderDTO != null)
+                {
+                    List<ItemDTO> items = itemService.GetItemListByPO(PONumber.Value, true);
+                    purchaseOrderDTO.items = items;
+                    TempData["ProcessDetail"] = "ProcessDetail";
 
-                return View("Details", purchaseOrderDTO);
-              
+                    return View("Details", purchaseOrderDTO);
+                }
+                else
+                {
+                    ViewBag.errMsg = "You don't have permission to process purchase order";
+                    return View("Error");
+                }
             }
             catch (Exception ex)
             {
@@ -394,29 +415,37 @@ namespace VastVoyages.Web.Controllers
 
                 if(Convert.ToBoolean(Session["isHeadSupervisor"]) || Session["department"].ToString() == "CEO")
                 {
-                    PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(PONumber.Value, null, Convert.ToInt32(Session["employeeId"]));
+                    PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(PONumber.Value, null, Convert.ToInt32(Session["employeeId"]), true);
 
-                    if (purchaseOrderDTO.POStatus != "Closed" && purchaseOrderDTO != null)
+                    if(purchaseOrderDTO != null)
                     {
-                        PurchaseOrder purchaseOrder = GeneratePurchaseOrderObject(PONumber.Value, purchaseOrderDTO);
+                        if (purchaseOrderDTO.POStatus != "Closed" && purchaseOrderDTO != null)
+                        {
+                            PurchaseOrder purchaseOrder = GeneratePurchaseOrderObject(PONumber.Value, purchaseOrderDTO);
 
-                        ViewBag.Total = (purchaseOrder.SubTotal + purchaseOrder.Tax).ToString("C");
+                            ViewBag.Total = (purchaseOrder.SubTotal + purchaseOrder.Tax).ToString("C");
 
-                        purchaseOrder.items = GeneratePOItemList(purchaseOrder, true).items;
+                            purchaseOrder.items = GeneratePOItemList(purchaseOrder, true).items;
 
-                        Item item = new Item();
+                            Item item = new Item();
 
-                        var tuple = new Tuple<PurchaseOrder, Item>(purchaseOrder, item);
+                            var tuple = new Tuple<PurchaseOrder, Item>(purchaseOrder, item);
 
-                        var ItemStatusList = lookupsService.GetItemStatus();
-                        ViewBag.ItemStatusList = new SelectList(ItemStatusList, "ItemStatusId", "ItemStatus");
+                            var ItemStatusList = lookupsService.GetItemStatus();
+                            ViewBag.ItemStatusList = new SelectList(ItemStatusList, "ItemStatusId", "ItemStatus");
 
-                        return View(tuple);
+                            return View(tuple);
+                        }
+                        else
+                        {
+                            TempData["Error"] = "The purchase order is already closed";
+                            return RedirectToAction("ProcessList", "PurchaseOrder");
+                        }
                     }
                     else
                     {
-                        TempData["Error"] = "The purchase order is already closed";
-                        return RedirectToAction("ProcessList", "PurchaseOrder");
+                        ViewBag.errMsg = "You don't have permission to process purchase order";
+                        return View("Error");
                     }
 
                 }
@@ -451,7 +480,7 @@ namespace VastVoyages.Web.Controllers
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
                 }
 
-                PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(PONumber.Value, null, Convert.ToInt32(Session["employeeId"]));
+                PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(PONumber.Value, null, Convert.ToInt32(Session["employeeId"]), true);
                 
                 if(purchaseOrderDTO != null)
                 {
@@ -559,7 +588,7 @@ namespace VastVoyages.Web.Controllers
         {
             EmailService emailService = new EmailService();
 
-            PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(Convert.ToInt32(purchaseOrder.PONumber), emp.EmpId, null);
+            PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(Convert.ToInt32(purchaseOrder.PONumber), emp.EmpId, null, false);
             purchaseOrderDTO.items = itemService.GetItemListByPO(Convert.ToInt32(purchaseOrderDTO.PONumber), true);
 
             Email email = new Email();

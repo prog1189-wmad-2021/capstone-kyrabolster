@@ -57,7 +57,19 @@ namespace VastVoyages.Service
         /// <returns></returns>
         public ItemDTO GetItemByItemId(int itemId, int? employeeId, int? supervisorId)
         {
-            return repo.RetrieveItemByItemId(itemId, employeeId, supervisorId);
+            ItemDTO item = repo.RetrieveItemByItemId(itemId, employeeId, supervisorId);
+            if (supervisorId != null)
+            {
+                if (supervisorId == item.SupervisorId || supervisorId == item.HeadSupervisorId)
+                {
+                    return item;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            return item;
         }
 
         /// <summary>

@@ -34,5 +34,8 @@ namespace VastVoyages.Model
         [Display(Name = "Reason")]
         public string DecisionReason { get; set; }
         public byte[] RecordVersion { get; set; }
+        public int EmployeeId { get; set; }
+        public int SupervisorId { get; set; }
+        public int HeadSupervisorId { get; set; }
     }
 }

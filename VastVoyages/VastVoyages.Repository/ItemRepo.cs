@@ -88,9 +88,13 @@ namespace VastVoyages.Repository
                         Price = Convert.ToDecimal(row["Price"]),
                         Quantity = Convert.ToInt32(row["Quantity"]),
                         PONumber = row["PONumber"].ToString(),
+                        POStatusId = Convert.ToInt32(row["POStatusId"]),
                         ItemStatusId = Convert.ToInt32(row["ItemStatusId"]),
                         ItemStatus = row["ItemStatus"].ToString(),
                         DecisionReason = row["DescisionReason"].ToString(),
+                        EmployeeId = Convert.ToInt32(row["EmployeeId"]),
+                        SupervisorId = Convert.ToInt32(row["SupervisorId"]),
+                        HeadSupervisorId = Convert.ToInt32(row["HeadSupervisorId"]),
                         RecordVersion = (byte[])row["RecordVersion"]
                     }
                 );

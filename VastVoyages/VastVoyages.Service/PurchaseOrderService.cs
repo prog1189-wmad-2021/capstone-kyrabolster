@@ -80,9 +80,35 @@ namespace VastVoyages.Service
         /// <param name="PONumber"></param>
         /// <param name="employeeId"></param>
         /// <returns></returns>
-        public PurchaseOrderDTO GetPurchaseOrderByPONumber(int PONumber, int? employeeId, int? supervisorId)
+        public PurchaseOrderDTO GetPurchaseOrderByPONumber(int PONumber, int? employeeId, int? supervisorId, bool isProcessing)
         {
-            return repo.RetrievePurchaseOrderByPONumber(PONumber, employeeId, supervisorId);
+            PurchaseOrderDTO purchaseOrder = repo.RetrievePurchaseOrderByPONumber(PONumber, employeeId, supervisorId);
+            if(supervisorId != null)
+            {
+                if(isProcessing)
+                {
+                    if (supervisorId == purchaseOrder.HeadSupervisorId)
+                    {
+                        return purchaseOrder;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    if (supervisorId == purchaseOrder.SupervisorId || supervisorId == purchaseOrder.HeadSupervisorId)
+                    {
+                        return purchaseOrder;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }               
+            }
+            return purchaseOrder;
         }
 
         /// <summary>
@@ -162,7 +188,7 @@ namespace VastVoyages.Service
                     POToValidate.AddError(new ValidationError("There is a pending item in the purchase order. All items must be processed.", ErrorType.Business));
                 }
 
-                if(GetPurchaseOrderByPONumber(Convert.ToInt32(POToValidate.PONumber), null, null).POStatus == "Closed")
+                if(GetPurchaseOrderByPONumber(Convert.ToInt32(POToValidate.PONumber), null, null, false).POStatus == "Closed")
                 {
                     POToValidate.AddError(new ValidationError("This purchase order is already closed.", ErrorType.Business));
                 }
