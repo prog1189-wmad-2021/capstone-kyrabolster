@@ -33,60 +33,133 @@
         android:layout_margin="8dp"
         android:elevation="6dp"
         android:padding="24dp"
-        app:cardBackgroundColor="@color/cardview_light_background"
+        app:cardBackgroundColor="@color/cardview_shadow_end_color"
         app:cardCornerRadius="4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp">
 
-        <TextView
-            android:id="@+id/employee_name"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@id/employee_cellphone"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:text="@{property.fullName}" />
+            <TextView
+                android:id="@+id/employee_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@{property.fullName}"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/employee_officelocation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/employee_cellphone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/employee_workphone"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/employee_name"
-            app:text="@{property.cellPhone}" />
+            <TextView
+                android:id="@+id/employee_officelocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Office Location"
+                app:layout_constraintBottom_toTopOf="@+id/employee_position"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/employee_name" />
 
-        <TextView
-            android:id="@+id/employee_workphone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/employee_email"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/employee_cellphone"
-            app:text="@{property.workPhone}"  />
+            <TextView
+                android:id="@+id/employee_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Position (coming soon)"
+                app:layout_constraintBottom_toTopOf="@+id/employee_workphone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/employee_officelocation" />
 
-        <TextView
-            android:id="@+id/employee_email"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/employee_workphone"
-            app:text="@{property.email}"  />
+
+            <TextView
+                android:id="@+id/employee_workphone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@{property.workPhone}"
+                app:layout_constraintBottom_toTopOf="@+id/employee_email"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/employee_position" />
+
+            <TextView
+                android:id="@+id/employee_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@{property.email}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/employee_workphone" />
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/employee_name"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="@{property.fullName}"-->
+            <!--                android:textSize="24sp"-->
+            <!--                app:layout_constraintBottom_toTopOf="@+id/employee_cellphone"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/employee_office"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="Office Location (coming soon)"-->
+            <!--                android:textSize="24sp"-->
+            <!--                app:layout_constraintBottom_toTopOf="@+id/employee_cellphone"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--        <TextView-->
+            <!--            android:id="@+id/employee_cellphone"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="match_parent"-->
+            <!--            android:layout_marginStart="8dp"-->
+            <!--            android:layout_marginTop="8dp"-->
+            <!--            app:layout_constraintBottom_toBottomOf="@+id/employee_workphone"-->
+            <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--            app:layout_constraintRight_toRightOf="parent"-->
+            <!--            app:layout_constraintTop_toBottomOf="@+id/employee_name"-->
+            <!--            android:text="@{property.cellPhone}" />-->
+
+            <!--        <TextView-->
+            <!--            android:id="@+id/employee_workphone"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="match_parent"-->
+            <!--            android:layout_marginStart="8dp"-->
+            <!--            android:layout_marginTop="8dp"-->
+            <!--            app:layout_constraintBottom_toBottomOf="@+id/employee_email"-->
+            <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--            app:layout_constraintRight_toRightOf="parent"-->
+            <!--            app:layout_constraintTop_toBottomOf="@+id/employee_cellphone"-->
+            <!--            android:text="@{property.workPhone}"  />-->
+
+            <!--        <TextView-->
+            <!--            android:id="@+id/employee_email"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="match_parent"-->
+            <!--            android:layout_marginStart="8dp"-->
+            <!--            android:layout_marginTop="8dp"-->
+            <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--            app:layout_constraintRight_toRightOf="parent"-->
+            <!--            app:layout_constraintTop_toBottomOf="@+id/employee_workphone"-->
+            <!--            android:text="@{property.email}"  />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

@@ -23,8 +23,8 @@
 
     <data>
         <variable
-            name="viewModel"
-            type="com.example.android.marsrealestate.detail.DetailViewModel" />
+            name="employee"
+            type="com.example.android.marsrealestate.network.Employee" />
     </data>
 
     <ScrollView
@@ -34,30 +34,70 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/employee_name"
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="#de000000"
-                android:textSize="39sp"
+                android:layout_marginBottom="10dp"
+                android:text="@{employee.fullName}"
+                android:textSize="36sp"
+                app:layout_constraintBottom_toTopOf="@+id/officelocation"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="parent"
-                tools:text="@{viewModel.selectedProperty.fullName}" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/price_value_text"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="8dp"-->
-<!--                android:textColor="#de000000"-->
-<!--                android:textSize="20sp"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/property_type_text"-->
-<!--                tools:text="$100,000" />-->
+            <TextView
+                android:id="@+id/officelocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Office Location"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/position"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name" />
+
+            <TextView
+                android:id="@+id/position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Position (coming soon)"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/workphone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/officelocation" />
+
+
+            <TextView
+                android:id="@+id/workphone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@{employee.workPhone}"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/email"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/position" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@{employee.email}"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/workphone" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

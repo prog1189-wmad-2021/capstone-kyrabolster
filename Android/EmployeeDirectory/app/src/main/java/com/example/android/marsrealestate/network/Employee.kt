@@ -4,8 +4,9 @@ package com.example.android.marsrealestate.network
 import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class Employee(
     @Json(name = "CellPhone")
@@ -18,8 +19,8 @@ data class Employee(
     val email: String,
     @Json(name = "EmpId")
     val empId: Int,
-    @Json(name = "Errors")
-    val errors: List<Any>,
+//    @Json(name = "Errors")
+//    val errors: List<Any>,
     @Json(name = "FirstName")
     val firstName: String,
     @Json(name = "FullAddress")
@@ -38,4 +39,4 @@ data class Employee(
     val street: String,
     @Json(name = "WorkPhone")
     val workPhone: String
-)
+) : Parcelable
