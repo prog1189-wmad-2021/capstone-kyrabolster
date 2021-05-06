@@ -50,6 +50,8 @@
     <Compile Include="DTO\LoginDTO.cs" />
     <Compile Include="DTO\POLookUpsDTO.cs" />
     <Compile Include="DTO\PurchaseOrderDTO.cs" />
+    <Compile Include="Entities\Review.cs" />
+    <Compile Include="DTO\EmployeeReviewsDTO.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\Login.cs" />
     <Compile Include="Entities\BaseEntity.cs" />

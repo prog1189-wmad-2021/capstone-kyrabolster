@@ -60,7 +60,7 @@ namespace VastVoyages.Web.Controllers
                 }
 
                 if (departmentId == null)
-                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+                    return View("PageNotFound");
 
                 Department departmentDetails = service.GetDepartmentById(departmentId.Value);
 

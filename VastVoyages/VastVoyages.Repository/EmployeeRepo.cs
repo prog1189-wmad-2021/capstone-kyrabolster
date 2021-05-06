@@ -194,7 +194,8 @@ namespace VastVoyages.Repository
                     PostalCode = row["PostalCode"].ToString(),
                     WorkPhone = row["WorkPhone"].ToString(),
                     CellPhone = row["CellPhone"].ToString(),
-                    Email = row["Email"].ToString()
+                    Email = row["Email"].ToString(),
+                    SupervisorId = row["SupervisorId"] == DBNull.Value ? 0 : Convert.ToInt32(row["SupervisorId"])
                 });
             }
 
@@ -232,8 +233,8 @@ namespace VastVoyages.Repository
                     WorkPhone = row["WorkPhone"].ToString(),
                     CellPhone = row["CellPhone"].ToString(),
                     Email = row["Email"].ToString(),
-                    DepartmentId = Convert.ToInt32(row["DepartmentId"])
-
+                    DepartmentId = Convert.ToInt32(row["DepartmentId"]),
+                    SupervisorId = row["SupervisorId"] == DBNull.Value ? 0 : Convert.ToInt32(row["SupervisorId"])
                 });
             }
 

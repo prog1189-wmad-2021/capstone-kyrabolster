@@ -49,6 +49,7 @@
     <Compile Include="POLookUpsRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseOrderRepo.cs" />
+    <Compile Include="ReviewRepo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">

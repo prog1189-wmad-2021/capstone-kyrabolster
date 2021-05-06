@@ -22,7 +22,8 @@ namespace VastVoyages.Model
         public string CellPhone { get; set; }
         public string Email { get; set; }
         public int DepartmentId { get; set; }
-
+        public int SupervisorId { get; set; }
+ 
         public virtual string FullAddress
         {
             get

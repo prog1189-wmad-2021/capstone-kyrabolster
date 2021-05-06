@@ -1,0 +1,86 @@
+﻿@model  VastVoyages.Model.Review
+
+
+@{
+    ViewBag.Title = "Create Employee Review";
+    Layout = "~/Views/Shared/_NavTemplate.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container" style="width: 95%; margin-top: 5%; max-width:60% ">
+        <div class="form-horizontal">
+            <h2>Create Employee Review</h2>
+            <br>
+            <h5>Reviewer Name : @Session["employeeName"].ToString()</h5>
+            <h5>Employee Name : @ViewBag.EmployeeName</h5>
+            <h5>Employee Id : @ViewBag.EmployeeId</h5>
+
+            <hr />
+            @if (Model.Errors.Count > 0)
+            {
+                <div class="text-danger">
+                    <ul>
+                        @foreach (var e in Model.Errors
+                        .Where(err => err.ErrorType == VastVoyages.Types.ErrorType.Business))
+                        {
+                            <li>@e.Description</li>
+                        }
+                        @foreach (var e in Model.Errors
+                        .Where(err => err.ErrorType == VastVoyages.Types.ErrorType.Model))
+                        {
+                            <li>@e.Description</li>
+                        }
+                    </ul>
+                </div>
+            }
+            @Html.HiddenFor(model => model.EmployeeId)
+            @Html.HiddenFor(model => model.ReviewerId)
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.RatingId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @*@Html.EditorFor(model => model.RatingId, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @*@Html.DropDownList("RatingId", null, "Please Select a Rating", htmlAttributes: new { @class = "form-control" })*@
+
+                    @Html.EnumDropDownListFor(x => x.Rating, "Select Rating", new { @class = "form-control" })
+
+                    @Html.ValidationMessageFor(model => model.RatingId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ReviewDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ReviewDate, new { htmlAttributes = new { @class = "form-control", @Value = @DateTime.Now.ToShortDateString() } })
+                    @Html.ValidationMessageFor(model => model.ReviewDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Comment, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-info" />
+                </div>
+            </div>
+        </div>
+
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+
+    </div>
+
+}
