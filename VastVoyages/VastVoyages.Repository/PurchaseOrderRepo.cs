@@ -36,7 +36,7 @@ namespace VastVoyages.Repository
             parms.Add(new ParmStruct("@EndDate", end, SqlDbType.DateTime2));
             parms.Add(new ParmStruct("@Status", status, SqlDbType.Int));
 
-            DataTable dt = db.Execute("spGetPurchaseOrderByKeyword", parms);
+            DataTable dt = db.Execute("spGetPurchaseOrderByEmployee", parms);
 
             List<PurchaseOrderDTO> purchaseOrders = new List<PurchaseOrderDTO>();
 
@@ -78,7 +78,7 @@ namespace VastVoyages.Repository
             parms.Add(new ParmStruct("@StartDate", start, SqlDbType.DateTime2));
             parms.Add(new ParmStruct("@EndDate", end, SqlDbType.DateTime2));
 
-            DataTable dt = db.Execute("spGetPurchaseOrderByDepartmentId", parms);
+            DataTable dt = db.Execute("spGetPurchaseOrderBySupervisor", parms);
 
             List<PurchaseOrderDTO> purchaseOrders = new List<PurchaseOrderDTO>();
 
