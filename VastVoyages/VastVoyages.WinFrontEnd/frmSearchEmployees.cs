@@ -22,6 +22,7 @@ namespace VastVoyages.WinFrontEnd
         }
 
         EmployeeService employeeService = new EmployeeService();
+        private Employee _employee = new Employee();
 
         private void frmSearchEmployees_Load(object sender, EventArgs e)
         {
@@ -134,6 +135,7 @@ namespace VastVoyages.WinFrontEnd
                 grpEditEmployeeInfo.Visible = true;
                 HideEditEmployeeCategories();
                 btnSave.Visible = false;
+                _employee = employeeService.GetEmployeeToModifyById(Convert.ToInt32(dgvEmployees.CurrentRow.Cells["Id"].Value));
             }
             catch (Exception ex)
             {
@@ -193,9 +195,9 @@ namespace VastVoyages.WinFrontEnd
         {
             try
             {
-                int employeeId = Convert.ToInt32(dgvEmployees.CurrentRow.Cells["Id"].Value);
+                //int employeeId = Convert.ToInt32(dgvEmployees.CurrentRow.Cells["Id"].Value);
 
-                Employee employee = employeeService.GetEmployeeToModifyById(employeeId);
+                //Employee employee = employeeService.GetEmployeeToModifyById(employeeId);
 
                 string category = cmbSelectInfoCategory.SelectedItem.ToString();
 
@@ -203,31 +205,31 @@ namespace VastVoyages.WinFrontEnd
                 {
                     case ("Personal Information"):
                         grpPersonalInfo.Visible = true;
-                        employee = ModifyPersonalInformation(employee);
+                        _employee = ModifyPersonalInformation(_employee);
                         break;
                     case ("Job Information"):
                         grpJobInfo.Visible = true;
-                        employee = ModifyJobInformation(employee);
+                        _employee = ModifyJobInformation(_employee);
                         break;
                     case ("Employment Status"):
                         grpEmploymentStatus.Visible = true;
-                        employee = ModifyEmploymentStatus(employee);
+                        _employee = ModifyEmploymentStatus(_employee);
                         break;
                 }
 
-                employee = employeeService.UpdateEmployee(employee);
+                _employee = employeeService.UpdateEmployee(_employee);
                 PopulateEmploymentStatus();
                 PopulateEmployeeDetails();
 
-                if (employee.Errors.Count <= 0)
+                if (_employee.Errors.Count <= 0)
                 {
                     MessageBox.Show("Success!Employee Id: " +
-                        employee.EmployeeId.ToString() + " successfully updated");
+                        _employee.EmployeeId.ToString() + " successfully updated");
                 }
                 else
                 {
                     string msg = "";
-                    foreach (ValidationError error in employee.Errors)
+                    foreach (ValidationError error in _employee.Errors)
                     {
                         msg += error.Description + Environment.NewLine;
                     }
