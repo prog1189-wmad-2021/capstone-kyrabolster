@@ -74,6 +74,31 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.grpEditEmployeeInfo = new System.Windows.Forms.GroupBox();
+            this.grpEmploymentStatus = new System.Windows.Forms.GroupBox();
+            this.lblRetirementDate = new System.Windows.Forms.Label();
+            this.dtpRetirementDate = new System.Windows.Forms.DateTimePicker();
+            this.cmbEmploymentStatus = new System.Windows.Forms.ComboBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.dtpSeniorityDate = new System.Windows.Forms.DateTimePicker();
+            this.label32 = new System.Windows.Forms.Label();
+            this.txtSIN2 = new System.Windows.Forms.TextBox();
+            this.grpJobInfo = new System.Windows.Forms.GroupBox();
+            this.lblHeadSupervisor = new System.Windows.Forms.Label();
+            this.chkHeadSupervisor = new System.Windows.Forms.CheckBox();
+            this.lblSupervisorMsg = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.chkIsSupervisor = new System.Windows.Forms.CheckBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.cmbDepartment = new System.Windows.Forms.ComboBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.cmbSupervisor = new System.Windows.Forms.ComboBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.cmbJobAssignment = new System.Windows.Forms.ComboBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.dtpJobStartDate = new System.Windows.Forms.DateTimePicker();
+            this.label19 = new System.Windows.Forms.Label();
+            this.txtSIN = new System.Windows.Forms.TextBox();
             this.grpPersonalInfo = new System.Windows.Forms.GroupBox();
             this.cmbProvince = new System.Windows.Forms.ComboBox();
             this.cmbCountry = new System.Windows.Forms.ComboBox();
@@ -93,31 +118,6 @@
             this.label22 = new System.Windows.Forms.Label();
             this.dtpDOBMod = new System.Windows.Forms.DateTimePicker();
             this.txtFirstNameMod = new System.Windows.Forms.TextBox();
-            this.grpJobInfo = new System.Windows.Forms.GroupBox();
-            this.lblHeadSupervisor = new System.Windows.Forms.Label();
-            this.chkHeadSupervisor = new System.Windows.Forms.CheckBox();
-            this.lblSupervisorMsg = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.chkIsSupervisor = new System.Windows.Forms.CheckBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.cmbDepartment = new System.Windows.Forms.ComboBox();
-            this.label31 = new System.Windows.Forms.Label();
-            this.cmbSupervisor = new System.Windows.Forms.ComboBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.cmbJobAssignment = new System.Windows.Forms.ComboBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.dtpJobStartDate = new System.Windows.Forms.DateTimePicker();
-            this.label19 = new System.Windows.Forms.Label();
-            this.txtSIN = new System.Windows.Forms.TextBox();
-            this.grpEmploymentStatus = new System.Windows.Forms.GroupBox();
-            this.lblRetirementDate = new System.Windows.Forms.Label();
-            this.dtpRetirementDate = new System.Windows.Forms.DateTimePicker();
-            this.cmbEmploymentStatus = new System.Windows.Forms.ComboBox();
-            this.label34 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.dtpSeniorityDate = new System.Windows.Forms.DateTimePicker();
-            this.label32 = new System.Windows.Forms.Label();
-            this.txtSIN2 = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnSelectInfoCategory = new System.Windows.Forms.Button();
             this.cmbSelectInfoCategory = new System.Windows.Forms.ComboBox();
@@ -127,9 +127,9 @@
             this.grpEmployeeDetails.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.grpEditEmployeeInfo.SuspendLayout();
-            this.grpPersonalInfo.SuspendLayout();
-            this.grpJobInfo.SuspendLayout();
             this.grpEmploymentStatus.SuspendLayout();
+            this.grpJobInfo.SuspendLayout();
+            this.grpPersonalInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // pbLogo
@@ -172,6 +172,7 @@
             // 
             // cmbSearchEmployees
             // 
+            this.cmbSearchEmployees.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSearchEmployees.FormattingEnabled = true;
             this.cmbSearchEmployees.Location = new System.Drawing.Point(100, 180);
             this.cmbSearchEmployees.Name = "cmbSearchEmployees";
@@ -604,6 +605,248 @@
             this.grpEditEmployeeInfo.Text = "Edit Employee Information";
             this.grpEditEmployeeInfo.Visible = false;
             // 
+            // grpEmploymentStatus
+            // 
+            this.grpEmploymentStatus.Controls.Add(this.lblRetirementDate);
+            this.grpEmploymentStatus.Controls.Add(this.dtpRetirementDate);
+            this.grpEmploymentStatus.Controls.Add(this.cmbEmploymentStatus);
+            this.grpEmploymentStatus.Controls.Add(this.label34);
+            this.grpEmploymentStatus.Controls.Add(this.label33);
+            this.grpEmploymentStatus.Controls.Add(this.dtpSeniorityDate);
+            this.grpEmploymentStatus.Controls.Add(this.label32);
+            this.grpEmploymentStatus.Controls.Add(this.txtSIN2);
+            this.grpEmploymentStatus.Location = new System.Drawing.Point(24, 95);
+            this.grpEmploymentStatus.Name = "grpEmploymentStatus";
+            this.grpEmploymentStatus.Size = new System.Drawing.Size(1167, 241);
+            this.grpEmploymentStatus.TabIndex = 49;
+            this.grpEmploymentStatus.TabStop = false;
+            this.grpEmploymentStatus.Text = "Employment Status";
+            this.grpEmploymentStatus.Visible = false;
+            // 
+            // lblRetirementDate
+            // 
+            this.lblRetirementDate.AutoSize = true;
+            this.lblRetirementDate.Location = new System.Drawing.Point(636, 131);
+            this.lblRetirementDate.Name = "lblRetirementDate";
+            this.lblRetirementDate.Size = new System.Drawing.Size(115, 17);
+            this.lblRetirementDate.TabIndex = 47;
+            this.lblRetirementDate.Text = "Retirement Date:";
+            this.lblRetirementDate.Visible = false;
+            // 
+            // dtpRetirementDate
+            // 
+            this.dtpRetirementDate.Enabled = false;
+            this.dtpRetirementDate.Location = new System.Drawing.Point(639, 151);
+            this.dtpRetirementDate.Name = "dtpRetirementDate";
+            this.dtpRetirementDate.Size = new System.Drawing.Size(174, 22);
+            this.dtpRetirementDate.TabIndex = 46;
+            this.dtpRetirementDate.Visible = false;
+            // 
+            // cmbEmploymentStatus
+            // 
+            this.cmbEmploymentStatus.FormattingEnabled = true;
+            this.cmbEmploymentStatus.Location = new System.Drawing.Point(270, 149);
+            this.cmbEmploymentStatus.Name = "cmbEmploymentStatus";
+            this.cmbEmploymentStatus.Size = new System.Drawing.Size(340, 24);
+            this.cmbEmploymentStatus.TabIndex = 45;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(131, 149);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(133, 17);
+            this.label34.TabIndex = 27;
+            this.label34.Text = "Employment Status:";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(159, 106);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(105, 17);
+            this.label33.TabIndex = 25;
+            this.label33.Text = "Seniority  Date:";
+            // 
+            // dtpSeniorityDate
+            // 
+            this.dtpSeniorityDate.Location = new System.Drawing.Point(270, 106);
+            this.dtpSeniorityDate.Name = "dtpSeniorityDate";
+            this.dtpSeniorityDate.Size = new System.Drawing.Size(340, 22);
+            this.dtpSeniorityDate.TabIndex = 26;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(230, 63);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(34, 17);
+            this.label32.TabIndex = 24;
+            this.label32.Text = "SIN:";
+            // 
+            // txtSIN2
+            // 
+            this.txtSIN2.Location = new System.Drawing.Point(270, 63);
+            this.txtSIN2.Name = "txtSIN2";
+            this.txtSIN2.ReadOnly = true;
+            this.txtSIN2.Size = new System.Drawing.Size(340, 22);
+            this.txtSIN2.TabIndex = 23;
+            // 
+            // grpJobInfo
+            // 
+            this.grpJobInfo.Controls.Add(this.lblHeadSupervisor);
+            this.grpJobInfo.Controls.Add(this.chkHeadSupervisor);
+            this.grpJobInfo.Controls.Add(this.lblSupervisorMsg);
+            this.grpJobInfo.Controls.Add(this.label29);
+            this.grpJobInfo.Controls.Add(this.chkIsSupervisor);
+            this.grpJobInfo.Controls.Add(this.label30);
+            this.grpJobInfo.Controls.Add(this.cmbDepartment);
+            this.grpJobInfo.Controls.Add(this.label31);
+            this.grpJobInfo.Controls.Add(this.cmbSupervisor);
+            this.grpJobInfo.Controls.Add(this.label23);
+            this.grpJobInfo.Controls.Add(this.cmbJobAssignment);
+            this.grpJobInfo.Controls.Add(this.label25);
+            this.grpJobInfo.Controls.Add(this.dtpJobStartDate);
+            this.grpJobInfo.Controls.Add(this.label19);
+            this.grpJobInfo.Controls.Add(this.txtSIN);
+            this.grpJobInfo.Location = new System.Drawing.Point(24, 95);
+            this.grpJobInfo.Name = "grpJobInfo";
+            this.grpJobInfo.Size = new System.Drawing.Size(1142, 241);
+            this.grpJobInfo.TabIndex = 48;
+            this.grpJobInfo.TabStop = false;
+            this.grpJobInfo.Text = "Job Information";
+            this.grpJobInfo.Visible = false;
+            // 
+            // lblHeadSupervisor
+            // 
+            this.lblHeadSupervisor.AutoSize = true;
+            this.lblHeadSupervisor.Location = new System.Drawing.Point(725, 103);
+            this.lblHeadSupervisor.Name = "lblHeadSupervisor";
+            this.lblHeadSupervisor.Size = new System.Drawing.Size(136, 17);
+            this.lblHeadSupervisor.TabIndex = 36;
+            this.lblHeadSupervisor.Text = "Is Head Supervisor?";
+            // 
+            // chkHeadSupervisor
+            // 
+            this.chkHeadSupervisor.AutoSize = true;
+            this.chkHeadSupervisor.Location = new System.Drawing.Point(867, 104);
+            this.chkHeadSupervisor.Name = "chkHeadSupervisor";
+            this.chkHeadSupervisor.Size = new System.Drawing.Size(18, 17);
+            this.chkHeadSupervisor.TabIndex = 37;
+            this.chkHeadSupervisor.UseVisualStyleBackColor = true;
+            // 
+            // lblSupervisorMsg
+            // 
+            this.lblSupervisorMsg.AutoSize = true;
+            this.lblSupervisorMsg.Location = new System.Drawing.Point(664, 153);
+            this.lblSupervisorMsg.Name = "lblSupervisorMsg";
+            this.lblSupervisorMsg.Size = new System.Drawing.Size(116, 17);
+            this.lblSupervisorMsg.TabIndex = 34;
+            this.lblSupervisorMsg.Text = "lblSupervisorMsg";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(551, 102);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(110, 17);
+            this.label29.TabIndex = 32;
+            this.label29.Text = "Is a Supervisor?";
+            // 
+            // chkIsSupervisor
+            // 
+            this.chkIsSupervisor.AutoSize = true;
+            this.chkIsSupervisor.Location = new System.Drawing.Point(667, 103);
+            this.chkIsSupervisor.Name = "chkIsSupervisor";
+            this.chkIsSupervisor.Size = new System.Drawing.Size(18, 17);
+            this.chkIsSupervisor.TabIndex = 33;
+            this.chkIsSupervisor.UseVisualStyleBackColor = true;
+            this.chkIsSupervisor.CheckedChanged += new System.EventHandler(this.chkIsSupervisor_CheckedChanged);
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(551, 76);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(86, 17);
+            this.label30.TabIndex = 30;
+            this.label30.Text = "Department:";
+            // 
+            // cmbDepartment
+            // 
+            this.cmbDepartment.FormattingEnabled = true;
+            this.cmbDepartment.Location = new System.Drawing.Point(667, 73);
+            this.cmbDepartment.Name = "cmbDepartment";
+            this.cmbDepartment.Size = new System.Drawing.Size(340, 24);
+            this.cmbDepartment.TabIndex = 31;
+            this.cmbDepartment.SelectionChangeCommitted += new System.EventHandler(this.cmbDepartment_SelectionChangeCommitted);
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(551, 126);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(80, 17);
+            this.label31.TabIndex = 29;
+            this.label31.Text = "Supervisor:";
+            // 
+            // cmbSupervisor
+            // 
+            this.cmbSupervisor.FormattingEnabled = true;
+            this.cmbSupervisor.Location = new System.Drawing.Point(667, 126);
+            this.cmbSupervisor.Name = "cmbSupervisor";
+            this.cmbSupervisor.Size = new System.Drawing.Size(340, 24);
+            this.cmbSupervisor.TabIndex = 35;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(104, 96);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(112, 17);
+            this.label23.TabIndex = 26;
+            this.label23.Text = "Job Assignment:";
+            // 
+            // cmbJobAssignment
+            // 
+            this.cmbJobAssignment.FormattingEnabled = true;
+            this.cmbJobAssignment.Location = new System.Drawing.Point(222, 93);
+            this.cmbJobAssignment.Name = "cmbJobAssignment";
+            this.cmbJobAssignment.Size = new System.Drawing.Size(258, 24);
+            this.cmbJobAssignment.TabIndex = 28;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(104, 129);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(103, 17);
+            this.label25.TabIndex = 25;
+            this.label25.Text = "Job Start Date:";
+            // 
+            // dtpJobStartDate
+            // 
+            this.dtpJobStartDate.Location = new System.Drawing.Point(222, 129);
+            this.dtpJobStartDate.Name = "dtpJobStartDate";
+            this.dtpJobStartDate.Size = new System.Drawing.Size(258, 22);
+            this.dtpJobStartDate.TabIndex = 27;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(173, 36);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(34, 17);
+            this.label19.TabIndex = 24;
+            this.label19.Text = "SIN:";
+            // 
+            // txtSIN
+            // 
+            this.txtSIN.Location = new System.Drawing.Point(224, 36);
+            this.txtSIN.Name = "txtSIN";
+            this.txtSIN.Size = new System.Drawing.Size(258, 22);
+            this.txtSIN.TabIndex = 23;
+            // 
             // grpPersonalInfo
             // 
             this.grpPersonalInfo.Controls.Add(this.cmbProvince);
@@ -781,248 +1024,6 @@
             this.txtFirstNameMod.Size = new System.Drawing.Size(340, 22);
             this.txtFirstNameMod.TabIndex = 0;
             // 
-            // grpJobInfo
-            // 
-            this.grpJobInfo.Controls.Add(this.lblHeadSupervisor);
-            this.grpJobInfo.Controls.Add(this.chkHeadSupervisor);
-            this.grpJobInfo.Controls.Add(this.lblSupervisorMsg);
-            this.grpJobInfo.Controls.Add(this.label29);
-            this.grpJobInfo.Controls.Add(this.chkIsSupervisor);
-            this.grpJobInfo.Controls.Add(this.label30);
-            this.grpJobInfo.Controls.Add(this.cmbDepartment);
-            this.grpJobInfo.Controls.Add(this.label31);
-            this.grpJobInfo.Controls.Add(this.cmbSupervisor);
-            this.grpJobInfo.Controls.Add(this.label23);
-            this.grpJobInfo.Controls.Add(this.cmbJobAssignment);
-            this.grpJobInfo.Controls.Add(this.label25);
-            this.grpJobInfo.Controls.Add(this.dtpJobStartDate);
-            this.grpJobInfo.Controls.Add(this.label19);
-            this.grpJobInfo.Controls.Add(this.txtSIN);
-            this.grpJobInfo.Location = new System.Drawing.Point(24, 95);
-            this.grpJobInfo.Name = "grpJobInfo";
-            this.grpJobInfo.Size = new System.Drawing.Size(1142, 241);
-            this.grpJobInfo.TabIndex = 48;
-            this.grpJobInfo.TabStop = false;
-            this.grpJobInfo.Text = "Job Information";
-            this.grpJobInfo.Visible = false;
-            // 
-            // lblHeadSupervisor
-            // 
-            this.lblHeadSupervisor.AutoSize = true;
-            this.lblHeadSupervisor.Location = new System.Drawing.Point(725, 103);
-            this.lblHeadSupervisor.Name = "lblHeadSupervisor";
-            this.lblHeadSupervisor.Size = new System.Drawing.Size(136, 17);
-            this.lblHeadSupervisor.TabIndex = 36;
-            this.lblHeadSupervisor.Text = "Is Head Supervisor?";
-            // 
-            // chkHeadSupervisor
-            // 
-            this.chkHeadSupervisor.AutoSize = true;
-            this.chkHeadSupervisor.Location = new System.Drawing.Point(867, 104);
-            this.chkHeadSupervisor.Name = "chkHeadSupervisor";
-            this.chkHeadSupervisor.Size = new System.Drawing.Size(18, 17);
-            this.chkHeadSupervisor.TabIndex = 37;
-            this.chkHeadSupervisor.UseVisualStyleBackColor = true;
-            // 
-            // lblSupervisorMsg
-            // 
-            this.lblSupervisorMsg.AutoSize = true;
-            this.lblSupervisorMsg.Location = new System.Drawing.Point(664, 153);
-            this.lblSupervisorMsg.Name = "lblSupervisorMsg";
-            this.lblSupervisorMsg.Size = new System.Drawing.Size(116, 17);
-            this.lblSupervisorMsg.TabIndex = 34;
-            this.lblSupervisorMsg.Text = "lblSupervisorMsg";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(551, 102);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(110, 17);
-            this.label29.TabIndex = 32;
-            this.label29.Text = "Is a Supervisor?";
-            // 
-            // chkIsSupervisor
-            // 
-            this.chkIsSupervisor.AutoSize = true;
-            this.chkIsSupervisor.Location = new System.Drawing.Point(667, 103);
-            this.chkIsSupervisor.Name = "chkIsSupervisor";
-            this.chkIsSupervisor.Size = new System.Drawing.Size(18, 17);
-            this.chkIsSupervisor.TabIndex = 33;
-            this.chkIsSupervisor.UseVisualStyleBackColor = true;
-            this.chkIsSupervisor.CheckedChanged += new System.EventHandler(this.chkIsSupervisor_CheckedChanged);
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(551, 76);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(86, 17);
-            this.label30.TabIndex = 30;
-            this.label30.Text = "Department:";
-            // 
-            // cmbDepartment
-            // 
-            this.cmbDepartment.FormattingEnabled = true;
-            this.cmbDepartment.Location = new System.Drawing.Point(667, 73);
-            this.cmbDepartment.Name = "cmbDepartment";
-            this.cmbDepartment.Size = new System.Drawing.Size(340, 24);
-            this.cmbDepartment.TabIndex = 31;
-            this.cmbDepartment.SelectionChangeCommitted += new System.EventHandler(this.cmbDepartment_SelectionChangeCommitted);
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(551, 126);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(80, 17);
-            this.label31.TabIndex = 29;
-            this.label31.Text = "Supervisor:";
-            // 
-            // cmbSupervisor
-            // 
-            this.cmbSupervisor.FormattingEnabled = true;
-            this.cmbSupervisor.Location = new System.Drawing.Point(667, 126);
-            this.cmbSupervisor.Name = "cmbSupervisor";
-            this.cmbSupervisor.Size = new System.Drawing.Size(340, 24);
-            this.cmbSupervisor.TabIndex = 35;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(104, 96);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(112, 17);
-            this.label23.TabIndex = 26;
-            this.label23.Text = "Job Assignment:";
-            // 
-            // cmbJobAssignment
-            // 
-            this.cmbJobAssignment.FormattingEnabled = true;
-            this.cmbJobAssignment.Location = new System.Drawing.Point(222, 93);
-            this.cmbJobAssignment.Name = "cmbJobAssignment";
-            this.cmbJobAssignment.Size = new System.Drawing.Size(258, 24);
-            this.cmbJobAssignment.TabIndex = 28;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(104, 129);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(103, 17);
-            this.label25.TabIndex = 25;
-            this.label25.Text = "Job Start Date:";
-            // 
-            // dtpJobStartDate
-            // 
-            this.dtpJobStartDate.Location = new System.Drawing.Point(222, 129);
-            this.dtpJobStartDate.Name = "dtpJobStartDate";
-            this.dtpJobStartDate.Size = new System.Drawing.Size(258, 22);
-            this.dtpJobStartDate.TabIndex = 27;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(173, 36);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(34, 17);
-            this.label19.TabIndex = 24;
-            this.label19.Text = "SIN:";
-            // 
-            // txtSIN
-            // 
-            this.txtSIN.Location = new System.Drawing.Point(224, 36);
-            this.txtSIN.Name = "txtSIN";
-            this.txtSIN.Size = new System.Drawing.Size(258, 22);
-            this.txtSIN.TabIndex = 23;
-            // 
-            // grpEmploymentStatus
-            // 
-            this.grpEmploymentStatus.Controls.Add(this.lblRetirementDate);
-            this.grpEmploymentStatus.Controls.Add(this.dtpRetirementDate);
-            this.grpEmploymentStatus.Controls.Add(this.cmbEmploymentStatus);
-            this.grpEmploymentStatus.Controls.Add(this.label34);
-            this.grpEmploymentStatus.Controls.Add(this.label33);
-            this.grpEmploymentStatus.Controls.Add(this.dtpSeniorityDate);
-            this.grpEmploymentStatus.Controls.Add(this.label32);
-            this.grpEmploymentStatus.Controls.Add(this.txtSIN2);
-            this.grpEmploymentStatus.Location = new System.Drawing.Point(24, 95);
-            this.grpEmploymentStatus.Name = "grpEmploymentStatus";
-            this.grpEmploymentStatus.Size = new System.Drawing.Size(1167, 241);
-            this.grpEmploymentStatus.TabIndex = 49;
-            this.grpEmploymentStatus.TabStop = false;
-            this.grpEmploymentStatus.Text = "Employment Status";
-            this.grpEmploymentStatus.Visible = false;
-            // 
-            // lblRetirementDate
-            // 
-            this.lblRetirementDate.AutoSize = true;
-            this.lblRetirementDate.Location = new System.Drawing.Point(636, 131);
-            this.lblRetirementDate.Name = "lblRetirementDate";
-            this.lblRetirementDate.Size = new System.Drawing.Size(115, 17);
-            this.lblRetirementDate.TabIndex = 47;
-            this.lblRetirementDate.Text = "Retirement Date:";
-            this.lblRetirementDate.Visible = false;
-            // 
-            // dtpRetirementDate
-            // 
-            this.dtpRetirementDate.Enabled = false;
-            this.dtpRetirementDate.Location = new System.Drawing.Point(639, 151);
-            this.dtpRetirementDate.Name = "dtpRetirementDate";
-            this.dtpRetirementDate.Size = new System.Drawing.Size(174, 22);
-            this.dtpRetirementDate.TabIndex = 46;
-            this.dtpRetirementDate.Visible = false;
-            // 
-            // cmbEmploymentStatus
-            // 
-            this.cmbEmploymentStatus.FormattingEnabled = true;
-            this.cmbEmploymentStatus.Location = new System.Drawing.Point(270, 149);
-            this.cmbEmploymentStatus.Name = "cmbEmploymentStatus";
-            this.cmbEmploymentStatus.Size = new System.Drawing.Size(340, 24);
-            this.cmbEmploymentStatus.TabIndex = 45;
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(131, 149);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(133, 17);
-            this.label34.TabIndex = 27;
-            this.label34.Text = "Employment Status:";
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(159, 106);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(105, 17);
-            this.label33.TabIndex = 25;
-            this.label33.Text = "Seniority  Date:";
-            // 
-            // dtpSeniorityDate
-            // 
-            this.dtpSeniorityDate.Location = new System.Drawing.Point(270, 106);
-            this.dtpSeniorityDate.Name = "dtpSeniorityDate";
-            this.dtpSeniorityDate.Size = new System.Drawing.Size(340, 22);
-            this.dtpSeniorityDate.TabIndex = 26;
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(230, 63);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(34, 17);
-            this.label32.TabIndex = 24;
-            this.label32.Text = "SIN:";
-            // 
-            // txtSIN2
-            // 
-            this.txtSIN2.Location = new System.Drawing.Point(270, 63);
-            this.txtSIN2.Name = "txtSIN2";
-            this.txtSIN2.ReadOnly = true;
-            this.txtSIN2.Size = new System.Drawing.Size(340, 22);
-            this.txtSIN2.TabIndex = 23;
-            // 
             // btnSave
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1087,12 +1088,12 @@
             this.groupBox4.PerformLayout();
             this.grpEditEmployeeInfo.ResumeLayout(false);
             this.grpEditEmployeeInfo.PerformLayout();
-            this.grpPersonalInfo.ResumeLayout(false);
-            this.grpPersonalInfo.PerformLayout();
-            this.grpJobInfo.ResumeLayout(false);
-            this.grpJobInfo.PerformLayout();
             this.grpEmploymentStatus.ResumeLayout(false);
             this.grpEmploymentStatus.PerformLayout();
+            this.grpJobInfo.ResumeLayout(false);
+            this.grpJobInfo.PerformLayout();
+            this.grpPersonalInfo.ResumeLayout(false);
+            this.grpPersonalInfo.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -32,6 +32,7 @@ namespace VastVoyages.WinFrontEnd
                 HideEmployeeDetails();
                 PopulateEmployeeInfoCategories();
                 lblSupervisorMsg.Text = "";
+                cmbSelectInfoCategory.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -148,7 +149,8 @@ namespace VastVoyages.WinFrontEnd
 
                 HideEditEmployeeCategories();
                 btnSave.Visible = true;
-                cmbJobAssignment.Enabled = true;
+                grpJobInfo.Enabled = true;
+                grpEmploymentStatus.Enabled = true;
                 cmbEmploymentStatus.Enabled = true;
 
                 switch (category)
@@ -165,14 +167,19 @@ namespace VastVoyages.WinFrontEnd
                         grpEmploymentStatus.Visible = true;
                         PopulateEmploymentStatus();
                         break;
+                    default:
+                        MessageBox.Show("Please select a category of information to modify.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
                 }
 
-            int employeeId = Convert.ToInt32(dgvEmployees.CurrentRow.Cells["Id"].Value);
-            int loggedInEmployee = Convert.ToInt32(((MainForm)this.MdiParent).loginInfo.EmployeeId);
+                int employeeId = Convert.ToInt32(dgvEmployees.CurrentRow.Cells["Id"].Value);
+                int loggedInEmployee = Convert.ToInt32(((MainForm)this.MdiParent).loginInfo.EmployeeId);
                 if (employeeId == loggedInEmployee)
                 {
-                    cmbJobAssignment.Enabled = false;
-                    cmbEmploymentStatus.Enabled = false;
+                    //cmbJobAssignment.Enabled = false;
+                    //cmbEmploymentStatus.Enabled = false;
+                    grpJobInfo.Enabled = false;
+                    grpEmploymentStatus.Enabled = false;
                 }
 
             }
@@ -210,6 +217,7 @@ namespace VastVoyages.WinFrontEnd
 
                 employee = employeeService.UpdateEmployee(employee);
                 PopulateEmploymentStatus();
+                PopulateEmployeeDetails();
 
                 if (employee.Errors.Count <= 0)
                 {
@@ -326,15 +334,32 @@ namespace VastVoyages.WinFrontEnd
         {
             LoadJobAssignments();
             LoadDepartments();
-            LoadSupervisors();
 
             int employeeId = Convert.ToInt32(dgvEmployees.CurrentRow.Cells["Id"].Value);
 
             Employee employee = employeeService.GetEmployeeToModifyById(employeeId);
 
             txtSIN.Text = (employee.SIN).ToString();
+            txtSIN.ReadOnly = true;
             cmbJobAssignment.SelectedValue = Convert.ToInt32(employee.JobAssignmentId);
             dtpJobStartDate.Value = Convert.ToDateTime(employee.JobStartDate);
+            
+            if(employee.SupervisorId == employeeService.GetCEO()[0].SupervisorId)
+                chkIsSupervisor.Checked = true;
+            else 
+                chkIsSupervisor.Checked = false;
+
+            //make sure isheadsupervisor implemented
+            if (employee.IsHeadSupervisor == true)
+            {
+                chkHeadSupervisor.Enabled = true;
+                chkHeadSupervisor.Checked = true;
+            }
+            else
+            {
+                chkHeadSupervisor.Checked = false;
+            }
+
             //validate for CEO **?
             if (employee.DepartmentId == 1)
             {
@@ -343,6 +368,8 @@ namespace VastVoyages.WinFrontEnd
                 MessageBox.Show("The CEO's job information cannot be modified at this time.", "No Access", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             cmbDepartment.SelectedValue = Convert.ToInt32(employee.DepartmentId);
+
+            LoadSupervisors();
         }
 
         private void PopulateEmploymentStatus()
@@ -378,6 +405,7 @@ namespace VastVoyages.WinFrontEnd
 
         private void PopulateEmployeeInfoCategories()
         {
+            cmbSelectInfoCategory.Items.Add("--Select a category--");
             cmbSelectInfoCategory.Items.Add("Personal Information");
             cmbSelectInfoCategory.Items.Add("Job Information");
             cmbSelectInfoCategory.Items.Add("Employment Status");
