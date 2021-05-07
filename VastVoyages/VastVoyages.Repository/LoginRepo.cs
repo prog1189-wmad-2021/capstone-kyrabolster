@@ -21,9 +21,11 @@ namespace VastVoyages.Repository
 
         public bool Login(Login loginInfo)
         {
+            HashCode hc = new HashCode();
+            string hasedPassword = hc.CalculateSHA256(loginInfo.Password);
             List<ParmStruct> parms = new List<ParmStruct>();
             parms.Add(new ParmStruct("@EmployeeId", loginInfo.EmployeeId, SqlDbType.Int));
-            parms.Add(new ParmStruct("@Password", loginInfo.Password, SqlDbType.NVarChar, 100));
+            parms.Add(new ParmStruct("@Password", hasedPassword, SqlDbType.NVarChar, int.MaxValue));
 
             DataTable dt = db.Execute("spLogin", parms);
 

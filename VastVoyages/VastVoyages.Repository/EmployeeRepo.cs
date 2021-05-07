@@ -72,7 +72,7 @@ namespace VastVoyages.Repository
         {
             List<ParmStruct> parms = new List<ParmStruct>();
 
-            parms.Add(new ParmStruct("@Password", password, SqlDbType.VarChar));
+            parms.Add(new ParmStruct("@Password", password, SqlDbType.NVarChar, int.MaxValue));
             parms.Add(new ParmStruct("@EmployeeId", employeeId, SqlDbType.Int));
 
             return (db.ExecuteNonQuery("spInsertPassword", parms) > 0);
