@@ -44,6 +44,7 @@ namespace VastVoyages.WinFrontEnd
             this.cmbItemStatus = new System.Windows.Forms.ComboBox();
             this.label25 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
+            this.btnSave = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -80,7 +81,6 @@ namespace VastVoyages.WinFrontEnd
             this.btnSearch = new System.Windows.Forms.Button();
             this.dtpEnd = new System.Windows.Forms.DateTimePicker();
             this.dtpStart = new System.Windows.Forms.DateTimePicker();
-            this.btnSave = new System.Windows.Forms.Button();
             this.grpItemDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numQty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItem)).BeginInit();
@@ -214,6 +214,7 @@ namespace VastVoyages.WinFrontEnd
             // 
             // cmbItemStatus
             // 
+            this.cmbItemStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbItemStatus.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbItemStatus.FormattingEnabled = true;
             this.cmbItemStatus.Location = new System.Drawing.Point(92, 291);
@@ -240,6 +241,17 @@ namespace VastVoyages.WinFrontEnd
             this.label23.Size = new System.Drawing.Size(73, 17);
             this.label23.TabIndex = 49;
             this.label23.Text = "Sub Total:";
+            // 
+            // btnSave
+            // 
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.Location = new System.Drawing.Point(139, 370);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(100, 36);
+            this.btnSave.TabIndex = 16;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // label19
             // 
@@ -573,6 +585,7 @@ namespace VastVoyages.WinFrontEnd
             // 
             // cmbPOStatus
             // 
+            this.cmbPOStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPOStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbPOStatus.FormattingEnabled = true;
             this.cmbPOStatus.Location = new System.Drawing.Point(399, 60);
@@ -617,17 +630,6 @@ namespace VastVoyages.WinFrontEnd
             this.dtpStart.Size = new System.Drawing.Size(190, 23);
             this.dtpStart.TabIndex = 2;
             this.dtpStart.ValueChanged += new System.EventHandler(this.dtp_ValueChanged);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(139, 370);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(100, 36);
-            this.btnSave.TabIndex = 16;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // frmProcessPO
             // 
