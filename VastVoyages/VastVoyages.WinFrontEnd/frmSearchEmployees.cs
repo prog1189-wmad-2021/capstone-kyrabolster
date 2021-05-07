@@ -21,12 +21,45 @@ namespace VastVoyages.WinFrontEnd
             InitializeComponent();
         }
 
+        EmployeeService employeeService = new EmployeeService();
+
         private void frmSearchEmployees_Load(object sender, EventArgs e)
         {
-            LoadLoginInfo();
-            PopulateSearchOptions();
-            HideEmployeeDetails();
-            PopulateEmployeeInfoCategories();
+            try
+            {
+                LoadLoginInfo();
+                PopulateSearchOptions();
+                HideEmployeeDetails();
+                PopulateEmployeeInfoCategories();
+                lblSupervisorMsg.Text = "";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmbCountry_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            try
+            {
+                LoadProvinceStates();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmbDepartment_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            cmbSupervisor.SelectedIndex = -1;
+            LoadSupervisors();
+        }
+
+        private void chkIsSupervisor_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadSupervisors();
         }
 
         private void btnSearchEmployees_Click(object sender, EventArgs e)
@@ -45,7 +78,6 @@ namespace VastVoyages.WinFrontEnd
                     MessageBox.Show("Please select a field to search by");
                 }
 
-                EmployeeService employeeService = new EmployeeService();
 
                 switch (cmbSearchEmployees.SelectedItem.ToString())
                 {
@@ -116,6 +148,8 @@ namespace VastVoyages.WinFrontEnd
 
                 HideEditEmployeeCategories();
                 btnSave.Visible = true;
+                cmbJobAssignment.Enabled = true;
+                cmbEmploymentStatus.Enabled = true;
 
                 switch (category)
                 {
@@ -133,6 +167,14 @@ namespace VastVoyages.WinFrontEnd
                         break;
                 }
 
+            int employeeId = Convert.ToInt32(dgvEmployees.CurrentRow.Cells["Id"].Value);
+            int loggedInEmployee = Convert.ToInt32(((MainForm)this.MdiParent).loginInfo.EmployeeId);
+                if (employeeId == loggedInEmployee)
+                {
+                    cmbJobAssignment.Enabled = false;
+                    cmbEmploymentStatus.Enabled = false;
+                }
+
             }
             catch (Exception ex)
             {
@@ -140,40 +182,131 @@ namespace VastVoyages.WinFrontEnd
             }
         }
 
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int employeeId = Convert.ToInt32(dgvEmployees.CurrentRow.Cells["Id"].Value);
+
+                Employee employee = employeeService.GetEmployeeToModifyById(employeeId);
+
+                string category = cmbSelectInfoCategory.SelectedItem.ToString();
+
+                switch (category)
+                {
+                    case ("Personal Information"):
+                        grpPersonalInfo.Visible = true;
+                        employee = ModifyPersonalInformation(employee);
+                        break;
+                    case ("Job Information"):
+                        grpJobInfo.Visible = true;
+                        employee = ModifyJobInformation(employee);
+                        break;
+                    case ("Employment Status"):
+                        grpEmploymentStatus.Visible = true;
+                        employee = ModifyEmploymentStatus(employee);
+                        break;
+                }
+
+                employee = employeeService.UpdateEmployee(employee);
+                PopulateEmploymentStatus();
+
+                if (employee.Errors.Count <= 0)
+                {
+                    MessageBox.Show("Success!Employee Id: " +
+                        employee.EmployeeId.ToString() + " successfully updated");
+                }
+                else
+                {
+                    string msg = "";
+                    foreach (ValidationError error in employee.Errors)
+                    {
+                        msg += error.Description + Environment.NewLine;
+                    }
+                    MessageBox.Show("Please address the following issues:\n\n" + msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        #region Modify Methods
+
+        private Employee ModifyPersonalInformation(Employee employee)
+        {
+            employee.FirstName = txtFirstNameMod.Text;
+            employee.MiddleInitial = txtMiddleInitMod.Text;
+            employee.LastName = txtLastNameMod.Text;
+            employee.DateOfBirth = dtpDOBMod.Value;
+
+            employee.Street = txtStreetMod.Text;
+            employee.City = txtCityMod.Text;
+            employee.Province = cmbProvince.SelectedValue.ToString();
+            employee.Country = cmbCountry.SelectedValue.ToString();
+            employee.PostalCode = txtPostalCodeMod.Text;
+
+            return employee;
+        }
+
+        private Employee ModifyJobInformation(Employee employee)
+        {
+
+            employee.SIN = txtSIN.Text;
+            employee.JobAssignmentId = Convert.ToInt32(cmbJobAssignment.SelectedValue);
+            employee.JobStartDate = Convert.ToDateTime(dtpJobStartDate.Value);
+            employee.DepartmentId = Convert.ToInt32(cmbDepartment.SelectedValue);
+            employee.SupervisorId = Convert.ToInt32(cmbSupervisor.SelectedValue);
+            employee.IsHeadSupervisor = chkHeadSupervisor.Checked;
+
+            return employee;
+        }
+
+        private Employee ModifyEmploymentStatus(Employee employee)
+        {
+            employee.SIN = txtSIN2.Text;
+            employee.SeniorityDate = Convert.ToDateTime(dtpSeniorityDate.Value);
+            employee.EmployeeStatusId = Convert.ToInt32(cmbEmploymentStatus.SelectedValue);
+
+            PopulateEmploymentStatus();
+
+            return employee;
+        }
+
+        #endregion
+
 
         #region Helpers
         private void PopulateEmployeeDetails()
         {
             int employeeId = Convert.ToInt32(dgvEmployees.CurrentRow.Cells["Id"].Value);
 
-            EmployeeService employeeService = new EmployeeService();
-            List<EmployeeDTO> employee = employeeService.SearchEmployeesById(employeeId);
+            //List<EmployeeDTO> employee = employeeService.SearchEmployeesById(employeeId);
+            Employee employee = employeeService.GetEmployeeToModifyById(employeeId);
 
-            txtEmployeeId.Text = (employee[0].EmpId).ToString();
-            txtFirstName.Text = (employee[0].FirstName).ToString();
-            txtMiddleInit.Text = (employee[0].MiddleInitial).ToString();
-            txtLastName.Text = (employee[0].LastName).ToString();
+            txtEmployeeId.Text = (employee.EmployeeId).ToString();
+            txtFirstName.Text = (employee.FirstName).ToString();
+            txtMiddleInit.Text = (employee.MiddleInitial).ToString();
+            txtLastName.Text = (employee.LastName).ToString();
 
-            txtStreet.Text = (employee[0].Street).ToString();
-            txtCity.Text = (employee[0].City).ToString();
-            txtProvince.Text = (employee[0].Province).ToString();
-            txtCountry.Text = (employee[0].Country).ToString();
-            txtPostalCode.Text = (employee[0].PostalCode).ToString();
+            txtStreet.Text = (employee.Street).ToString();
+            txtCity.Text = (employee.City).ToString();
+            txtProvince.Text = (employee.Province).ToString();
+            txtCountry.Text = (employee.Country).ToString();
+            txtPostalCode.Text = (employee.PostalCode).ToString();
 
-            txtWorkPhone.Text = (employee[0].WorkPhone).ToString();
-            txtCellPhone.Text = (employee[0].CellPhone).ToString();
-            txtEmail.Text = (employee[0].Email).ToString();
-
+            txtWorkPhone.Text = (employee.WorkPhone).ToString();
+            txtCellPhone.Text = (employee.CellPhone).ToString();
+            txtEmail.Text = (employee.Email).ToString();
         }
 
         private void PopulatePersonalInformation()
         {
             LoadCountries();
-            LoadProvinceStates();
 
             int employeeId = Convert.ToInt32(dgvEmployees.CurrentRow.Cells["Id"].Value);
 
-            EmployeeService employeeService = new EmployeeService();
             Employee employee = employeeService.GetEmployeeToModifyById(employeeId);
 
             txtFirstNameMod.Text = (employee.FirstName).ToString();
@@ -181,11 +314,11 @@ namespace VastVoyages.WinFrontEnd
             txtLastNameMod.Text = (employee.LastName).ToString();
             dtpDOBMod.Value = Convert.ToDateTime(employee.DateOfBirth);
 
-
             txtStreetMod.Text = (employee.Street).ToString();
             txtCityMod.Text = (employee.City).ToString();
-            cmbProvince.SelectedItem = (employee.Province).ToString();
-            cmbCountry.SelectedItem = (employee.Country).ToString();
+            cmbCountry.SelectedValue = (employee.Country).ToString();
+            LoadProvinceStates();
+            cmbProvince.SelectedValue = (employee.Province).ToString();
             txtPostalCodeMod.Text = (employee.PostalCode).ToString();
         }
 
@@ -193,10 +326,10 @@ namespace VastVoyages.WinFrontEnd
         {
             LoadJobAssignments();
             LoadDepartments();
+            LoadSupervisors();
 
             int employeeId = Convert.ToInt32(dgvEmployees.CurrentRow.Cells["Id"].Value);
 
-            EmployeeService employeeService = new EmployeeService();
             Employee employee = employeeService.GetEmployeeToModifyById(employeeId);
 
             txtSIN.Text = (employee.SIN).ToString();
@@ -209,26 +342,29 @@ namespace VastVoyages.WinFrontEnd
                 btnSave.Visible = false;
                 MessageBox.Show("The CEO's job information cannot be modified at this time.", "No Access", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            cmbDepartment.SelectedItem = Convert.ToInt32(employee.DepartmentId);
+            cmbDepartment.SelectedValue = Convert.ToInt32(employee.DepartmentId);
         }
 
         private void PopulateEmploymentStatus()
         {
             LoadEmployeeStatus();
+            lblRetirementDate.Visible = false;
+            dtpRetirementDate.Visible = false;
 
             int employeeId = Convert.ToInt32(dgvEmployees.CurrentRow.Cells["Id"].Value);
 
-            EmployeeService employeeService = new EmployeeService();
             Employee employee = employeeService.GetEmployeeToModifyById(employeeId);
 
             txtSIN2.Text = (employee.SIN).ToString();
             dtpSeniorityDate.Value = Convert.ToDateTime(employee.SeniorityDate);
-            cmbEmploymentStatus.SelectedItem = Convert.ToInt32(employee.EmployeeStatusId);
+            cmbEmploymentStatus.SelectedValue = Convert.ToInt32(employee.EmployeeStatusId);
 
-            if(cmbEmploymentStatus.SelectedValue.ToString() == "Retired")
+            if (employee.EmployeeStatusId == 3)
             {
                 lblRetirementDate.Visible = true;
                 dtpRetirementDate.Visible = true;
+                dtpRetirementDate.Value = Convert.ToDateTime(employee.EndDate);
+                cmbEmploymentStatus.Enabled = false;
             }
         }
 
@@ -264,7 +400,6 @@ namespace VastVoyages.WinFrontEnd
             grpEmploymentStatus.Visible = false;
         }
 
-
         private void LoadLoginInfo()
         {
             lbEmpName.Text = ((MainForm)this.MdiParent).loginInfo.FullName;
@@ -291,6 +426,56 @@ namespace VastVoyages.WinFrontEnd
             cmbDepartment.DataSource = departments;
             cmbDepartment.DisplayMember = "DepartmentName";
             cmbDepartment.ValueMember = "DepartmentId";
+        }
+
+        private void LoadSupervisors()
+        {
+            btnSave.Enabled = true;
+
+            chkHeadSupervisor.Checked = false;
+            chkHeadSupervisor.Enabled = false;
+
+            ToolTip toolTip = new ToolTip();
+
+            LookupsService service = new LookupsService();
+            List<SupervisorLookupsDTO> supervisors;
+
+            if (chkIsSupervisor.Checked == true)
+            {
+                supervisors = service.GetCEO();
+                cmbSupervisor.Enabled = false;
+                lblSupervisorMsg.Text = "All supervisors are supervised by the CEO";
+
+                List<SupervisorLookupsDTO> headSupervisor = service.GetHeadSupervisor(Convert.ToInt32(cmbDepartment.SelectedValue));
+                if (headSupervisor.Count > 0)
+                {
+                    chkHeadSupervisor.Enabled = false;
+
+                    toolTip.SetToolTip(lblHeadSupervisor, "Only one head supervisor per department");
+                }
+                else
+                {
+                    chkHeadSupervisor.Enabled = true;
+                }
+            }
+            else
+            {
+                supervisors = service.GetSupervisors(Convert.ToInt32(cmbDepartment.SelectedValue));
+                cmbSupervisor.Enabled = true;
+                lblSupervisorMsg.Text = "";
+            }
+
+            if (supervisors.Count < 1)
+            {
+                cmbSupervisor.Enabled = false;
+                cmbSupervisor.SelectedIndex = -1;
+                lblSupervisorMsg.Text = "Regular employees cannot be added\n to departments without supervisors";
+                btnSave.Enabled = false;
+            }
+
+            cmbSupervisor.DataSource = supervisors;
+            cmbSupervisor.DisplayMember = "SupervisorName";
+            cmbSupervisor.ValueMember = "SupervisorId";
         }
 
         private void LoadEmployeeStatus()
@@ -397,5 +582,6 @@ namespace VastVoyages.WinFrontEnd
             cmbProvince.ValueMember = "Key";
         }
         #endregion
+
     }
 }

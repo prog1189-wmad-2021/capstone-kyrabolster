@@ -91,6 +91,43 @@ namespace VastVoyages.Repository
             return employee;
         }
 
+        public Employee UpdateEmployee(Employee employee)
+        {
+            List<ParmStruct> parms = new List<ParmStruct>();
+
+            parms.Add(new ParmStruct("@RecordVersion", employee.RecordVersion, SqlDbType.Timestamp, 0, ParameterDirection.InputOutput));
+            parms.Add(new ParmStruct("@EmployeeId", employee.EmployeeId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@FirstName", employee.FirstName, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@LastName", employee.LastName, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@MiddleInit",
+                (!string.IsNullOrEmpty(employee.MiddleInitial) ? employee.MiddleInitial : (object)DBNull.Value),
+                SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@DateOfBirth", employee.DateOfBirth, SqlDbType.DateTime));
+
+            parms.Add(new ParmStruct("@Street", employee.Street, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@City", employee.City, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@Province", employee.Province, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@Country", employee.Country, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@PostalCode", employee.PostalCode, SqlDbType.NVarChar));
+
+            parms.Add(new ParmStruct("@JobStartDate", employee.JobStartDate, SqlDbType.DateTime));
+            parms.Add(new ParmStruct("@EndDate", employee.EndDate == null ? (object)DBNull.Value : employee.EndDate, SqlDbType.DateTime));
+            parms.Add(new ParmStruct("@SIN", employee.SIN, SqlDbType.NVarChar));
+
+            parms.Add(new ParmStruct("@SupervisorId", employee.SupervisorId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@IsHeadSupervisor", employee.IsHeadSupervisor, SqlDbType.Bit));
+            parms.Add(new ParmStruct("@DepartmentId", employee.DepartmentId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@EmployeeStatusId", employee.EmployeeStatusId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@JobAssignmentId", employee.JobAssignmentId, SqlDbType.Int));
+
+            if (db.ExecuteNonQuery("spUpdateEmployee", parms) > 0)
+            {
+                employee.RecordVersion = (byte[])parms.Where(p => p.Name == "@RecordVersion").FirstOrDefault().Value;
+            }
+
+            return employee;
+        }
+
 
         /// <summary>
         /// Retrieve employee to modify by id
@@ -298,6 +335,7 @@ namespace VastVoyages.Repository
                 CellPhone = row["CellPhone"].ToString(),
                 Email = row["Email"].ToString(),
                 JobStartDate = Convert.ToDateTime(row["JobStartDate"]),
+                EndDate = row["EndDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(row["EndDate"]),
                 SeniorityDate = Convert.ToDateTime(row["SeniorityDate"]),
                 SIN = row["SIN"].ToString(),
                 //the following were commented out...make sure nothing broke

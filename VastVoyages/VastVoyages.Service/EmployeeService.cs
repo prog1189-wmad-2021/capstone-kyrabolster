@@ -56,6 +56,20 @@ namespace VastVoyages.Service
             return employee;
         }
 
+        public Employee UpdateEmployee(Employee employee)
+        {
+            if (ValidateEmployee(employee))
+            {
+                //if retired or terminated
+                if(employee.EmployeeStatusId == 2 || employee.EmployeeStatusId == 3)
+                {
+                    employee.EndDate = DateTime.Now.Date;
+                }
+                return repo.UpdateEmployee(employee);
+            }
+            return employee;
+        }
+
         /// <summary>
         /// Get Employee to modify by id
         /// </summary>
@@ -199,7 +213,9 @@ namespace VastVoyages.Service
             if (employee.Country == "Canada")
             {
                 //Regex rgx = new Regex(@"^[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]$");
-                Regex rgx = new Regex(@"^([ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ])\ {0,1}(\d[ABCEGHJKLMNPRSTVWXYZ]\d)$");
+                //Regex rgx = new Regex(@"^([ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ])\ {0,1}(\d[ABCEGHJKLMNPRSTVWXYZ]\d)$");
+                Regex rgx = new Regex(@"^([A-Z]\d[A-Z])\ {0,1}(\d[A-Z]\d)$");
+
                 return rgx.IsMatch(employee.PostalCode);
             }
             else
@@ -209,6 +225,10 @@ namespace VastVoyages.Service
             }
         }
 
+        private bool IsBelowRetirementAge(DateTime dateOfBirth)
+        {
+            return (dateOfBirth.Date > DateTime.Now.Date.AddYears(-55));
+        }
 
         /// <summary>
         /// Validate new employee object
@@ -249,6 +269,10 @@ namespace VastVoyages.Service
                 employee.AddError(new ValidationError("This supervisor already has 10 employees.", ErrorType.Business));
             }
 
+            if (IsBelowRetirementAge(employee.DateOfBirth) && employee.EmployeeStatusId == 3)
+            {
+                employee.AddError(new ValidationError("The employee cannot retire below the age of 55.", ErrorType.Business));
+            }
             return employee.Errors.Count == 0;
         }
 

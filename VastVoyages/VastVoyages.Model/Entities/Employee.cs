@@ -91,6 +91,8 @@ namespace VastVoyages.Model.Entities
         [Required(ErrorMessage = "Job Assignment is required.")]
         public int JobAssignmentId { get; set; }
 
+        public DateTime? EndDate { get; set; }
+
         public string FullName
         {
             get
