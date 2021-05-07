@@ -31,7 +31,7 @@
                     </div>
                     <div class="col" style="text-align:center">
                         <br />
-                        <button type="submit" value="@Session["employeeId"]" name="employeeId" class="btn btn-info">Search</button>
+                        <button type="submit" class="btn btn-info">Search</button>
                     </div>
                 </div>
             </form>
@@ -128,12 +128,10 @@
         {
             <p>No Purchase Order matching your search criteria.</p>
         }
-        @using (Html.BeginForm("Create", "PurchaseOrder", FormMethod.Get, new { enctype = "form-create" }))
-        {
             <div style="text-align:center">
-                <button type="submit" value="@Session["employeeId"]" name="employeeId" class="btn btn-info">Create New PO</button>
-            </div>
-        }
+                @Html.ActionLink("Create New PO", "Create", null, new { @class = "btn btn-info" })
+             </div>
+
     </div>
 </div>
 
