@@ -57,6 +57,9 @@ namespace VastVoyages.WinFrontEnd
                     case "ViewEmployees":
                         childForm = new frmSearchEmployees();
                         break;
+                    case "ModifyDepartment":
+                        childForm = new frmModifyDepartment();
+                        break;
 
                         //case "Book":
                         //    childForm = new frmMaintenanceBook();
@@ -236,6 +239,11 @@ namespace VastVoyages.WinFrontEnd
                     if (loginInfo.Role == "CEO" || loginInfo.Role == "HR Supervisor" || loginInfo.Role == "HR Employee")
                     {
                         addDepartmentToolStripMenuItem.Visible = true;
+                    }
+
+                    if (loginInfo.Role == "CEO" || loginInfo.Role == "HR Supervisor" || loginInfo.Role == "HR Employee" || loginInfo.Role == "Supervisor")
+                    {
+                        modifyDepartmentToolStripMenuItem.Visible = true;
                     }
 
                     if (loginInfo.Role == "CEO" || loginInfo.Role == "HR Supervisor" || loginInfo.Role == "HR Employee")

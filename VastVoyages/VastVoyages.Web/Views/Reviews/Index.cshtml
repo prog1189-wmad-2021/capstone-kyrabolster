@@ -1,30 +1,28 @@
 ﻿@model IEnumerable<VastVoyages.Model.EmployeeDTO>
 
 @{
-    ViewBag.Title = "Employees";
+    ViewBag.Title = "Your Employees";
     Layout = "~/Views/Shared/_NavTemplate.cshtml";
 }
 
 <div class="container" style="width: 95%; margin-top: 5%;">
 
-    <h2>Search Employee Directory</h2>
+    <h2>Select an Employee To Review</h2>
 
-    @using (Html.BeginForm("index", "Employees", FormMethod.Get))
+    @using (Html.BeginForm("index", "Reviews", FormMethod.Get))
     {
-        <div class="m-1">
-            @Html.TextBox("Search", ViewBag.CurrentFilter as string, new { Style = "min-width:300px", placeholder = "Search by Employee Id or Last Name" })
-            <button type="submit" value="" id="search" class="btn btn-info m-1">Search</button>
-        </div>
 
         if (Model.Any())
         {
             <table class="table">
                 <tr>
                     <th>
-                        Id
+                        @Html.DisplayNameFor(model => model.FullName)
+
                     </th>
                     <th>
-                        Name
+                        @Html.DisplayNameFor(model => model.EmpId)
+
                     </th>
                     <th></th>
                 </tr>
@@ -33,15 +31,12 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.EmpId)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.FullName)
                         </td>
                         <td>
-                            @*@Html.ActionLink("Edit", "Edit", new { employeeId = item.EmpId }) |*@
-                            @Html.ActionLink("Details", "Details", new { employeeId = item.EmpId })
-                            @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                            @Html.DisplayFor(modelItem => item.EmpId)
+                        <td>
+                            @Html.ActionLink("Create Review", "Create", new { employeeId = item.EmpId })
                         </td>
                     </tr>
                 }
@@ -50,7 +45,7 @@
         }
         else
         {
-            @ViewBag.Employees
+            @ViewBag.Reviews
         }
 
     }

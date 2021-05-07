@@ -23,4 +23,10 @@ namespace VastVoyages.Model.DTO
         public int DepartmentId { get; set; }
         public string DepartmentName { get; set; }
     }
+
+    public class EmployeeStatusLookupsDTO
+    {
+        public int EmployeeStatusId { get; set; }
+        public string EmployeeStatus { get; set; }
+    }
 }

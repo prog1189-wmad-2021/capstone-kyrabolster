@@ -62,12 +62,12 @@
                 <li class="active">
                     <a href="#HRSubmenu" data-toggle="collapse" data-target="#HRSubmenu" aria-expanded="false" class="dropdown-toggle">HR</a>
                     <ul class="collapse list-unstyled" style="padding-left:5%;" id="HRSubmenu">
-                         @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "HR Supervisor")
-                         {
+                        @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "HR Supervisor")
+                        {
                             <li>
                                 <a href="#">Add Employee</a>
                             </li>
-                         }
+                        }
 
                         @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "HR Supervisor" || Session["role"].ToString() == "HR Employee")
                         {
@@ -75,12 +75,23 @@
                                 <a href="@Url.Action("Index", "Employees")">View Employees</a>
                             </li>
                         }
-                        @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "HR Supervisor" || Session["role"].ToString() == "HR Employee")
+                        @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "HR Supervisor" || Session["role"].ToString() == "Supervisor")
                         {
                             <li>
-                                <a href="#">Create Department</a>
+                                <a href="@Url.Action("Index", "Reviews")">Create Review</a>
                             </li>
                         }
+
+                        @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "HR Supervisor" || Session["role"].ToString() == "HR Employee" || Session["role"].ToString() == "Supervisor")
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", "Departments")">Modify Departments</a>
+                            </li>
+                        }
+                        @* For all employees *@
+                        <li>
+                            <a href="@Url.Action("Edit","Employees/", new { employeeId = Session["employeeId"]})">Modify Personal Info</a>
+                        </li>
                     </ul>
                 </li>
 

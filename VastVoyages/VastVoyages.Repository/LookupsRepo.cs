@@ -88,7 +88,35 @@ namespace VastVoyages.Repository
                     new SupervisorLookupsDTO
                     {
                         SupervisorId = Convert.ToInt32(row["EmployeeId"]),
-                        SupervisorName = row["FirstName"].ToString() + row["LastName"].ToString()
+                        SupervisorName = row["FirstName"].ToString() + " " + row["LastName"].ToString()
+                    }
+                );
+            }
+
+            return supervisors;
+        }
+
+        /// <summary>
+        /// Get head supervisor for the department
+        /// </summary>
+        /// <param name="departmentId"></param>
+        /// <returns></returns>
+        public List<SupervisorLookupsDTO> RetrieveHeadSupervisor(int departmentId)
+        {
+            List<ParmStruct> parms = new List<ParmStruct>();
+            parms.Add(new ParmStruct("@DepartmentId", departmentId, SqlDbType.Int));
+
+            DataTable dt = db.Execute("spGetHeadSupervisor", parms);
+
+            List<SupervisorLookupsDTO> supervisors = new List<SupervisorLookupsDTO>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                supervisors.Add(
+                    new SupervisorLookupsDTO
+                    {
+                        SupervisorId = Convert.ToInt32(row["EmployeeId"]),
+                        SupervisorName = row["FirstName"].ToString() + " " + row["LastName"].ToString()
                     }
                 );
             }
@@ -118,6 +146,32 @@ namespace VastVoyages.Repository
             }
 
             return supervisors;
+        }
+
+        /// <summary>
+        /// Get Employee Statuses
+        /// </summary>
+        /// <returns></returns>
+        public List<EmployeeStatusLookupsDTO> RetrieveEmployeeStatus()
+        {
+            List<ParmStruct> parms = new List<ParmStruct>();
+
+            DataTable dt = db.Execute("spGetEmployeeStatus", parms);
+
+            List<EmployeeStatusLookupsDTO> employeeStatus = new List<EmployeeStatusLookupsDTO>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                employeeStatus.Add(
+                    new EmployeeStatusLookupsDTO
+                    {
+                        EmployeeStatusId = Convert.ToInt32(row["EmployeeStatusId"]),
+                        EmployeeStatus = row["EmployeeStatus"].ToString()
+                    }
+                );
+            }
+
+            return employeeStatus;
         }
     }
 }

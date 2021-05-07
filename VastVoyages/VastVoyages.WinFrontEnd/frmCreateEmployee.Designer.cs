@@ -48,7 +48,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtStreet = new System.Windows.Forms.TextBox();
             this.txtPostalCode = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblPostalCode = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.txtWorkPhone = new System.Windows.Forms.TextBox();
@@ -57,6 +57,8 @@
             this.label15 = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.grpEmploymentDetails = new System.Windows.Forms.GroupBox();
+            this.lblHeadSupervisor = new System.Windows.Forms.Label();
+            this.chkHeadSupervisor = new System.Windows.Forms.CheckBox();
             this.lblSupervisorMsg = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.chkIsSupervisor = new System.Windows.Forms.CheckBox();
@@ -71,6 +73,8 @@
             this.label16 = new System.Windows.Forms.Label();
             this.dtpJobStartDate = new System.Windows.Forms.DateTimePicker();
             this.grpContactInfo = new System.Windows.Forms.GroupBox();
+            this.cmbProvince = new System.Windows.Forms.ComboBox();
+            this.cmbCountry = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.lbUserName = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -84,8 +88,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
-            this.cmbCountry = new System.Windows.Forms.ComboBox();
-            this.cmbProvince = new System.Windows.Forms.ComboBox();
             this.grpCreateEmployee.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.grpEmploymentDetails.SuspendLayout();
@@ -110,7 +112,7 @@
             // btnCreateEmployee
             // 
             this.btnCreateEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCreateEmployee.Location = new System.Drawing.Point(577, 660);
+            this.btnCreateEmployee.Location = new System.Drawing.Point(578, 684);
             this.btnCreateEmployee.Name = "btnCreateEmployee";
             this.btnCreateEmployee.Size = new System.Drawing.Size(111, 39);
             this.btnCreateEmployee.TabIndex = 19;
@@ -262,14 +264,14 @@
             this.txtPostalCode.Size = new System.Drawing.Size(340, 22);
             this.txtPostalCode.TabIndex = 9;
             // 
-            // label5
+            // lblPostalCode
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(70, 157);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(88, 17);
-            this.label5.TabIndex = 19;
-            this.label5.Text = "Postal Code:";
+            this.lblPostalCode.AutoSize = true;
+            this.lblPostalCode.Location = new System.Drawing.Point(70, 157);
+            this.lblPostalCode.Name = "lblPostalCode";
+            this.lblPostalCode.Size = new System.Drawing.Size(88, 17);
+            this.lblPostalCode.TabIndex = 19;
+            this.lblPostalCode.Text = "Postal Code:";
             // 
             // label6
             // 
@@ -330,6 +332,8 @@
             // 
             // grpEmploymentDetails
             // 
+            this.grpEmploymentDetails.Controls.Add(this.lblHeadSupervisor);
+            this.grpEmploymentDetails.Controls.Add(this.chkHeadSupervisor);
             this.grpEmploymentDetails.Controls.Add(this.lblSupervisorMsg);
             this.grpEmploymentDetails.Controls.Add(this.label21);
             this.grpEmploymentDetails.Controls.Add(this.chkIsSupervisor);
@@ -345,10 +349,28 @@
             this.grpEmploymentDetails.Controls.Add(this.dtpJobStartDate);
             this.grpEmploymentDetails.Location = new System.Drawing.Point(13, 483);
             this.grpEmploymentDetails.Name = "grpEmploymentDetails";
-            this.grpEmploymentDetails.Size = new System.Drawing.Size(1226, 161);
+            this.grpEmploymentDetails.Size = new System.Drawing.Size(1226, 185);
             this.grpEmploymentDetails.TabIndex = 13;
             this.grpEmploymentDetails.TabStop = false;
             this.grpEmploymentDetails.Text = "Employment Information";
+            // 
+            // lblHeadSupervisor
+            // 
+            this.lblHeadSupervisor.AutoSize = true;
+            this.lblHeadSupervisor.Location = new System.Drawing.Point(870, 74);
+            this.lblHeadSupervisor.Name = "lblHeadSupervisor";
+            this.lblHeadSupervisor.Size = new System.Drawing.Size(136, 17);
+            this.lblHeadSupervisor.TabIndex = 19;
+            this.lblHeadSupervisor.Text = "Is Head Supervisor?";
+            // 
+            // chkHeadSupervisor
+            // 
+            this.chkHeadSupervisor.AutoSize = true;
+            this.chkHeadSupervisor.Location = new System.Drawing.Point(1012, 75);
+            this.chkHeadSupervisor.Name = "chkHeadSupervisor";
+            this.chkHeadSupervisor.Size = new System.Drawing.Size(18, 17);
+            this.chkHeadSupervisor.TabIndex = 20;
+            this.chkHeadSupervisor.UseVisualStyleBackColor = true;
             // 
             // lblSupervisorMsg
             // 
@@ -479,13 +501,32 @@
             this.grpContactInfo.Controls.Add(this.label2);
             this.grpContactInfo.Controls.Add(this.label6);
             this.grpContactInfo.Controls.Add(this.txtPostalCode);
-            this.grpContactInfo.Controls.Add(this.label5);
+            this.grpContactInfo.Controls.Add(this.lblPostalCode);
             this.grpContactInfo.Location = new System.Drawing.Point(639, 161);
             this.grpContactInfo.Name = "grpContactInfo";
             this.grpContactInfo.Size = new System.Drawing.Size(600, 316);
             this.grpContactInfo.TabIndex = 5;
             this.grpContactInfo.TabStop = false;
             this.grpContactInfo.Text = "Contact Information";
+            // 
+            // cmbProvince
+            // 
+            this.cmbProvince.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbProvince.FormattingEnabled = true;
+            this.cmbProvince.Location = new System.Drawing.Point(186, 96);
+            this.cmbProvince.Name = "cmbProvince";
+            this.cmbProvince.Size = new System.Drawing.Size(340, 24);
+            this.cmbProvince.TabIndex = 30;
+            // 
+            // cmbCountry
+            // 
+            this.cmbCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCountry.FormattingEnabled = true;
+            this.cmbCountry.Location = new System.Drawing.Point(186, 124);
+            this.cmbCountry.Name = "cmbCountry";
+            this.cmbCountry.Size = new System.Drawing.Size(340, 24);
+            this.cmbCountry.TabIndex = 29;
+            this.cmbCountry.SelectionChangeCommitted += new System.EventHandler(this.cmbCountry_SelectionChangeCommitted);
             // 
             // groupBox4
             // 
@@ -643,25 +684,6 @@
             this.label22.TabIndex = 5;
             this.label22.Text = "Name:";
             // 
-            // cmbCountry
-            // 
-            this.cmbCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCountry.FormattingEnabled = true;
-            this.cmbCountry.Location = new System.Drawing.Point(186, 124);
-            this.cmbCountry.Name = "cmbCountry";
-            this.cmbCountry.Size = new System.Drawing.Size(340, 24);
-            this.cmbCountry.TabIndex = 29;
-            this.cmbCountry.SelectionChangeCommitted += new System.EventHandler(this.cmbCountry_SelectionChangeCommitted);
-            // 
-            // cmbProvince
-            // 
-            this.cmbProvince.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbProvince.FormattingEnabled = true;
-            this.cmbProvince.Location = new System.Drawing.Point(186, 96);
-            this.cmbProvince.Name = "cmbProvince";
-            this.cmbProvince.Size = new System.Drawing.Size(340, 24);
-            this.cmbProvince.TabIndex = 30;
-            // 
             // frmCreateEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -710,7 +732,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtStreet;
         private System.Windows.Forms.TextBox txtPostalCode;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblPostalCode;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtWorkPhone;
@@ -748,5 +770,7 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.ComboBox cmbCountry;
         private System.Windows.Forms.ComboBox cmbProvince;
+        private System.Windows.Forms.Label lblHeadSupervisor;
+        private System.Windows.Forms.CheckBox chkHeadSupervisor;
     }
 }

@@ -1,0 +1,93 @@
+﻿@model  VastVoyages.Model.Department
+
+
+@{
+    ViewBag.Title = "Edit Department";
+    Layout = "~/Views/Shared/_NavTemplate.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container" style="width: 95%; margin-top: 5%; max-width:60% ">
+        <div class="form-horizontal">
+            <h2>Edit Department : @Model.DepartmentName</h2>
+            <h5>Department Id : @Model.DepartmentId</h5>
+            <hr />
+            @if (Model.Errors.Count > 0)
+            {
+                <div class="text-danger">
+                    <ul>
+                        @foreach (var e in Model.Errors
+                        .Where(err => err.ErrorType == VastVoyages.Types.ErrorType.Business))
+                        {
+                            <li>@e.Description</li>
+                        }
+                        @foreach (var e in Model.Errors
+                        .Where(err => err.ErrorType == VastVoyages.Types.ErrorType.Model))
+                        {
+                            <li>@e.Description</li>
+                        }
+                    </ul>
+                </div>
+            }
+            @Html.HiddenFor(model => model.DepartmentId)
+            @Html.HiddenFor(model => model.RecordVersion)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DepartmentName, htmlAttributes: new { @class = "control-label col-md-2" })
+
+
+                <div class="col-md-10">
+                    @if (Session["role"].ToString() == "Supervisor")
+                    {
+                        @Html.EditorFor(model => model.DepartmentName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    }
+                    else
+                    {
+                        @Html.EditorFor(model => model.DepartmentName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DepartmentName, "", new { @class = "text-danger" })
+
+                    }
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DepartmentDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DepartmentDescription, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DepartmentDescription, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.InvocationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @if (Session["role"].ToString() == "Supervisor")
+                    {
+                        @Html.EditorFor(model => model.InvocationDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    }
+                    else
+                    {
+                        @Html.EditorFor(model => model.InvocationDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.InvocationDate, "", new { @class = "text-danger" })
+                    }
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-info" />
+                </div>
+            </div>
+        </div>
+
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+
+    </div>
+
+}

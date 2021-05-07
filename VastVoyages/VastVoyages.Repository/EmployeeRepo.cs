@@ -31,7 +31,7 @@ namespace VastVoyages.Repository
             parms.Add(new ParmStruct("@UserName", employee.UserName, SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@FirstName", employee.FirstName, SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@LastName", employee.LastName, SqlDbType.NVarChar));
-            parms.Add(new ParmStruct("@MiddleInit", 
+            parms.Add(new ParmStruct("@MiddleInit",
                 (!string.IsNullOrEmpty(employee.MiddleInitial) ? employee.MiddleInitial : (object)DBNull.Value),
                 SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@DateOfBirth", employee.DateOfBirth, SqlDbType.DateTime));
@@ -49,17 +49,101 @@ namespace VastVoyages.Repository
             parms.Add(new ParmStruct("@SeniorityDate", employee.SeniorityDate, SqlDbType.DateTime));
             parms.Add(new ParmStruct("@SIN", employee.SIN, SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@SupervisorId", employee.SupervisorId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@IsHeadSupervisor", employee.IsHeadSupervisor, SqlDbType.Bit));
             parms.Add(new ParmStruct("@DepartmentId", employee.DepartmentId, SqlDbType.Int));
             parms.Add(new ParmStruct("@EmployeeStatusId", employee.EmployeeStatusId, SqlDbType.Int));
             parms.Add(new ParmStruct("@JobAssignmentId", employee.JobAssignmentId, SqlDbType.Int));
 
             if (db.ExecuteNonQuery("spInsertEmployee", parms) > 0)
             {
+                employee.RecordVersion = (byte[])parms.Where(p => p.Name == "@RecordVersion").FirstOrDefault().Value;
                 employee.EmployeeId = (int)parms.Where(p => p.Name == "@EmployeeId").FirstOrDefault().Value;
                 return true;
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Update Employee information for web application
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        public Employee UpdatePersonalInfoWeb(Employee employee)
+        {
+            List<ParmStruct> parms = new List<ParmStruct>();
+
+            parms.Add(new ParmStruct("@RecordVersion", employee.RecordVersion, SqlDbType.Timestamp, 0, ParameterDirection.InputOutput));
+            parms.Add(new ParmStruct("@EmployeeId", employee.EmployeeId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@Street", employee.Street, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@City", employee.City, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@Province", employee.Province, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@Country", employee.Country, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@PostalCode", employee.PostalCode, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@WorkPhone", employee.WorkPhone, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@CellPhone", employee.CellPhone, SqlDbType.NVarChar));
+
+            if (db.ExecuteNonQuery("spUpdatePersonalInfoWeb", parms) > 0)
+            {
+                employee.RecordVersion = (byte[])parms.Where(p => p.Name == "@RecordVersion").FirstOrDefault().Value;
+            }
+
+            return employee;
+        }
+
+        public Employee UpdateEmployee(Employee employee)
+        {
+            List<ParmStruct> parms = new List<ParmStruct>();
+
+            parms.Add(new ParmStruct("@RecordVersion", employee.RecordVersion, SqlDbType.Timestamp, 0, ParameterDirection.InputOutput));
+            parms.Add(new ParmStruct("@EmployeeId", employee.EmployeeId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@FirstName", employee.FirstName, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@LastName", employee.LastName, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@MiddleInit",
+                (!string.IsNullOrEmpty(employee.MiddleInitial) ? employee.MiddleInitial : (object)DBNull.Value),
+                SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@DateOfBirth", employee.DateOfBirth, SqlDbType.DateTime));
+
+            parms.Add(new ParmStruct("@Street", employee.Street, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@City", employee.City, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@Province", employee.Province, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@Country", employee.Country, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@PostalCode", employee.PostalCode, SqlDbType.NVarChar));
+
+            parms.Add(new ParmStruct("@JobStartDate", employee.JobStartDate, SqlDbType.DateTime));
+            parms.Add(new ParmStruct("@EndDate", employee.EndDate == null ? (object)DBNull.Value : employee.EndDate, SqlDbType.DateTime));
+            parms.Add(new ParmStruct("@SIN", employee.SIN, SqlDbType.NVarChar));
+
+            parms.Add(new ParmStruct("@SupervisorId", employee.SupervisorId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@IsHeadSupervisor", employee.IsHeadSupervisor, SqlDbType.Bit));
+            parms.Add(new ParmStruct("@DepartmentId", employee.DepartmentId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@EmployeeStatusId", employee.EmployeeStatusId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@JobAssignmentId", employee.JobAssignmentId, SqlDbType.Int));
+
+            if (db.ExecuteNonQuery("spUpdateEmployee", parms) > 0)
+            {
+                employee.RecordVersion = (byte[])parms.Where(p => p.Name == "@RecordVersion").FirstOrDefault().Value;
+            }
+
+            return employee;
+        }
+
+
+        /// <summary>
+        /// Retrieve employee to modify by id
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
+        public Employee RetrieveEmployeeToModify(int employeeId)
+        {
+            List<ParmStruct> parms = new List<ParmStruct>()
+            {
+                new ParmStruct("@EmployeeId", employeeId, SqlDbType.Int)
+            };
+
+            DataTable dt = db.Execute("spGetEmployeeToModify", parms);
+
+            return dt.Rows.Count > 0 ? PopulateEmployee(dt.Rows[0]) : null;
         }
 
         /// <summary>
@@ -114,7 +198,7 @@ namespace VastVoyages.Repository
             parms.Add(new ParmStruct("@DepartmentId", departmentId, SqlDbType.Int));
             parms.Add(new ParmStruct("@SupervisorId", supervisorId, SqlDbType.Int));
             parms.Add(new ParmStruct("@EmployeeCount", employeeCount, SqlDbType.Int, 0, ParameterDirection.Output));
-  
+
             db.ExecuteNonQuery("spGetSuperEmployeeCount", parms);
 
             employeeCount = (int)parms.Where(p => p.Name == "@EmployeeCount").FirstOrDefault().Value;
@@ -134,7 +218,7 @@ namespace VastVoyages.Repository
 
             foreach (DataRow row in dt.Rows)
             {
-                    employees.Add(new EmployeeDTO
+                employees.Add(new EmployeeDTO
                 {
                     EmpId = Convert.ToInt32(row["EmployeeId"]),
                     FirstName = row["FirstName"].ToString(),
@@ -147,7 +231,8 @@ namespace VastVoyages.Repository
                     PostalCode = row["PostalCode"].ToString(),
                     WorkPhone = row["WorkPhone"].ToString(),
                     CellPhone = row["CellPhone"].ToString(),
-                    Email = row["Email"].ToString()
+                    Email = row["Email"].ToString(),
+                    SupervisorId = row["SupervisorId"] == DBNull.Value ? 0 : Convert.ToInt32(row["SupervisorId"])
                 });
             }
 
@@ -184,7 +269,9 @@ namespace VastVoyages.Repository
                     PostalCode = row["PostalCode"].ToString(),
                     WorkPhone = row["WorkPhone"].ToString(),
                     CellPhone = row["CellPhone"].ToString(),
-                    Email = row["Email"].ToString()
+                    Email = row["Email"].ToString(),
+                    DepartmentId = Convert.ToInt32(row["DepartmentId"]),
+                    SupervisorId = row["SupervisorId"] == DBNull.Value ? 0 : Convert.ToInt32(row["SupervisorId"])
                 });
             }
 
@@ -227,7 +314,38 @@ namespace VastVoyages.Repository
 
             return employees;
         }
-              
+
+        private Employee PopulateEmployee(DataRow row)
+        {
+            return new Employee
+            {
+                EmployeeId = Convert.ToInt32(row["EmployeeId"]),
+                RecordVersion = (byte[])row["RecordVersion"],
+                UserName = row["UserName"].ToString(),
+                FirstName = row["FirstName"].ToString(),
+                LastName = row["LastName"].ToString(),
+                MiddleInitial = row["MiddleInit"] == DBNull.Value ? "" : row["MiddleInit"].ToString(),
+                DateOfBirth = Convert.ToDateTime(row["DateOfBirth"]),
+                Street = row["Street"].ToString(),
+                City = row["City"].ToString(),
+                Province = row["Province"].ToString(),
+                Country = row["Country"].ToString(),
+                PostalCode = row["PostalCode"].ToString(),
+                WorkPhone = row["WorkPhone"].ToString(),
+                CellPhone = row["CellPhone"].ToString(),
+                Email = row["Email"].ToString(),
+                JobStartDate = Convert.ToDateTime(row["JobStartDate"]),
+                EndDate = row["EndDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(row["EndDate"]),
+                SeniorityDate = Convert.ToDateTime(row["SeniorityDate"]),
+                SIN = row["SIN"].ToString(),
+                //the following were commented out...make sure nothing broke
+                SupervisorId = row["SupervisorId"] == DBNull.Value ? 0 : Convert.ToInt32(row["SupervisorId"]),
+                DepartmentId = Convert.ToInt32(row["DepartmentId"]),
+                EmployeeStatusId = Convert.ToInt32(row["EmployeeStatusId"]),
+                JobAssignmentId = Convert.ToInt32(row["JobAssignmentId"])
+            };
+        }
+
         #endregion
     }
 }
