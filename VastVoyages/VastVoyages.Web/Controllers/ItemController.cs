@@ -36,7 +36,7 @@ namespace VastVoyages.Web.Controllers
                 {
                     PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(Convert.ToInt32(itemDTO.PONumber), Convert.ToInt32(Session["employeeId"]), null, false);
 
-                    if (itemDTO.ItemStatus == "Pending" && itemDTO != null)
+                    if (itemDTO.ItemStatus == "Pending" && itemDTO != null && purchaseOrderDTO.POStatus == "Pending")
                     {
                         Item item = new Item
                         {
@@ -56,7 +56,7 @@ namespace VastVoyages.Web.Controllers
                     }
                     else
                     {
-                        TempData["Error"] = "The item can not be modified.";
+                        TempData["Error"] = "The item can not be modified. The purchase order has been processing.";
                         return RedirectToAction("Edit", "PurchaseOrder", new { PONumber = itemDTO.PONumber });
                     }
                 }

@@ -61,8 +61,8 @@ namespace VastVoyages.WinFrontEnd
             {
                 PurchaseOrderService service = new PurchaseOrderService();
                 List<PurchaseOrderDTO> purchaseOrders = new List<PurchaseOrderDTO>();
-
-                purchaseOrders = service.GetPurchaseOrderList(employeeId);
+                
+                purchaseOrders = service.GetPurchaseOrderList(employeeId, null, null, null, 1);
                 if(purchaseOrders.Count > 0)
                 {
                     GeneratePurchaseOrderDataGridView(purchaseOrders);

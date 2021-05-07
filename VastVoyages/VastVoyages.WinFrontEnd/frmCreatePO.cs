@@ -254,7 +254,7 @@ namespace VastVoyages.WinFrontEnd
                         if (items.Where(i => i.ItemStatusId != 1).ToList().Count == items.Count)
                         {
                             _purchaseOrder.items = new List<Item>();
-
+                            
                             foreach (ItemDTO i in items)
                             {
                                 _purchaseOrder.items.Add(new Item
@@ -409,7 +409,10 @@ namespace VastVoyages.WinFrontEnd
             dgvItem.Columns[9].Visible = false; //Item Status Id
             dgvItem.Columns[10].HeaderText = "Status";
             dgvItem.Columns[11].HeaderText = "Decision Reason";
-            dgvItem.Columns[12].Visible = false; // Record version         
+            dgvItem.Columns[12].Visible = false; // Record version        
+            dgvItem.Columns[13].Visible = false; // Record version        
+            dgvItem.Columns[14].Visible = false; // Record version        
+            dgvItem.Columns[15].Visible = false; // Record version        
 
             dgvItem.Columns[5].DefaultCellStyle.Format = "C";
             dgvItem.AutoResizeColumns();

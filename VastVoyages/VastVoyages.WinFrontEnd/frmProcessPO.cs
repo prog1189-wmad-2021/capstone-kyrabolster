@@ -326,15 +326,18 @@ namespace VastVoyages.WinFrontEnd
                         ClearItemForm();
 
                         PurchaseOrder purchaseOrder = GeneratePurchaseOrderObject(_purchaseOrder);
-                        purchaseOrder.POstatusId = 2;
+                        //purchaseOrder.POstatusId = 1;
 
-                        POService.UpdatePurcaseOrder(purchaseOrder);
                         GenerateItemGridView(Convert.ToInt32(_purchaseOrder.PONumber));
                         _purchaseOrder.RecordVersion = item.PORecordVersion;
 
                         //if all items are not pending, propmpt message to change status of purchase order
                         if(purchaseOrder.items.Where(i => i.ItemStatusId != 1).ToList().Count == purchaseOrder.items.Count()){
                             ClosePurchaseOrder(purchaseOrder);
+                        }
+                        else
+                        {
+                            POService.UpdatePurcaseOrder(purchaseOrder);
                         }
 
                         GetPurchaseOrderList(Convert.ToInt32(((MainForm)this.MdiParent).loginInfo.EmployeeId));

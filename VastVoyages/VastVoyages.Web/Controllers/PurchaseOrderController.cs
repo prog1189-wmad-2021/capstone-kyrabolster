@@ -147,6 +147,7 @@ namespace VastVoyages.Web.Controllers
                 else
                 {
                     item.PONumber = Convert.ToInt32(PO.PONumber);
+                    item.PORecordVersion = PO.RecordVersion;
                     itemService.AddItem(item, PO);
                 }
 
@@ -293,6 +294,7 @@ namespace VastVoyages.Web.Controllers
             {
                 PO.employeeId = Convert.ToInt32(Session["employeeId"]);
                 item.PONumber = Convert.ToInt32(PO.PONumber);
+                item.PORecordVersion = PO.RecordVersion;
 
                 itemService.AddItem(item, PO);
 
