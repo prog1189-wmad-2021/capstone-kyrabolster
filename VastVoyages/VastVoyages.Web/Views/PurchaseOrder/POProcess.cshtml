@@ -1,0 +1,202 @@
+﻿@model Tuple<VastVoyages.Model.PurchaseOrder, VastVoyages.Model.Item>
+
+@{
+    ViewBag.Title = "Process Purchase Order";
+    Layout = "~/Views/Shared/_NavTemplate.cshtml";
+}
+
+<style>
+    body {
+        padding-right: 0 !important;
+    }
+
+    .modal-open {
+        overflow: auto;
+        padding-right: 0 !important;
+    }
+</style>
+
+<div class="container" style="width: 95%; margin-top: 5%;">
+    <h1 style="text-align:center;">Process Purchase Order</h1>
+    <br /><br />
+    <div class="col-md-offset-4">
+
+        @Html.HiddenFor(model => model.Item1.PONumber)
+        @Html.HiddenFor(model => model.Item1.RecordVersion)
+
+        <br /><br />
+        @if (Model.Item1.PONumber != null)
+        {
+            <h3>Purchase Order Number: @Html.DisplayFor(model => model.Item1.PONumber)</h3>
+        }
+        <button class="btn btn-info" id="closePO" data-toggle="modal" data-target="#closePOModal">Close Purchase Order</button>
+        @using (Html.BeginForm("ClosePurchaseOrder", "PurchaseOrder", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @*<button class="btn btn-info" id="closePO" value="@Model.Item1.PONumber" name="PONumber" onclick="return confirm('Do you want to close this purchase order?');">Close Purchase Order</button>*@
+
+            <div class="modal fade" id="closePOModal" tabindex="-1" aria-labelledby="closePOModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Close Purchase Order</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Do you want to close this purchase order?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-info" value="@Model.Item1.PONumber" name="PONumber">Yes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <br /><br />
+        <h4>Item List</h4>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item1.items[0].ItemId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item1.items[0].ItemName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item1.items[0].ItemDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item1.items[0].Justification)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item1.items[0].Location)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item1.items[0].Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item1.items[0].Quantity)
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item1.items[0].DecisionReason)
+                </th>
+                <th>
+                </th>
+            </tr>
+
+            @if (Model.Item1.items != null)
+            {
+                foreach (var item in Model.Item1.items)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemDescription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Justification)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Location)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        @switch (item.ItemStatusId)
+                        {
+                            case 1:
+                                <td>
+                                    Pending
+                                </td>
+                                break;
+                            case 2:
+                                <td>
+                                    Approved
+                                </td>
+                                break;
+                            case 3:
+                                <td>
+                                    Denied
+                                </td>
+                                break;
+                        }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DecisionReason)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Select", "ItemProcess", "Item", new { itemId = item.ItemId }, null)
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+        <div style="text-align:right">
+            <p>Sub Total: @string.Format("{0:C}", @Model.Item1.SubTotal)</p>
+            <p>Tax: @string.Format("{0:C}", @Model.Item1.Tax)</p>
+            <p>Total: @ViewBag.Total</p>
+        </div>
+
+        <div style="text-align:right">
+            @Html.ActionLink("Back to List", "ProcessList")
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to close this purchase order?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    if (TempData["Error"] != null)
+    {
+        <script type="text/javascript">
+            $('#alertModal').modal('show');
+            $("#alertModal .modal-title").html("Error");
+            $("#alertModal .modal-body").html(@Html.Raw(Json.Encode(TempData["Error"])));
+        </script>
+    }
+
+    if (TempData["Edit"] != null)
+    {
+        <script type="text/javascript">
+            $('#alertModal').modal('show');
+            $("#alertModal .modal-title").html("Edit");
+            $("#alertModal .modal-body").html(@Html.Raw(Json.Encode(TempData["Edit"])));
+        </script>
+    }
+
+    if (TempData["Close"] != null)
+    {
+        <script type="text/javascript">
+            $("#closePO")[0].click();
+        </script>
+    }
+}

@@ -5,17 +5,18 @@
     Layout = "~/Views/Shared/_NavTemplate.cshtml";
 }
 
-<div class="container" style="width: 95%; margin-top: 5%;">
-    <h1 style="text-align:center;">Purchase Order</h1>
+<div class="container" style="width: 100%; margin-top: 5%;">
+    <h1 style="text-align:center;">Purchase Order List</h1>
     <br /><br />
     <div class="col-md-offset-4">
-        @using (Html.BeginForm("index", "PurchaseOrder", FormMethod.Get, new { enctype = "form-search" }))
+        @using (Html.BeginForm("ProcessList", "PurchaseOrder", FormMethod.Get, new { enctype = "form-search" }))
         {
+            <input type="hidden" value=@Session["employeeId"] name="supervisorId" />
             <form>
                 <div class="form-row">
                     <div class="col">
-                        <label for="inputPONumber">PO Number</label>
-                        <input type="text" name="PONumber" value="@ViewBag.PONumber" class="form-control" placeholder="PO Number">
+                        <label for="inputName">Employee Name</label>
+                        <input type="text" name="empName" value="@ViewBag.empName" class="form-control" placeholder="Name">
                     </div>
                     <div class="col">
                         <label for="inputStatus">Status</label>
@@ -31,7 +32,7 @@
                     </div>
                     <div class="col" style="text-align:center">
                         <br />
-                        <button type="submit" class="btn btn-info">Search</button>
+                        <button type="submit" value="@Session["employeeId"]" name="employeeId" class="btn btn-info">Search</button>
                     </div>
                 </div>
             </form>
@@ -64,6 +65,9 @@
                         @Html.DisplayNameFor(model => model.Total)
                     </th>
                     <th>
+                        @Html.DisplayNameFor(model => model.Employee)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.Supervisor)
                     </th>
                     <th>
@@ -78,19 +82,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.PONumber)
                         </td>
-
-                        @if (item.SubmissionDate == null)
-                        {
-                            <td>
-                                Not submitted
-                            </td>
-                        }
-                        else
-                        {
-                            <td>
-                                @Html.DisplayFor(modelItem => item.SubmissionDate)
-                            </td>
-                        }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubmissionDate)
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.SubTotal)
                         </td>
@@ -101,23 +95,26 @@
                             @Html.DisplayFor(modelItem => item.Total)
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => item.Employee)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.Supervisor)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.POStatus)
                         </td>
 
-                        @if (item.POStatus == "Pending")
+                        @if (item.POStatus != "Closed" && (Convert.ToBoolean(Session["isHeadSupervisor"]) || Session["department"].ToString() == "CEO"))
                         {
                             <td>
-                                @Html.ActionLink("Edit", "Edit", new { PONumber = item.PONumber }) |
-                                @Html.ActionLink("Details", "Details", new { PONumber = item.PONumber })
+                                @Html.ActionLink("Select", "POProcess", new { PONumber = item.PONumber }) |
+                                @Html.ActionLink("Details", "ProcessDetails", new { PONumber = item.PONumber })
                             </td>
                         }
                         else
                         {
                             <td>
-                                @Html.ActionLink("Details", "Details", new { PONumber = item.PONumber })
+                                @Html.ActionLink("Details", "ProcessDetails", new { PONumber = item.PONumber })
                             </td>
                         }
                     </tr>
@@ -128,13 +125,8 @@
         {
             <p>No Purchase Order matching your search criteria.</p>
         }
-            <div style="text-align:center">
-                @Html.ActionLink("Create New PO", "Create", null, new { @class = "btn btn-info" })
-             </div>
-
     </div>
 </div>
-
 <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -153,30 +145,23 @@
         </div>
     </div>
 </div>
-
-@{
-    if (TempData["Error"] != null)
-    {
+    @{
+        if (TempData["Error"] != null)
+        {
         <script type="text/javascript">
             $('#alertModal').modal('show');
             $("#alertModal .modal-title").html("Error");
             $("#alertModal .modal-body").html(@Html.Raw(Json.Encode(TempData["Error"])));
         </script>
+        }
+
+        if (TempData["EmailSent"] != null)
+        {
+            <script type="text/javascript">
+                $('#alertModal').modal('show'); 
+                $("#alertModal .modal-title").html("Email Sent");
+                $("#alertModal .modal-body").html(@Html.Raw(Json.Encode(TempData["EmailSent"])));
+            </script>
+        }
     }
-    if (TempData["Create"] != null)
-    {
-        <script type="text/javascript">
-            $('#alertModal').modal('show');
-            $("#alertModal .modal-title").html("Create");
-            $("#alertModal .modal-body").html(@Html.Raw(Json.Encode(TempData["Create"])));
-        </script>
-    }
-    if (TempData["Edit"] != null)
-    {
-        <script type="text/javascript">
-            $('#alertModal').modal('show');
-            $("#alertModal .modal-title").html("Edit");
-            $("#alertModal .modal-body").html(@Html.Raw(Json.Encode(TempData["Edit"])));
-        </script>
-    }
-}
+

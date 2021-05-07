@@ -14,6 +14,9 @@ namespace VastVoyages.WinFrontEnd
 {
     public partial class frmCreatePO : Form
     {
+        ItemService itemService = new ItemService();
+        PurchaseOrderService POservice = new PurchaseOrderService();
+
         internal PurchaseOrder _purchaseOrder;
         internal bool edit = false;
         private decimal _subTotal = 0;
@@ -38,7 +41,7 @@ namespace VastVoyages.WinFrontEnd
             {
                 this.Text = "Edit Purchase Order";
                 btnSave.Visible = true;
-                lbItemID.Visible = true;
+                btnSave.Enabled = false;
                 lbItemIDValue.Visible = true;
                 GenerateItemDataGridView(_purchaseOrder.PONumber);
                 lbPONumber.Text = _purchaseOrder.PONumber;
@@ -68,8 +71,6 @@ namespace VastVoyages.WinFrontEnd
         {
             try
             {
-                PurchaseOrderService POservice = new PurchaseOrderService();
-                ItemService itemService = new ItemService();
                 Item item = PopulateItemObject();                
 
                 if(item.Errors.Count == 0)
@@ -79,7 +80,7 @@ namespace VastVoyages.WinFrontEnd
                     {
                         _purchaseOrder = new PurchaseOrder();
                         _purchaseOrder.employeeId = Convert.ToInt32(((MainForm)this.MdiParent).loginInfo.EmployeeId);
-                        _purchaseOrder = POservice.InsertPurchaseOrder(_purchaseOrder, item);
+                        _purchaseOrder = POservice.AddPurchaseOrder(_purchaseOrder, item);
                         if (item.Errors.Count == 0)
                         {
                             lbPONumber.Text = _purchaseOrder.PONumber;
@@ -94,8 +95,8 @@ namespace VastVoyages.WinFrontEnd
                     // If there is already item, insert new item to item table
                     else
                     {
-                        item.RecordVersion = _purchaseOrder.RecordVersion;
-                        itemService.InsertItem(item, _purchaseOrder);
+                        //item.RecordVersion = _purchaseOrder.RecordVersion;
+                        itemService.AddItem(item, _purchaseOrder);
 
                         if(item.Errors.Count > 0)
                         {
@@ -107,6 +108,10 @@ namespace VastVoyages.WinFrontEnd
                             }
 
                             MessageBox.Show(errorMsg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            _purchaseOrder.RecordVersion = item.PORecordVersion;
                         }
                     }
 
@@ -139,18 +144,14 @@ namespace VastVoyages.WinFrontEnd
             {
                 if(_purchaseOrder.PONumber != null)
                 {
-                    PurchaseOrderService POservice = new PurchaseOrderService();
-
                     if(edit)
                     {
-                        ItemService itemService = new ItemService();
-
                         if (_purchaseOrder.items == null)
                         {
                             _purchaseOrder.items = new List<Item>();
                         }
 
-                        List<ItemDTO> items = itemService.GetItemList(Convert.ToInt32(_purchaseOrder.PONumber));
+                        List<ItemDTO> items = itemService.GetItemListByPO(Convert.ToInt32(_purchaseOrder.PONumber), false);
 
                         foreach (ItemDTO i in items)
                         {
@@ -162,7 +163,8 @@ namespace VastVoyages.WinFrontEnd
                                 Justification = i.Justification,
                                 Location = i.Location,
                                 Price = i.Price,
-                                Quantity = i.Quantity
+                                Quantity = i.Quantity,
+                                ItemStatusId = i.ItemStatusId
                             });
                         }
                     }                 
@@ -189,6 +191,12 @@ namespace VastVoyages.WinFrontEnd
                         lbSubTotal.Text = "";
                         lbTax.Text = "";
                         lbTotal.Text = "";
+                        lbPONumber.Text = "";
+
+                        if(edit)
+                        {
+                            this.Close();
+                        }
                     }
                 }
 
@@ -204,25 +212,26 @@ namespace VastVoyages.WinFrontEnd
             }
         }
 
-
-        private void btnEdit_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Save modified item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
-                if(lbItemIDValue.Text != "")
+                if (lbItemIDValue.Text != "")
                 {
-                    ItemService itemService = new ItemService();
-
                     Item item = PopulateItemObject();
                     item.ItemId = Convert.ToInt32(lbItemIDValue.Text);
                     item.PONumber = Convert.ToInt32(_purchaseOrder.PONumber);
-                    item.DecisionReason = "";
-                    item.ItemStatusId = 1;
                     item.RecordVersion = recordVersion;
                     item.PORecordVersion = _purchaseOrder.RecordVersion;
-                    itemService.UpdateItem(item, false);
 
-                    if(item.Errors.Count > 0)
+                    itemService.UpdateItem(item, false, chkNoNeed.Checked);
+
+                    if (item.Errors.Count > 0)
                     {
                         string errorMsg = "";
 
@@ -237,7 +246,34 @@ namespace VastVoyages.WinFrontEnd
                     else
                     {
                         MessageBox.Show($"Item Id: {lbItemIDValue.Text} has been updated successful!");
+                        _purchaseOrder.RecordVersion = item.PORecordVersion;
                         ClearForm();
+
+                        List<ItemDTO> items = itemService.GetItemListByPO(Convert.ToInt32(_purchaseOrder.PONumber), false);
+
+                        if (items.Where(i => i.ItemStatusId != 1).ToList().Count == items.Count)
+                        {
+                            _purchaseOrder.items = new List<Item>();
+                            
+                            foreach (ItemDTO i in items)
+                            {
+                                _purchaseOrder.items.Add(new Item
+                                {
+                                    ItemId = i.ItemId,
+                                    ItemName = i.ItemName,
+                                    ItemDescription = i.ItemDescription,
+                                    Justification = i.Justification,
+                                    Location = i.Location,
+                                    Price = i.Price,
+                                    Quantity = i.Quantity,
+                                    DecisionReason = i.DecisionReason,
+                                    ItemStatusId = i.ItemStatusId,
+                                    RecordVersion = i.RecordVersion
+                                });
+                            }
+                            POservice.UpdatePurcaseOrder(_purchaseOrder);
+                        }
+
                         GenerateItemDataGridView(_purchaseOrder.PONumber);
                         btnAddItem.Enabled = true;
                         _purchaseOrder.RecordVersion = item.PORecordVersion;
@@ -254,6 +290,11 @@ namespace VastVoyages.WinFrontEnd
             }
         }
 
+        /// <summary>
+        /// Retrive item informatin when a user click cell in item list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgvItem_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (edit)
@@ -262,11 +303,14 @@ namespace VastVoyages.WinFrontEnd
                 {
                     if (e.RowIndex > -1 && e.ColumnIndex > -1)
                     {
+                        ClearForm();
+                        lbItemID.Visible = true;
+                        btnSave.Enabled = true;
                         btnAddItem.Enabled = false;
-                        ItemService itemService = new ItemService();
+                        chkNoNeed.Visible = true;
                         int itemId = Convert.ToInt32(dgvItem.Rows[e.RowIndex].Cells[0].Value.ToString());
 
-                        ItemDTO ItemDTO = itemService.GetItemByItemId(itemId);
+                        ItemDTO ItemDTO = itemService.GetItemByItemId(itemId, Convert.ToInt32(((MainForm)this.MdiParent).loginInfo.EmployeeId), null);
 
                         recordVersion = ItemDTO.RecordVersion;
                         lbItemIDValue.Text = ItemDTO.ItemId.ToString();
@@ -276,7 +320,22 @@ namespace VastVoyages.WinFrontEnd
                         txtLocation.Text = ItemDTO.Location;
                         txtPrice.Text = ItemDTO.Price.ToString();
                         numQty.Value = ItemDTO.Quantity;
-
+                        
+                        if (ItemDTO.ItemStatus != "Pending")
+                        {
+                            foreach (Control ctl in this.grpItemDetails.Controls)
+                            {
+                                if (ctl is TextBox)
+                                {
+                                    ctl.Enabled = false;
+                                }
+                            }
+                            chkNoNeed.Visible = false;
+                            numQty.Enabled = false;
+                            chkNoNeed.Enabled = false;
+                            btnSave.Enabled = false;
+                            btnAddItem.Enabled = false;
+                        }
                     }
                 }
 
@@ -297,12 +356,16 @@ namespace VastVoyages.WinFrontEnd
         {
             return new Item()
             {
-                ItemName = txtItemName.Text,
-                ItemDescription = txtDescription.Text,
-                Justification = txtJustification.Text,
-                Location = txtLocation.Text,
-                Price = txtPrice.Text == "" || !decimal.TryParse(txtPrice.Text, out decimal priceParam) ? 0 : Convert.ToDecimal(txtPrice.Text),
-                Quantity = Convert.ToInt32(numQty.Value)
+                ItemName = txtItemName.Text.Trim(),
+                ItemDescription = txtDescription.Text.Trim(),
+                Justification = txtJustification.Text.Trim(),
+                Location = txtLocation.Text.Trim(),
+                Price = txtPrice.Text == "" || !decimal.TryParse(txtPrice.Text, out decimal priceParam) ? 0 : Convert.ToDecimal(txtPrice.Text.Trim()),
+                Quantity = Convert.ToInt32(numQty.Value),
+                ItemStatusId = 1,
+                DecisionReason = "",
+                PONumber = _purchaseOrder == null ? 0 : Convert.ToInt32(_purchaseOrder.PONumber),
+                PORecordVersion = _purchaseOrder == null ? null : _purchaseOrder.RecordVersion
             };
         }
 
@@ -329,10 +392,8 @@ namespace VastVoyages.WinFrontEnd
         /// <param name="PONumber"></param>
         private void GenerateItemDataGridView(string PONumber)
         {
-            ItemService itemService = new ItemService();
-
             dgvItem.DataSource = null;
-            List<ItemDTO> items = itemService.GetItemList(Convert.ToInt32(PONumber));
+            List<ItemDTO> items = itemService.GetItemListByPO(Convert.ToInt32(PONumber), false);
             dgvItem.DataSource = items;
 
             dgvItem.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
@@ -343,11 +404,15 @@ namespace VastVoyages.WinFrontEnd
             dgvItem.Columns[4].HeaderText = "Location";
             dgvItem.Columns[5].HeaderText = "Price";
             dgvItem.Columns[6].HeaderText = "Qty";
-            dgvItem.Columns[7].Visible = false; //Status Id
-            dgvItem.Columns[8].Visible = false; //PO Number
-            dgvItem.Columns[9].HeaderText = "Status";
-            dgvItem.Columns[10].HeaderText = "Decision Reason";
-            dgvItem.Columns[11].Visible = false; // Record version      
+            dgvItem.Columns[7].Visible = false; //PO Number
+            dgvItem.Columns[8].Visible = false; //PO Status Id                  
+            dgvItem.Columns[9].Visible = false; //Item Status Id
+            dgvItem.Columns[10].HeaderText = "Status";
+            dgvItem.Columns[11].HeaderText = "Decision Reason";
+            dgvItem.Columns[12].Visible = false; // Record version        
+            dgvItem.Columns[13].Visible = false; // Record version        
+            dgvItem.Columns[14].Visible = false; // Record version        
+            dgvItem.Columns[15].Visible = false; // Record version        
 
             dgvItem.Columns[5].DefaultCellStyle.Format = "C";
             dgvItem.AutoResizeColumns();
@@ -364,16 +429,29 @@ namespace VastVoyages.WinFrontEnd
         /// </summary>
         private void ClearForm()
         {
-            txtItemName.Text = "";
-            txtDescription.Text = "";
-            txtJustification.Text = "";
-            txtLocation.Text = "";
-            txtPrice.Text = "";
-            numQty.Value = 0;
+            foreach (Control ctl in this.grpItemDetails.Controls)
+            {
+                if(ctl is TextBox)
+                {
+                    ctl.ResetText();
+                    ctl.Enabled = true;
+                }
+            }
+
+            chkNoNeed.Checked = false;
+            chkNoNeed.Visible = false;
+            lbItemID.Visible = false;
             lbItemIDValue.Text = "";
+            numQty.Value = 0;
+            numQty.Enabled = true;
+            chkNoNeed.Enabled = true;
+            btnSave.Enabled = false;            
             btnAddItem.Enabled = true;
         }
 
+        /// <summary>
+        /// Load user information
+        /// </summary>
         private void LoadLoginInfo()
         {
             lbEmpName.Text = ((MainForm)this.MdiParent).loginInfo.FullName;
@@ -384,9 +462,15 @@ namespace VastVoyages.WinFrontEnd
             lbCurrentDate.Text = DateTime.Now.ToShortDateString();
         }
 
+        /// <summary>
+        /// Reset all form data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnReset_Click(object sender, EventArgs e)
         {
             ClearForm();
         }
+
     }
 }

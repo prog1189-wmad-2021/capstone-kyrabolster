@@ -10,72 +10,81 @@
     <br /><br />
     <div class="col-md-offset-4">
         <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.PONumber)
-            </dt>
+            <div class="container row border p-5">
+                <div class="col-sm">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PONumber)
+                        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.PONumber)
-            </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.PONumber)
+                        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.SubmissionDate)
-            </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.SubmissionDate)
+                        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.SubmissionDate)
-            </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.SubmissionDate)
+                        </dd>
+                    </dl>
+                </div>
+                  <div class="col-sm">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Employee)
+                        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.SubTotal)
-            </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Employee)
+                        </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.SubTotal)
-            </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Supervisor)
+                        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Tax)
-            </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Supervisor)
+                        </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Tax)
-            </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.POStatus)
+                        </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Total)
-            </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.POStatus)
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-sm">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.SubTotal)
+                        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Total)
-            </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.SubTotal)
+                        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Employee)
-            </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Tax)
+                        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Employee)
-            </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.Tax)
+                        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Supervisor)
-            </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Total)
+                        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Supervisor)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.POStatus)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.POStatus)
-            </dd>
-
-        </dl>
+                        <dd>
+                            @Html.DisplayFor(model => model.Total)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
     </div>
     <br />
     <div class="col-md-offset-4">
@@ -152,8 +161,18 @@
         </table>
     </div>
     <p style="text-align:right;">
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-        @Html.ActionLink("Back to List", "Index")
+        @if (TempData["ProcessDetail"] == null)
+        {
+            if (Model.POStatus == "Pending")
+            {
+                @Html.ActionLink("Edit", "Edit", new { PONumber = Model.PONumber }) @Html.Raw(" | ")
+            }
+            @Html.ActionLink("Back to List", "Index")
+        }
+        else
+        {
+            @Html.ActionLink("Back to List", "ProcessList")
+        }
     </p>
 </div>
     

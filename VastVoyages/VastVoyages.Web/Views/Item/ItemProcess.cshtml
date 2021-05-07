@@ -1,0 +1,119 @@
+﻿@model VastVoyages.Model.Item
+
+@{
+    ViewBag.Title = "Process Item";
+    Layout = "~/Views/Shared/_NavTemplate.cshtml";
+}
+
+<div class="container" style="width: 95%; margin-top: 5%;">
+    <h1 style="text-align:center;">Process Item</h1>
+    <br /><br />
+    <div class="col-md-offset-4">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(model => model.PONumber)
+            @Html.HiddenFor(model => model.PONumber)
+            @Html.HiddenFor(model => model.RecordVersion)
+            @Html.HiddenFor(model => model.PORecordVersion)
+
+            <h4>Item Details</h4>
+            <hr />
+            <div class="form-row">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="col">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ItemName)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ItemName)
+                                @Html.HiddenFor(model => model.ItemName)
+                            </dd>
+                            <br />
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ItemDescription)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ItemDescription)
+                                @Html.HiddenFor(model => model.ItemDescription)
+                            </dd>
+                            <br />
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Justification)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Justification)
+                                @Html.HiddenFor(model => model.Justification)
+                            </dd>
+                        </dl>
+                    </div>
+                <div class="col">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-10" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-10" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-10" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        @Html.Label("Status", htmlAttributes: new { @class = "control-label col-md-10" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.ItemStatusId, (IEnumerable<SelectListItem>)ViewBag.ItemStatusList, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ItemStatusId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DecisionReason, htmlAttributes: new { @class = "control-label col-md-10" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.DecisionReason, new { @class = "form-control", @rows = "4" })
+                            @Html.ValidationMessageFor(model => model.DecisionReason, "", new { @class = "text-danger" })
+                        </div>
+                    </div>                    
+                    <div class="form-group">
+                        <div style="text-align:center">
+                            <button type="submit" value="Create" class="btn btn-info">Save Item</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            if (Model.Errors.Count > 0)
+            {
+                <div class="text-danger">
+                    <ul>
+                        @foreach (var e in Model.Errors.Where(err => err.ErrorType == VastVoyages.Types.ErrorType.Business))
+                        {
+                            <li>@e.Description</li>
+
+                        }
+                    </ul>
+                </div>
+            }
+        }
+        <div class="text-right">
+            @Html.ActionLink("Back to List", "POProcess", "PurchaseOrder", new { PONumber = Model.PONumber }, null)
+        </div>
+
+    </div>
+</div>

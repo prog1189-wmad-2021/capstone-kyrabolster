@@ -103,16 +103,13 @@
                     </li>
                     <li>
                         <a href="@Url.Action("Create", "PurchaseOrder")">Create PO</a>
-                    </li>
-                    <li>
-                        <a href="#">Modify PO</a>
-                    </li>                    
-                        @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "Supervisor" || Session["role"].ToString() == "HR Supervisor")
-                        {
-                            <li>
-                                <a href="#">Process PO</a>
-                            </li>
-                        }
+                    </li>                                    
+                    @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "Supervisor" || Session["role"].ToString() == "HR Supervisor")
+                    {
+                        <li>
+                            <a href="@Url.Action("ProcessList", "PurchaseOrder")">Process PO</a>
+                        </li>
+                    }
                     
                 </ul>
             </li>

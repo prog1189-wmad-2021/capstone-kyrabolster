@@ -9,12 +9,14 @@
     <h1 style="text-align:center;">Edit Item</h1>
     <br /><br />
     <div class="col-md-offset-4">
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("ItemEdit", "Item", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
 
             @Html.HiddenFor(model => model.PONumber)
-            @Html.HiddenFor(model => model.RecordVersion)
+            @Html.HiddenFor(model => model.RecordVersion)            
+            @Html.HiddenFor(model => model.PORecordVersion)
+            @Html.HiddenFor(model => model.ItemId)
 
             <h4>Item Details</h4>
             <hr />
@@ -69,11 +71,16 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div style="text-align:center">
-                            <button type="submit" value="Create" class="btn btn-info">Save Item</button>
+                        <div class="col-md-10">
+                            <input type="checkbox" id="chkNoNeed" name="chkNoNeed" value="1"/> @Html.Label("No longer needed")
                         </div>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <div style="text-align:center">
+                            <button type="submit" value="ItemEdit" class="btn btn-info">Save Item</button>
+                        </div>
+                    </div>
+                    </div>
             </div>
             if (Model.Errors.Count > 0)
             {
@@ -88,9 +95,9 @@
                 </div>
             }
         }
-        <div>
-            @Html.ActionLink("Back to List", "Edit", new { PONumber = Model.PONumber })
-        </div>
+    <div class="text-right">
+        @Html.ActionLink("Back to List", "Edit", "PurchaseOrder", new { PONumber = Model.PONumber }, null)
+    </div>
 
     </div>    
 </div>
