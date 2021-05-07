@@ -133,6 +133,8 @@ namespace VastVoyages.Repository
                         EmployeeId = Convert.ToInt32(row["EmployeeId"]),
                         Employee = row["Employee"].ToString(),
                         Supervisor = row["Supervisor"].ToString(),
+                        SupervisorId = Convert.ToInt32(row["SupervisorId"]),
+                        HeadSupervisorId = Convert.ToInt32(row["HeadSupervisorId"]),
                         POStatus = row["POStatus"].ToString(),
                         RecordVersion = (byte[])row["RecordVersion"]
                     }
@@ -196,7 +198,7 @@ namespace VastVoyages.Repository
             return purchaseOrder;
 
         }
-
+       
         #endregion
 
     }
