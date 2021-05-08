@@ -247,7 +247,7 @@ namespace VastVoyages.Service
         /// <returns></returns>
         private PurchaseOrder SetPOStatus(PurchaseOrder PO)
         {
-            List<Item> processedItem = PO.items.Where(i => i.ItemStatusId != 1).ToList();
+            List<Item> processedItem = PO.items.Where(i => i.ItemStatusId != 1 && i.Quantity != 0).ToList();
 
             PO.POstatusId = 1;
 
@@ -256,7 +256,7 @@ namespace VastVoyages.Service
                 PO.POstatusId = 2;
             }
 
-            if (processedItem.Count == PO.items.Count)
+            if (PO.items.Where(i => i.ItemStatusId != 1).ToList().Count == PO.items.Count)
             {
                 PO.POstatusId = 3;
             }
