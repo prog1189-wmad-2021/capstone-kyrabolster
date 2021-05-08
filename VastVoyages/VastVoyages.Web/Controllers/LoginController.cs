@@ -48,7 +48,14 @@ namespace VastVoyages.Web.Controllers
                     Session["isHeadSupervisor"] = loginInfo.IsHeadSupervisor;
                     Session["role"] = loginInfo.Role;
 
-                    return RedirectToAction("Index", "Home");
+                    if(Request.QueryString["ReturnUrl"] != null)
+                    {
+                        return Redirect(Request.QueryString["ReturnUrl"]);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
 
                 return View(model);
@@ -72,8 +79,9 @@ namespace VastVoyages.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Error()
+        public ActionResult Error(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View("PermissionError");
         }
 

@@ -84,7 +84,7 @@ namespace VastVoyages.Web.Controllers
                 else
                 {
                     ViewBag.errMsg = "You don't have permission to view purchase order";
-                    return View("Error");
+                    return RedirectToAction("Error", "Login", new { returnUrl = Request.Url} );
                 }
             }
             catch (Exception ex)
@@ -269,7 +269,7 @@ namespace VastVoyages.Web.Controllers
                 else
                 {
                     ViewBag.errMsg = "You don't have permission to view purchase order";
-                    return View("Error");
+                    return RedirectToAction("Error", "Login", new { returnUrl = Request.Url });
                 }
             }
             catch (Exception ex)
@@ -390,7 +390,7 @@ namespace VastVoyages.Web.Controllers
                 else
                 {
                     ViewBag.errMsg = "You don't have permission to process purchase order";
-                    return View("Error");
+                    return RedirectToAction("Error", "Login", new { returnUrl = Request.Url });
                 }
             }
             catch (Exception ex)
@@ -447,14 +447,14 @@ namespace VastVoyages.Web.Controllers
                     else
                     {
                         ViewBag.errMsg = "You don't have permission to process purchase order";
-                        return View("Error");
+                        return RedirectToAction("Error", "Login", new { returnUrl = Request.Url });
                     }
 
                 }
                 else
                 {
                     ViewBag.errMsg = "You don't have permission to process purchase order";
-                    return View("Error");
+                    return RedirectToAction("Error", "Login", new { returnUrl = Request.Url });
                 }
 
             }

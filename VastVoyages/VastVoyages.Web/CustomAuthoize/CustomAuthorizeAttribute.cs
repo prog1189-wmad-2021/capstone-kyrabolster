@@ -49,11 +49,13 @@ namespace VastVoyages.Web.CustomAuthoize
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             filterContext.Result = new RedirectToRouteResult(
-                                    new RouteValueDictionary
-                                    {
-                                        {"action","Error" },
-                                        {"controller","Login" }
-                                    });
+                        new RouteValueDictionary(
+                            new
+                            {
+                                controller = "Login",
+                                action = "Error",
+                                returnUrl = filterContext.HttpContext.Request.Url.GetComponents(UriComponents.PathAndQuery, UriFormat.SafeUnescaped)
+                            }));
         }
     }
 }

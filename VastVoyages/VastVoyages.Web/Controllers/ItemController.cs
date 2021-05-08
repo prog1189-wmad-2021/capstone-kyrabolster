@@ -63,7 +63,7 @@ namespace VastVoyages.Web.Controllers
                 else
                 {
                     ViewBag.errMsg = "You don't have permission to view the item.";
-                    return View("Error");
+                    return RedirectToAction("Error", "Login", new { returnUrl = Request.Url });
                 }
 
             }
@@ -169,7 +169,7 @@ namespace VastVoyages.Web.Controllers
                         else
                         {
                             ViewBag.errMsg = "You don't have permission to view the item.";
-                            return View("Error");
+                            return RedirectToAction("Error", "Login", new { returnUrl = Request.Url });
                         }
 
                     }
@@ -182,7 +182,7 @@ namespace VastVoyages.Web.Controllers
                 else
                 {
                     ViewBag.errMsg = "You don't have permission to process the item.";
-                    return View("Error");
+                    return RedirectToAction("Error", "Login", new { returnUrl = Request.Url });
                 }
                        
                 return View(item);
