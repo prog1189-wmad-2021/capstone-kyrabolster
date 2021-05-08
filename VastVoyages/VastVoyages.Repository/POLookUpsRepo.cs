@@ -29,7 +29,7 @@ namespace VastVoyages.Repository
                     new POStatusLookUpsDTO
                     {
                         POStatusId = Convert.ToInt32(row["POStatusId"]),
-                        POStatus = row["CouPOStatusntryName"].ToString()
+                        POStatus = row["POStatus"].ToString()
                     }
                 );
             }

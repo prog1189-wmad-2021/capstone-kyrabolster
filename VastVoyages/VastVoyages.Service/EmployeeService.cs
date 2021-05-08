@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Security;
 using VastVoyages.Model;
@@ -34,13 +35,54 @@ namespace VastVoyages.Service
 
                 repo.AddEmployee(employee);
 
-                repo.InsertPassword(employee.EmployeeId, GeneratePassword());
+                HashCode hc = new HashCode();
+                string password = GeneratePassword();
+
+                repo.InsertPassword(employee.EmployeeId, hc.CalculateSHA256(password));
 
                 return true;
             }
             else
                 return false;
         }
+
+        /// <summary>
+        /// Get Employee to modify by id
+        /// </summary>
+        /// <param name="lastName"></param>
+        /// <returns></returns>
+        public Employee UpdatePersonalInfoWeb(Employee employee)
+        {
+            if (ValidateEmployee(employee))
+                return repo.UpdatePersonalInfoWeb(employee);
+
+            return employee;
+        }
+
+        public Employee UpdateEmployee(Employee employee)
+        {
+            if (ValidateEmployee(employee))
+            {
+                //if retired or terminated
+                if(employee.EmployeeStatusId == 2 || employee.EmployeeStatusId == 3)
+                {
+                    employee.EndDate = DateTime.Now.Date;
+                }
+                return repo.UpdateEmployee(employee);
+            }
+            return employee;
+        }
+
+        /// <summary>
+        /// Get Employee to modify by id
+        /// </summary>
+        /// <param name="lastName"></param>
+        /// <returns></returns>
+        public Employee GetEmployeeToModifyById(int employeeId)
+        {
+            return repo.RetrieveEmployeeToModify(employeeId);
+        }
+
 
         /// <summary>
         /// Get list of all employees
@@ -58,7 +100,7 @@ namespace VastVoyages.Service
         /// <returns></returns>
         public List<EmployeeDTO> SearchEmployeesById(int employeeId)
         {
-            List <EmployeeDTO> employees = repo.SearchEmployeesById(employeeId);
+            List<EmployeeDTO> employees = repo.SearchEmployeesById(employeeId);
 
             return employees;
         }
@@ -169,6 +211,27 @@ namespace VastVoyages.Service
             return (dateOfBirth.Date > DateTime.Now.Date.AddYears(-18));
         }
 
+        private bool IsValidatePostalCode(Employee employee)
+        {
+            if (employee.Country == "Canada")
+            {
+                //Regex rgx = new Regex(@"^[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]$");
+                //Regex rgx = new Regex(@"^([ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ])\ {0,1}(\d[ABCEGHJKLMNPRSTVWXYZ]\d)$");
+                Regex rgx = new Regex(@"^([A-Z]\d[A-Z])\ {0,1}(\d[A-Z]\d)$");
+
+                return rgx.IsMatch(employee.PostalCode);
+            }
+            else
+            {
+                Regex rgx = new Regex(@"^\d{5}(?:[-\s]\d{4})?$");
+                return rgx.IsMatch(employee.PostalCode);
+            }
+        }
+
+        private bool IsBelowRetirementAge(DateTime dateOfBirth)
+        {
+            return (dateOfBirth.Date > DateTime.Now.Date.AddYears(-55));
+        }
 
         /// <summary>
         /// Validate new employee object
@@ -186,6 +249,14 @@ namespace VastVoyages.Service
                 employee.AddError(new ValidationError(e.ErrorMessage, ErrorType.Model));
             }
 
+            if (!IsValidatePostalCode(employee))
+            {
+                if (employee.Country == "Canada")
+                    employee.AddError(new ValidationError("Postal Code must be in correct Canadian format.", ErrorType.Business));
+                else
+                    employee.AddError(new ValidationError("ZipCode must be in correct US format.", ErrorType.Business));
+            }
+
             if (IsBelowLegalAge(employee.DateOfBirth))
             {
                 employee.AddError(new ValidationError("The employee must be of legal.", ErrorType.Business));
@@ -201,9 +272,26 @@ namespace VastVoyages.Service
                 employee.AddError(new ValidationError("This supervisor already has 10 employees.", ErrorType.Business));
             }
 
+            if (IsBelowRetirementAge(employee.DateOfBirth) && employee.EmployeeStatusId == 3)
+            {
+                employee.AddError(new ValidationError("The employee cannot retire below the age of 55.", ErrorType.Business));
+            }
             return employee.Errors.Count == 0;
         }
 
+        private bool ValidateEmployeeDTO(EmployeeDTO employee)
+        {
+            List<ValidationResult> results = new List<ValidationResult>();
+
+            Validator.TryValidateObject(employee, new ValidationContext(employee), results, true);
+
+            foreach (ValidationResult e in results)
+            {
+                employee.AddError(new ValidationError(e.ErrorMessage, ErrorType.Model));
+            }
+
+            return employee.Errors.Count == 0;
+        }
         #endregion
     }
 }

@@ -14,34 +14,34 @@
             <form>
                 <div class="form-row">
                     <div class="col">
-                        <label for="inputName">Employee Name</label>
-                        <input type="text" class="form-control" placeholder="Name">
-                    </div>
-                    <div class="col">
                         <label for="inputPONumber">PO Number</label>
-                        <input type="text" class="form-control" placeholder="PO Number">
+                        <input type="text" name="PONumber" value="@ViewBag.PONumber" class="form-control" placeholder="PO Number">
                     </div>
                     <div class="col">
                         <label for="inputStatus">Status</label>
-                        <select id="inputState" class="form-control">
-                            <option selected>Choose...</option>
-                            <option>...</option>
-                        </select>
+                        @Html.DropDownList("POStatusId", (IEnumerable<SelectListItem>)ViewBag.POStatusList, "--Select a status--", new { @class = "form-control" })
                     </div>
                     <div class="col">
                         <label for="inputDate">From</label>
-                        <input type="date" class="form-control">
+                        <input type="date" name="Start" value="@ViewBag.startDate" class="form-control">
                     </div>
                     <div class="col">
                         <label for="">To</label>
-                        <input type="date" class="form-control">
+                        <input type="date" name="End" value="@ViewBag.endDate" class="form-control">
                     </div>
                     <div class="col" style="text-align:center">
                         <br />
-                        <button type="submit" value="@Session["employeeId"]" name="employeeId" class="btn btn-info">Search</button>
+                        <button type="submit" class="btn btn-info">Search</button>
                     </div>
                 </div>
             </form>
+            <br />
+            <div class="text-danger">
+                @foreach (var item in ViewBag.searchError)
+                {
+                    <h6>@item</h6>
+                }
+            </div>
             <br /><br />
         }
         @if (Model.Any())
@@ -62,9 +62,6 @@
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Total)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Employee)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Supervisor)
@@ -104,9 +101,6 @@
                             @Html.DisplayFor(modelItem => item.Total)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Employee)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.Supervisor)
                         </td>
                         <td>
@@ -117,13 +111,13 @@
                         {
                             <td>
                                 @Html.ActionLink("Edit", "Edit", new { PONumber = item.PONumber }) |
-                                @Html.ActionLink("Details", "Details", new { PONumber = item.PONumber }) |
+                                @Html.ActionLink("Details", "Details", new { PONumber = item.PONumber })
                             </td>
                         }
                         else
                         {
                             <td>
-                                @Html.ActionLink("Details", "Details", new { PONumber = item.PONumber }) |
+                                @Html.ActionLink("Details", "Details", new { PONumber = item.PONumber })
                             </td>
                         }
                     </tr>
@@ -132,26 +126,57 @@
         }
         else
         {
-            <p>No Purchase Order</p>
+            <p>No Purchase Order matching your search criteria.</p>
         }
-        @using (Html.BeginForm("Create", "PurchaseOrder", FormMethod.Get, new { enctype = "form-create" }))
-        {
             <div style="text-align:center">
-                <button type="submit" value="@Session["employeeId"]" name="employeeId" class="btn btn-info">Create New PO</button>
-            </div>
-        }
+                @Html.ActionLink("Create New PO", "Create", null, new { @class = "btn btn-info" })
+             </div>
+
     </div>
 </div>
 
-
+<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to close this purchase order?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @{
     if (TempData["Error"] != null)
     {
         <script type="text/javascript">
-        alert(@Html.Raw(Json.Encode(TempData["Error"])));
-        var url = '@Url.Action("Index", "PurchaseOrder")';
-        window.location.href = url;
+            $('#alertModal').modal('show');
+            $("#alertModal .modal-title").html("Error");
+            $("#alertModal .modal-body").html(@Html.Raw(Json.Encode(TempData["Error"])));
+        </script>
+    }
+    if (TempData["Create"] != null)
+    {
+        <script type="text/javascript">
+            $('#alertModal').modal('show');
+            $("#alertModal .modal-title").html("Create");
+            $("#alertModal .modal-body").html(@Html.Raw(Json.Encode(TempData["Create"])));
+        </script>
+    }
+    if (TempData["Edit"] != null)
+    {
+        <script type="text/javascript">
+            $('#alertModal').modal('show');
+            $("#alertModal .modal-title").html("Edit");
+            $("#alertModal .modal-body").html(@Html.Raw(Json.Encode(TempData["Edit"])));
         </script>
     }
 }

@@ -1,0 +1,167 @@
+﻿@model IEnumerable<VastVoyages.Model.PurchaseOrderDTO>
+
+@{
+    ViewBag.Title = "Purchase Order";
+    Layout = "~/Views/Shared/_NavTemplate.cshtml";
+}
+
+<div class="container" style="width: 100%; margin-top: 5%;">
+    <h1 style="text-align:center;">Purchase Order List</h1>
+    <br /><br />
+    <div class="col-md-offset-4">
+        @using (Html.BeginForm("ProcessList", "PurchaseOrder", FormMethod.Get, new { enctype = "form-search" }))
+        {
+            <input type="hidden" value=@Session["employeeId"] name="supervisorId" />
+            <form>
+                <div class="form-row">
+                    <div class="col">
+                        <label for="inputName">Employee Name</label>
+                        <input type="text" name="empName" value="@ViewBag.empName" class="form-control" placeholder="Name">
+                    </div>
+                    <div class="col">
+                        <label for="inputStatus">Status</label>
+                        @Html.DropDownList("POStatusId", (IEnumerable<SelectListItem>)ViewBag.POStatusList, "--Select a status--", new { @class = "form-control" })
+                    </div>
+                    <div class="col">
+                        <label for="inputDate">From</label>
+                        <input type="date" name="Start" value="@ViewBag.startDate" class="form-control">
+                    </div>
+                    <div class="col">
+                        <label for="">To</label>
+                        <input type="date" name="End" value="@ViewBag.endDate" class="form-control">
+                    </div>
+                    <div class="col" style="text-align:center">
+                        <br />
+                        <button type="submit" value="@Session["employeeId"]" name="employeeId" class="btn btn-info">Search</button>
+                    </div>
+                </div>
+            </form>
+            <br />
+            <div class="text-danger">
+                @foreach (var item in ViewBag.searchError)
+                {
+                    <h6>@item</h6>
+                }
+            </div>
+            <br /><br />
+        }
+        @if (Model.Any())
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        PO Number
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SubmissionDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SubTotal)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Tax)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Total)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Employee)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Supervisor)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.POStatus)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PONumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubmissionDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubTotal)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tax)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Total)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Employee)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Supervisor)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.POStatus)
+                        </td>
+
+                        @if (item.POStatus != "Closed" && (Convert.ToBoolean(Session["isHeadSupervisor"]) || Session["department"].ToString() == "CEO"))
+                        {
+                            <td>
+                                @Html.ActionLink("Select", "POProcess", new { PONumber = item.PONumber }) |
+                                @Html.ActionLink("Details", "ProcessDetails", new { PONumber = item.PONumber })
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.ActionLink("Details", "ProcessDetails", new { PONumber = item.PONumber })
+                            </td>
+                        }
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p>No Purchase Order matching your search criteria.</p>
+        }
+    </div>
+</div>
+<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to close this purchase order?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+    @{
+        if (TempData["Error"] != null)
+        {
+        <script type="text/javascript">
+            $('#alertModal').modal('show');
+            $("#alertModal .modal-title").html("Error");
+            $("#alertModal .modal-body").html(@Html.Raw(Json.Encode(TempData["Error"])));
+        </script>
+        }
+
+        if (TempData["EmailSent"] != null)
+        {
+            <script type="text/javascript">
+                $('#alertModal').modal('show'); 
+                $("#alertModal .modal-title").html("Email Sent");
+                $("#alertModal .modal-body").html(@Html.Raw(Json.Encode(TempData["EmailSent"])));
+            </script>
+        }
+    }
+

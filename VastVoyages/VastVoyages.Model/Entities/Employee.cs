@@ -40,7 +40,7 @@ namespace VastVoyages.Model.Entities
         public string City { get; set; }
 
         [Required(ErrorMessage = "Province is required")]
-        [StringLength(2, ErrorMessage = "Province must be between 2 and 2 characters", MinimumLength = 2)]
+        [StringLength(2, ErrorMessage = "Province must be 2 characters", MinimumLength = 2)]
         public string Province { get; set; }
 
         [Required(ErrorMessage = "Country is required")]
@@ -81,6 +81,8 @@ namespace VastVoyages.Model.Entities
 
         public int SupervisorId { get; set; }
 
+        public bool IsHeadSupervisor { get; set; }
+
         [Required(ErrorMessage = "Department is required.")]
         public int DepartmentId { get; set; }
 
@@ -88,6 +90,8 @@ namespace VastVoyages.Model.Entities
 
         [Required(ErrorMessage = "Job Assignment is required.")]
         public int JobAssignmentId { get; set; }
+
+        public DateTime? EndDate { get; set; }
 
         public string FullName
         {
@@ -99,5 +103,6 @@ namespace VastVoyages.Model.Entities
                     return FirstName + " " + MiddleInitial + " " + LastName;
             }
         }
+
     }
 }

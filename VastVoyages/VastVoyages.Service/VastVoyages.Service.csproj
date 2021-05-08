@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DepartmentService.cs" />
+    <Compile Include="EmailService.cs" />
     <Compile Include="EmployeeService.cs" />
     <Compile Include="LoginService.cs" />
     <Compile Include="LookupsService.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="POLookUpsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseOrderService.cs" />
+    <Compile Include="ReviewService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VastVoyages.Model\VastVoyages.Model.csproj">

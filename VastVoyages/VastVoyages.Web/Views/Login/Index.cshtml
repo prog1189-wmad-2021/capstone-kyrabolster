@@ -8,6 +8,11 @@
 
 <div class="container">
     <div class="col-md-offset-4">
+        @if (ViewBag.errorMsg != null)
+        {
+            <h1>Access Denied</h1>
+            <h2>@ViewBag.errorMsg</h2>
+        }
         <section id="loginForm" style="width:40%; margin:auto; margin-top: 10%">
             @using (Html.BeginForm("Login", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {

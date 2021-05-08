@@ -150,6 +150,11 @@ namespace VastVoyages.WinFrontEnd
         {
             btnCreateEmployee.Enabled = true;
 
+            chkHeadSupervisor.Checked = false;
+            chkHeadSupervisor.Enabled = false ;
+
+            ToolTip toolTip = new ToolTip();
+
             LookupsService service = new LookupsService();
             List<SupervisorLookupsDTO> supervisors;
 
@@ -158,6 +163,18 @@ namespace VastVoyages.WinFrontEnd
                 supervisors = service.GetCEO();
                 cmbSupervisor.Enabled = false;
                 lblSupervisorMsg.Text = "All supervisors are supervised by the CEO";
+
+                List<SupervisorLookupsDTO> headSupervisor = service.GetHeadSupervisor(Convert.ToInt32(cmbDepartment.SelectedValue));
+                if (headSupervisor.Count > 0)
+                {
+                    chkHeadSupervisor.Enabled = false;
+
+                    toolTip.SetToolTip(lblHeadSupervisor, "Only one head supervisor per department");
+                }
+                else
+                {
+                    chkHeadSupervisor.Enabled = true;
+                }
             }
             else
             {
@@ -166,9 +183,10 @@ namespace VastVoyages.WinFrontEnd
                 lblSupervisorMsg.Text = "";
             }
 
-            if(supervisors.Count < 1)
+            if (supervisors.Count < 1)
             {
                 cmbSupervisor.Enabled = false;
+                cmbSupervisor.SelectedIndex = -1;
                 lblSupervisorMsg.Text = "Regular employees cannot be added\n to departments without supervisors";
                 btnCreateEmployee.Enabled = false;
             }
@@ -201,6 +219,8 @@ namespace VastVoyages.WinFrontEnd
 
             if (cmbCountry.SelectedValue.Equals("Canada"))
             {
+                lblPostalCode.Text = "Postal Code:";
+
                 provinces.Add("AB", "Alberta");
                 provinces.Add("BC", "British Columbia");
                 provinces.Add("MB", "Manitoba");
@@ -217,6 +237,8 @@ namespace VastVoyages.WinFrontEnd
             } 
             else
             {
+                lblPostalCode.Text = "Zip Code:";
+
                 provinces.Add("AL", "Alabama");
                 provinces.Add("AK", "Alaska");
                 provinces.Add("AZ", "Arizona");
@@ -299,6 +321,7 @@ namespace VastVoyages.WinFrontEnd
                 SeniorityDate = dtpSeniorityDate.Value.Date,
                 SIN = txtSIN.Text.Trim(),
                 SupervisorId = Convert.ToInt32(cmbSupervisor.SelectedValue),
+                IsHeadSupervisor = chkHeadSupervisor.Checked,
                 DepartmentId = Convert.ToInt32(cmbDepartment.SelectedValue),
                 EmployeeStatusId = 1,
                 JobAssignmentId = Convert.ToInt32(cmbJobAssignment.SelectedValue)

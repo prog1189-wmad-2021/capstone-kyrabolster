@@ -21,9 +21,11 @@ namespace VastVoyages.Repository
 
         public bool Login(Login loginInfo)
         {
+            HashCode hc = new HashCode();
+            string hasedPassword = hc.CalculateSHA256(loginInfo.Password);
             List<ParmStruct> parms = new List<ParmStruct>();
             parms.Add(new ParmStruct("@EmployeeId", loginInfo.EmployeeId, SqlDbType.Int));
-            parms.Add(new ParmStruct("@Password", loginInfo.Password, SqlDbType.NVarChar, 100));
+            parms.Add(new ParmStruct("@Password", hasedPassword, SqlDbType.NVarChar, int.MaxValue));
 
             DataTable dt = db.Execute("spLogin", parms);
 
@@ -46,7 +48,8 @@ namespace VastVoyages.Repository
                 DepartmentId = Convert.ToInt32(dt.Rows[0]["DepartmentId"]),
                 Department = dt.Rows[0]["DepartmentName"].ToString(),
                 SupervisorId = dt.Rows[0]["SupervisorId"] != DBNull.Value ? Convert.ToInt32(dt.Rows[0]["SupervisorId"]) : 0,
-                Supervisor = dt.Rows[0]["Supervisor"] != DBNull.Value ? dt.Rows[0]["Supervisor"].ToString() : ""
+                Supervisor = dt.Rows[0]["Supervisor"] != DBNull.Value ? dt.Rows[0]["Supervisor"].ToString() : "",
+                IsHeadSupervisor = dt.Rows[0]["IsHeadSupervisor"] != DBNull.Value ? true : false
             };
 
             return loginInfo;

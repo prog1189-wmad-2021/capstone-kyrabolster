@@ -21,6 +21,11 @@ namespace VastVoyages.Repository
 
         #region Methods
 
+        /// <summary>
+        /// Retrive item list by purchase order number
+        /// </summary>
+        /// <param name="PONumber"></param>
+        /// <returns></returns>
         public List<ItemDTO> RetrieveItemListByPONumber(int PONumber)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
@@ -42,8 +47,9 @@ namespace VastVoyages.Repository
                         Location = row["Location"].ToString(),
                         Price = Convert.ToDecimal(row["Price"]),
                         Quantity = Convert.ToInt32(row["Quantity"]),
-                        ItemStatusId = Convert.ToInt32(row["ItemStatusId"]),
                         PONumber = row["PONumber"].ToString(),
+                        POStatusId = Convert.ToInt32(row["POStatusId"]),
+                        ItemStatusId = Convert.ToInt32(row["ItemStatusId"]),
                         ItemStatus = row["ItemStatus"].ToString(),
                         DecisionReason = row["DescisionReason"].ToString()
                     }
@@ -53,10 +59,17 @@ namespace VastVoyages.Repository
             return items;
         }
 
-        public ItemDTO RetrieveItemByItemId(int itemId)
+        /// <summary>
+        /// retrieve item by item id
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <returns></returns>
+        public ItemDTO RetrieveItemByItemId(int itemId, int? employeeId, int? supervisorId)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
             parms.Add(new ParmStruct("@ItemId", itemId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@EmployeeId", employeeId, SqlDbType.Int));
+            parms.Add(new ParmStruct("@SupervisorId", supervisorId, SqlDbType.Int));
 
             DataTable dt = db.Execute("spGetItemByItemId", parms);
 
@@ -75,23 +88,34 @@ namespace VastVoyages.Repository
                         Price = Convert.ToDecimal(row["Price"]),
                         Quantity = Convert.ToInt32(row["Quantity"]),
                         PONumber = row["PONumber"].ToString(),
+                        POStatusId = Convert.ToInt32(row["POStatusId"]),
+                        ItemStatusId = Convert.ToInt32(row["ItemStatusId"]),
                         ItemStatus = row["ItemStatus"].ToString(),
                         DecisionReason = row["DescisionReason"].ToString(),
+                        EmployeeId = Convert.ToInt32(row["EmployeeId"]),
+                        SupervisorId = Convert.ToInt32(row["SupervisorId"]),
+                        HeadSupervisorId = Convert.ToInt32(row["HeadSupervisorId"]),
                         RecordVersion = (byte[])row["RecordVersion"]
                     }
                 );
             }
 
-            return items[0];
+            return items.Count == 0 ? null : items[0];
         }
 
+        /// <summary>
+        /// Insert new item in db
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="PO"></param>
+        /// <returns></returns>
         public Item Insert(Item item, PurchaseOrder PO)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
 
 
             parms.Add(new ParmStruct("@ItemId", item.ItemId, SqlDbType.Int, 0, ParameterDirection.Output));
-            parms.Add(new ParmStruct("@RecordVersion", PO.RecordVersion, SqlDbType.Timestamp, 0, ParameterDirection.Input));
+            parms.Add(new ParmStruct("@PORecordVersion", PO.RecordVersion, SqlDbType.Timestamp, 0, ParameterDirection.InputOutput));
             parms.Add(new ParmStruct("@PONumber", PO.PONumber, SqlDbType.Int));
             parms.Add(new ParmStruct("@ItemName", item.ItemName, SqlDbType.NVarChar, 50));
             parms.Add(new ParmStruct("@ItemDescription", item.ItemDescription, SqlDbType.NVarChar, 100));
@@ -103,17 +127,23 @@ namespace VastVoyages.Repository
             if (db.ExecuteNonQuery("spInsertItems", parms) > 0)
             {
                 item.ItemId = Convert.ToInt32(parms.Where(p => p.Name == "@ItemId").FirstOrDefault().Value.ToString());
+                item.PORecordVersion = (byte[])parms.Where(p => p.Name == "@PORecordVersion").FirstOrDefault().Value;
             }
 
             return item;
         }
 
+        /// <summary>
+        /// Update existing item in db
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public Item Update(Item item)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
 
             parms.Add(new ParmStruct("@RecordVersion", item.RecordVersion, SqlDbType.Timestamp, 0, ParameterDirection.InputOutput));
-            parms.Add(new ParmStruct("@PORecordVersion", item.PORecordVersion, SqlDbType.Timestamp, 0, ParameterDirection.Output));
+            parms.Add(new ParmStruct("@PORecordVersion", item.PORecordVersion, SqlDbType.Timestamp, 0, ParameterDirection.InputOutput));
             parms.Add(new ParmStruct("@ItemId", item.ItemId, SqlDbType.Int));
             parms.Add(new ParmStruct("@ItemName", item.ItemName, SqlDbType.NVarChar, 50));
             parms.Add(new ParmStruct("@ItemDescription", item.ItemDescription, SqlDbType.NVarChar, 100));
@@ -134,6 +164,11 @@ namespace VastVoyages.Repository
             return item;
         }
 
+        /// <summary>
+        /// Delete item if duplicated item is found when user update item
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <returns></returns>
         public bool Delete (int itemId)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
@@ -145,6 +180,12 @@ namespace VastVoyages.Repository
             return retVal > 0;
         }
 
+        /// <summary>
+        /// Find and retrieve duplicated item from db
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="PONumber"></param>
+        /// <returns></returns>
         public Item FindDuplicatedItem(Item item, int PONumber)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
@@ -183,6 +224,20 @@ namespace VastVoyages.Repository
             return items.Count == 0 ? null : items[0];
         }
 
+
+        public bool CheckHeadSupervisorIdOfItem(Item item, int supervisorId)
+        {
+            List<ParmStruct> parms = new List<ParmStruct>();
+
+            parms.Add(new ParmStruct("@PONumber", item.PONumber, SqlDbType.Int));
+            parms.Add(new ParmStruct("@SupervisorId", supervisorId, SqlDbType.Int));
+
+            DataTable dt = db.Execute("spCheckHeadSupervisorIdOfPO", parms);
+
+            return supervisorId == Convert.ToInt32(dt.Rows[0]["HeadSupervisor"]);
+
+        }
         #endregion
+
     }
 }

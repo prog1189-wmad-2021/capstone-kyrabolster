@@ -42,7 +42,8 @@ namespace VastVoyages.WinFrontEnd
             this.txtLocation = new System.Windows.Forms.TextBox();
             this.txtJustification = new System.Windows.Forms.TextBox();
             this.txtDescription = new System.Windows.Forms.TextBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.grpItemDetails = new System.Windows.Forms.GroupBox();
+            this.chkNoNeed = new System.Windows.Forms.CheckBox();
             this.lbRecordVersion = new System.Windows.Forms.Label();
             this.btnReset = new System.Windows.Forms.Button();
             this.lbItemIDValue = new System.Windows.Forms.Label();
@@ -76,7 +77,7 @@ namespace VastVoyages.WinFrontEnd
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            this.groupBox5.SuspendLayout();
+            this.grpItemDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numQty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItem)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -174,7 +175,7 @@ namespace VastVoyages.WinFrontEnd
             this.btnAddItem.Location = new System.Drawing.Point(695, 183);
             this.btnAddItem.Name = "btnAddItem";
             this.btnAddItem.Size = new System.Drawing.Size(138, 36);
-            this.btnAddItem.TabIndex = 38;
+            this.btnAddItem.TabIndex = 67;
             this.btnAddItem.Text = "Add Item";
             this.btnAddItem.UseVisualStyleBackColor = true;
             this.btnAddItem.Click += new System.EventHandler(this.btnAddItem_Click);
@@ -205,33 +206,45 @@ namespace VastVoyages.WinFrontEnd
             this.txtDescription.Size = new System.Drawing.Size(391, 72);
             this.txtDescription.TabIndex = 61;
             // 
-            // groupBox5
+            // grpItemDetails
             // 
-            this.groupBox5.Controls.Add(this.lbRecordVersion);
-            this.groupBox5.Controls.Add(this.btnReset);
-            this.groupBox5.Controls.Add(this.lbItemIDValue);
-            this.groupBox5.Controls.Add(this.lbItemID);
-            this.groupBox5.Controls.Add(this.btnSave);
-            this.groupBox5.Controls.Add(this.numQty);
-            this.groupBox5.Controls.Add(this.txtLocation);
-            this.groupBox5.Controls.Add(this.txtJustification);
-            this.groupBox5.Controls.Add(this.txtDescription);
-            this.groupBox5.Controls.Add(this.txtItemName);
-            this.groupBox5.Controls.Add(this.btnAddItem);
-            this.groupBox5.Controls.Add(this.label22);
-            this.groupBox5.Controls.Add(this.txtPrice);
-            this.groupBox5.Controls.Add(this.label19);
-            this.groupBox5.Controls.Add(this.label21);
-            this.groupBox5.Controls.Add(this.label20);
-            this.groupBox5.Controls.Add(this.label18);
-            this.groupBox5.Controls.Add(this.label6);
-            this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(12, 132);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(932, 231);
-            this.groupBox5.TabIndex = 36;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Item Details";
+            this.grpItemDetails.Controls.Add(this.chkNoNeed);
+            this.grpItemDetails.Controls.Add(this.lbRecordVersion);
+            this.grpItemDetails.Controls.Add(this.btnReset);
+            this.grpItemDetails.Controls.Add(this.lbItemIDValue);
+            this.grpItemDetails.Controls.Add(this.lbItemID);
+            this.grpItemDetails.Controls.Add(this.btnSave);
+            this.grpItemDetails.Controls.Add(this.numQty);
+            this.grpItemDetails.Controls.Add(this.txtLocation);
+            this.grpItemDetails.Controls.Add(this.txtJustification);
+            this.grpItemDetails.Controls.Add(this.txtDescription);
+            this.grpItemDetails.Controls.Add(this.txtItemName);
+            this.grpItemDetails.Controls.Add(this.btnAddItem);
+            this.grpItemDetails.Controls.Add(this.label22);
+            this.grpItemDetails.Controls.Add(this.txtPrice);
+            this.grpItemDetails.Controls.Add(this.label19);
+            this.grpItemDetails.Controls.Add(this.label21);
+            this.grpItemDetails.Controls.Add(this.label20);
+            this.grpItemDetails.Controls.Add(this.label18);
+            this.grpItemDetails.Controls.Add(this.label6);
+            this.grpItemDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpItemDetails.Location = new System.Drawing.Point(12, 132);
+            this.grpItemDetails.Name = "grpItemDetails";
+            this.grpItemDetails.Size = new System.Drawing.Size(932, 231);
+            this.grpItemDetails.TabIndex = 36;
+            this.grpItemDetails.TabStop = false;
+            this.grpItemDetails.Text = "Item Details";
+            // 
+            // chkNoNeed
+            // 
+            this.chkNoNeed.AutoSize = true;
+            this.chkNoNeed.Location = new System.Drawing.Point(761, 152);
+            this.chkNoNeed.Name = "chkNoNeed";
+            this.chkNoNeed.Size = new System.Drawing.Size(157, 21);
+            this.chkNoNeed.TabIndex = 70;
+            this.chkNoNeed.Text = "No longer needed";
+            this.chkNoNeed.UseVisualStyleBackColor = true;
+            this.chkNoNeed.Visible = false;
             // 
             // lbRecordVersion
             // 
@@ -281,11 +294,11 @@ namespace VastVoyages.WinFrontEnd
             this.btnSave.Location = new System.Drawing.Point(551, 183);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(138, 36);
-            this.btnSave.TabIndex = 65;
+            this.btnSave.TabIndex = 66;
             this.btnSave.Text = "Save Item";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Visible = false;
-            this.btnSave.Click += new System.EventHandler(this.btnEdit_Click);
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // numQty
             // 
@@ -319,7 +332,7 @@ namespace VastVoyages.WinFrontEnd
             this.txtPrice.Location = new System.Drawing.Point(586, 91);
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(320, 21);
-            this.txtPrice.TabIndex = 50;
+            this.txtPrice.TabIndex = 65;
             // 
             // label19
             // 
@@ -376,6 +389,7 @@ namespace VastVoyages.WinFrontEnd
             this.dgvItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvItem.Location = new System.Drawing.Point(8, 19);
             this.dgvItem.Name = "dgvItem";
+            this.dgvItem.ReadOnly = true;
             this.dgvItem.RowTemplate.Height = 30;
             this.dgvItem.Size = new System.Drawing.Size(918, 257);
             this.dgvItem.TabIndex = 22;
@@ -574,7 +588,7 @@ namespace VastVoyages.WinFrontEnd
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.groupBox5);
+            this.Controls.Add(this.grpItemDetails);
             this.Controls.Add(this.groupBox3);
             this.Name = "frmCreatePO";
             this.Text = "Create Purchase Order";
@@ -582,8 +596,8 @@ namespace VastVoyages.WinFrontEnd
             this.Load += new System.EventHandler(this.CreatePO_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
+            this.grpItemDetails.ResumeLayout(false);
+            this.grpItemDetails.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numQty)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItem)).EndInit();
             this.groupBox3.ResumeLayout(false);
@@ -609,7 +623,7 @@ namespace VastVoyages.WinFrontEnd
         private System.Windows.Forms.TextBox txtLocation;
         private System.Windows.Forms.TextBox txtJustification;
         private System.Windows.Forms.TextBox txtDescription;
-        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox grpItemDetails;
         private System.Windows.Forms.TextBox txtItemName;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox txtPrice;
@@ -642,5 +656,6 @@ namespace VastVoyages.WinFrontEnd
         private System.Windows.Forms.Label lbItemIDValue;
         private System.Windows.Forms.Label lbItemID;
         private System.Windows.Forms.Label lbRecordVersion;
+        private System.Windows.Forms.CheckBox chkNoNeed;
     }
 }

@@ -25,6 +25,7 @@ namespace VastVoyages.Model
         public int Quantity { get; set; }
 
         public string PONumber { get; set; }
+        public int POStatusId { get; set; }
         public int ItemStatusId { get; set; }
 
         [Display(Name = "Status")]
@@ -33,5 +34,8 @@ namespace VastVoyages.Model
         [Display(Name = "Reason")]
         public string DecisionReason { get; set; }
         public byte[] RecordVersion { get; set; }
+        public int EmployeeId { get; set; }
+        public int SupervisorId { get; set; }
+        public int HeadSupervisorId { get; set; }
     }
 }

@@ -36,16 +36,15 @@ namespace VastVoyages.WinFrontEnd
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dgvItem = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnSearchCriteriaReset = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.txtPONumber = new System.Windows.Forms.TextBox();
-            this.rdbStatus = new System.Windows.Forms.RadioButton();
             this.cmbPOStatus = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.rdbPONumber = new System.Windows.Forms.RadioButton();
-            this.rdbName = new System.Windows.Forms.RadioButton();
-            this.rdbDate = new System.Windows.Forms.RadioButton();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.txtEmpName = new System.Windows.Forms.TextBox();
-            this.dtpend = new System.Windows.Forms.DateTimePicker();
+            this.dtpEnd = new System.Windows.Forms.DateTimePicker();
             this.dtpStart = new System.Windows.Forms.DateTimePicker();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.lbUserName = new System.Windows.Forms.Label();
@@ -95,6 +94,7 @@ namespace VastVoyages.WinFrontEnd
             this.dgvPO.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPO.Location = new System.Drawing.Point(8, 19);
             this.dgvPO.Name = "dgvPO";
+            this.dgvPO.ReadOnly = true;
             this.dgvPO.Size = new System.Drawing.Size(918, 220);
             this.dgvPO.TabIndex = 22;
             this.dgvPO.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPO_CellClick);
@@ -115,22 +115,22 @@ namespace VastVoyages.WinFrontEnd
             this.dgvItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvItem.Location = new System.Drawing.Point(8, 19);
             this.dgvItem.Name = "dgvItem";
+            this.dgvItem.ReadOnly = true;
             this.dgvItem.RowTemplate.Height = 30;
             this.dgvItem.Size = new System.Drawing.Size(918, 335);
             this.dgvItem.TabIndex = 22;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnSearchCriteriaReset);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txtPONumber);
-            this.groupBox1.Controls.Add(this.rdbStatus);
             this.groupBox1.Controls.Add(this.cmbPOStatus);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.rdbPONumber);
-            this.groupBox1.Controls.Add(this.rdbName);
-            this.groupBox1.Controls.Add(this.rdbDate);
             this.groupBox1.Controls.Add(this.btnSearch);
-            this.groupBox1.Controls.Add(this.txtEmpName);
-            this.groupBox1.Controls.Add(this.dtpend);
+            this.groupBox1.Controls.Add(this.dtpEnd);
             this.groupBox1.Controls.Add(this.dtpStart);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 132);
@@ -140,114 +140,103 @@ namespace VastVoyages.WinFrontEnd
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search PO";
             // 
+            // btnSearchCriteriaReset
+            // 
+            this.btnSearchCriteriaReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearchCriteriaReset.Location = new System.Drawing.Point(742, 30);
+            this.btnSearchCriteriaReset.Name = "btnSearchCriteriaReset";
+            this.btnSearchCriteriaReset.Size = new System.Drawing.Size(121, 48);
+            this.btnSearchCriteriaReset.TabIndex = 28;
+            this.btnSearchCriteriaReset.Text = "Reset";
+            this.btnSearchCriteriaReset.UseVisualStyleBackColor = true;
+            this.btnSearchCriteriaReset.Click += new System.EventHandler(this.btnSearchCriteriaReset_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(332, 61);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(52, 17);
+            this.label5.TabIndex = 27;
+            this.label5.Text = "Status:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(28, 61);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(86, 17);
+            this.label4.TabIndex = 26;
+            this.label4.Text = "PO Number:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(26, 28);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(88, 17);
+            this.label3.TabIndex = 25;
+            this.label3.Text = "Date Range:";
+            // 
             // txtPONumber
             // 
-            this.txtPONumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPONumber.Location = new System.Drawing.Point(409, 54);
+            this.txtPONumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPONumber.Location = new System.Drawing.Point(119, 60);
             this.txtPONumber.Name = "txtPONumber";
-            this.txtPONumber.Size = new System.Drawing.Size(166, 20);
+            this.txtPONumber.Size = new System.Drawing.Size(190, 23);
             this.txtPONumber.TabIndex = 24;
-            // 
-            // rdbStatus
-            // 
-            this.rdbStatus.AutoSize = true;
-            this.rdbStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbStatus.Location = new System.Drawing.Point(592, 55);
-            this.rdbStatus.Name = "rdbStatus";
-            this.rdbStatus.Size = new System.Drawing.Size(58, 17);
-            this.rdbStatus.TabIndex = 23;
-            this.rdbStatus.TabStop = true;
-            this.rdbStatus.Text = "Status:";
-            this.rdbStatus.UseVisualStyleBackColor = true;
             // 
             // cmbPOStatus
             // 
-            this.cmbPOStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbPOStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPOStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbPOStatus.FormattingEnabled = true;
-            this.cmbPOStatus.Location = new System.Drawing.Point(652, 54);
+            this.cmbPOStatus.Location = new System.Drawing.Point(390, 60);
             this.cmbPOStatus.Name = "cmbPOStatus";
-            this.cmbPOStatus.Size = new System.Drawing.Size(102, 21);
+            this.cmbPOStatus.Size = new System.Drawing.Size(135, 24);
             this.cmbPOStatus.TabIndex = 22;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(297, 28);
+            this.label2.Location = new System.Drawing.Point(315, 30);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(16, 17);
             this.label2.TabIndex = 21;
             this.label2.Text = "~";
             // 
-            // rdbPONumber
-            // 
-            this.rdbPONumber.AutoSize = true;
-            this.rdbPONumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbPONumber.Location = new System.Drawing.Point(317, 54);
-            this.rdbPONumber.Name = "rdbPONumber";
-            this.rdbPONumber.Size = new System.Drawing.Size(92, 17);
-            this.rdbPONumber.TabIndex = 20;
-            this.rdbPONumber.TabStop = true;
-            this.rdbPONumber.Text = "P.O. Number :";
-            this.rdbPONumber.UseVisualStyleBackColor = true;
-            // 
-            // rdbName
-            // 
-            this.rdbName.AutoSize = true;
-            this.rdbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbName.Location = new System.Drawing.Point(14, 53);
-            this.rdbName.Name = "rdbName";
-            this.rdbName.Size = new System.Drawing.Size(105, 17);
-            this.rdbName.TabIndex = 19;
-            this.rdbName.TabStop = true;
-            this.rdbName.Text = "Employee Name:";
-            this.rdbName.UseVisualStyleBackColor = true;
-            // 
-            // rdbDate
-            // 
-            this.rdbDate.AutoSize = true;
-            this.rdbDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbDate.Location = new System.Drawing.Point(13, 24);
-            this.rdbDate.Name = "rdbDate";
-            this.rdbDate.Size = new System.Drawing.Size(86, 17);
-            this.rdbDate.TabIndex = 18;
-            this.rdbDate.TabStop = true;
-            this.rdbDate.Text = "Date Range:";
-            this.rdbDate.UseVisualStyleBackColor = true;
-            // 
             // btnSearch
             // 
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Location = new System.Drawing.Point(785, 26);
+            this.btnSearch.Location = new System.Drawing.Point(594, 30);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(121, 48);
             this.btnSearch.TabIndex = 15;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // txtEmpName
+            // dtpEnd
             // 
-            this.txtEmpName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmpName.Location = new System.Drawing.Point(125, 53);
-            this.txtEmpName.Name = "txtEmpName";
-            this.txtEmpName.Size = new System.Drawing.Size(166, 20);
-            this.txtEmpName.TabIndex = 14;
-            // 
-            // dtpend
-            // 
-            this.dtpend.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpend.Location = new System.Drawing.Point(317, 22);
-            this.dtpend.Name = "dtpend";
-            this.dtpend.Size = new System.Drawing.Size(190, 20);
-            this.dtpend.TabIndex = 3;
+            this.dtpEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpEnd.Location = new System.Drawing.Point(335, 24);
+            this.dtpEnd.Name = "dtpEnd";
+            this.dtpEnd.Size = new System.Drawing.Size(190, 23);
+            this.dtpEnd.TabIndex = 3;
+            this.dtpEnd.ValueChanged += new System.EventHandler(this.dtp_ValueChanged);
             // 
             // dtpStart
             // 
-            this.dtpStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpStart.Location = new System.Drawing.Point(101, 22);
+            this.dtpStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpStart.Location = new System.Drawing.Point(119, 24);
             this.dtpStart.Name = "dtpStart";
-            this.dtpStart.Size = new System.Drawing.Size(190, 20);
+            this.dtpStart.Size = new System.Drawing.Size(190, 23);
             this.dtpStart.TabIndex = 2;
+            this.dtpStart.ValueChanged += new System.EventHandler(this.dtp_ValueChanged);
             // 
             // groupBox4
             // 
@@ -427,15 +416,10 @@ namespace VastVoyages.WinFrontEnd
         private System.Windows.Forms.DataGridView dgvItem;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtPONumber;
-        private System.Windows.Forms.RadioButton rdbStatus;
         private System.Windows.Forms.ComboBox cmbPOStatus;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RadioButton rdbPONumber;
-        private System.Windows.Forms.RadioButton rdbName;
-        private System.Windows.Forms.RadioButton rdbDate;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.TextBox txtEmpName;
-        private System.Windows.Forms.DateTimePicker dtpend;
+        private System.Windows.Forms.DateTimePicker dtpEnd;
         private System.Windows.Forms.DateTimePicker dtpStart;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label lbUserName;
@@ -450,5 +434,9 @@ namespace VastVoyages.WinFrontEnd
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnSearchCriteriaReset;
     }
 }
