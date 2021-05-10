@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [VastVoyages]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  Database [VastVoyages]    Script Date: 2021-05-10 5:13:49 PM ******/
 DROP DATABASE IF EXISTS [VastVoyages] 
 CREATE DATABASE [VastVoyages]
 ALTER DATABASE [VastVoyages] SET COMPATIBILITY_LEVEL = 140
@@ -74,7 +74,7 @@ ALTER DATABASE [VastVoyages] SET QUERY_STORE = OFF
 GO
 USE [VastVoyages]
 GO
-/****** Object:  Table [dbo].[Departments]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  Table [dbo].[Departments]    Script Date: 2021-05-10 5:13:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -91,7 +91,7 @@ CREATE TABLE [dbo].[Departments](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[EmployeeReviews]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  Table [dbo].[EmployeeReviews]    Script Date: 2021-05-10 5:13:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -109,7 +109,7 @@ CREATE TABLE [dbo].[EmployeeReviews](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Employees]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  Table [dbo].[Employees]    Script Date: 2021-05-10 5:13:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -146,7 +146,7 @@ CREATE TABLE [dbo].[Employees](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[EmployeeStatus]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  Table [dbo].[EmployeeStatus]    Script Date: 2021-05-10 5:13:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -160,7 +160,7 @@ CREATE TABLE [dbo].[EmployeeStatus](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Items]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  Table [dbo].[Items]    Script Date: 2021-05-10 5:13:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -183,7 +183,7 @@ CREATE TABLE [dbo].[Items](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ItemStatus]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  Table [dbo].[ItemStatus]    Script Date: 2021-05-10 5:13:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -197,7 +197,7 @@ CREATE TABLE [dbo].[ItemStatus](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[JobAssignment]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  Table [dbo].[JobAssignment]    Script Date: 2021-05-10 5:13:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -211,7 +211,7 @@ CREATE TABLE [dbo].[JobAssignment](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Login]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  Table [dbo].[Login]    Script Date: 2021-05-10 5:13:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -221,7 +221,7 @@ CREATE TABLE [dbo].[Login](
 	[Password] [nvarchar](max) NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[POs]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  Table [dbo].[POs]    Script Date: 2021-05-10 5:13:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -240,7 +240,7 @@ CREATE TABLE [dbo].[POs](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[POStatus]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  Table [dbo].[POStatus]    Script Date: 2021-05-10 5:13:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -254,7 +254,7 @@ CREATE TABLE [dbo].[POStatus](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Ratings]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  Table [dbo].[Ratings]    Script Date: 2021-05-10 5:13:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -288,27 +288,27 @@ SET IDENTITY_INSERT [dbo].[EmployeeReviews] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Employees] ON 
 GO
-INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000000, N'ReynoldsA', N'Anna', N'C', N'Reynolds', CAST(N'1980-03-11T00:00:00.0000000' AS DateTime2), N'398 Ryan Street', N'Moncton', N'NB', N'Canada', N'E1E 4N8', N'506-750-5182', N'506-879-8595', N'Anna@VastVoyages.ca', NULL, CAST(N'1999-12-01T00:00:00.0000000' AS DateTime2), CAST(N'1999-12-01T00:00:00.0000000' AS DateTime2), NULL, N'325-745-124', NULL, NULL, 1, 1, 1)
+INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000000, N'ReynoldsA', N'Anna', N'C', N'Reynolds', CAST(N'1980-03-11T00:00:00.0000000' AS DateTime2), N'398 Ryan Street', N'Moncton', N'NB', N'Canada', N'E1E 4N8', N'506-750-5182', N'506-879-8595', N'Anna@VastVoyages.ca', N'123 Mountain Road, Moncton, NB', CAST(N'1999-12-01T00:00:00.0000000' AS DateTime2), CAST(N'1999-12-01T00:00:00.0000000' AS DateTime2), NULL, N'325-745-124', NULL, NULL, 1, 1, 1)
 GO
-INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000001, N'ThomasC', N'Charles', N'R', N'Thomas', CAST(N'1983-06-06T00:00:00.0000000' AS DateTime2), N'1234 Main Street', N'Moncton', N'NB', N'Canada', N'E1X 4W2', N'506-521-0685', N'506-124-5745', N'Charles@VastVoyages.ca', NULL, CAST(N'2000-01-01T00:00:00.0000000' AS DateTime2), CAST(N'2000-01-01T00:00:00.0000000' AS DateTime2), NULL, N'128-301-214', 10000000, 1, 2, 1, 2)
+INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000001, N'ThomasC', N'Charles', N'R', N'Thomas', CAST(N'1983-06-06T00:00:00.0000000' AS DateTime2), N'1234 Main Street', N'Moncton', N'NB', N'Canada', N'E1X 4W2', N'506-521-0685', N'506-124-5745', N'Charles@VastVoyages.ca', N'123 Mountain Road, Moncton, NB', CAST(N'2000-01-01T00:00:00.0000000' AS DateTime2), CAST(N'2000-01-01T00:00:00.0000000' AS DateTime2), NULL, N'128-301-214', 10000000, 1, 2, 1, 2)
 GO
-INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000002, N'TorresJ', N'Jane', NULL, N'Torres', CAST(N'1992-09-17T00:00:00.0000000' AS DateTime2), N'87 King Street', N'Dieppe', N'NB', N'Canada', N'I9A 7B2', N'506-457-1248', N'506-784-4578', N'Jane@VastVoyages.ca', NULL, CAST(N'2019-05-01T00:00:00.0000000' AS DateTime2), CAST(N'2018-04-01T00:00:00.0000000' AS DateTime2), NULL, N'245-487-124', 10000000, 1, 4, 1, 3)
+INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000002, N'TorresJ', N'Jane', NULL, N'Torres', CAST(N'1992-09-17T00:00:00.0000000' AS DateTime2), N'87 King Street', N'Dieppe', N'NB', N'Canada', N'I9A 7B2', N'506-457-1248', N'506-784-4578', N'Jane@VastVoyages.ca', N'123 Mountain Road, Moncton, NB', CAST(N'2019-05-01T00:00:00.0000000' AS DateTime2), CAST(N'2018-04-01T00:00:00.0000000' AS DateTime2), NULL, N'245-487-124', 10000000, 1, 4, 1, 3)
 GO
-INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000003, N'CasperM', N'Mandy', NULL, N'Casper', CAST(N'1985-04-25T00:00:00.0000000' AS DateTime2), N'1671 Victora Street', N'Moncton', N'NB', N'Canada', N'K3R 8S1', N'506-757-0454', N'506-354-9842', N'Mandy@VastVoyages.ca', NULL, CAST(N'2020-11-05T00:00:00.0000000' AS DateTime2), CAST(N'2018-01-25T00:00:00.0000000' AS DateTime2), NULL, N'578-548-488', 10000000, 1, 3, 1, 4)
+INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000003, N'CasperM', N'Mandy', NULL, N'Casper', CAST(N'1985-04-25T00:00:00.0000000' AS DateTime2), N'1671 Victora Street', N'Moncton', N'NB', N'Canada', N'K3R 8S1', N'506-757-0454', N'506-354-9842', N'Mandy@VastVoyages.ca', N'123 Mountain Road, Moncton, NB', CAST(N'2020-11-05T00:00:00.0000000' AS DateTime2), CAST(N'2018-01-25T00:00:00.0000000' AS DateTime2), NULL, N'578-548-488', 10000000, 1, 3, 1, 4)
 GO
-INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000004, N'RiveraA', N'Angela', N'J', N'Rivera', CAST(N'1990-02-18T00:00:00.0000000' AS DateTime2), N'41 Eglinton Ave', N'Moncton', N'NB', N'Canada', N'R2W 1V3', N'506-785-2188', N'506-956-1578', N'Anglea@VastVoyages.ca', NULL, CAST(N'2019-12-07T00:00:00.0000000' AS DateTime2), CAST(N'2019-12-07T00:00:00.0000000' AS DateTime2), NULL, N'457-123-789', 10000002, NULL, 4, 1, 5)
+INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000004, N'RiveraA', N'Angela', N'J', N'Rivera', CAST(N'1990-02-18T00:00:00.0000000' AS DateTime2), N'41 Eglinton Ave', N'Moncton', N'NB', N'Canada', N'R2W 1V3', N'506-785-2188', N'506-956-1578', N'Anglea@VastVoyages.ca', N'123 Mountain Road, Moncton, NB', CAST(N'2019-12-07T00:00:00.0000000' AS DateTime2), CAST(N'2019-12-07T00:00:00.0000000' AS DateTime2), NULL, N'457-123-789', 10000002, NULL, 4, 1, 5)
 GO
-INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000005, N'LandryL', N'Lois', NULL, N'Landry', CAST(N'1976-06-10T00:00:00.0000000' AS DateTime2), N'632 Bay Street', N'Dieppe', N'NB', N'Canada', N'L8C 2G1', N'506-354-8516', N'506-154-4875', N'Lois@VastVoyages.ca', NULL, CAST(N'2005-02-04T00:00:00.0000000' AS DateTime2), CAST(N'2005-02-04T00:00:00.0000000' AS DateTime2), NULL, N'687-781-715', 10000001, NULL, 2, 1, 6)
+INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000005, N'LandryL', N'Lois', NULL, N'Landry', CAST(N'1976-06-10T00:00:00.0000000' AS DateTime2), N'632 Bay Street', N'Dieppe', N'NB', N'Canada', N'L8C 2G1', N'506-354-8516', N'506-154-4875', N'Lois@VastVoyages.ca', N'123 Mountain Road, Moncton, NB', CAST(N'2005-02-04T00:00:00.0000000' AS DateTime2), CAST(N'2005-02-04T00:00:00.0000000' AS DateTime2), NULL, N'687-781-715', 10000001, NULL, 2, 1, 6)
 GO
-INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000006, N'BetheaF', N'Frances', NULL, N'Bethea', CAST(N'1998-09-18T00:00:00.0000000' AS DateTime2), N'28 Main Street', N'Moncton', N'NB', N'Canada', N'O9D 3V1', N'506-651-7802', N'506-248-4812', N'Frances@VastVoyages.ca', NULL, CAST(N'2017-06-07T00:00:00.0000000' AS DateTime2), CAST(N'2015-05-17T00:00:00.0000000' AS DateTime2), CAST(N'2019-04-08T00:00:00.0000000' AS DateTime2), N'685-712-127', 10000003, NULL, 3, 2, 7)
+INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000006, N'BetheaF', N'Frances', NULL, N'Bethea', CAST(N'1998-09-18T00:00:00.0000000' AS DateTime2), N'28 Main Street', N'Moncton', N'NB', N'Canada', N'O9D 3V1', N'506-651-7802', N'506-248-4812', N'Frances@VastVoyages.ca', N'123 Mountain Road, Moncton, NB', CAST(N'2017-06-07T00:00:00.0000000' AS DateTime2), CAST(N'2015-05-17T00:00:00.0000000' AS DateTime2), CAST(N'2019-04-08T00:00:00.0000000' AS DateTime2), N'685-712-127', 10000003, NULL, 3, 2, 7)
 GO
-INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000007, N'DillionC', N'Clara ', N'D', N'Dillion', CAST(N'1960-03-09T00:00:00.0000000' AS DateTime2), N'51 Campsite Road', N'Moncton', N'NB', N'Canada', N'T7X 2Y7', N'506-858-7455', N'506-958-1248', N'Clara@VastVoyates.ca', NULL, CAST(N'2001-05-03T00:00:00.0000000' AS DateTime2), CAST(N'2000-08-07T00:00:00.0000000' AS DateTime2), CAST(N'2020-04-26T00:00:00.0000000' AS DateTime2), N'578-874-487', 10000001, NULL, 2, 3, 6)
+INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000007, N'DillionC', N'Clara ', N'D', N'Dillion', CAST(N'1960-03-09T00:00:00.0000000' AS DateTime2), N'51 Campsite Road', N'Moncton', N'NB', N'Canada', N'T7X 2Y7', N'506-858-7455', N'506-958-1248', N'Clara@VastVoyates.ca', N'123 Mountain Road, Moncton, NB', CAST(N'2001-05-03T00:00:00.0000000' AS DateTime2), CAST(N'2000-08-07T00:00:00.0000000' AS DateTime2), CAST(N'2020-04-26T00:00:00.0000000' AS DateTime2), N'578-874-487', 10000001, NULL, 2, 3, 6)
 GO
-INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000008, N'ShieldsD', N'Delphia', N'S', N'Shields', CAST(N'1993-02-24T00:00:00.0000000' AS DateTime2), N'203 Rose Street', N'Moncton', N'NB', N'Canada', N'D1A 3C2', N'506-871-8135', N'506-921-5752', N'Shields@VastVoyages.ca', NULL, CAST(N'2009-05-02T00:00:00.0000000' AS DateTime2), CAST(N'2009-05-02T00:00:00.0000000' AS DateTime2), NULL, N'548-578-215', 10000010, 0, 2, 1, 6)
+INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000008, N'ShieldsD', N'Delphia', N'S', N'Shields', CAST(N'1993-02-24T00:00:00.0000000' AS DateTime2), N'203 Rose Street', N'Moncton', N'NB', N'Canada', N'D1A 3C2', N'506-871-8135', N'506-921-5752', N'Shields@VastVoyages.ca', N'123 Mountain Road, Moncton, NB', CAST(N'2009-05-02T00:00:00.0000000' AS DateTime2), CAST(N'2009-05-02T00:00:00.0000000' AS DateTime2), NULL, N'548-578-215', 10000010, 0, 2, 1, 6)
 GO
-INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000009, N'ParkerL', N'Loisue', NULL, N'Parker ', CAST(N'2000-06-07T00:00:00.0000000' AS DateTime2), N'60 Union Street', N'Moncton', N'NB', N'Canada', N'8X1 4E2', N'506-324-9645', N'506-124-5785', N'Parker@VastVoyeas.ca', NULL, CAST(N'2020-06-09T00:00:00.0000000' AS DateTime2), CAST(N'2020-06-09T00:00:00.0000000' AS DateTime2), NULL, N'321-548-875', 10000001, NULL, 2, 1, 6)
+INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000009, N'ParkerL', N'Loisue', NULL, N'Parker ', CAST(N'2000-06-07T00:00:00.0000000' AS DateTime2), N'60 Union Street', N'Moncton', N'NB', N'Canada', N'8X1 4E2', N'506-324-9645', N'506-124-5785', N'Parker@VastVoyeas.ca', N'123 Mountain Road, Moncton, NB', CAST(N'2020-06-09T00:00:00.0000000' AS DateTime2), CAST(N'2020-06-09T00:00:00.0000000' AS DateTime2), NULL, N'321-548-875', 10000001, NULL, 2, 1, 6)
 GO
-INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000010, N'TorresJ', N'Joseph ', N'M', N'Torres', CAST(N'1980-02-13T00:00:00.0000000' AS DateTime2), N'45 MacLaren Street', N'Moncton', N'NB', N'Canada', N'K1P 5M7', N'506-255-5648', N'506-127-5481', N'Torres@VastVoyages.ca', NULL, CAST(N'2021-02-09T00:00:00.0000000' AS DateTime2), CAST(N'2021-02-09T00:00:00.0000000' AS DateTime2), NULL, N'657-518-548', 10000000, NULL, 2, 1, 2)
+INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000010, N'TorresJ', N'Joseph ', N'M', N'Torres', CAST(N'1980-02-13T00:00:00.0000000' AS DateTime2), N'45 MacLaren Street', N'Moncton', N'NB', N'Canada', N'K1P 5M7', N'506-255-5648', N'506-127-5481', N'Torres@VastVoyages.ca', N'123 Mountain Road, Moncton, NB', CAST(N'2021-02-09T00:00:00.0000000' AS DateTime2), CAST(N'2021-02-09T00:00:00.0000000' AS DateTime2), NULL, N'657-518-548', 10000000, NULL, 2, 1, 2)
 GO
 SET IDENTITY_INSERT [dbo].[Employees] OFF
 GO
@@ -324,13 +324,13 @@ SET IDENTITY_INSERT [dbo].[EmployeeStatus] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Items] ON 
 GO
-INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (1, N'Red pen', N'No longer needed', N'Need more pens', N'Staples', CAST(3.99 AS Decimal(19, 2)), 0, NULL, 101, 3)
+INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (1, N'Red pen', N'Red color pen', N'Need more pens', N'Staples', CAST(3.99 AS Decimal(19, 2)), 2, NULL, 101, 1)
 GO
 INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (2, N'Blue pen-update', N'Blue color pen', N'Need more pens', N'Staples', CAST(3.59 AS Decimal(19, 2)), 11, NULL, 101, 1)
 GO
-INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (4, N'Keyboard', N'Keyboard for PC', N'Need new one', N'Canadian Tire', CAST(35.99 AS Decimal(19, 2)), 5, N'no meed', 103, 3)
+INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (4, N'Keyboard', N'Keyboard for PC', N'Need new one', N'Canadian Tire', CAST(35.99 AS Decimal(19, 2)), 5, NULL, 103, 1)
 GO
-INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (5, N'Mouse', N'Mouse for PC', N'Need new one', N'Staples', CAST(20.50 AS Decimal(19, 2)), 5, NULL, 103, 2)
+INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (5, N'Mouse', N'Mouse for PC', N'Need new one', N'Staples', CAST(20.50 AS Decimal(19, 2)), 5, NULL, 103, 1)
 GO
 INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (6, N'Note', N'Basic note', N'Meeting', N'Costco', CAST(3.25 AS Decimal(19, 2)), 9, NULL, 104, 1)
 GO
@@ -338,9 +338,9 @@ INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], 
 GO
 INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (8, N'Printer', N'Printer', N'Need new one', N'Best Buy', CAST(50.80 AS Decimal(19, 2)), 1, N'Old one still works', 105, 3)
 GO
-INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (9, N'Pencil', N'2HB Pencil', N'Office supplies', N'Staples', CAST(1.99 AS Decimal(19, 2)), 2, NULL, 106, 2)
+INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (9, N'Pencil', N'2HB Pencil', N'Office supplies', N'Staples', CAST(1.99 AS Decimal(19, 2)), 2, NULL, 106, 1)
 GO
-INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (10, N'Copy paper', N'multi purpose paper', N'Need office supplies', N'Staples', CAST(5.99 AS Decimal(19, 2)), 3, N'No need', 106, 3)
+INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (10, N'Copy paper', N'multi purpose paper', N'Need office supplies', N'Staples', CAST(5.99 AS Decimal(19, 2)), 3, NULL, 106, 1)
 GO
 INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (13, N'Tape', N'No longer needed', N'office supplies', N'Staples', CAST(1.99 AS Decimal(19, 2)), 0, NULL, 107, 3)
 GO
@@ -352,7 +352,7 @@ INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], 
 GO
 INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (19, N'Water', N'Bottled water', N'Ran out', N'Superstore', CAST(2.99 AS Decimal(19, 2)), 10, NULL, 108, 1)
 GO
-INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (20, N'Ram 16GB', N'No longer needed', N'PC Upgrade', N'Best Buy', CAST(59.99 AS Decimal(19, 2)), 0, NULL, 109, 3)
+INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (20, N'Ram 16GB', N'Ram 16GB', N'PC Upgrade', N'Best Buy', CAST(59.99 AS Decimal(19, 2)), 1, NULL, 109, 1)
 GO
 INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (21, N'Green pen', N'Green color pen', N'Need more pens', N'Staples', CAST(2.50 AS Decimal(19, 2)), 5, NULL, 101, 1)
 GO
@@ -362,7 +362,7 @@ INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], 
 GO
 INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (24, N'Black Pen', N'Black color pen', N'Office', N'Staples', CAST(1.00 AS Decimal(19, 2)), 2, NULL, 111, 1)
 GO
-INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (25, N'Headset', N'Headset', N'office', N'Best Buy', CAST(99.99 AS Decimal(19, 2)), 1, NULL, 112, 1)
+INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (25, N'Headset', N'Headset', N'office', N'Best Buy', CAST(99.99 AS Decimal(19, 2)), 1, NULL, 112, 2)
 GO
 INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (26, N'Planner', N'Planner for employees', N'office supplies', N'Costco', CAST(8.99 AS Decimal(19, 2)), 10, NULL, 113, 2)
 GO
@@ -376,9 +376,9 @@ INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], 
 GO
 INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (31, N'Pencil', N'Pencil', N'Office work', N'Staples', CAST(2.50 AS Decimal(19, 2)), 5, NULL, 114, 1)
 GO
-INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (32, N'Blue pen', N'pen', N'office work', N'Staples', CAST(1.00 AS Decimal(19, 2)), 2, NULL, 115, 1)
+INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (32, N'Blue pen', N'Blue color pen', N'office work', N'Staples', CAST(1.00 AS Decimal(19, 2)), 5, NULL, 115, 1)
 GO
-INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (33, N'Red pen', N'pen', N'office work', N'Staples', CAST(1.00 AS Decimal(19, 2)), 1, NULL, 115, 1)
+INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (33, N'Red pen', N'Red color pen', N'office work', N'Staples', CAST(1.00 AS Decimal(19, 2)), 5, NULL, 115, 1)
 GO
 INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (34, N'SSD', N'No longer needed', N'PC Upgrade', N'Best Buy', CAST(59.99 AS Decimal(19, 2)), 0, NULL, 116, 3)
 GO
@@ -404,17 +404,17 @@ INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], 
 GO
 INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (46, N'HDMI Cabel', N'HDMI Cabel', N'Meeting room', N'Best Buy', CAST(9.99 AS Decimal(19, 2)), 2, NULL, 109, 1)
 GO
-INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (47, N'Note', N'No longer needed', N'office work', N'Staples', CAST(1.50 AS Decimal(19, 2)), 0, NULL, 120, 3)
+INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (47, N'Note', N'Note', N'office work', N'Staples', CAST(1.50 AS Decimal(19, 2)), 2, NULL, 120, 1)
 GO
-INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (48, N'Pencil', N'No longer needed', N'office work', N'Staples', CAST(1.50 AS Decimal(19, 2)), 0, NULL, 120, 3)
+INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (48, N'Pencil', N'Pencil', N'office work', N'Staples', CAST(1.50 AS Decimal(19, 2)), 2, NULL, 120, 1)
 GO
 INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (49, N'Binder', N'Binder', N'Office work', N'Staples', CAST(2.50 AS Decimal(19, 2)), 2, NULL, 121, 1)
 GO
 INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (50, N'Pen', N'Pen', N'office work', N'Staples', CAST(2.50 AS Decimal(19, 2)), 1, NULL, 121, 1)
 GO
-INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (51, N'Note', N'Note', N'Office work', N'Staples', CAST(3.50 AS Decimal(19, 2)), 1, NULL, 122, 2)
+INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (51, N'Note', N'Note', N'Office work', N'Staples', CAST(3.50 AS Decimal(19, 2)), 1, NULL, 122, 1)
 GO
-INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (52, N'Pen', N'Pen', N'Office work', N'Staples', CAST(2.50 AS Decimal(19, 2)), 1, NULL, 122, 2)
+INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (52, N'Pen', N'Pen', N'Office work', N'Staples', CAST(2.50 AS Decimal(19, 2)), 1, NULL, 122, 1)
 GO
 INSERT [dbo].[Items] ([ItemId], [ItemName], [ItemDescription], [Justification], [Location], [Price], [Quantity], [DescisionReason], [PONumber], [ItemStatusId]) VALUES (53, N'Pencil', N'Pencil', N'Office work', N'Staples', CAST(1.00 AS Decimal(19, 2)), 1, NULL, 123, 1)
 GO
@@ -480,33 +480,33 @@ INSERT [dbo].[Login] ([EmployeeId], [Password]) VALUES (10000010, N'148210224841
 GO
 SET IDENTITY_INSERT [dbo].[POs] ON 
 GO
-INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (101, CAST(N'2021-04-26T00:47:27.1866667' AS DateTime2), CAST(52.99 AS Decimal(19, 2)), CAST(7.80 AS Decimal(19, 2)), 10000005, 1)
+INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (101, CAST(N'2021-04-26T00:47:27.1866667' AS DateTime2), CAST(59.97 AS Decimal(19, 2)), CAST(9.00 AS Decimal(19, 2)), 10000005, 1)
 GO
-INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (103, CAST(N'2021-04-27T10:30:00.0000000' AS DateTime2), CAST(282.45 AS Decimal(19, 2)), CAST(42.37 AS Decimal(19, 2)), 10000005, 3)
+INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (103, CAST(N'2021-04-27T10:30:00.0000000' AS DateTime2), CAST(282.45 AS Decimal(19, 2)), CAST(42.37 AS Decimal(19, 2)), 10000005, 1)
 GO
 INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (104, CAST(N'2021-04-27T15:25:00.0000000' AS DateTime2), CAST(59.15 AS Decimal(19, 2)), CAST(8.87 AS Decimal(19, 2)), 10000001, 1)
 GO
 INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (105, CAST(N'2021-04-27T16:45:00.0000000' AS DateTime2), CAST(110.70 AS Decimal(19, 2)), CAST(16.60 AS Decimal(19, 2)), 10000005, 3)
 GO
-INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (106, CAST(N'2021-04-29T01:22:18.5000000' AS DateTime2), CAST(21.95 AS Decimal(19, 2)), CAST(3.29 AS Decimal(19, 2)), 10000008, 3)
+INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (106, CAST(N'2021-04-29T01:22:18.5000000' AS DateTime2), CAST(21.95 AS Decimal(19, 2)), CAST(3.29 AS Decimal(19, 2)), 10000008, 1)
 GO
-INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (107, CAST(N'2021-04-29T16:54:26.9933333' AS DateTime2), CAST(16.44 AS Decimal(19, 2)), CAST(2.47 AS Decimal(19, 2)), 10000009, 2)
+INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (107, CAST(N'2021-04-29T16:54:26.9933333' AS DateTime2), CAST(16.44 AS Decimal(19, 2)), CAST(2.47 AS Decimal(19, 2)), 10000009, 1)
 GO
 INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (108, CAST(N'2021-04-29T19:33:17.3766667' AS DateTime2), CAST(54.90 AS Decimal(19, 2)), CAST(8.68 AS Decimal(19, 2)), 10000005, 1)
 GO
-INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (109, CAST(N'2021-05-06T10:29:26.2535935' AS DateTime2), CAST(235.47 AS Decimal(19, 2)), CAST(35.32 AS Decimal(19, 2)), 10000005, 1)
+INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (109, CAST(N'2021-05-06T10:29:26.2535935' AS DateTime2), CAST(295.46 AS Decimal(19, 2)), CAST(44.32 AS Decimal(19, 2)), 10000005, 1)
 GO
 INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (110, CAST(N'2021-04-30T21:05:14.4800000' AS DateTime2), CAST(95.00 AS Decimal(19, 2)), CAST(14.25 AS Decimal(19, 2)), 10000004, 1)
 GO
-INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (111, CAST(N'2021-05-04T01:00:57.9300034' AS DateTime2), CAST(6.00 AS Decimal(19, 2)), CAST(0.90 AS Decimal(19, 2)), 10000001, 1)
+INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (111, CAST(N'2021-05-04T01:00:57.9300034' AS DateTime2), CAST(6.00 AS Decimal(19, 2)), CAST(0.90 AS Decimal(19, 2)), 10000001, 2)
 GO
-INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (112, CAST(N'2021-05-04T01:19:11.1808378' AS DateTime2), CAST(99.99 AS Decimal(19, 2)), CAST(15.00 AS Decimal(19, 2)), 10000001, 1)
+INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (112, CAST(N'2021-05-04T01:19:11.1808378' AS DateTime2), CAST(99.99 AS Decimal(19, 2)), CAST(15.00 AS Decimal(19, 2)), 10000001, 3)
 GO
 INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (113, CAST(N'2021-05-05T10:00:56.6778423' AS DateTime2), CAST(132.88 AS Decimal(19, 2)), CAST(19.93 AS Decimal(19, 2)), 10000005, 2)
 GO
 INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (114, CAST(N'2021-05-05T10:41:22.4045378' AS DateTime2), CAST(26.24 AS Decimal(19, 2)), CAST(3.94 AS Decimal(19, 2)), 10000008, 1)
 GO
-INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (115, CAST(N'2021-05-05T10:43:54.4734970' AS DateTime2), CAST(3.00 AS Decimal(19, 2)), CAST(0.30 AS Decimal(19, 2)), 10000008, 1)
+INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (115, CAST(N'2021-05-05T10:43:54.4734970' AS DateTime2), CAST(10.00 AS Decimal(19, 2)), CAST(1.50 AS Decimal(19, 2)), 10000008, 1)
 GO
 INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (116, CAST(N'2021-05-05T17:34:17.3870733' AS DateTime2), CAST(4.00 AS Decimal(19, 2)), CAST(9.60 AS Decimal(19, 2)), 10000010, 1)
 GO
@@ -516,11 +516,11 @@ INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId
 GO
 INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (119, CAST(N'2021-05-06T12:42:24.9985866' AS DateTime2), CAST(0.00 AS Decimal(19, 2)), CAST(0.00 AS Decimal(19, 2)), 10000001, 3)
 GO
-INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (120, CAST(N'2021-05-06T23:32:45.4875022' AS DateTime2), CAST(0.00 AS Decimal(19, 2)), CAST(0.00 AS Decimal(19, 2)), 10000008, 3)
+INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (120, CAST(N'2021-05-06T23:32:45.4875022' AS DateTime2), CAST(6.00 AS Decimal(19, 2)), CAST(0.90 AS Decimal(19, 2)), 10000008, 1)
 GO
 INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (121, CAST(N'2021-05-07T00:10:15.0697602' AS DateTime2), CAST(7.50 AS Decimal(19, 2)), CAST(1.13 AS Decimal(19, 2)), 10000008, 1)
 GO
-INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (122, CAST(N'2021-05-07T00:11:12.9893976' AS DateTime2), CAST(6.00 AS Decimal(19, 2)), CAST(0.90 AS Decimal(19, 2)), 10000008, 3)
+INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (122, CAST(N'2021-05-07T00:11:12.9893976' AS DateTime2), CAST(6.00 AS Decimal(19, 2)), CAST(0.90 AS Decimal(19, 2)), 10000005, 1)
 GO
 INSERT [dbo].[POs] ([PONumber], [SubmissionDate], [SubTotal], [Tax], [EmployeeId], [POStatusId]) VALUES (123, CAST(N'2021-05-07T00:39:43.6858132' AS DateTime2), CAST(6.00 AS Decimal(19, 2)), CAST(0.90 AS Decimal(19, 2)), 10000009, 1)
 GO
@@ -598,7 +598,7 @@ REFERENCES [dbo].[POStatus] ([POStatusId])
 GO
 ALTER TABLE [dbo].[POs] CHECK CONSTRAINT [FK_POs_Status]
 GO
-/****** Object:  StoredProcedure [dbo].[spCheckDuplicateUsername]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spCheckDuplicateUsername]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -623,7 +623,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spCheckHeadSupervisorIdOfPO]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spCheckHeadSupervisorIdOfPO]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -657,7 +657,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spDeleteItemByItemId]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spDeleteItemByItemId]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -679,7 +679,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spFindDuplicatedItems]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spFindDuplicatedItems]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -711,7 +711,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetAllEmployees]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetAllEmployees]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -723,7 +723,9 @@ AS
 BEGIN
 	BEGIN TRY
 
-	SELECT * FROM Employees;
+	SELECT * FROM Employees
+		INNER JOIN JobAssignment
+			ON Employees.JobAssignmentId = JobAssignment.JobAssignmentId;
 
 	END TRY
 	BEGIN CATCH
@@ -732,7 +734,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetCEO]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetCEO]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -753,7 +755,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetDepartmentById]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetDepartmentById]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -774,7 +776,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetDepartments]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetDepartments]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -795,7 +797,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetEmployeeById]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetEmployeeById]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -825,7 +827,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetEmployeeReviews]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetEmployeeReviews]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -847,7 +849,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetEmployeeStatus]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetEmployeeStatus]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -868,7 +870,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetEmployeeToModify]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetEmployeeToModify]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -888,7 +890,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetHeadSupervisor]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetHeadSupervisor]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -910,7 +912,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetHeadSupervisorId]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetHeadSupervisorId]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -932,7 +934,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetItemByItemId]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetItemByItemId]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -968,7 +970,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetItemByPONumber]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetItemByPONumber]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -995,7 +997,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetItemStatusForLookup]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetItemStatusForLookup]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1006,7 +1008,7 @@ BEGIN
 	SELECT ItemStatusId, ItemStatus FROM ItemStatus
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetJobAssignments]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetJobAssignments]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1027,7 +1029,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetPOStatusForLookup]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetPOStatusForLookup]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1038,7 +1040,7 @@ BEGIN
 	SELECT POStatusId, POStatus FROM POStatus
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetPurchaseOrderByEmployee]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetPurchaseOrderByEmployee]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1075,7 +1077,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetPurchaseOrderByPOnumber]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetPurchaseOrderByPOnumber]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1116,7 +1118,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetPurchaseOrderBySupervisor]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetPurchaseOrderBySupervisor]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1186,7 +1188,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetSuperEmployeeCount]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetSuperEmployeeCount]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1217,7 +1219,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetSupervisors]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetSupervisors]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1242,7 +1244,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertDepartment]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spInsertDepartment]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1276,7 +1278,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertEmployee]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spInsertEmployee]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1340,7 +1342,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertItems]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spInsertItems]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1385,7 +1387,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertPassword]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spInsertPassword]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1410,7 +1412,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertPurchaseOrder]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spInsertPurchaseOrder]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1454,7 +1456,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertReview]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spInsertReview]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1486,7 +1488,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spLogin]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spLogin]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1518,7 +1520,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spSearchEmployeesById]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spSearchEmployeesById]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1561,7 +1563,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSearchEmployeesByLastName]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spSearchEmployeesByLastName]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1581,7 +1583,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateDepartment]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateDepartment]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1617,7 +1619,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateEmployee]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateEmployee]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1684,7 +1686,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateItems]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateItems]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1739,7 +1741,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdatePersonalInfoWeb]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spUpdatePersonalInfoWeb]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1784,7 +1786,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdatePurchaseOrder]    Script Date: 2021-05-07 7:33:51 PM ******/
+/****** Object:  StoredProcedure [dbo].[spUpdatePurchaseOrder]    Script Date: 2021-05-10 5:13:50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
