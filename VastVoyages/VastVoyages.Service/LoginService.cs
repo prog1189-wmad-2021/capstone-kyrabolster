@@ -28,7 +28,11 @@ namespace VastVoyages.Service
         public bool AttemptLogin(Login loginInfo)
         {
             if (Validate(loginInfo))
+            {
+                HashCode hc = new HashCode();
+                loginInfo.Password = hc.CalculateSHA256(loginInfo.Password);
                 return repo.Login(loginInfo);
+            }
 
             return false;
         }

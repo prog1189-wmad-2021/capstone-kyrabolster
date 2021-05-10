@@ -84,9 +84,7 @@ namespace VastVoyages.WinFrontEnd
 
                 childForm.MdiParent = this;
                 groupBox4.Visible = false;
-                pictureBox1.Visible = false;
-                btnEmp.Visible = false;
-                btnSupervisor.Visible = false;
+                pbLogo.Visible = false;
                 childForm.Show();
             }
             catch (Exception ex)
@@ -227,7 +225,6 @@ namespace VastVoyages.WinFrontEnd
 
                     if (loginInfo.Role == "CEO" || loginInfo.Role == "Supervisor" || loginInfo.Role == "HR Supervisor")
                     {
-                        btnSupervisor.Visible = true;
                         processPOToolStripMenuItem.Visible = true;
                     }
 
@@ -281,12 +278,10 @@ namespace VastVoyages.WinFrontEnd
             if (openChildFormCount == 0)
             {
                 groupBox4.Visible = true;
-                pictureBox1.Visible = true;
-                btnEmp.Visible = true;
+                pbLogo.Visible = true;
 
                 if (loginInfo.Role == "CEO" || loginInfo.Role == "Supervisor" || loginInfo.Role == "HR Supervisor")
                 {
-                    btnSupervisor.Visible = true;
                     processPOToolStripMenuItem.Visible = true;
                 }
             }
