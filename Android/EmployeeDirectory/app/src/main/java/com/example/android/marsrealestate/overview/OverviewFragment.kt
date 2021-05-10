@@ -19,29 +19,22 @@ package com.example.android.marsrealestate.overview
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.android.marsrealestate.R
 import com.example.android.marsrealestate.databinding.FragmentOverviewBinding
+import com.example.android.marsrealestate.network.Department
 
-/**
- * This fragment shows the the status of the Mars real-estate web services transaction.
- */
 class OverviewFragment : Fragment() {
 
-    /**
-     * Lazily initialize our [OverviewViewModel].
-     */
+
     private val viewModel: OverviewViewModel by lazy {
         ViewModelProvider(this).get(OverviewViewModel::class.java)
     }
 
-    /**
-     * Inflates the layout with Data Binding, sets its lifecycle owner to the OverviewFragment
-     * to enable Data Binding to observe LiveData, and sets up the RecyclerView with an adapter.
-     */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding = FragmentOverviewBinding.inflate(inflater)
@@ -57,7 +50,7 @@ class OverviewFragment : Fragment() {
         })
 
         viewModel.navigateToSelectedProperty.observe(this, Observer {
-            if ( null != it ) {
+            if (null != it) {
                 this.findNavController().navigate(
                         OverviewFragmentDirections.actionShowDetail(it))
                 viewModel.displayPropertyDetailsComplete()
@@ -65,14 +58,38 @@ class OverviewFragment : Fragment() {
         })
 
         setHasOptionsMenu(true)
+
+        //departments menu
+        viewModel.departmentListChanged.observe(this, Observer { hasChanged ->
+            if (hasChanged) {
+                activity!!.invalidateOptionsMenu()
+                viewModel.updateDepartmentListComplete()
+            }
+        })
+
         return binding.root
     }
 
-    /**
-     * Inflates the overflow menu that contains filtering options.
-     */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.add(Menu.NONE, 0, Menu.NONE, "All")
+
+        val observer = Observer<List<Department>> { Department ->
+            for (department in Department) {
+                if (department != null) {
+                    menu.add(Menu.NONE, department.departmentId, Menu.NONE, department.departmentName)
+                }
+            }
+        }
+
+        viewModel.departments.observe(this, observer)
+
         inflater.inflate(R.menu.overflow_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        viewModel.getMarsRealEstateProperties(item.itemId)
+        Toast.makeText(getContext(), "Department ID: ${item.itemId}", Toast.LENGTH_LONG).show()
+        return true
     }
 }

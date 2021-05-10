@@ -21,9 +21,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.android.marsrealestate.network.Department
 import com.example.android.marsrealestate.network.Employee
 import com.example.android.marsrealestate.network.MarsApi
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 
 /**
@@ -31,10 +32,8 @@ import kotlinx.coroutines.launch
  */
 class OverviewViewModel : ViewModel() {
 
-    // The internal MutableLiveData String that stores the most recent response
     private val _response = MutableLiveData<String>()
 
-    // The external immutable LiveData for the response String
     val response: LiveData<String>
         get() = _response
 
@@ -47,21 +46,43 @@ class OverviewViewModel : ViewModel() {
     val navigateToSelectedProperty: LiveData<Employee>
         get() = _navigateToSelectedProperty
 
-    /**
-     * Call getMarsRealEstateProperties() on init so we can display status immediately.
-     */
+    //departments
+    //coroutine for department
+//    private var job = Job()
+//    private val coroutineScope = CoroutineScope(job + Dispatchers.Main)
+
+    private val _departmentListChanged = MutableLiveData<Boolean>()
+    val departmentListChanged: LiveData<Boolean> get() = _departmentListChanged
+
+
+//    var deptList = mutableListOf(Department(0, "All"))
+//    public var deptList = MutableLiveData<List<Department>>()
+
+    private val _departments = MutableLiveData<List<Department>>()
+    val departments: LiveData<List<Department>>
+        get() = _departments
+
     init {
-        getMarsRealEstateProperties()
+        getMarsRealEstateProperties(0)
+        getDeptList()
     }
 
-    /**
-     * Sets the value of the response LiveData to the Mars API status or the successful number of
-     * Mars properties retrieved.
-     */
-    private fun getMarsRealEstateProperties() {
+    public fun getMarsRealEstateProperties(departmentId: Int) {
         viewModelScope.launch {
             try {
-                _properties.value = MarsApi.retrofitService.getProperties()
+                _properties.value = MarsApi.retrofitService.getProperties(departmentId)
+            } catch (e: Exception) {
+                _properties.value = ArrayList()
+            }
+        }
+    }
+
+    //get department list
+    private fun getDeptList() {
+
+        viewModelScope.launch {
+            try {
+                _departments.value = MarsApi.retrofitService.getDepartments()
             } catch (e: Exception) {
                 _properties.value = ArrayList()
             }
@@ -74,5 +95,9 @@ class OverviewViewModel : ViewModel() {
 
     fun displayPropertyDetailsComplete() {
         _navigateToSelectedProperty.value = null
+    }
+
+    fun updateDepartmentListComplete() {
+        _departmentListChanged.value = false
     }
 }
