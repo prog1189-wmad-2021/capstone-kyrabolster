@@ -94,7 +94,7 @@ namespace VastVoyages.WinFrontEnd
                 int employeeId = Convert.ToInt32(((MainForm)this.MdiParent).loginInfo.EmployeeId);
                 DateTime? start = null;
                 DateTime? end = null;
-                int? POStatus = null;
+                int? POStatus = 1;
                 int? PONumber = null;
                 List<string> errorMsg = new List<string>();
 
@@ -147,7 +147,8 @@ namespace VastVoyages.WinFrontEnd
                 // If user select po status
                 if(cmbPOStatus.SelectedIndex > 0)
                 {
-                    POStatus = Convert.ToInt32(cmbPOStatus.SelectedValue);
+                    int? selectedStatusId = Convert.ToInt32(cmbPOStatus.SelectedValue);
+                    POStatus = selectedStatusId == 1 ? 1 : selectedStatusId == 0 ? null : selectedStatusId;
                 }
                 
                 // if no search criteria error
@@ -306,8 +307,9 @@ namespace VastVoyages.WinFrontEnd
             POLookUpsService service = new POLookUpsService();
             List<POStatusLookUpsDTO> poStatus = service.GetPOStatus();
 
-            poStatus.Insert(0, new POStatusLookUpsDTO { POStatusId = 0, POStatus = "--Select a status--" });
-            poStatus.RemoveAt(2);
+            poStatus.Insert(0, new POStatusLookUpsDTO { POStatusId = -1, POStatus = "--Select a status--" });
+            poStatus.Insert(1, new POStatusLookUpsDTO { POStatusId = 0, POStatus = "All POs" });
+            poStatus.RemoveAt(3);
 
             cmbPOStatus.DataSource = poStatus;
             cmbPOStatus.DisplayMember = "POStatus";

@@ -31,7 +31,9 @@ namespace VastVoyages.Web.Controllers
             try
             {
                 var POStatusList = lookupsService.GetPOStatus();
-                POStatusList.RemoveAt(1);
+                POStatusLookUpsDTO poStatus = new POStatusLookUpsDTO { POStatusId = 0, POStatus = "All POs" };
+                POStatusList.Insert(0, poStatus);
+                POStatusList.RemoveAt(2);
                 ViewBag.POStatusList = new SelectList(POStatusList, "POStatusId", "POStatus");
 
                 if (Start != null)
@@ -41,11 +43,8 @@ namespace VastVoyages.Web.Controllers
 
                 ViewBag.endDate = End == null ? DateTime.Now.ToShortDateString() : End.Value.Date.ToShortDateString();
                 ViewBag.poNumber = PONumber;
-                
-                if (POStatusId == null)
-                {
-                    POStatusId = 1;
-                }
+
+                POStatusId = POStatusId == null ? 1 : POStatusId == 0 ? null : POStatusId;
 
                 var searchValidation = ValidationSearch(PONumber, null, POStatusId, Start, End);
                 ViewBag.searchError = searchValidation.Item6;
