@@ -89,7 +89,7 @@ class OverviewFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         viewModel.getMarsRealEstateProperties(item.itemId)
-        Toast.makeText(getContext(), "Department ID: ${item.itemId}", Toast.LENGTH_LONG).show()
+//        Toast.makeText(getContext(), "Department ID: ${item.itemId}", Toast.LENGTH_LONG).show()
         return true
     }
 }

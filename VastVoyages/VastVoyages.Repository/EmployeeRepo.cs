@@ -232,6 +232,8 @@ namespace VastVoyages.Repository
                     WorkPhone = row["WorkPhone"].ToString(),
                     CellPhone = row["CellPhone"].ToString(),
                     Email = row["Email"].ToString(),
+                    OfficeLocation = row["OfficeLocation"].ToString(),
+                    JobAssignment = row["JobAssignment"].ToString(),
                     SupervisorId = row["SupervisorId"] == DBNull.Value ? 0 : Convert.ToInt32(row["SupervisorId"]),
                     DepartmentId = Convert.ToInt32(row["DepartmentId"])
 
