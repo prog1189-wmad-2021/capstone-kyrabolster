@@ -19,6 +19,11 @@ namespace VastVoyages.Repository
             db = new DataAccess();
         }
 
+        /// <summary>
+        /// Login. Check employee id and password are correct
+        /// </summary>
+        /// <param name="loginInfo"></param>
+        /// <returns></returns>
         public bool Login(Login loginInfo)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
@@ -30,6 +35,11 @@ namespace VastVoyages.Repository
             return Convert.ToInt32(dt.Rows[0]["EmployeeId"]) > 0;
         }
 
+        /// <summary>
+        /// Retrieve employee's information by employee Id
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
         public LoginDTO RetrieveEmpInfoById(string employeeId)
         {
             List<ParmStruct> parms = new List<ParmStruct>();

@@ -17,6 +17,10 @@ namespace VastVoyages.Repository
             db = new DataAccess();
         }
 
+        /// <summary>
+        /// Retrieve purchase order status list
+        /// </summary>
+        /// <returns></returns>
         public List<POStatusLookUpsDTO> RetrievePOStatus()
         {
             DataTable dt = db.Execute("spGetPOStatusForLookup");
@@ -37,6 +41,10 @@ namespace VastVoyages.Repository
             return POStatus;
         }
 
+        /// <summary>
+        /// Retrieve item status list
+        /// </summary>
+        /// <returns></returns>
         public List<ItemStatusLookUpsDTO> RetrieveItemStatus()
         {
             DataTable dt = db.Execute("spGetItemStatusForLookup");

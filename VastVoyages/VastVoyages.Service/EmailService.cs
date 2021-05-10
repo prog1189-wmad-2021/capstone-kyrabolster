@@ -10,34 +10,10 @@ namespace VastVoyages.Service
 {
     public class EmailService
     {
-        public void sendNotificationEmail(EmployeeDTO employee, PurchaseOrderDTO PO)
-        {
-            MailMessage mailMessage = new MailMessage();
-
-            mailMessage.To.Add(employee.Email);
-            mailMessage.From = new MailAddress("admin@VastVoyages.ca");
-            mailMessage.Subject = "Purchase order final decision notification";
-            mailMessage.IsBodyHtml = true;
-            mailMessage.Body = $"<h2>Your purchase order is closed.</h2>" +
-                               $"<p>Purchase Order Number: {PO.PONumber}</p>" +
-                               $"<p>Submission Date: {PO.SubmissionDate}</p>" +
-                               $"<p>Total cost: {PO.Total.ToString("C")}</p>" +
-                               "<hr>";
-            
-            foreach(ItemDTO item in PO.items)
-            {
-                mailMessage.Body += $"<p>Item Name: {item.ItemName}</p>" +
-                                    $"<p>Item Status: {item.ItemStatus}</p>";
-            }
-
-            mailMessage.Body += $"<p>You can view it from this link : </p><a href=\"google.ca\">Listing Link</a>";
-
-            SmtpClient smtpClient = new SmtpClient("localhost"); // network host name in web.config
-            smtpClient.Send(mailMessage);
-
-            return;
-        }
-
+        /// <summary>
+        /// Send email to employees
+        /// </summary>
+        /// <param name="email"></param>
         public void SendNotificationEmail(Email email)
         {
             MailMessage mailMessage = new MailMessage();

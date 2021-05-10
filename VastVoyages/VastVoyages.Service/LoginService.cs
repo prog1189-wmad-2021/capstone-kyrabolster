@@ -25,6 +25,11 @@ namespace VastVoyages.Service
             repo = new LoginRepo();
         }
 
+        /// <summary>
+        /// Check employeee id and password are correct 
+        /// </summary>
+        /// <param name="loginInfo"></param>
+        /// <returns></returns>
         public bool AttemptLogin(Login loginInfo)
         {
             if (Validate(loginInfo))
@@ -37,6 +42,11 @@ namespace VastVoyages.Service
             return false;
         }
 
+        /// <summary>
+        /// Get employee's information by employee id
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
         public LoginDTO GetEmpInfo(string employeeId)
         {
             LoginDTO empInfo = repo.RetrieveEmpInfoById(employeeId);
@@ -65,6 +75,11 @@ namespace VastVoyages.Service
 
         #region Private Methods
 
+        /// <summary>
+        /// Validation for login entity
+        /// </summary>
+        /// <param name="loginToValidate"></param>
+        /// <returns></returns>
         private bool Validate(Login loginToValidate)
         {
             ValidationContext context = new ValidationContext(loginToValidate);

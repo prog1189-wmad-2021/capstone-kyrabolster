@@ -201,6 +201,11 @@ namespace VastVoyages.Service
             return ItemToValidate.Errors.Count == 0;
         }
 
+        /// <summary>
+        /// Check if reason needed for save item
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         private bool IsReasonNeed(Item item)
         {
             //if denied
@@ -223,6 +228,12 @@ namespace VastVoyages.Service
             return item.Errors.Count == 0;
         }
 
+        /// <summary>
+        /// Check if the supervisor is head supervisor
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="supervisorId"></param>
+        /// <returns></returns>
         private bool CheckIsHeadSupervisor(Item item, int supervisorId)
         {
             bool result = repo.CheckHeadSupervisorIdOfItem(item, supervisorId);
@@ -233,6 +244,11 @@ namespace VastVoyages.Service
             return result;
         }
 
+        /// <summary>
+        /// Check if the purchase order is processing when item updated
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         private bool IsNotPOStatusPending(Item item)
         {
             //When a user update item and purchase order has been processing(under reveiw or closed)

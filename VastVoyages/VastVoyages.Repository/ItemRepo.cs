@@ -224,7 +224,12 @@ namespace VastVoyages.Repository
             return items.Count == 0 ? null : items[0];
         }
 
-
+        /// <summary>
+        /// Check supervisor is head supervisor
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="supervisorId"></param>
+        /// <returns></returns>
         public bool CheckHeadSupervisorIdOfItem(Item item, int supervisorId)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
