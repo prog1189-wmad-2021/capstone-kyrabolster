@@ -32,6 +32,8 @@ namespace VastVoyages.Model
         [Required(ErrorMessage = "Review Date is required.")]
         public DateTime ReviewDate { get; set; }
 
+        public string EmployeeName { get; set; }
+
         public virtual Rating Rating { get; set; }
 
     }

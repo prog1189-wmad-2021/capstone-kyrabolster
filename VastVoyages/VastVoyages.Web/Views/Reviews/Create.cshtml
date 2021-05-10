@@ -15,8 +15,8 @@
             <h2>Create Employee Review</h2>
             <br>
             <h5>Reviewer Name : @Session["employeeName"].ToString()</h5>
-            <h5>Employee Name : @ViewBag.EmployeeName</h5>
-            <h5>Employee Id : @ViewBag.EmployeeId</h5>
+            <h5>Employee Name : @Model.EmployeeName</h5>
+            <h5>Employee Id : @Model.EmployeeId</h5>
 
             <hr />
             @if (Model.Errors.Count > 0)
@@ -38,14 +38,11 @@
             }
             @Html.HiddenFor(model => model.EmployeeId)
             @Html.HiddenFor(model => model.ReviewerId)
-
+            @Html.HiddenFor(model => model.EmployeeName)
 
             <div class="form-group">
-                @Html.LabelFor(model => model.RatingId, htmlAttributes: new { @class = "control-label col-md-2" })
+                Rating
                 <div class="col-md-10">
-                    @*@Html.EditorFor(model => model.RatingId, new { htmlAttributes = new { @class = "form-control" } })*@
-                    @*@Html.DropDownList("RatingId", null, "Please Select a Rating", htmlAttributes: new { @class = "form-control" })*@
-
                     @Html.EnumDropDownListFor(x => x.Rating, "Select Rating", new { @class = "form-control" })
 
                     @Html.ValidationMessageFor(model => model.RatingId, "", new { @class = "text-danger" })

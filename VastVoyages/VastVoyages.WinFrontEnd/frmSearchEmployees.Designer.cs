@@ -75,8 +75,8 @@
             this.label17 = new System.Windows.Forms.Label();
             this.grpEditEmployeeInfo = new System.Windows.Forms.GroupBox();
             this.grpEmploymentStatus = new System.Windows.Forms.GroupBox();
-            this.lblRetirementDate = new System.Windows.Forms.Label();
-            this.dtpRetirementDate = new System.Windows.Forms.DateTimePicker();
+            this.lblEndDate = new System.Windows.Forms.Label();
+            this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
             this.cmbEmploymentStatus = new System.Windows.Forms.ComboBox();
             this.label34 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
@@ -607,8 +607,8 @@
             // 
             // grpEmploymentStatus
             // 
-            this.grpEmploymentStatus.Controls.Add(this.lblRetirementDate);
-            this.grpEmploymentStatus.Controls.Add(this.dtpRetirementDate);
+            this.grpEmploymentStatus.Controls.Add(this.lblEndDate);
+            this.grpEmploymentStatus.Controls.Add(this.dtpEndDate);
             this.grpEmploymentStatus.Controls.Add(this.cmbEmploymentStatus);
             this.grpEmploymentStatus.Controls.Add(this.label34);
             this.grpEmploymentStatus.Controls.Add(this.label33);
@@ -623,24 +623,23 @@
             this.grpEmploymentStatus.Text = "Employment Status";
             this.grpEmploymentStatus.Visible = false;
             // 
-            // lblRetirementDate
+            // lblEndDate
             // 
-            this.lblRetirementDate.AutoSize = true;
-            this.lblRetirementDate.Location = new System.Drawing.Point(636, 131);
-            this.lblRetirementDate.Name = "lblRetirementDate";
-            this.lblRetirementDate.Size = new System.Drawing.Size(115, 17);
-            this.lblRetirementDate.TabIndex = 47;
-            this.lblRetirementDate.Text = "Retirement Date:";
-            this.lblRetirementDate.Visible = false;
+            this.lblEndDate.AutoSize = true;
+            this.lblEndDate.Location = new System.Drawing.Point(636, 131);
+            this.lblEndDate.Name = "lblEndDate";
+            this.lblEndDate.Size = new System.Drawing.Size(71, 17);
+            this.lblEndDate.TabIndex = 47;
+            this.lblEndDate.Text = "End Date:";
+            this.lblEndDate.Visible = false;
             // 
-            // dtpRetirementDate
+            // dtpEndDate
             // 
-            this.dtpRetirementDate.Enabled = false;
-            this.dtpRetirementDate.Location = new System.Drawing.Point(639, 151);
-            this.dtpRetirementDate.Name = "dtpRetirementDate";
-            this.dtpRetirementDate.Size = new System.Drawing.Size(174, 22);
-            this.dtpRetirementDate.TabIndex = 46;
-            this.dtpRetirementDate.Visible = false;
+            this.dtpEndDate.Location = new System.Drawing.Point(639, 151);
+            this.dtpEndDate.Name = "dtpEndDate";
+            this.dtpEndDate.Size = new System.Drawing.Size(174, 22);
+            this.dtpEndDate.TabIndex = 46;
+            this.dtpEndDate.Visible = false;
             // 
             // cmbEmploymentStatus
             // 
@@ -649,6 +648,7 @@
             this.cmbEmploymentStatus.Name = "cmbEmploymentStatus";
             this.cmbEmploymentStatus.Size = new System.Drawing.Size(340, 24);
             this.cmbEmploymentStatus.TabIndex = 45;
+            this.cmbEmploymentStatus.SelectionChangeCommitted += new System.EventHandler(this.cmbEmploymentStatus_SelectionChangeCommitted);
             // 
             // label34
             // 
@@ -670,6 +670,7 @@
             // 
             // dtpSeniorityDate
             // 
+            this.dtpSeniorityDate.Enabled = false;
             this.dtpSeniorityDate.Location = new System.Drawing.Point(270, 106);
             this.dtpSeniorityDate.Name = "dtpSeniorityDate";
             this.dtpSeniorityDate.Size = new System.Drawing.Size(340, 22);
@@ -1188,8 +1189,8 @@
         private System.Windows.Forms.GroupBox grpEmploymentStatus;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.TextBox txtSIN2;
-        private System.Windows.Forms.Label lblRetirementDate;
-        private System.Windows.Forms.DateTimePicker dtpRetirementDate;
+        private System.Windows.Forms.Label lblEndDate;
+        private System.Windows.Forms.DateTimePicker dtpEndDate;
         private System.Windows.Forms.ComboBox cmbEmploymentStatus;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label33;
