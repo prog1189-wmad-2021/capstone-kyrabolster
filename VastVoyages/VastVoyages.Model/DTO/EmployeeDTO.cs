@@ -21,6 +21,8 @@ namespace VastVoyages.Model
         public string WorkPhone { get; set; }
         public string CellPhone { get; set; }
         public string Email { get; set; }
+        public string OfficeLocation { get; set; }
+        public string JobAssignment { get; set; }
         public int DepartmentId { get; set; }
         public int SupervisorId { get; set; }
  
