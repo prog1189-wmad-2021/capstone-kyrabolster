@@ -44,6 +44,9 @@ namespace VastVoyages.Repository
             parms.Add(new ParmStruct("@WorkPhone", employee.WorkPhone, SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@CellPhone", employee.CellPhone, SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@Email", employee.Email, SqlDbType.NVarChar));
+            parms.Add(new ParmStruct("@OfficeLocation",
+                (!string.IsNullOrEmpty(employee.OfficeLocation) ? employee.OfficeLocation : (object)DBNull.Value),
+                SqlDbType.NVarChar));
             parms.Add(new ParmStruct("@JobStartDate", employee.JobStartDate, SqlDbType.DateTime));
 
             parms.Add(new ParmStruct("@SeniorityDate", employee.SeniorityDate, SqlDbType.DateTime));

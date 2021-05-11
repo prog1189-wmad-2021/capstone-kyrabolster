@@ -63,11 +63,6 @@ namespace VastVoyages.Service
         {
             if (ValidateEmployee(employee))
             {
-                //if retired or terminated
-                if(employee.EmployeeStatusId == 2 || employee.EmployeeStatusId == 3)
-                {
-                    employee.EndDate = DateTime.Now.Date;
-                }
                 return repo.UpdateEmployee(employee);
             }
             return employee;

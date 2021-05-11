@@ -324,7 +324,8 @@ namespace VastVoyages.WinFrontEnd
                 IsHeadSupervisor = chkHeadSupervisor.Checked,
                 DepartmentId = Convert.ToInt32(cmbDepartment.SelectedValue),
                 EmployeeStatusId = 1,
-                JobAssignmentId = Convert.ToInt32(cmbJobAssignment.SelectedValue)
+                JobAssignmentId = Convert.ToInt32(cmbJobAssignment.SelectedValue),
+                OfficeLocation = txtOfficeLocation.Text.Trim()
             };
         }
 

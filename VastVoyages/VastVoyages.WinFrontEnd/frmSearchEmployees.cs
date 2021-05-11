@@ -154,6 +154,7 @@ namespace VastVoyages.WinFrontEnd
                 grpJobInfo.Enabled = true;
                 grpEmploymentStatus.Enabled = true;
                 cmbEmploymentStatus.Enabled = true;
+                dtpEndDate.Value = DateTime.Now;
 
                 switch (category)
                 {
@@ -191,15 +192,38 @@ namespace VastVoyages.WinFrontEnd
             }
         }
 
+        private void cmbEmploymentStatus_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            int selectedStatus = Convert.ToInt32(cmbEmploymentStatus.SelectedValue);
+            if (selectedStatus == 2 || selectedStatus == 3)
+            {
+                lblEndDate.Visible = true;
+                dtpEndDate.Visible = true;
+                dtpEndDate.Enabled = true;
+            }
+            else
+            {
+                lblEndDate.Visible = false;
+                dtpEndDate.Visible = false;
+            }
+        }
+
+        private void cmbJobAssignment_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if(Convert.ToInt32(cmbJobAssignment.SelectedValue) != _employee.JobAssignmentId)
+                dtpJobStartDate.Value = DateTime.Now;
+            else
+                dtpJobStartDate.Value = _employee.JobStartDate;
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
-                //int employeeId = Convert.ToInt32(dgvEmployees.CurrentRow.Cells["Id"].Value);
-
-                //Employee employee = employeeService.GetEmployeeToModifyById(employeeId);
-
                 string category = cmbSelectInfoCategory.SelectedItem.ToString();
+
+                int employeeId = Convert.ToInt32(dgvEmployees.CurrentRow.Cells["Id"].Value);
+                Employee employee = employeeService.GetEmployeeToModifyById(employeeId);
 
                 switch (category)
                 {
@@ -234,6 +258,7 @@ namespace VastVoyages.WinFrontEnd
                         msg += error.Description + Environment.NewLine;
                     }
                     MessageBox.Show("Please address the following issues:\n\n" + msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    _employee = employee;
                 }
             }
             catch (Exception ex)
@@ -278,6 +303,12 @@ namespace VastVoyages.WinFrontEnd
             employee.SIN = txtSIN2.Text;
             employee.SeniorityDate = Convert.ToDateTime(dtpSeniorityDate.Value);
             employee.EmployeeStatusId = Convert.ToInt32(cmbEmploymentStatus.SelectedValue);
+
+            if(employee.EmployeeStatusId == 2 || employee.EmployeeStatusId == 3)
+                employee.EndDate = Convert.ToDateTime(dtpEndDate.Value);
+            else
+                employee.EndDate = null;
+
 
             PopulateEmploymentStatus();
 
@@ -377,8 +408,8 @@ namespace VastVoyages.WinFrontEnd
         private void PopulateEmploymentStatus()
         {
             LoadEmployeeStatus();
-            lblRetirementDate.Visible = false;
-            dtpRetirementDate.Visible = false;
+            lblEndDate.Visible = false;
+            dtpEndDate.Visible = false;
 
             int employeeId = Convert.ToInt32(dgvEmployees.CurrentRow.Cells["Id"].Value);
 
@@ -388,12 +419,14 @@ namespace VastVoyages.WinFrontEnd
             dtpSeniorityDate.Value = Convert.ToDateTime(employee.SeniorityDate);
             cmbEmploymentStatus.SelectedValue = Convert.ToInt32(employee.EmployeeStatusId);
 
-            if (employee.EmployeeStatusId == 3)
+            if (employee.EmployeeStatusId == 2 || employee.EmployeeStatusId == 3)
             {
-                lblRetirementDate.Visible = true;
-                dtpRetirementDate.Visible = true;
-                dtpRetirementDate.Value = Convert.ToDateTime(employee.EndDate);
-                cmbEmploymentStatus.Enabled = false;
+                lblEndDate.Visible = true;
+                dtpEndDate.Visible = true;
+                dtpEndDate.Enabled = false;
+                dtpEndDate.Value = Convert.ToDateTime(employee.EndDate);
+                if (employee.EmployeeStatusId == 3)
+                    cmbEmploymentStatus.Enabled = false;
             }
         }
 
@@ -611,7 +644,7 @@ namespace VastVoyages.WinFrontEnd
             cmbProvince.DisplayMember = "Value";
             cmbProvince.ValueMember = "Key";
         }
-        #endregion
 
+        #endregion
     }
 }

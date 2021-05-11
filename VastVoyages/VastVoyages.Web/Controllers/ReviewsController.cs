@@ -15,7 +15,6 @@ namespace VastVoyages.API.Controllers
         private ReviewService service = new ReviewService();
         private EmployeeService empService = new EmployeeService();
 
-
         // GET: Reviews
         [CustomizeAuthorize(RoleName.CEO, RoleName.HRSupervisor, RoleName.Supervisor)]
         public ActionResult Index()
@@ -62,16 +61,14 @@ namespace VastVoyages.API.Controllers
                 //check if correct super but already had review
                 List<Review> employeesReviews = service.GetEmployeeReviews(employee.EmpId);
 
-                if(employee.SupervisorId != reviewerId || service.HadEmployeeReviewThisQuarter(employeesReviews))
+                if (employee.SupervisorId != reviewerId || service.HadEmployeeReviewThisQuarter(employeesReviews))
                 {
                     return View("PageNotFound");
                 }
-                
 
                 ViewBag.EmployeeName = employee.FullName;
-                ViewBag.EmployeeId = employee.EmpId;
 
-                Review review = new Review() { EmployeeId = employeeId.Value, ReviewerId = reviewerId };
+                Review review = new Review() { EmployeeId = employeeId.Value, ReviewerId = reviewerId, EmployeeName = employee.FullName};
 
                 return View(review);
             }
@@ -83,17 +80,17 @@ namespace VastVoyages.API.Controllers
 
         // POST: Reviews/Create
         [HttpPost]
-        public ActionResult Create(Review review)
+        public ActionResult Create(Review review, string employeeName)
         {
             try
             {
                 //change rating to string in db?
 
-                    if ((int)review.Rating <= 0)
-                    {
-                        review.AddError(new ValidationError("Please select a rating", ErrorType.Model));
-                    } 
-                    review.RatingId = (int)review.Rating;
+                if ((int)review.Rating <= 0)
+                {
+                    review.AddError(new ValidationError("Please select a rating", ErrorType.Model));
+                }
+                review.RatingId = (int)review.Rating;
 
 
                 if (service.AddReview(review))
@@ -103,6 +100,7 @@ namespace VastVoyages.API.Controllers
                 }
                 else
                 {
+                    //ViewBag.EmployeeName = employeeName;
                     return View(review);
                 }
 
@@ -111,56 +109,6 @@ namespace VastVoyages.API.Controllers
             {
                 review.AddError(new ValidationError(ex.Message, ErrorType.Business));
                 return View("review");
-            }
-        }
-
-        // GET: Reviews/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Reviews/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Reviews/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Reviews/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Reviews/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
             }
         }
     }

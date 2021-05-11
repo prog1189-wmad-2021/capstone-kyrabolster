@@ -79,6 +79,8 @@ namespace VastVoyages.Model.Entities
         ErrorMessage = "SIN must be in correct Canadian format (###-###-###).")]
         public string SIN { get; set; }
 
+        public string OfficeLocation { get; set; }
+
         public int SupervisorId { get; set; }
 
         public bool IsHeadSupervisor { get; set; }
