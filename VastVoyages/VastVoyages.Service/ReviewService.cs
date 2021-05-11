@@ -62,7 +62,7 @@ namespace VastVoyages.Service
         /// </summary>
         /// <param name="reviews"></param>
         /// <returns></returns>
-        private bool HadEmployeeReviewThisQuarter(List<Review> reviews)
+        public bool HadEmployeeReviewThisQuarter(List<Review> reviews)
         {
             //get quarter
             int currentQuarter = (DateTime.Now.Month - 1) / 3 + 1;
