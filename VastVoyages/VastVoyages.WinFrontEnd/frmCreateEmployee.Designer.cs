@@ -88,6 +88,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtOfficeLocation = new System.Windows.Forms.TextBox();
             this.grpCreateEmployee.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.grpEmploymentDetails.SuspendLayout();
@@ -332,6 +334,8 @@
             // 
             // grpEmploymentDetails
             // 
+            this.grpEmploymentDetails.Controls.Add(this.label5);
+            this.grpEmploymentDetails.Controls.Add(this.txtOfficeLocation);
             this.grpEmploymentDetails.Controls.Add(this.lblHeadSupervisor);
             this.grpEmploymentDetails.Controls.Add(this.chkHeadSupervisor);
             this.grpEmploymentDetails.Controls.Add(this.lblSupervisorMsg);
@@ -684,6 +688,22 @@
             this.label22.TabIndex = 5;
             this.label22.Text = "Name:";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(69, 132);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(107, 17);
+            this.label5.TabIndex = 26;
+            this.label5.Text = "Office Location:";
+            // 
+            // txtOfficeLocation
+            // 
+            this.txtOfficeLocation.Location = new System.Drawing.Point(182, 132);
+            this.txtOfficeLocation.Name = "txtOfficeLocation";
+            this.txtOfficeLocation.Size = new System.Drawing.Size(340, 22);
+            this.txtOfficeLocation.TabIndex = 25;
+            // 
             // frmCreateEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -772,5 +792,7 @@
         private System.Windows.Forms.ComboBox cmbProvince;
         private System.Windows.Forms.Label lblHeadSupervisor;
         private System.Windows.Forms.CheckBox chkHeadSupervisor;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtOfficeLocation;
     }
 }

@@ -590,8 +590,8 @@
             // 
             // grpEditEmployeeInfo
             // 
-            this.grpEditEmployeeInfo.Controls.Add(this.grpEmploymentStatus);
             this.grpEditEmployeeInfo.Controls.Add(this.grpJobInfo);
+            this.grpEditEmployeeInfo.Controls.Add(this.grpEmploymentStatus);
             this.grpEditEmployeeInfo.Controls.Add(this.grpPersonalInfo);
             this.grpEditEmployeeInfo.Controls.Add(this.btnSave);
             this.grpEditEmployeeInfo.Controls.Add(this.btnSelectInfoCategory);
@@ -815,6 +815,7 @@
             this.cmbJobAssignment.Name = "cmbJobAssignment";
             this.cmbJobAssignment.Size = new System.Drawing.Size(258, 24);
             this.cmbJobAssignment.TabIndex = 28;
+            this.cmbJobAssignment.SelectionChangeCommitted += new System.EventHandler(this.cmbJobAssignment_SelectionChangeCommitted);
             // 
             // label25
             // 

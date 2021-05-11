@@ -208,6 +208,14 @@ namespace VastVoyages.WinFrontEnd
             }
         }
 
+        private void cmbJobAssignment_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if(Convert.ToInt32(cmbJobAssignment.SelectedValue) != _employee.JobAssignmentId)
+                dtpJobStartDate.Value = DateTime.Now;
+            else
+                dtpJobStartDate.Value = _employee.JobStartDate;
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
@@ -636,8 +644,7 @@ namespace VastVoyages.WinFrontEnd
             cmbProvince.DisplayMember = "Value";
             cmbProvince.ValueMember = "Key";
         }
+
         #endregion
-
-
     }
 }
