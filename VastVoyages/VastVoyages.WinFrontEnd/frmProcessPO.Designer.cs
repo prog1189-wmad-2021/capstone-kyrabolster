@@ -644,7 +644,7 @@ namespace VastVoyages.WinFrontEnd
             this.Controls.Add(this.groupBox3);
             this.Name = "frmProcessPO";
             this.Tag = "ProcessPO";
-            this.Text = "View Purchase Order";
+            this.Text = "Process Purchase Order";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ProcessPO_FormClosed);
             this.Load += new System.EventHandler(this.ProcessPO_Load);
             this.grpItemDetails.ResumeLayout(false);

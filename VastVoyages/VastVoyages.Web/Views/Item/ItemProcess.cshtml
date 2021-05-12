@@ -26,14 +26,19 @@
                     <div class="col">
                         <dl class="dl-horizontal">
                             <dt>
+                                @Html.DisplayNameFor(model => model.ItemId)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.ItemId)
+                                @Html.HiddenFor(model => model.ItemId)
+                            </dd>
+                            <dt>
                                 @Html.DisplayNameFor(model => model.ItemName)
                             </dt>
-
                             <dd>
                                 @Html.DisplayFor(model => model.ItemName)
                                 @Html.HiddenFor(model => model.ItemName)
                             </dd>
-                            <br />
                             <dt>
                                 @Html.DisplayNameFor(model => model.ItemDescription)
                             </dt>
@@ -42,7 +47,6 @@
                                 @Html.DisplayFor(model => model.ItemDescription)
                                 @Html.HiddenFor(model => model.ItemDescription)
                             </dd>
-                            <br />
                             <dt>
                                 @Html.DisplayNameFor(model => model.Justification)
                             </dt>
@@ -105,7 +109,6 @@
                         @foreach (var e in Model.Errors.Where(err => err.ErrorType == VastVoyages.Types.ErrorType.Business))
                         {
                             <li>@e.Description</li>
-
                         }
                     </ul>
                 </div>

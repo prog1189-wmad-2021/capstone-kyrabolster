@@ -36,7 +36,7 @@ namespace VastVoyages.Web.Controllers
                 {
                     PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(Convert.ToInt32(itemDTO.PONumber), Convert.ToInt32(Session["employeeId"]), null, false);
 
-                    if (itemDTO.ItemStatus == "Pending" && itemDTO != null && purchaseOrderDTO.POStatus == "Pending")
+                    if (itemDTO.ItemStatusId == 1 && purchaseOrderDTO.POStatus == "Pending")
                     {
                         Item item = new Item
                         {
@@ -56,7 +56,7 @@ namespace VastVoyages.Web.Controllers
                     }
                     else
                     {
-                        TempData["Error"] = "The item can not be modified. The purchase order has been processing.";
+                        TempData["Error"] = "The item can not be modified.";
                         return RedirectToAction("Edit", "PurchaseOrder", new { PONumber = itemDTO.PONumber });
                     }
                 }
@@ -98,7 +98,6 @@ namespace VastVoyages.Web.Controllers
                         POservice.UpdatePurcaseOrder(PO);
                     }
 
-                    TempData["PO"] = PO;
                     TempData["Edit"] = $"Item Id: {item.ItemId} has been updated successful!";
                     
                     if(PO.POstatusId != 2 && PO.POstatusId != 3)
@@ -145,37 +144,45 @@ namespace VastVoyages.Web.Controllers
                 {
                     if(itemDTO.POStatusId != 3)
                     {
-                        PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(Convert.ToInt32(itemDTO.PONumber), null, Convert.ToInt32(Session["employeeId"]), true);
-
-                        if(purchaseOrderDTO != null)
+                        if (itemDTO.Quantity > 0)
                         {
-                            item.ItemId = itemDTO.ItemId;
-                            item.ItemName = itemDTO.ItemName;
-                            item.ItemDescription = itemDTO.ItemDescription;
-                            item.Justification = itemDTO.Justification;
-                            item.Location = itemDTO.Location;
-                            item.Price = itemDTO.Price;
-                            item.Quantity = itemDTO.Quantity;
-                            item.PONumber = Convert.ToInt32(itemDTO.PONumber);
-                            item.ItemStatusId = itemDTO.ItemStatusId;
-                            item.RecordVersion = itemDTO.RecordVersion;
-                            item.DecisionReason = itemDTO.DecisionReason;
-                            item.PORecordVersion = purchaseOrderDTO.RecordVersion;
+                            PurchaseOrderDTO purchaseOrderDTO = POservice.GetPurchaseOrderByPONumber(Convert.ToInt32(itemDTO.PONumber), null, Convert.ToInt32(Session["employeeId"]), true);
 
-                            var ItemStatusList = lookupsService.GetItemStatus();
+                            if (purchaseOrderDTO != null)
+                            {
+                                item.ItemId = itemDTO.ItemId;
+                                item.ItemName = itemDTO.ItemName;
+                                item.ItemDescription = itemDTO.ItemDescription;
+                                item.Justification = itemDTO.Justification;
+                                item.Location = itemDTO.Location;
+                                item.Price = itemDTO.Price;
+                                item.Quantity = itemDTO.Quantity;
+                                item.PONumber = Convert.ToInt32(itemDTO.PONumber);
+                                item.ItemStatusId = itemDTO.ItemStatusId;
+                                item.RecordVersion = itemDTO.RecordVersion;
+                                item.DecisionReason = itemDTO.DecisionReason;
+                                item.PORecordVersion = purchaseOrderDTO.RecordVersion;
 
-                            ViewBag.ItemStatusList = new SelectList(ItemStatusList, "ItemStatusId", "ItemStatus");
+                                var ItemStatusList = lookupsService.GetItemStatus();
+
+                                ViewBag.ItemStatusList = new SelectList(ItemStatusList, "ItemStatusId", "ItemStatus");
+                            }
+                            else
+                            {
+                                ViewBag.errMsg = "You don't have permission to view the item.";
+                                return RedirectToAction("Error", "Login", new { returnUrl = Request.Url });
+                            }
                         }
                         else
                         {
-                            ViewBag.errMsg = "You don't have permission to view the item.";
-                            return RedirectToAction("Error", "Login", new { returnUrl = Request.Url });
+                            TempData["Error"] = "The item can not be modified. The item is denied by the employee.";
+                            return RedirectToAction("POProcess", "PurchaseOrder", new { PONumber = itemDTO.PONumber });
                         }
 
                     }
                     else
                     {
-                        TempData["Error"] = "The Purchase order is already closed. The item can not be modified.";
+                        TempData["Error"] = "The item can not be modified. The Purchase order is closed.";
                         return RedirectToAction("ProcessList", "PurchaseOrder");
                     }                    
                 }

@@ -139,10 +139,12 @@ namespace VastVoyages.Web.Controllers
             {
                 PO.employeeId = Convert.ToInt32(Session["employeeId"]);
 
+                //When first item added, create purchase order with the item
                 if (PO.PONumber == null)
                 {
                     PO = POservice.AddPurchaseOrder(PO, item);
                 }
+                //After first item added, add item in the purchase order
                 else
                 {
                     item.PONumber = Convert.ToInt32(PO.PONumber);
@@ -150,8 +152,11 @@ namespace VastVoyages.Web.Controllers
                     itemService.AddItem(item, PO);
                 }
 
+                //if inserted item is valid, load create page with the purchase order
                 if (item.Errors.Count == 0)
                 {
+                    //Set new record version after item added
+                    PO.RecordVersion = POservice.GetPurchaseOrderByPONumber(Convert.ToInt32(PO.PONumber), Convert.ToInt32(Session["employeeId"]), null, false).RecordVersion;
                     TempData["PO"] = PO;
                     return RedirectToAction("Create");
                 }
@@ -250,7 +255,6 @@ namespace VastVoyages.Web.Controllers
 
                         ViewBag.Total = (purchaseOrder.SubTotal + purchaseOrder.Tax).ToString("C");
 
-
                         purchaseOrder.items = GeneratePOItemList(purchaseOrder, false).items;
 
                         Item item = new Item();
@@ -299,7 +303,6 @@ namespace VastVoyages.Web.Controllers
 
                 if (item.Errors.Count == 0)
                 {
-                    TempData["PO"] = PO;
                     return RedirectToAction("Edit", new { PONumber = Convert.ToInt32(PO.PONumber) });
                 }
 
@@ -328,7 +331,7 @@ namespace VastVoyages.Web.Controllers
         /// <param name="POStatusId"></param>
         /// <returns></returns>
         [CustomizeAuthorize(RoleName.CEO, RoleName.HRSupervisor, RoleName.Supervisor)]
-        public ActionResult ProcessList(string EmpName, DateTime? Start, DateTime? End, int? POStatusId)
+        public ActionResult ProcessList(string EmpName, DateTime? Start, DateTime? End, int? POStatusId, string PONumber)
         {
             try
             {
@@ -346,14 +349,15 @@ namespace VastVoyages.Web.Controllers
 
                 ViewBag.endDate = End == null ? DateTime.Now.ToShortDateString() : End.Value.Date.ToShortDateString();
                 ViewBag.empName = EmpName;
+                ViewBag.PONumber = PONumber;
 
-                var searchValidation = ValidationSearch(null, EmpName, POStatusId, Start, End);
+                var searchValidation = ValidationSearch(PONumber, EmpName, POStatusId, Start, End);
 
                 ViewBag.searchError = searchValidation.Item6;
 
                 POStatusId = POStatusId == null ? 1 : POStatusId == 0 ? null : POStatusId;
 
-                return View(POservice.GetPurchaseOrderListBySupervisor(Convert.ToInt32(Session["employeeId"].ToString()), POStatusId, searchValidation.Item2, searchValidation.Item4, searchValidation.Item5));
+                return View(POservice.GetPurchaseOrderListBySupervisor(Convert.ToInt32(Session["employeeId"].ToString()), searchValidation.Item1, POStatusId, searchValidation.Item2, searchValidation.Item4, searchValidation.Item5));
             }
             catch (Exception ex)
             {
@@ -424,13 +428,13 @@ namespace VastVoyages.Web.Controllers
                         {
                             PurchaseOrder purchaseOrder = GeneratePurchaseOrderObject(PONumber.Value, purchaseOrderDTO);
 
-                            ViewBag.Total = (purchaseOrder.SubTotal + purchaseOrder.Tax).ToString("C");
-
+                            ViewBag.Total = (purchaseOrderDTO.SubTotal + purchaseOrderDTO.Tax).ToString("C");
+                            purchaseOrderDTO.items = itemService.GetItemListByPO(Convert.ToInt32(purchaseOrderDTO.PONumber), true);
                             purchaseOrder.items = GeneratePOItemList(purchaseOrder, true).items;
 
                             Item item = new Item();
 
-                            var tuple = new Tuple<PurchaseOrder, Item>(purchaseOrder, item);
+                            var tuple = new Tuple<PurchaseOrderDTO, Item>(purchaseOrderDTO, item);
 
                             var ItemStatusList = lookupsService.GetItemStatus();
                             ViewBag.ItemStatusList = new SelectList(ItemStatusList, "ItemStatusId", "ItemStatus");

@@ -68,7 +68,7 @@ namespace VastVoyages.Repository
         /// </summary>
         /// <param name="employeeId"></param>
         /// <returns></returns>
-        public List<PurchaseOrderDTO> RetrievePurchaseOrderListBySupervisor(int supervisorId, int? status, string EmployeeName, DateTime? start, DateTime? end)
+        public List<PurchaseOrderDTO> RetrievePurchaseOrderListBySupervisor(int supervisorId, int? status, string EmployeeName, DateTime? start, DateTime? end, int? PONumber)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
 
@@ -77,6 +77,7 @@ namespace VastVoyages.Repository
             parms.Add(new ParmStruct("@EmployeeName", EmployeeName, SqlDbType.VarChar, 120));
             parms.Add(new ParmStruct("@StartDate", start, SqlDbType.DateTime2));
             parms.Add(new ParmStruct("@EndDate", end, SqlDbType.DateTime2));
+            parms.Add(new ParmStruct("@PurchaseOrderNumber", PONumber, SqlDbType.Int));
 
             DataTable dt = db.Execute("spGetPurchaseOrderBySupervisor", parms);
 
