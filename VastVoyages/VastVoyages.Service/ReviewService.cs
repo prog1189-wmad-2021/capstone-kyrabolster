@@ -29,12 +29,32 @@ namespace VastVoyages.Service
         }
 
         /// <summary>
+        /// Get review by id
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
+        public Review GetReviewById(int reviewId)
+        {
+            Review review = repo.RetrieveReview(reviewId);
+            review.Quarter = (review.ReviewDate.Month - 1) / 3 + 1;
+            return review;
+        }
+
+        /// <summary>
         /// Get list of all reviews for employee
         /// </summary>
         /// <returns></returns>
         public List<Review> GetEmployeeReviews(int employeeId)
         {
-            return repo.RetrieveEmployeeReviews(employeeId);
+            List<Review> reviews = repo.RetrieveEmployeeReviews(employeeId);
+
+            foreach (Review review in reviews)
+            {
+                int quarter = (review.ReviewDate.Month - 1) / 3 + 1;
+                review.Quarter = quarter;
+            }
+
+            return reviews;
         }
 
         /// <summary>
@@ -62,7 +82,7 @@ namespace VastVoyages.Service
         /// </summary>
         /// <param name="reviews"></param>
         /// <returns></returns>
-        private bool HadEmployeeReviewThisQuarter(List<Review> reviews)
+        public bool HadEmployeeReviewThisQuarter(List<Review> reviews)
         {
             //get quarter
             int currentQuarter = (DateTime.Now.Month - 1) / 3 + 1;

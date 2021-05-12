@@ -65,5 +65,32 @@ namespace VastVoyages.Repository
 
             return reviews;
         }
+
+        public Review RetrieveReview(int reviewId)
+        {
+            List<ParmStruct> parms = new List<ParmStruct>()
+            {
+                new ParmStruct("@ReviewId", reviewId, SqlDbType.Int)
+            };
+
+            DataTable dt = db.Execute("spGetReviewById", parms);
+
+            DataRow row = dt.Rows[0];
+
+            Review review = new Review
+            {
+                EmployeeReviewId = Convert.ToInt32(row["EmployeeReviewId"]),
+                ReviewDate = Convert.ToDateTime(row["Date"]),
+                Comment = row["Comment"].ToString(),
+                EmployeeId = Convert.ToInt32(row["EmployeeId"]),
+                ReviewerId = Convert.ToInt32(row["ReviewerId"]),
+                RatingId = Convert.ToInt32(row["RatingId"]),
+                SupervisorFirstName = row["FirstName"].ToString(),
+                SupervisorMiddleInitial = row["MiddleInit"].ToString(),
+                SupervisorLastName = row["LastName"].ToString(),
+            };
+
+            return review;
+        }
     }
 }
