@@ -243,6 +243,7 @@ namespace VastVoyages.Service
 
         /// <summary>
         /// Check if the purchase order is processing when item updated
+        /// Check if the item is processing when item updated
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
