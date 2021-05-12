@@ -116,7 +116,7 @@ namespace VastVoyages.API.Controllers
         {
             try
             {
-                if (employeeId == null)
+                if (employeeId == null || (employeeId != Convert.ToInt32(Session["employeeId"])))
                 {
                     return View("PageNotFound");
                 }
@@ -152,6 +152,13 @@ namespace VastVoyages.API.Controllers
                 review = service.GetReviewById((int)reviewId);
 
                 if (review == null)
+                {
+                    return View("PageNotFound");
+                }
+
+                int employeeId = Convert.ToInt32(Session["employeeId"]);
+
+                if (employeeId != review.EmployeeId)
                 {
                     return View("PageNotFound");
                 }
