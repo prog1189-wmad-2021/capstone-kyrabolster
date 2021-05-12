@@ -92,5 +92,15 @@ namespace VastVoyages.Repository
 
             return review;
         }
+
+        public bool InsertReviewReminderEmail()
+        {
+            return db.ExecuteNonQuery("spInsertReviewReminderEmail") > 0;
+        }
+
+        public bool EmailSentToday()
+        {
+            return db.ExecuteScaler("spGetEmailSentToday") != null;
+        }
     }
 }

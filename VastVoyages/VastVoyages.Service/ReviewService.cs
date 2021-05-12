@@ -100,6 +100,51 @@ namespace VastVoyages.Service
             return false;
         }
 
+        /// <summary>
+        /// Check if review overdue
+        /// </summary>
+        /// <param name="reviews"></param>
+        /// <returns></returns>
+        //public bool IsReviewOverdue(Review review)
+        //{
+        //    //get quarter
+        //    int currentQuarter = (DateTime.Now.Month - 1) / 3 + 1;
+        //    DateTime firstDayOfQuarter = new DateTime(review.ReviewDate.Year, (currentQuarter - 1) * 3 + 1, 1);
+
+        //    return (review.ReviewDate > firstDayOfQuarter.AddDays(30));
+        //}
+
+
+        /// <summary>
+        /// Check 30 days past the quarter start date
+        /// </summary>
+        /// <returns></returns>
+        public bool Is30DaysIntoQuarter()
+        {
+            int currentQuarter = (DateTime.Now.Month - 1) / 3 + 1;
+            int currentYear = DateTime.Now.Year;
+            DateTime firstDayOfQuarter = new DateTime(currentYear, (currentQuarter - 1) * 3 + 1, 1);
+
+            return (DateTime.Now > firstDayOfQuarter.AddDays(30));
+            //return (DateTime.Now.AddDays(-30) > firstDayOfQuarter.AddDays(30));
+        }
+
+        /// <summary>
+        /// Insert date into review reminders table
+        /// </summary>
+        public void TrackReviewReminderSent()
+        {
+            repo.InsertReviewReminderEmail();
+        }
+
+        /// <summary>
+        /// Check if review reminders sent today
+        /// </summary>
+        /// <returns></returns>
+        public bool HaveReviewEmailsBeenSentToday()
+        {
+            return repo.EmailSentToday();
+        }
 
         /// <summary>
         /// Check if review date is in the future

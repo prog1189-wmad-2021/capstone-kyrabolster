@@ -10,6 +10,7 @@ namespace VastVoyages.Model
     {
         public string mailTo { get; set; }
         public string mailFrom { get; set; }
+        public List<string> cc { get; set; }
         public string subject { get; set; }
         public string body { get; set; }
     }
