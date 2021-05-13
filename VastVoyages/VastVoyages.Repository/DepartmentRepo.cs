@@ -42,6 +42,19 @@ namespace VastVoyages.Repository
         }
 
         /// <summary>
+        /// Delete Department
+        /// </summary>
+        /// <param name="departmentId"></param>
+        /// <returns></returns>
+        public bool DeleteDepartment(Department department)
+        {
+            List<ParmStruct> parms = new List<ParmStruct>();
+            parms.Add(new ParmStruct("@DepartmentId", department.DepartmentId, SqlDbType.Int));
+
+            return (db.ExecuteNonQuery("spDeleteDepartment", parms) > 0);
+        }
+
+        /// <summary>
         /// Update Department
         /// </summary>
         /// <param name="department"></param>
@@ -62,6 +75,33 @@ namespace VastVoyages.Repository
             }
 
             return department;
+        }
+
+        /// <summary>
+        /// Retrieve Employees by Department
+        /// </summary>
+        /// <param name="deparmentId"></param>
+        /// <returns></returns>
+        public List<EmployeeDTO> RetrieveEmployeesInDepartment(int deparmentId)
+        {
+            List<ParmStruct> parms = new List<ParmStruct>();
+            parms.Add(new ParmStruct("@DepartmentId", deparmentId, SqlDbType.Int));
+
+            DataTable dt = db.Execute("spGetEmployeesByDepartment", parms);
+
+            List<EmployeeDTO> employees = new List<EmployeeDTO>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                employees.Add(
+                    new EmployeeDTO
+                    {
+                        EmpId = Convert.ToInt32(row["EmployeeId"]),
+                    }
+                );
+            }
+
+            return employees;
         }
 
         /// <summary>
