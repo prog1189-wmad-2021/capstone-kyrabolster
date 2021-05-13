@@ -80,7 +80,7 @@ namespace VastVoyages.Service
         /// <returns></returns>
         public Item AddItem(Item item, PurchaseOrder PO)
         {
-            if(Validate(item) && IsNotStatusPending(item))
+            if(Validate(item) && IsStatusPending(item))
             {
                 Item duplicatedItem = FindDuplicatedItem(item, Convert.ToInt32(PO.PONumber));
 
@@ -106,7 +106,7 @@ namespace VastVoyages.Service
         /// <returns></returns>
         public Item UpdateItem(Item item, bool newItem, bool noNeed)
         {
-            if (Validate(item) && IsNotStatusPending(item))
+            if (Validate(item) && IsStatusPending(item))
             {
                 item.ItemStatusId = 1;
                 item.DecisionReason = "";
@@ -247,7 +247,7 @@ namespace VastVoyages.Service
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        private bool IsNotStatusPending(Item item)
+        private bool IsStatusPending(Item item)
         {
             //When a user update item and purchase order has been processing(under reveiw or closed)
             if (GetItemListByPO(item.PONumber, false).FirstOrDefault().POStatusId != 1)
