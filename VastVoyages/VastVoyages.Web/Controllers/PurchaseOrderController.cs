@@ -357,7 +357,7 @@ namespace VastVoyages.Web.Controllers
 
                 POStatusId = POStatusId == null ? 1 : POStatusId == 0 ? null : POStatusId;
 
-                return View(POservice.GetPurchaseOrderListBySupervisor(Convert.ToInt32(Session["employeeId"].ToString()), searchValidation.Item1, POStatusId, searchValidation.Item2, searchValidation.Item4, searchValidation.Item5));
+                return View(POservice.GetPurchaseOrderListBySupervisor(Convert.ToInt32(Session["employeeId"].ToString()), POStatusId, searchValidation.Item1, searchValidation.Item2, searchValidation.Item4, searchValidation.Item5));
             }
             catch (Exception ex)
             {

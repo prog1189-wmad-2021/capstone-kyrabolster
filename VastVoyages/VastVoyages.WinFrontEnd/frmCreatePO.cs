@@ -112,6 +112,7 @@ namespace VastVoyages.WinFrontEnd
                         else
                         {
                             _purchaseOrder.RecordVersion = item.PORecordVersion;
+                            _purchaseOrder.items.Add(item);
                         }
                     }
 

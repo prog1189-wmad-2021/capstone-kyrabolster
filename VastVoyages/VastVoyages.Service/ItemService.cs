@@ -109,7 +109,7 @@ namespace VastVoyages.Service
             if (Validate(item) && IsStatusPending(item))
             {
                 item.ItemStatusId = 1;
-                item.DecisionReason = "";
+                item.DecisionReason = null;
 
                 if(newItem)
                 {

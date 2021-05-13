@@ -55,7 +55,7 @@ namespace VastVoyages.Service
         /// </summary>
         /// <param name="employeeId"></param>
         /// <returns></returns>
-        public List<PurchaseOrderDTO> GetPurchaseOrderListBySupervisor(int supervisorId, int? PONumber = null, int ? status = null, string employeeName = null, DateTime? start = null, DateTime? end = null)
+        public List<PurchaseOrderDTO> GetPurchaseOrderListBySupervisor(int supervisorId, int? status = null, int? PONumber = null, string employeeName = null, DateTime? start = null, DateTime? end = null)
         {
             List<PurchaseOrderDTO> purchaseOrders = repo.RetrievePurchaseOrderListBySupervisor(supervisorId, status, employeeName, start, end, PONumber);
 

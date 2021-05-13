@@ -146,7 +146,7 @@ namespace VastVoyages.WinFrontEnd
                     cmbItemStatus.SelectedValue = ItemDTO.ItemStatusId;
                     txtReason.Text = ItemDTO.DecisionReason;
 
-                    if (itemService.GetItemListByPO(Convert.ToInt32(ItemDTO.PONumber), true).FirstOrDefault().POStatusId == 3)
+                    if (itemService.GetItemListByPO(Convert.ToInt32(ItemDTO.PONumber), true).FirstOrDefault().POStatusId == 3 || ItemDTO.Quantity == 0)
                     {
                         btnSave.Enabled = false;
                     }
@@ -231,7 +231,7 @@ namespace VastVoyages.WinFrontEnd
                 }
                 else
                 {
-                    purchaseOrders = POService.GetPurchaseOrderListBySupervisor(supervisorId, null, POStatus, empName, start, end);
+                    purchaseOrders = POService.GetPurchaseOrderListBySupervisor(supervisorId, POStatus, null, empName, start, end);
 
                     if (purchaseOrders.Count > 0)
                     {
@@ -297,7 +297,7 @@ namespace VastVoyages.WinFrontEnd
                         Location = txtLocation.Text.Trim(),
                         Price = Convert.ToDecimal(txtPrice.Text.Trim()),
                         Quantity = Convert.ToInt32(numQty.Value),
-                        DecisionReason = txtReason.Text.Trim(),
+                        DecisionReason = string.IsNullOrEmpty(txtReason.Text.Trim()) ? null : txtReason.Text.Trim(),
                         PONumber = Convert.ToInt32(_purchaseOrder.PONumber),
                         ItemStatusId = Convert.ToInt32(cmbItemStatus.SelectedValue)
                     };
