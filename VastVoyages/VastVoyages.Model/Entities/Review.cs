@@ -34,7 +34,40 @@ namespace VastVoyages.Model
 
         public string EmployeeName { get; set; }
 
+        public string SupervisorFirstName { get; set; }
+        public string SupervisorMiddleInitial { get; set; }
+        public string SupervisorLastName { get; set; }
+
+        public int Quarter { get; set; }
+        public int Year { get; set; }
         public virtual Rating Rating { get; set; }
+        public string RatingString
+        {
+            get
+            {
+                switch (RatingId) {
+                    case 1:
+                        return "Below Expectations";
+                    case 2:
+                        return "Meets Expectations";
+                    case 3:
+                        return "Exceeds Expectations";
+                    default:
+                        return "";
+                }
+            }
+        }
+
+        public string SupervisorFullName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(SupervisorMiddleInitial))
+                    return SupervisorFirstName + " " + SupervisorLastName;
+                else
+                    return SupervisorFirstName + " " + SupervisorMiddleInitial + " " + SupervisorLastName;
+            }
+        }
 
     }
 

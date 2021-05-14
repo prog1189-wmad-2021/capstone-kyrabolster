@@ -29,6 +29,16 @@ namespace VastVoyages.Service
                 return false;
         }
 
+        public bool DeleteDepartment(Department department)
+        {
+            if (IsDepartmentEmpty(department))
+                return repo.DeleteDepartment(department);
+            else 
+                department.AddError(new ValidationError("The selected department contains employees. It cannot be deleted.", ErrorType.Business));
+            return false;
+        }
+
+
         /// <summary>
         /// Update department
         /// </summary>
@@ -90,9 +100,24 @@ namespace VastVoyages.Service
 
         #region Private Methods
 
+        /// <summary>
+        /// Check if invocation date is in the past
+        /// </summary>
+        /// <param name="invocationDate"></param>
+        /// <returns></returns>
         private bool IsInvocationDateInPast(DateTime invocationDate)
         {
             return (invocationDate.Date < DateTime.Now.Date);
+        }
+
+        /// <summary>
+        /// Check if department has employees or not
+        /// </summary>
+        /// <param name="invocationDate"></param>
+        /// <returns></returns>
+        private bool IsDepartmentEmpty(Department department)
+        {
+            return (repo.RetrieveEmployeesInDepartment(department.DepartmentId).Count <= 0);
         }
 
         /// <summary>

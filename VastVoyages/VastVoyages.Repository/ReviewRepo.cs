@@ -65,5 +65,48 @@ namespace VastVoyages.Repository
 
             return reviews;
         }
+
+        public Review RetrieveReview(int reviewId)
+        {
+            List<ParmStruct> parms = new List<ParmStruct>()
+            {
+                new ParmStruct("@ReviewId", reviewId, SqlDbType.Int)
+            };
+
+            DataTable dt = db.Execute("spGetReviewById", parms);
+
+            List<Review> reviews = new List<Review>();
+
+            //DataRow row = dt.Rows[0];
+
+            foreach (DataRow row in dt.Rows)
+            {
+                reviews.Add(
+                new Review
+                {
+                    EmployeeReviewId = Convert.ToInt32(row["EmployeeReviewId"]),
+                    ReviewDate = Convert.ToDateTime(row["Date"]),
+                    Comment = row["Comment"].ToString(),
+                    EmployeeId = Convert.ToInt32(row["EmployeeId"]),
+                    ReviewerId = Convert.ToInt32(row["ReviewerId"]),
+                    RatingId = Convert.ToInt32(row["RatingId"]),
+                    SupervisorFirstName = row["FirstName"].ToString(),
+                    SupervisorMiddleInitial = row["MiddleInit"].ToString(),
+                    SupervisorLastName = row["LastName"].ToString(),
+                });
+            }
+
+            return reviews.Count == 0 ? null : reviews[0];
+        }
+
+        public bool InsertReviewReminderEmail()
+        {
+            return db.ExecuteNonQuery("spInsertReviewReminderEmail") > 0;
+        }
+
+        public bool EmailSentToday()
+        {
+            return db.ExecuteScaler("spGetEmailSentToday") != null;
+        }
     }
 }

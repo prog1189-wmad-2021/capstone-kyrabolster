@@ -53,6 +53,7 @@
             this.dtpInvocationDate = new System.Windows.Forms.DateTimePicker();
             this.txtDepartmentDescription = new System.Windows.Forms.TextBox();
             this.txtDepartmentName = new System.Windows.Forms.TextBox();
+            this.btnDeleteDepartment = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -229,6 +230,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnDeleteDepartment);
             this.groupBox1.Controls.Add(this.dgvDepartments);
             this.groupBox1.Location = new System.Drawing.Point(13, 180);
             this.groupBox1.Name = "groupBox1";
@@ -326,6 +328,18 @@
             this.txtDepartmentName.Size = new System.Drawing.Size(360, 22);
             this.txtDepartmentName.TabIndex = 6;
             // 
+            // btnDeleteDepartment
+            // 
+            this.btnDeleteDepartment.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteDepartment.Location = new System.Drawing.Point(1022, 21);
+            this.btnDeleteDepartment.Name = "btnDeleteDepartment";
+            this.btnDeleteDepartment.Size = new System.Drawing.Size(198, 50);
+            this.btnDeleteDepartment.TabIndex = 10;
+            this.btnDeleteDepartment.Text = "Delete Department";
+            this.btnDeleteDepartment.UseVisualStyleBackColor = true;
+            this.btnDeleteDepartment.Visible = false;
+            this.btnDeleteDepartment.Click += new System.EventHandler(this.btnDeleteDepartment_Click);
+            // 
             // frmModifyDepartment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -375,5 +389,6 @@
         private System.Windows.Forms.DateTimePicker dtpInvocationDate;
         private System.Windows.Forms.TextBox txtDepartmentDescription;
         private System.Windows.Forms.TextBox txtDepartmentName;
+        private System.Windows.Forms.Button btnDeleteDepartment;
     }
 }

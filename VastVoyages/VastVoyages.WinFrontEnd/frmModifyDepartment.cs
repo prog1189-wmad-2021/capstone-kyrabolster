@@ -27,6 +27,7 @@ namespace VastVoyages.WinFrontEnd
             LoadLoginInfo();
             LoadDepartments();
             grpModifyDepartment.Visible = false;
+            btnDeleteDepartment.Visible = false;
         }
 
         private void dgvDepartments_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -35,6 +36,44 @@ namespace VastVoyages.WinFrontEnd
             {
                 grpModifyDepartment.Visible = true;
                 PopulateDepartmentDetails();
+                string role = ((MainForm)this.MdiParent).loginInfo.Role;
+
+                if (role == "CEO" || role == "HR Supervisor" || role == "HR Employee")
+                    btnDeleteDepartment.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnDeleteDepartment_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Department department = PopulateDepartmentObject();
+
+                if (department.DepartmentId <= 0)
+                {
+                    MessageBox.Show("Please select a department to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    if (departmentService.DeleteDepartment(department))
+                    {
+                        LoadDepartments();
+                        MessageBox.Show(department.DepartmentName + " department successfully deleted.", "Success", MessageBoxButtons.OK);
+                    }
+                    else
+                    {
+                        string msg = "";
+                        foreach (ValidationError error in department.Errors)
+                        {
+                            msg += error.Description + Environment.NewLine;
+                        }
+                        MessageBox.Show("Please address the following issues:\n\n" + msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -131,8 +170,7 @@ namespace VastVoyages.WinFrontEnd
             lbCurrentDate.Text = DateTime.Now.ToShortDateString();
         }
 
+
         #endregion
-
-
     }
 }

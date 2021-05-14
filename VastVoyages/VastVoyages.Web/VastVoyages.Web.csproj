@@ -192,6 +192,8 @@
     <Content Include="Views\PurchaseOrder\ProcessList.cshtml" />
     <Content Include="Views\PurchaseOrder\POProcess.cshtml" />
     <Content Include="Views\Item\ItemProcess.cshtml" />
+    <Content Include="Views\Reviews\EmployeeReviews.cshtml" />
+    <Content Include="Views\Reviews\ReviewDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

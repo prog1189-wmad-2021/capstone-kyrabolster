@@ -29,6 +29,7 @@ namespace VastVoyages.API.Controllers
 
                 //only return employees that are due for review ***
                 employees = service.GetEmployeesDueFoReviewThisQuarter(employees);
+                //employees = service.GetEmployeesDueFoReviewLastQuarter(employees);
 
                 if (employees.Count <= 0)
                 {
@@ -62,6 +63,7 @@ namespace VastVoyages.API.Controllers
                 List<Review> employeesReviews = service.GetEmployeeReviews(employee.EmpId);
 
                 if (employee.SupervisorId != reviewerId || service.HadEmployeeReviewThisQuarter(employeesReviews))
+                    //if (employee.SupervisorId != reviewerId || service.HadEmployeeReviewLastQuarter(employeesReviews))
                 {
                     return View("PageNotFound");
                 }
@@ -111,5 +113,65 @@ namespace VastVoyages.API.Controllers
                 return View("review");
             }
         }
+
+        public ActionResult EmployeeReviews(int? employeeId)
+        {
+            try
+            {
+                if (employeeId == null || (employeeId != Convert.ToInt32(Session["employeeId"])))
+                {
+                    return View("PageNotFound");
+                }
+
+                List<Review> reviews = new List<Review>();
+
+                reviews = service.GetEmployeeReviews((int)employeeId).OrderByDescending(r => r.ReviewDate).ToList();
+
+                if (reviews.Count <= 0)
+                {
+                    ViewBag.Reviews = "No reviews to show at this time.";
+                }
+
+                return View(reviews);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Reviews", "Index"));
+            }
+        }
+
+        public ActionResult ReviewDetails(int? reviewId)
+        {
+            try
+            {
+                if (reviewId == null )
+                {
+                    return View("PageNotFound");
+                }
+
+                Review review = new Review();
+
+                review = service.GetReviewById((int)reviewId);
+
+                if (review == null)
+                {
+                    return View("PageNotFound");
+                }
+
+                int employeeId = Convert.ToInt32(Session["employeeId"]);
+
+                if (employeeId != review.EmployeeId)
+                {
+                    return View("PageNotFound");
+                }
+
+                return View(review);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Reviews", "Index"));
+            }
+        }
+
     }
 }
