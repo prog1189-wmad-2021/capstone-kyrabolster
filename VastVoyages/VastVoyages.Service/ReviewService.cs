@@ -38,7 +38,8 @@ namespace VastVoyages.Service
         {
             Review review = repo.RetrieveReview(reviewId);
 
-            review = SetReviewYearAndQuarter(review);
+            if(review != null)
+                review = SetReviewYearAndQuarter(review);
 
             return review;
         }
