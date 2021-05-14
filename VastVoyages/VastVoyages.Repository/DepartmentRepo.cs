@@ -49,9 +49,17 @@ namespace VastVoyages.Repository
         public bool DeleteDepartment(Department department)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
+            parms.Add(new ParmStruct("@RecordVersion", department.RecordVersion, SqlDbType.Timestamp, 0, ParameterDirection.InputOutput));
             parms.Add(new ParmStruct("@DepartmentId", department.DepartmentId, SqlDbType.Int));
 
-            return (db.ExecuteNonQuery("spDeleteDepartment", parms) > 0);
+            department.RecordVersion = (byte[])parms.Where(p => p.Name == "@RecordVersion").FirstOrDefault().Value;
+
+            if (db.ExecuteNonQuery("spDeleteDepartment", parms) > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
