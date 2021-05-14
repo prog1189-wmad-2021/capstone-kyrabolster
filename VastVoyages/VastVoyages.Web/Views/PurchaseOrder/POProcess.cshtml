@@ -1,4 +1,4 @@
-﻿@model Tuple<VastVoyages.Model.PurchaseOrder, VastVoyages.Model.Item>
+﻿@model Tuple<VastVoyages.Model.PurchaseOrderDTO, VastVoyages.Model.Item>
 
 @{
     ViewBag.Title = "Process Purchase Order";
@@ -18,17 +18,94 @@
 
 <div class="container" style="width: 95%; margin-top: 5%;">
     <h1 style="text-align:center;">Process Purchase Order</h1>
-    <br /><br />
     <div class="col-md-offset-4">
 
         @Html.HiddenFor(model => model.Item1.PONumber)
         @Html.HiddenFor(model => model.Item1.RecordVersion)
 
         <br /><br />
-        @if (Model.Item1.PONumber != null)
+        @*@if (Model.Item1.PONumber != null)
         {
             <h3>Purchase Order Number: @Html.DisplayFor(model => model.Item1.PONumber)</h3>
-        }
+        }*@
+        <div class="col-md-offset-4">
+            <div class="container row border p-5">
+                <div class="col-sm">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Item1.PONumber)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Item1.PONumber)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Item1.SubmissionDate)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Item1.SubmissionDate)
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-sm">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Item1.Employee)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Item1.Employee)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Item1.Supervisor)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Item1.Supervisor)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Item1.POStatus)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Item1.POStatus)
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-sm">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Item1.SubTotal)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Item1.SubTotal)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Item1.Tax)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Item1.Tax)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Item1.Total)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Item1.Total)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <br />
         <button class="btn btn-info" id="closePO" data-toggle="modal" data-target="#closePOModal">Close Purchase Order</button>
         @using (Html.BeginForm("ClosePurchaseOrder", "PurchaseOrder", FormMethod.Post))
         {
@@ -138,17 +215,20 @@
                             @Html.DisplayFor(modelItem => item.DecisionReason)
                         </td>
                         <td>
-                            @Html.ActionLink("Select", "ItemProcess", "Item", new { itemId = item.ItemId }, null)
+                            @if (item.Quantity > 0)
+                            {
+                                @Html.ActionLink("Select", "ItemProcess", "Item", new { itemId = item.ItemId }, null)
+                            }
                         </td>
                     </tr>
                 }
             }
         </table>
-        <div style="text-align:right">
+        @*<div style="text-align:right">
             <p>Sub Total: @string.Format("{0:C}", @Model.Item1.SubTotal)</p>
             <p>Tax: @string.Format("{0:C}", @Model.Item1.Tax)</p>
             <p>Total: @ViewBag.Total</p>
-        </div>
+        </div>*@
 
         <div style="text-align:right">
             @Html.ActionLink("Back to List", "ProcessList")

@@ -15,6 +15,10 @@
             <form>
                 <div class="form-row">
                     <div class="col">
+                        <label for="inputPONum">Purchase Order #</label>
+                        <input type="text" name="PONumber" value="@ViewBag.PONumber" class="form-control" placeholder="PO Number">
+                    </div>
+                    <div class="col">
                         <label for="inputName">Employee Name</label>
                         <input type="text" name="empName" value="@ViewBag.empName" class="form-control" placeholder="Name">
                     </div>
@@ -107,8 +111,8 @@
                         @if (item.POStatus != "Closed" && (Convert.ToBoolean(Session["isHeadSupervisor"]) || Session["department"].ToString() == "CEO"))
                         {
                             <td>
-                                @Html.ActionLink("Select", "POProcess", new { PONumber = item.PONumber }) |
-                                @Html.ActionLink("Details", "ProcessDetails", new { PONumber = item.PONumber })
+                                @Html.ActionLink("Process", "POProcess", new { PONumber = item.PONumber }) 
+                                @*@Html.ActionLink("Details", "ProcessDetails", new { PONumber = item.PONumber })*@
                             </td>
                         }
                         else

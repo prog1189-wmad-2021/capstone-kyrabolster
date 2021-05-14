@@ -80,7 +80,7 @@ namespace VastVoyages.Service
         /// <returns></returns>
         public Item AddItem(Item item, PurchaseOrder PO)
         {
-            if(Validate(item) && IsNotPOStatusPending(item))
+            if(Validate(item) && IsStatusPending(item))
             {
                 Item duplicatedItem = FindDuplicatedItem(item, Convert.ToInt32(PO.PONumber));
 
@@ -106,10 +106,10 @@ namespace VastVoyages.Service
         /// <returns></returns>
         public Item UpdateItem(Item item, bool newItem, bool noNeed)
         {
-            if (Validate(item) && IsNotPOStatusPending(item))
+            if (Validate(item) && IsStatusPending(item))
             {
                 item.ItemStatusId = 1;
-                item.DecisionReason = "";
+                item.DecisionReason = null;
 
                 if(newItem)
                 {
@@ -131,12 +131,8 @@ namespace VastVoyages.Service
                         {
                             duplicatedItem.Quantity += item.Quantity;
                             duplicatedItem.PORecordVersion = item.PORecordVersion;
-                            Item i = repo.Update(duplicatedItem);
-                            if (i != null)
-                            {
-                                repo.Delete(item.ItemId);
-                            }
-                            return i;
+                            if(repo.Delete(item.ItemId))
+                                return repo.Update(duplicatedItem);                            
                         }
                     }                  
 
@@ -166,6 +162,7 @@ namespace VastVoyages.Service
 
             return item;
         }
+        
         #endregion
 
         #region Private Methods
@@ -197,7 +194,7 @@ namespace VastVoyages.Service
             {
                 ItemToValidate.AddError(new ValidationError(e.ErrorMessage, ErrorType.Model));
             }
-           
+
             return ItemToValidate.Errors.Count == 0;
         }
 
@@ -246,16 +243,26 @@ namespace VastVoyages.Service
 
         /// <summary>
         /// Check if the purchase order is processing when item updated
+        /// Check if the item is processing when item updated
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        private bool IsNotPOStatusPending(Item item)
+        private bool IsStatusPending(Item item)
         {
             //When a user update item and purchase order has been processing(under reveiw or closed)
             if (GetItemListByPO(item.PONumber, false).FirstOrDefault().POStatusId != 1)
             {
                 item.AddError(new ValidationError("Purchase order has been proccessing. You cannot modify this purchase order.", ErrorType.Business));
                 return false;
+            }
+
+            if(item.ItemId != 0) 
+            {
+                if (GetItemByItemId(item.ItemId, null, null).ItemStatusId != 1)
+                {
+                    item.AddError(new ValidationError("Item status is not pending. You cannot modify this item.", ErrorType.Business));
+                    return false;
+                }
             }
 
             return true;

@@ -146,7 +146,7 @@ namespace VastVoyages.WinFrontEnd
                     cmbItemStatus.SelectedValue = ItemDTO.ItemStatusId;
                     txtReason.Text = ItemDTO.DecisionReason;
 
-                    if (itemService.GetItemListByPO(Convert.ToInt32(ItemDTO.PONumber), true).FirstOrDefault().POStatusId == 3)
+                    if (itemService.GetItemListByPO(Convert.ToInt32(ItemDTO.PONumber), true).FirstOrDefault().POStatusId == 3 || ItemDTO.Quantity == 0)
                     {
                         btnSave.Enabled = false;
                     }
@@ -173,7 +173,7 @@ namespace VastVoyages.WinFrontEnd
                 int supervisorId = Convert.ToInt32(((MainForm)this.MdiParent).loginInfo.EmployeeId);
                 DateTime? start = null;
                 DateTime? end = dtpEnd.Value.Date;
-                int? POStatus = null;
+                int? POStatus = 1;
                 string empName = null;
                 List<string> errorMsg = new List<string>();
 
@@ -213,7 +213,8 @@ namespace VastVoyages.WinFrontEnd
                 // If user select po status
                 if (cmbPOStatus.SelectedIndex > 0)
                 {
-                    POStatus = Convert.ToInt32(cmbPOStatus.SelectedValue);
+                    int? selectedStatusId = Convert.ToInt32(cmbPOStatus.SelectedValue);
+                    POStatus = selectedStatusId == 1 ? 1 : selectedStatusId == 0 ? null : selectedStatusId;
                 }
 
                 // if no search criteria error
@@ -230,7 +231,7 @@ namespace VastVoyages.WinFrontEnd
                 }
                 else
                 {
-                    purchaseOrders = POService.GetPurchaseOrderListBySupervisor(supervisorId, POStatus, empName, start, end);
+                    purchaseOrders = POService.GetPurchaseOrderListBySupervisor(supervisorId, POStatus, null, empName, start, end);
 
                     if (purchaseOrders.Count > 0)
                     {
@@ -296,7 +297,7 @@ namespace VastVoyages.WinFrontEnd
                         Location = txtLocation.Text.Trim(),
                         Price = Convert.ToDecimal(txtPrice.Text.Trim()),
                         Quantity = Convert.ToInt32(numQty.Value),
-                        DecisionReason = txtReason.Text.Trim(),
+                        DecisionReason = string.IsNullOrEmpty(txtReason.Text.Trim()) ? null : txtReason.Text.Trim(),
                         PONumber = Convert.ToInt32(_purchaseOrder.PONumber),
                         ItemStatusId = Convert.ToInt32(cmbItemStatus.SelectedValue)
                     };
@@ -376,8 +377,9 @@ namespace VastVoyages.WinFrontEnd
             POLookUpsService service = new POLookUpsService();
             List<POStatusLookUpsDTO> poStatus = service.GetPOStatus();
 
-            poStatus.Insert(0, new POStatusLookUpsDTO { POStatusId = 0, POStatus = "All" });
-            poStatus.RemoveAt(2);
+            poStatus.Insert(0, new POStatusLookUpsDTO { POStatusId = -1, POStatus = "--Select a status--" });
+            poStatus.Insert(1, new POStatusLookUpsDTO { POStatusId = 0, POStatus = "All" });
+            poStatus.RemoveAt(3);
 
             cmbPOStatus.DataSource = poStatus;
             cmbPOStatus.DisplayMember = "POStatus";

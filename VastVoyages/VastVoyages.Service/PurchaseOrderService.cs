@@ -55,14 +55,14 @@ namespace VastVoyages.Service
         /// </summary>
         /// <param name="employeeId"></param>
         /// <returns></returns>
-        public List<PurchaseOrderDTO> GetPurchaseOrderListBySupervisor(int supervisorId, int? status = null, string employeeName = null, DateTime? start = null, DateTime? end = null)
+        public List<PurchaseOrderDTO> GetPurchaseOrderListBySupervisor(int supervisorId, int? status = null, int? PONumber = null, string employeeName = null, DateTime? start = null, DateTime? end = null)
         {
-            List<PurchaseOrderDTO> purchaseOrders = repo.RetrievePurchaseOrderListBySupervisor(supervisorId, status, employeeName, start, end);
+            List<PurchaseOrderDTO> purchaseOrders = repo.RetrievePurchaseOrderListBySupervisor(supervisorId, status, employeeName, start, end, PONumber);
 
             // if status is pending, include purchase orders that are under review
             if (status == 1)
             {
-                List<PurchaseOrderDTO> underReviews = repo.RetrievePurchaseOrderListBySupervisor(supervisorId, 2, employeeName, start, end);
+                List<PurchaseOrderDTO> underReviews = repo.RetrievePurchaseOrderListBySupervisor(supervisorId, 2, employeeName, start, end, PONumber);
 
                 foreach (PurchaseOrderDTO po in underReviews)
                 {
