@@ -648,9 +648,14 @@ namespace VastVoyages.Web.Controllers
 
             if (start != null || end != null)
             {
-                if (start > DateTime.Now || end > DateTime.Now)
+                if (start > DateTime.Now)
                 {
-                    error.Add("Date can not be in the future.");
+                    error.Add("Start Date can not be in the future.");
+                }
+
+                if (end > DateTime.Now)
+                {
+                    error.Add("End Date can not be in the future.");
                 }
 
 
@@ -663,7 +668,7 @@ namespace VastVoyages.Web.Controllers
 
             if(error.Count > 0)
             {
-                return (null, null, null, null, null, error);
+                return (null, null, 1, null, null, error);
             } 
             else
             {
