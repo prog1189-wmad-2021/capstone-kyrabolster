@@ -19,7 +19,6 @@ package com.example.android.marsrealestate.overview
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -39,27 +38,24 @@ class OverviewFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val binding = FragmentOverviewBinding.inflate(inflater)
 
-        // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
 
-        // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
 
         binding.photosGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
-            viewModel.displayPropertyDetails(it)
+            viewModel.displayEmployeeDetails(it)
         })
 
         viewModel.navigateToSelectedProperty.observe(this, Observer {
             if (null != it) {
                 this.findNavController().navigate(
                         OverviewFragmentDirections.actionShowDetail(it))
-                viewModel.displayPropertyDetailsComplete()
+                viewModel.displayEmployeeDetailsComplete()
             }
         })
 
         setHasOptionsMenu(true)
 
-        //departments menu
         viewModel.departmentListChanged.observe(this, Observer { hasChanged ->
             if (hasChanged) {
                 activity!!.invalidateOptionsMenu()
@@ -88,7 +84,7 @@ class OverviewFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        viewModel.getMarsRealEstateProperties(item.itemId)
+        viewModel.getEmployees(item.itemId)
 //        Toast.makeText(getContext(), "Department ID: ${item.itemId}", Toast.LENGTH_LONG).show()
         return true
     }

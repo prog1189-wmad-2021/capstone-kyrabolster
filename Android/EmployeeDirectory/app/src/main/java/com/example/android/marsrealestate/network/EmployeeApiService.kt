@@ -35,16 +35,14 @@ private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .build()
 
-interface MarsApiService {
-//    @GET("employees")
-//    suspend fun getProperties(): List<Employee>
+interface EmployeeApiService {
 @GET("employees/{departmentId}")
-suspend fun getProperties(@Path("departmentId") type: Int): List<Employee>
+suspend fun getEmployees(@Path("departmentId") type: Int): List<Employee>
 
     @GET("departments")
     suspend fun getDepartments(): List<Department>
 }
 
-object MarsApi {
-    val retrofitService : MarsApiService by lazy { retrofit.create(MarsApiService::class.java) }
+object EmployeeApi {
+    val retrofitService : EmployeeApiService by lazy { retrofit.create(EmployeeApiService::class.java) }
 }

@@ -17,13 +17,9 @@
 
 package com.example.android.marsrealestate
 
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.example.android.marsrealestate.network.Employee
 import com.example.android.marsrealestate.overview.PhotoGridAdapter
 

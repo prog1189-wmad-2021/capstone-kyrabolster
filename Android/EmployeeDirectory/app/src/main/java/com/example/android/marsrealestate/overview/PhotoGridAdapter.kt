@@ -24,18 +24,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.marsrealestate.databinding.GridViewItemBinding
 import com.example.android.marsrealestate.network.Employee
-import com.example.android.marsrealestate.network.MarsProperty
 
 class PhotoGridAdapter( private val onClickListener: OnClickListener ) :
         ListAdapter<Employee,
-                PhotoGridAdapter.MarsPropertyViewHolder>(DiffCallback) {
+                PhotoGridAdapter.EmployeeViewHolder>(DiffCallback) {
 
-    class MarsPropertyViewHolder(private var binding: GridViewItemBinding):
+    class EmployeeViewHolder(private var binding: GridViewItemBinding):
             RecyclerView.ViewHolder(binding.root) {
         fun bind(employee: Employee) {
             binding.property = employee
-            // This is important, because it forces the data binding to execute immediately,
-            // which allows the RecyclerView to make the correct view size measurements
             binding.executePendingBindings()
         }
     }
@@ -51,18 +48,12 @@ class PhotoGridAdapter( private val onClickListener: OnClickListener ) :
         }
     }
 
-    /**
-     * Create new [RecyclerView] item views (invoked by the layout manager)
-     */
     override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): MarsPropertyViewHolder {
-        return MarsPropertyViewHolder(GridViewItemBinding.inflate(LayoutInflater.from(parent.context)))
+                                    viewType: Int): EmployeeViewHolder {
+        return EmployeeViewHolder(GridViewItemBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
-    /**
-     * Replaces the contents of a view (invoked by the layout manager)
-     */
-    override fun onBindViewHolder(holder: MarsPropertyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: EmployeeViewHolder, position: Int) {
         val employee = getItem(position)
         holder.itemView.setOnClickListener {
             onClickListener.onClick(employee)
