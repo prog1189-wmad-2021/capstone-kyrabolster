@@ -116,7 +116,7 @@ namespace VastVoyages.WinFrontEnd
             // 
             this.lbTax.AutoSize = true;
             this.lbTax.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTax.Location = new System.Drawing.Point(845, 19);
+            this.lbTax.Location = new System.Drawing.Point(822, 20);
             this.lbTax.Name = "lbTax";
             this.lbTax.Size = new System.Drawing.Size(0, 20);
             this.lbTax.TabIndex = 62;
@@ -154,7 +154,7 @@ namespace VastVoyages.WinFrontEnd
             // 
             this.lbTotal.AutoSize = true;
             this.lbTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTotal.Location = new System.Drawing.Point(835, 48);
+            this.lbTotal.Location = new System.Drawing.Point(822, 49);
             this.lbTotal.Name = "lbTotal";
             this.lbTotal.Size = new System.Drawing.Size(0, 20);
             this.lbTotal.TabIndex = 60;

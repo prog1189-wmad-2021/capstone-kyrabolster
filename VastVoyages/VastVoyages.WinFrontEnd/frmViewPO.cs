@@ -197,29 +197,34 @@ namespace VastVoyages.WinFrontEnd
                 if (e.ColumnIndex > -1 && dgvPO.Columns[e.ColumnIndex].Name == "btnEdit")
                 {
                     // only pending PO can be edited
-                    if (e.RowIndex >= 0 && dgvPO.Rows[e.RowIndex].Cells["Status"].Value.ToString() == "Pending")
+                    if (e.RowIndex >= 0)
                     {
                         PurchaseOrderService service = new PurchaseOrderService();
 
                         PurchaseOrderDTO purchaseOrderDTO = service.GetPurchaseOrderByPONumber(PONumber, null, null, false);
 
-                        frmCreatePO createForm = new frmCreatePO();
-                        
-                        createForm.edit = true;
-                        
-                        createForm._purchaseOrder = new PurchaseOrder{
-                            PONumber = purchaseOrderDTO.PONumber,
-                            SubmissionDate = purchaseOrderDTO.SubmissionDate,
-                            RecordVersion = purchaseOrderDTO.RecordVersion
-                        };
+                        if(purchaseOrderDTO.POStatus == "Pending")
+                        {
+                            frmCreatePO createForm = new frmCreatePO();
 
-                        createForm.MdiParent = this.MdiParent;
-                        createForm.Show();
+                            createForm.edit = true;
+
+                            createForm._purchaseOrder = new PurchaseOrder
+                            {
+                                PONumber = purchaseOrderDTO.PONumber,
+                                SubmissionDate = purchaseOrderDTO.SubmissionDate,
+                                RecordVersion = purchaseOrderDTO.RecordVersion
+                            };
+
+                            createForm.MdiParent = this.MdiParent;
+                            createForm.Show();
+                        }
+                        else
+                        {
+                            MessageBox.Show("You cannot modify this purchase order", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
-                    else
-                    {
-                        MessageBox.Show("You cannot modify this purchase order", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                   
                 }
                 else
                 {

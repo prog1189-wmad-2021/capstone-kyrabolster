@@ -84,6 +84,7 @@ namespace VastVoyages.WinFrontEnd
                         if (item.Errors.Count == 0)
                         {
                             lbPONumber.Text = _purchaseOrder.PONumber;
+                            ClearForm();
                         }
                         else
                         {
@@ -96,7 +97,7 @@ namespace VastVoyages.WinFrontEnd
                     else
                     {
                         //item.RecordVersion = _purchaseOrder.RecordVersion;
-                        itemService.AddItem(item, _purchaseOrder);
+                        item = itemService.AddItem(item, _purchaseOrder);
 
                         if(item.Errors.Count > 0)
                         {
@@ -112,14 +113,12 @@ namespace VastVoyages.WinFrontEnd
                         else
                         {
                             _purchaseOrder.RecordVersion = item.PORecordVersion;
-                            _purchaseOrder.items.Add(item);
+                            ClearForm();
                         }
                     }
 
                     // Refresh data grive view
-                    GenerateItemDataGridView(_purchaseOrder.PONumber);
-
-                    ClearForm();
+                    GenerateItemDataGridView(_purchaseOrder.PONumber);                    
                 }
 
                 else
@@ -230,7 +229,7 @@ namespace VastVoyages.WinFrontEnd
                     item.RecordVersion = recordVersion;
                     item.PORecordVersion = _purchaseOrder.RecordVersion;
 
-                    itemService.UpdateItem(item, false, chkNoNeed.Checked);
+                    item = itemService.UpdateItem(item, chkNoNeed.Checked);
 
                     if (item.Errors.Count > 0)
                     {

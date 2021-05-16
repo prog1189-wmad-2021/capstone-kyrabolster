@@ -86,7 +86,7 @@ namespace VastVoyages.Web.Controllers
         {
             try
             {
-                itemService.UpdateItem(item, false, chkNoNeed != null ? true : false);
+                itemService.UpdateItem(item, chkNoNeed != null ? true : false);
                                 
                 if (item.Errors.Count == 0)
                 {

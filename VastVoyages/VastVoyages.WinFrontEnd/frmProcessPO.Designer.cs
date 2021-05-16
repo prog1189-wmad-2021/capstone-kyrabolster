@@ -71,6 +71,8 @@ namespace VastVoyages.WinFrontEnd
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgvPO = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtPONumber = new System.Windows.Forms.TextBox();
             this.btnSearchCriteriaReset = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -516,6 +518,8 @@ namespace VastVoyages.WinFrontEnd
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.txtPONumber);
             this.groupBox1.Controls.Add(this.btnSearchCriteriaReset);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label4);
@@ -534,10 +538,28 @@ namespace VastVoyages.WinFrontEnd
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search PO";
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(11, 61);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(86, 17);
+            this.label13.TabIndex = 30;
+            this.label13.Text = "PO Number:";
+            // 
+            // txtPONumber
+            // 
+            this.txtPONumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPONumber.Location = new System.Drawing.Point(97, 60);
+            this.txtPONumber.Name = "txtPONumber";
+            this.txtPONumber.Size = new System.Drawing.Size(85, 23);
+            this.txtPONumber.TabIndex = 29;
+            // 
             // btnSearchCriteriaReset
             // 
             this.btnSearchCriteriaReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearchCriteriaReset.Location = new System.Drawing.Point(742, 30);
+            this.btnSearchCriteriaReset.Location = new System.Drawing.Point(802, 30);
             this.btnSearchCriteriaReset.Name = "btnSearchCriteriaReset";
             this.btnSearchCriteriaReset.Size = new System.Drawing.Size(121, 48);
             this.btnSearchCriteriaReset.TabIndex = 28;
@@ -549,7 +571,7 @@ namespace VastVoyages.WinFrontEnd
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(341, 61);
+            this.label5.Location = new System.Drawing.Point(450, 61);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(52, 17);
             this.label5.TabIndex = 27;
@@ -559,7 +581,7 @@ namespace VastVoyages.WinFrontEnd
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(7, 61);
+            this.label4.Location = new System.Drawing.Point(187, 61);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(115, 17);
             this.label4.TabIndex = 26;
@@ -569,7 +591,7 @@ namespace VastVoyages.WinFrontEnd
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(34, 28);
+            this.label3.Location = new System.Drawing.Point(11, 30);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(88, 17);
             this.label3.TabIndex = 25;
@@ -578,9 +600,9 @@ namespace VastVoyages.WinFrontEnd
             // txtEmpName
             // 
             this.txtEmpName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmpName.Location = new System.Drawing.Point(128, 60);
+            this.txtEmpName.Location = new System.Drawing.Point(303, 60);
             this.txtEmpName.Name = "txtEmpName";
-            this.txtEmpName.Size = new System.Drawing.Size(190, 23);
+            this.txtEmpName.Size = new System.Drawing.Size(141, 23);
             this.txtEmpName.TabIndex = 24;
             // 
             // cmbPOStatus
@@ -588,7 +610,7 @@ namespace VastVoyages.WinFrontEnd
             this.cmbPOStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPOStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbPOStatus.FormattingEnabled = true;
-            this.cmbPOStatus.Location = new System.Drawing.Point(399, 60);
+            this.cmbPOStatus.Location = new System.Drawing.Point(508, 60);
             this.cmbPOStatus.Name = "cmbPOStatus";
             this.cmbPOStatus.Size = new System.Drawing.Size(135, 24);
             this.cmbPOStatus.TabIndex = 22;
@@ -597,7 +619,7 @@ namespace VastVoyages.WinFrontEnd
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(324, 30);
+            this.label2.Location = new System.Drawing.Point(301, 32);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(16, 17);
             this.label2.TabIndex = 21;
@@ -606,7 +628,7 @@ namespace VastVoyages.WinFrontEnd
             // btnSearch
             // 
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Location = new System.Drawing.Point(594, 30);
+            this.btnSearch.Location = new System.Drawing.Point(675, 30);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(121, 48);
             this.btnSearch.TabIndex = 15;
@@ -617,7 +639,7 @@ namespace VastVoyages.WinFrontEnd
             // dtpEnd
             // 
             this.dtpEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpEnd.Location = new System.Drawing.Point(344, 24);
+            this.dtpEnd.Location = new System.Drawing.Point(321, 26);
             this.dtpEnd.Name = "dtpEnd";
             this.dtpEnd.Size = new System.Drawing.Size(190, 23);
             this.dtpEnd.TabIndex = 3;
@@ -625,7 +647,7 @@ namespace VastVoyages.WinFrontEnd
             // dtpStart
             // 
             this.dtpStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpStart.Location = new System.Drawing.Point(128, 24);
+            this.dtpStart.Location = new System.Drawing.Point(105, 26);
             this.dtpStart.Name = "dtpStart";
             this.dtpStart.Size = new System.Drawing.Size(190, 23);
             this.dtpStart.TabIndex = 2;
@@ -716,5 +738,7 @@ namespace VastVoyages.WinFrontEnd
         private System.Windows.Forms.Label lbItemId;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtPONumber;
     }
 }

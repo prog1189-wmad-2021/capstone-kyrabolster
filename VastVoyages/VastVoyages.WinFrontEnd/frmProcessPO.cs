@@ -174,6 +174,7 @@ namespace VastVoyages.WinFrontEnd
                 DateTime? start = null;
                 DateTime? end = dtpEnd.Value.Date;
                 int? POStatus = 1;
+                int? PONumber = null;
                 string empName = null;
                 List<string> errorMsg = new List<string>();
 
@@ -210,6 +211,19 @@ namespace VastVoyages.WinFrontEnd
                 if (!string.IsNullOrEmpty(txtEmpName.Text.Trim()))
                     empName = txtEmpName.Text.Trim();
 
+                // If user enter PO Number
+                if (!string.IsNullOrEmpty(txtPONumber.Text.Trim()))
+                {
+                    if (!int.TryParse(txtPONumber.Text.Trim(), out int PONumParam))
+                    {
+                        errorMsg.Add("Invalid format. Purchase order number must be 8 digit.");
+                    }
+                    else
+                    {
+                        PONumber = PONumParam;
+                    }
+                }
+
                 // If user select po status
                 if (cmbPOStatus.SelectedIndex > 0)
                 {
@@ -231,7 +245,7 @@ namespace VastVoyages.WinFrontEnd
                 }
                 else
                 {
-                    purchaseOrders = POService.GetPurchaseOrderListBySupervisor(supervisorId, POStatus, null, empName, start, end);
+                    purchaseOrders = POService.GetPurchaseOrderListBySupervisor(supervisorId, POStatus, PONumber, empName, start, end);
 
                     if (purchaseOrders.Count > 0)
                     {

@@ -88,7 +88,7 @@ namespace VastVoyages.Service
                 {
                     duplicatedItem.Quantity += item.Quantity;
                     duplicatedItem.PORecordVersion = item.PORecordVersion;
-                    return UpdateItem(duplicatedItem, true, false);
+                    return UpdateItem(duplicatedItem);
                 }
 
                 return repo.Insert(item, PO);
@@ -98,46 +98,58 @@ namespace VastVoyages.Service
         }
 
         /// <summary>
-        /// Update item in db
+        /// Overloading pdate item method (only for duplicated item in service layer)
         /// </summary>
         /// <param name="item"></param>
-        /// <param name="newItem"></param>
-        /// <param name="noNeed"></param>
         /// <returns></returns>
-        public Item UpdateItem(Item item, bool newItem, bool noNeed)
+        public Item UpdateItem(Item item)
         {
             if (Validate(item) && IsStatusPending(item))
             {
                 item.ItemStatusId = 1;
                 item.DecisionReason = null;
 
-                if(newItem)
-                {
-                    return repo.Update(item);
+                return repo.Update(item);
+            }
+
+            return item;
+        }
+
+
+        /// <summary>
+        /// Update item in db
+        /// if the item checked as no longer needed, set deny status, change description and 0 quantity
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="noNeed"></param>
+        /// <returns></returns>
+        public Item UpdateItem(Item item, bool noNeed)
+        {
+            if (Validate(item) && IsStatusPending(item))
+            {
+                item.ItemStatusId = 1;
+                item.DecisionReason = null;
+               
+                if(noNeed)
+                {                        
+                    item.ItemStatusId = 3;
+                    item.Quantity = 0;
+                    item.ItemDescription = "No longer needed";                 
                 }
                 else
                 {
-                    if(noNeed)
-                    {                        
-                        item.ItemStatusId = 3;
-                        item.Quantity = 0;
-                        item.ItemDescription = "No longer needed";                 
-                    }
-                    else
+                    Item duplicatedItem = FindDuplicatedItem(item, Convert.ToInt32(item.PONumber));
+
+                    if (duplicatedItem != null)
                     {
-                        Item duplicatedItem = FindDuplicatedItem(item, Convert.ToInt32(item.PONumber));
+                        duplicatedItem.Quantity += item.Quantity;
+                        duplicatedItem.PORecordVersion = item.PORecordVersion;
+                        if(repo.Delete(item.ItemId))
+                            return repo.Update(duplicatedItem);                            
+                    }
+                }                  
 
-                        if (duplicatedItem != null)
-                        {
-                            duplicatedItem.Quantity += item.Quantity;
-                            duplicatedItem.PORecordVersion = item.PORecordVersion;
-                            if(repo.Delete(item.ItemId))
-                                return repo.Update(duplicatedItem);                            
-                        }
-                    }                  
-
-                    return repo.Update(item);
-                }               
+                return repo.Update(item);
             }
             return item;
         }
