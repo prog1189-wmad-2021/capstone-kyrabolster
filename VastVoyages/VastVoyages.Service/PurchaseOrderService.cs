@@ -178,7 +178,7 @@ namespace VastVoyages.Service
 
             if (POToValidate.items.Count == 0)
             {
-                POToValidate.AddError(new ValidationError("Purchase order must habe at least one item.", ErrorType.Business));
+                POToValidate.AddError(new ValidationError("Purchase order must have at least one item.", ErrorType.Business));
             }
 
             if (POToValidate.POstatusId == 3)

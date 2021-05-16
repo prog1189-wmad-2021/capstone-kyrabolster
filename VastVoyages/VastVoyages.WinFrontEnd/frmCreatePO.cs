@@ -37,6 +37,12 @@ namespace VastVoyages.WinFrontEnd
         {
             LoadLoginInfo();
 
+            if (_purchaseOrder == null)
+            {
+                _purchaseOrder = new PurchaseOrder();
+                _purchaseOrder.items = new List<Item>();
+            }
+
             if(edit)
             {
                 this.Text = "Edit Purchase Order";
@@ -134,6 +140,7 @@ namespace VastVoyages.WinFrontEnd
 
         /// <summary>
         /// Final submit button. Update purchase order
+        /// If the user didn't submit when they create purchase order first, they can submit in modify PO page
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -141,68 +148,62 @@ namespace VastVoyages.WinFrontEnd
         {
             try
             {
-                if(_purchaseOrder.PONumber != null)
+                if (edit)
                 {
-                    if(edit)
+                    if (_purchaseOrder.items == null)
                     {
-                        if (_purchaseOrder.items == null)
-                        {
-                            _purchaseOrder.items = new List<Item>();
-                        }
-
-                        List<ItemDTO> items = itemService.GetItemListByPO(Convert.ToInt32(_purchaseOrder.PONumber), false);
-
-                        foreach (ItemDTO i in items)
-                        {
-                            _purchaseOrder.items.Add(new Item
-                            {
-                                ItemId = i.ItemId,
-                                ItemName = i.ItemName,
-                                ItemDescription = i.ItemDescription,
-                                Justification = i.Justification,
-                                Location = i.Location,
-                                Price = i.Price,
-                                Quantity = i.Quantity,
-                                ItemStatusId = i.ItemStatusId
-                            });
-                        }
-                    }                 
-
-                    _purchaseOrder = POservice.UpdatePurcaseOrder(_purchaseOrder);
-
-                    if (_purchaseOrder.Errors.Count > 0)
-                    {
-                        string errorMsg = "";
-
-                        foreach (ValidationError error in _purchaseOrder.Errors)
-                        {
-                            errorMsg += error.Description + Environment.NewLine;
-                        }
-
-                        MessageBox.Show(errorMsg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        _purchaseOrder.items = new List<Item>();
                     }
-                    else
-                    {
-                        MessageBox.Show("Purchase order has been submitted successful!");
-                        ((MainForm)this.MdiParent).StatusLabel.Text = "Purchase order create Successful!";
-                        _purchaseOrder = new PurchaseOrder();
-                        dgvItem.DataSource = null;
-                        lbSubTotal.Text = "";
-                        lbTax.Text = "";
-                        lbTotal.Text = "";
-                        lbPONumber.Text = "";
 
-                        if(edit)
+                    List<ItemDTO> items = itemService.GetItemListByPO(Convert.ToInt32(_purchaseOrder.PONumber), false);
+
+                    foreach (ItemDTO i in items)
+                    {
+                        _purchaseOrder.items.Add(new Item
                         {
-                            this.Close();
-                        }
+                            ItemId = i.ItemId,
+                            ItemName = i.ItemName,
+                            ItemDescription = i.ItemDescription,
+                            Justification = i.Justification,
+                            Location = i.Location,
+                            Price = i.Price,
+                            Quantity = i.Quantity,
+                            ItemStatusId = i.ItemStatusId
+                        });
                     }
+                }                 
+
+                _purchaseOrder = POservice.UpdatePurcaseOrder(_purchaseOrder);
+
+                if (_purchaseOrder.Errors.Count > 0)
+                {
+                    string errorMsg = "";
+
+                    foreach (ValidationError error in _purchaseOrder.Errors)
+                    {
+                        errorMsg += error.Description + Environment.NewLine;
+                    }
+
+                    MessageBox.Show(errorMsg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
                 else
                 {
-                    MessageBox.Show("Purchase order must have at least one item.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Purchase order has been submitted successful!");
+                    ((MainForm)this.MdiParent).StatusLabel.Text = "Purchase order create Successful!";
+                    dgvItem.DataSource = null;
+                    lbSubTotal.Text = "";
+                    lbTax.Text = "";
+                    lbTotal.Text = "";
+                    lbPONumber.Text = "";
+
+                    if(edit)
+                    {
+                        this.Close();
+                    }
                 }
+
+                _purchaseOrder = new PurchaseOrder();
+                _purchaseOrder.items = new List<Item>();
 
             }
             catch (Exception ex)
