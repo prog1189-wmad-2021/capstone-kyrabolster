@@ -228,7 +228,7 @@ namespace VastVoyages.WinFrontEnd
                         processPOToolStripMenuItem.Visible = true;
                     }
 
-                    if(loginInfo.Role == "CEO" || loginInfo.Role == "HR Supervisor")
+                    if(loginInfo.Role == "CEO" || loginInfo.Role == "HR Supervisor" || loginInfo.Role == "HR Employee")
                     {
                         AddEmpToolStripMenuItem.Visible = true;
                     }

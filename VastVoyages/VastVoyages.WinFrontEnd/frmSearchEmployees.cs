@@ -403,6 +403,7 @@ namespace VastVoyages.WinFrontEnd
             cmbDepartment.SelectedValue = Convert.ToInt32(employee.DepartmentId);
 
             LoadSupervisors();
+            cmbSupervisor.SelectedValue = Convert.ToInt32(employee.SupervisorId);
         }
 
         private void PopulateEmploymentStatus()

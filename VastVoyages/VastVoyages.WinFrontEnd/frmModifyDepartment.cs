@@ -63,6 +63,7 @@ namespace VastVoyages.WinFrontEnd
                     {
                         LoadDepartments();
                         MessageBox.Show(department.DepartmentName + " department successfully deleted.", "Success", MessageBoxButtons.OK);
+                        grpModifyDepartment.Visible = false;
                     }
                     else
                     {
@@ -95,6 +96,7 @@ namespace VastVoyages.WinFrontEnd
                 {
                     MessageBox.Show("Success!\n" +
                         department.DepartmentName.ToString() + " department successfully updated");
+                    grpModifyDepartment.Visible = false;
                     LoadDepartments();
                 }
                 else
