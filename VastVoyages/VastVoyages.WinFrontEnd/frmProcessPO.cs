@@ -338,6 +338,7 @@ namespace VastVoyages.WinFrontEnd
                     else
                     {
                         MessageBox.Show($"Item Id: {item.ItemId} has been updated successful!");
+                        ((MainForm)this.MdiParent).StatusLabel.Text = $"Item Id: {item.ItemId} has been updated!";
                         ClearItemForm();
 
                         PurchaseOrder purchaseOrder = GeneratePurchaseOrderObject(_purchaseOrder);
@@ -571,6 +572,7 @@ namespace VastVoyages.WinFrontEnd
                         GetPurchaseOrderList(Convert.ToInt32(((MainForm)this.MdiParent).loginInfo.EmployeeId));
                         dgvItem.DataSource = null;
                         ClearItemForm();
+                        ((MainForm)this.MdiParent).StatusLabel.Text = $"PO Id: {purchaseOrder.POstatusId} closed!";
                     }
                 }
                 else

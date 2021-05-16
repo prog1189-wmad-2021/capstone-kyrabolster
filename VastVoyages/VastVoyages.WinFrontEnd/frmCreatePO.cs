@@ -96,7 +96,6 @@ namespace VastVoyages.WinFrontEnd
                     // If there is already item, insert new item to item table
                     else
                     {
-                        //item.RecordVersion = _purchaseOrder.RecordVersion;
                         item = itemService.AddItem(item, _purchaseOrder);
 
                         if(item.Errors.Count > 0)
@@ -246,6 +245,7 @@ namespace VastVoyages.WinFrontEnd
                     else
                     {
                         MessageBox.Show($"Item Id: {lbItemIDValue.Text} has been updated successful!");
+                        ((MainForm)this.MdiParent).StatusLabel.Text = $"Item Id: {lbItemIDValue.Text} has been updated!";
                         _purchaseOrder.RecordVersion = item.PORecordVersion;
                         ClearForm();
 
