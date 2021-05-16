@@ -5,61 +5,82 @@
     Layout = "~/Views/Shared/_NavTemplate.cshtml";
 }
 
-    <div class="container" style="width: 95%; margin-top: 5%;">
+<div class="container" style="width: 95%; margin-top: 5%;">
 
-        <h2>Performance Reviews</h2>
+    <h2>Performance Reviews</h2>
 
-        @using (Html.BeginForm("index", "Reviews", FormMethod.Get))
+    @using (Html.BeginForm("index", "Reviews", FormMethod.Get))
+    {
+
+        if (Model.Any())
         {
+            <table class="table">
+                <tr>
+                    <th>
+                        Year
+                    </th>
+                    <th>
+                        Quarter
+                    </th>
+                    <th>
+                        Review Date
+                    </th>
+                    <th></th>
+                </tr>
 
-            if (Model.Any())
-            {
-                <table class="table">
+                @foreach (var item in Model)
+                {
                     <tr>
-                        <th>
-                            Year
-                        </th>
-                        <th>
-                            Quarter
-                        </th>
-                        <th>
-                            Review Date
-                        </th>
-                        <th></th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Year)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quarter)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReviewDate)
+                        </td>
+                        <td>
+                            @Html.ActionLink("View", "ReviewDetails/", new { reviewId = item.EmployeeReviewId })
+                        </td>
                     </tr>
+                }
 
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Year)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Quarter)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ReviewDate)
-                            </td>
-                            <td>
-                                @Html.ActionLink("View", "ReviewDetails/", new { reviewId = item.EmployeeReviewId })
-                            </td>
-                        </tr>
-                    }
-
-                </table>
-            }
-            else
-            {
-                @ViewBag.Reviews
-            }
+            </table>
         }
+        else
+        {
+            @ViewBag.Reviews
+        }
+    }
+</div>
+
+<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to close this purchase order?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
+</div>
 
 @{
     if (TempData["Success"] != null)
     {
         <script type="text/javascript">
-        alert(@Html.Raw(Json.Encode(TempData["Success"])));
+            $('#alertModal').modal('show');
+            $("#alertModal .modal-title").html("Success");
+            $("#alertModal .modal-body").html(@Html.Raw(Json.Encode(TempData["Success"])));
         </script>
     }
 }

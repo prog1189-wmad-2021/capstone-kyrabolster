@@ -261,12 +261,15 @@ namespace VastVoyages.Service
                 employee.AddError(new ValidationError(e.ErrorMessage, ErrorType.Model));
             }
 
-            if (!IsValidatePostalCode(employee))
+            if (employee.PostalCode != null)
             {
-                if (employee.Country == "Canada")
-                    employee.AddError(new ValidationError("Postal Code must be in correct Canadian format.", ErrorType.Business));
-                else
-                    employee.AddError(new ValidationError("ZipCode must be in correct US format.", ErrorType.Business));
+                if (!IsValidatePostalCode(employee))
+                {
+                    if (employee.Country == "Canada")
+                        employee.AddError(new ValidationError("Postal Code must be in correct Canadian format.", ErrorType.Business));
+                    else
+                        employee.AddError(new ValidationError("ZipCode must be in correct US format.", ErrorType.Business));
+                }
             }
 
             if (IsBelowLegalAge(employee.DateOfBirth))

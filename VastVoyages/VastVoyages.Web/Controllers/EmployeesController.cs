@@ -62,14 +62,12 @@ namespace VastVoyages.Web.Controllers
             try
             {
                 if (employeeId == null)
-                {
-                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-                }
+                    return View("PageNotFound");
 
                 List<EmployeeDTO> employeeDetails = service.SearchEmployeesById(employeeId.Value);
 
                 if (employeeDetails.Count <= 0)
-                    return HttpNotFound();
+                    return View("PageNotFound");
 
                 EmployeeDTO employee = new EmployeeDTO()
                 {
