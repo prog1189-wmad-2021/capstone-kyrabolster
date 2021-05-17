@@ -42,7 +42,7 @@ namespace VastVoyages.Web.Controllers
                 }
 
                 ViewBag.endDate = End == null ? DateTime.Now.ToShortDateString() : End.Value.Date.ToShortDateString();
-                ViewBag.poNumber = PONumber;
+                ViewBag.poNumber = PONumber.Trim();
 
                 POStatusId = POStatusId == null ? 1 : POStatusId == 0 ? null : POStatusId;
 
@@ -348,8 +348,8 @@ namespace VastVoyages.Web.Controllers
                 }
 
                 ViewBag.endDate = End == null ? DateTime.Now.ToShortDateString() : End.Value.Date.ToShortDateString();
-                ViewBag.empName = EmpName;
-                ViewBag.PONumber = PONumber;
+                ViewBag.empName = EmpName.Trim();
+                ViewBag.PONumber = PONumber.Trim();
 
                 var searchValidation = ValidationSearch(PONumber, EmpName, POStatusId, Start, End);
 
