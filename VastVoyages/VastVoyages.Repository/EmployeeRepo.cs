@@ -22,7 +22,7 @@ namespace VastVoyages.Repository
         /// </summary>
         /// <param name="employee"></param>
         /// <returns></returns>
-        public bool AddEmployee(Employee employee)
+        public bool AddEmployee(Employee employee, string password)
         {
             List<ParmStruct> parms = new List<ParmStruct>();
 
@@ -56,6 +56,8 @@ namespace VastVoyages.Repository
             parms.Add(new ParmStruct("@DepartmentId", employee.DepartmentId, SqlDbType.Int));
             parms.Add(new ParmStruct("@EmployeeStatusId", employee.EmployeeStatusId, SqlDbType.Int));
             parms.Add(new ParmStruct("@JobAssignmentId", employee.JobAssignmentId, SqlDbType.Int));
+
+            parms.Add(new ParmStruct("@Password", password, SqlDbType.NVarChar, int.MaxValue));
 
             if (db.ExecuteNonQuery("spInsertEmployee", parms) > 0)
             {

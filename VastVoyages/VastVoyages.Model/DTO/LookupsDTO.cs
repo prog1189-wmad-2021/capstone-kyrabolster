@@ -15,7 +15,20 @@ namespace VastVoyages.Model.DTO
     public class SupervisorLookupsDTO
     {
         public int SupervisorId { get; set; }
-        public string SupervisorName { get; set; }
+        public string FirstName { get; set; }
+        public string MiddleInitial { get; set; }
+        public string LastName { get; set; }
+
+        public string SupervisorName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(MiddleInitial))
+                    return FirstName + " " + LastName;
+                else
+                    return FirstName + " " + MiddleInitial + " " + LastName;
+            }
+        }
     }
 
     public class DepartmentLookupsDTO

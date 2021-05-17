@@ -11,7 +11,7 @@
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet"
@@ -42,90 +42,92 @@
             <img id="logo" style="width: 15rem;" src="@Url.Content("~/Content/")/images/logo.png" alt="logo" />
             <p class="currentDate">Today: @DateTime.Now.ToShortDateString()</p>
             @if (Session["employeeId"] != null)
-            { 
-        <div class="empInfo">
-            <h3>@Session["employeeName"].ToString()</h3>
-            <h6>User Name: @Session["userName"].ToString()</h6>
-            <br />
-            <h5>Work Information</h5>
-            <ul class="list-unstyled workInfo">
-                <li>Department: @Session["department"].ToString()</li>
-                <li>Job Title: @Session["job"].ToString()</li>
-                <li>Supervisor: @Session["supervisor"].ToString()</li>
-            </ul>
-        </div>
-            
-            }
-        <ul class="list-unstyled components">
-            @if (Session["employeeId"] != null)
             {
-                <li class="active">
-                    <a href="#HRSubmenu" data-toggle="collapse" data-target="#HRSubmenu" aria-expanded="false" class="dropdown-toggle">HR</a>
-                    <ul class="collapse list-unstyled" style="padding-left:5%;" id="HRSubmenu">
-
-                        @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "HR Supervisor" || Session["role"].ToString() == "HR Employee")
-                        {
-                            <li>
-                                <a href="@Url.Action("Index", "Employees")">View Employees</a>
-                            </li>
-                        }
-                        @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "HR Supervisor" || Session["role"].ToString() == "Supervisor")
-                        {
-                            <li>
-                                <a href="@Url.Action("Index", "Reviews")">Create Review</a>
-                            </li>
-                        }
-
-                        @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "HR Supervisor" || Session["role"].ToString() == "HR Employee" || Session["role"].ToString() == "Supervisor")
-                        {
-                            <li>
-                                <a href="@Url.Action("Index", "Departments")">Modify Departments</a>
-                            </li>
-                        }
-                        @* For all employees *@
-                        <li>
-                            <a href="@Url.Action("Edit","Employees/", new { employeeId = Session["employeeId"]})">Modify Personal Info</a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("EmployeeReviews","Reviews/", new { employeeId = Session["employeeId"]})">Performance Reviews</a>
-                        </li>
+                <div class="empInfo">
+                    <h3>@Session["employeeName"].ToString()</h3>
+                    <h6>User Name: @Session["userName"].ToString()</h6>
+                    <br />
+                    <h5>Work Information</h5>
+                    <ul class="list-unstyled workInfo">
+                        <li>Department: @Session["department"].ToString()</li>
+                        <li>Job Title: @Session["job"].ToString()</li>
+                        <li>Supervisor: @Session["supervisor"].ToString()</li>
                     </ul>
-                </li>
+                </div>
 
-            <li class="active">
-                <a href="#POSubmenu" data-toggle="collapse" data-target="#POSubmenu" aria-expanded="false" class="dropdown-toggle">Purchase Order</a>
-                <ul class="collapse list-unstyled" style="padding-left:5%;" id="POSubmenu">
-                    <li>
-                        <a href="@Url.Action("Index", "PurchaseOrder")">View PO</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Create", "PurchaseOrder")">Create PO</a>
-                    </li>                                    
-                    @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "Supervisor" || Session["role"].ToString() == "HR Supervisor")
-                    {
-                        <li>
-                            <a href="@Url.Action("ProcessList", "PurchaseOrder")">Process PO</a>
-                        </li>
-                    }
-                    
-                </ul>
-            </li>
             }
-            <li>
-                @if (Session["employeeId"] == null)
+            <ul class="list-unstyled components">
+                @if (Session["employeeId"] != null)
                 {
-                    <a href="@Url.Action("Index", "Login")">Login</a>
+                    <li class="active">
+                        <a href="#HRSubmenu" data-toggle="collapse" data-target="#HRSubmenu" aria-expanded="false" class="dropdown-toggle">HR</a>
+                        <ul class="collapse list-unstyled" style="padding-left:5%;" id="HRSubmenu">
+
+                            @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "HR Supervisor" || Session["role"].ToString() == "HR Employee")
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", "Employees")">View Employees</a>
+                                </li>
+                            }
+                            @* For all employees *@
+                            <li>
+                                <a href="@Url.Action("Edit","Employees/", new { employeeId = Session["employeeId"]})">Modify Personal Info</a>
+                            </li>
+                            @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "HR Supervisor" || Session["role"].ToString() == "HR Employee" || Session["role"].ToString() == "Supervisor")
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", "Departments")">Modify Departments</a>
+                                </li>
+                            }
+                            @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "HR Supervisor" || Session["role"].ToString() == "Supervisor")
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", "Reviews")">Create Review</a>
+                                </li>
+                            }
+                            @* For all employees *@
+                            <li>
+                                <a href="@Url.Action("EmployeeReviews","Reviews/", new { employeeId = Session["employeeId"]})">Performance Reviews</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="active">
+                        <a href="#POSubmenu" data-toggle="collapse" data-target="#POSubmenu" aria-expanded="false" class="dropdown-toggle">Purchase Order</a>
+                        <ul class="collapse list-unstyled" style="padding-left:5%;" id="POSubmenu">
+                            <li>
+                                <a href="@Url.Action("Index", "PurchaseOrder")">View PO</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Create", "PurchaseOrder")">Create PO</a>
+                            </li>
+                            @if (Session["role"].ToString() == "CEO" || Session["role"].ToString() == "Supervisor" || Session["role"].ToString() == "HR Supervisor")
+                            {
+                                <li>
+                                    <a href="@Url.Action("ProcessList", "PurchaseOrder")">Process PO</a>
+                                </li>
+                            }
+
+                        </ul>
+                    </li>
                 }
-                else
-                {
-                    using (Html.BeginForm("LogOff", "Login", FormMethod.Post, new { id = "logoutForm" }))
+                <li>
+                    @if (Session["employeeId"] == null)
                     {
-                        @Html.AntiForgeryToken()
-                        <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                        <a href="@Url.Action("Index", "Login")">Login</a>
                     }
-                }
-            </li>
-        </ul>
+                    else
+                    {
+                        using (Html.BeginForm("LogOff", "Login", FormMethod.Post, new { id = "logoutForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                        }
+                    }
+                </li>
+            </ul>
+
+
         </div>
 
         <!-- Page Content -->
@@ -133,6 +135,7 @@
             @RenderBody()
         </div>
 
+        
     </div>
 
 
@@ -143,11 +146,11 @@
         <br />
     </footer>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
 
+</body>
 
 </html>
 

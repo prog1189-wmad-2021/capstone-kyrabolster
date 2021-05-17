@@ -172,6 +172,7 @@ namespace VastVoyages.WinFrontEnd
                         break;
                     default:
                         MessageBox.Show("Please select a category of information to modify.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        btnSave.Visible = false;
                         break;
                 }
 
@@ -403,6 +404,7 @@ namespace VastVoyages.WinFrontEnd
             cmbDepartment.SelectedValue = Convert.ToInt32(employee.DepartmentId);
 
             LoadSupervisors();
+            cmbSupervisor.SelectedValue = Convert.ToInt32(employee.SupervisorId);
         }
 
         private void PopulateEmploymentStatus()

@@ -44,6 +44,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.pbLogo = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnDeleteDepartment = new System.Windows.Forms.Button();
             this.dgvDepartments = new System.Windows.Forms.DataGridView();
             this.grpModifyDepartment = new System.Windows.Forms.GroupBox();
             this.btnModifyDepartment = new System.Windows.Forms.Button();
@@ -53,7 +54,6 @@
             this.dtpInvocationDate = new System.Windows.Forms.DateTimePicker();
             this.txtDepartmentDescription = new System.Windows.Forms.TextBox();
             this.txtDepartmentName = new System.Windows.Forms.TextBox();
-            this.btnDeleteDepartment = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -239,6 +239,18 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select a Department to Modify";
             // 
+            // btnDeleteDepartment
+            // 
+            this.btnDeleteDepartment.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteDepartment.Location = new System.Drawing.Point(1022, 21);
+            this.btnDeleteDepartment.Name = "btnDeleteDepartment";
+            this.btnDeleteDepartment.Size = new System.Drawing.Size(198, 50);
+            this.btnDeleteDepartment.TabIndex = 10;
+            this.btnDeleteDepartment.Text = "Delete Department";
+            this.btnDeleteDepartment.UseVisualStyleBackColor = true;
+            this.btnDeleteDepartment.Visible = false;
+            this.btnDeleteDepartment.Click += new System.EventHandler(this.btnDeleteDepartment_Click);
+            // 
             // dgvDepartments
             // 
             this.dgvDepartments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -328,18 +340,6 @@
             this.txtDepartmentName.Size = new System.Drawing.Size(360, 22);
             this.txtDepartmentName.TabIndex = 6;
             // 
-            // btnDeleteDepartment
-            // 
-            this.btnDeleteDepartment.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteDepartment.Location = new System.Drawing.Point(1022, 21);
-            this.btnDeleteDepartment.Name = "btnDeleteDepartment";
-            this.btnDeleteDepartment.Size = new System.Drawing.Size(198, 50);
-            this.btnDeleteDepartment.TabIndex = 10;
-            this.btnDeleteDepartment.Text = "Delete Department";
-            this.btnDeleteDepartment.UseVisualStyleBackColor = true;
-            this.btnDeleteDepartment.Visible = false;
-            this.btnDeleteDepartment.Click += new System.EventHandler(this.btnDeleteDepartment_Click);
-            // 
             // frmModifyDepartment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -350,7 +350,7 @@
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.pbLogo);
             this.Name = "frmModifyDepartment";
-            this.Text = "frmModifyDepartment";
+            this.Text = "Edit Department";
             this.Load += new System.EventHandler(this.frmModifyDepartment_Load);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();

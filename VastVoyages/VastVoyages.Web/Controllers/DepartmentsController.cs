@@ -65,7 +65,7 @@ namespace VastVoyages.Web.Controllers
                 Department departmentDetails = service.GetDepartmentById(departmentId.Value);
 
                 if (departmentDetails == null)
-                    return HttpNotFound();
+                    return View("PageNotFound");
 
                 Department department = new Department()
                 {
@@ -93,13 +93,15 @@ namespace VastVoyages.Web.Controllers
             try
             {
                 string role = Session["role"].ToString();
+                ViewBag.DepartmentName = department.DepartmentName;
+
                 //department = service.UpdateDepartment(department, originalInvocationDate, role);
                 department = service.UpdateDepartment(department, role);
 
                 if (department.Errors.Count == 0)
                 {
                     TempData["Success"] = department.DepartmentName + " department sucessfully updated. ";
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Departments");
                 }
 
                 return View(department);

@@ -41,7 +41,7 @@
             @Html.HiddenFor(model => model.EmployeeName)
 
             <div class="form-group">
-                Rating
+                    Rating
                 <div class="col-md-10">
                     @Html.EnumDropDownListFor(x => x.Rating, "Select Rating", new { @class = "form-control" })
 
@@ -50,7 +50,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.ReviewDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                Date
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.ReviewDate, new { htmlAttributes = new { @class = "form-control", @Value = @DateTime.Now.ToShortDateString() } })
                     @Html.ValidationMessageFor(model => model.ReviewDate, "", new { @class = "text-danger" })
@@ -58,7 +58,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
+                Comment
                 <div class="col-md-10">
                     @Html.TextAreaFor(model => model.Comment, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
