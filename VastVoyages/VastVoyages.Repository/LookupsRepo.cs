@@ -88,7 +88,9 @@ namespace VastVoyages.Repository
                     new SupervisorLookupsDTO
                     {
                         SupervisorId = Convert.ToInt32(row["EmployeeId"]),
-                        SupervisorName = row["FirstName"].ToString() + " " + row["LastName"].ToString()
+                        FirstName = row["FirstName"].ToString(),
+                        LastName = row["LastName"].ToString(),
+                        MiddleInitial = row["MiddleInit"].ToString()
                     }
                 );
             }
@@ -116,7 +118,9 @@ namespace VastVoyages.Repository
                     new SupervisorLookupsDTO
                     {
                         SupervisorId = Convert.ToInt32(row["EmployeeId"]),
-                        SupervisorName = row["FirstName"].ToString() + " " + row["LastName"].ToString()
+                        FirstName = row["FirstName"].ToString(),
+                        LastName = row["LastName"].ToString(),
+                        MiddleInitial = row["MiddleInit"].ToString()
                     }
                 );
             }
@@ -140,7 +144,9 @@ namespace VastVoyages.Repository
                     new SupervisorLookupsDTO
                     {
                         SupervisorId = Convert.ToInt32(row["EmployeeId"]),
-                        SupervisorName = row["FirstName"].ToString() + row["LastName"].ToString()
+                        FirstName = row["FirstName"].ToString(),
+                        LastName = row["LastName"].ToString(),
+                        MiddleInitial = row["MiddleInit"].ToString()
                     }
                 );
             }

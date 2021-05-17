@@ -33,12 +33,12 @@ namespace VastVoyages.Service
             {
                 GenerateUsername(employee);
 
-                repo.AddEmployee(employee);
-
                 HashCode hc = new HashCode();
                 string password = GeneratePassword();
 
-                repo.InsertPassword(employee.EmployeeId, hc.CalculateSHA256(password));
+                repo.AddEmployee(employee, hc.CalculateSHA256(password));
+
+                //repo.InsertPassword(employee.EmployeeId, hc.CalculateSHA256(password));
 
                 return true;
             }
@@ -177,16 +177,33 @@ namespace VastVoyages.Service
         /// <param name="departmentId"></param>
         /// <param name="supervisorId"></param>
         /// <returns></returns>
-        private bool IsSupervisorRatioExceeded(int departmentId, int supervisorId)
+        private bool IsSupervisorRatioExceeded(int employeeId, int departmentId, int supervisorId)
         {
             SupervisorLookupsDTO ceo = new SupervisorLookupsDTO();
             ceo = lookupsRepo.RetrieveCEO()[0];
 
+            EmployeeRepo employeeRepo = new EmployeeRepo();
+
             // if they are not a supervisor
             if (supervisorId != ceo.SupervisorId)
             {
+                //get employees assigned to supervisor
+                List<EmployeeDTO> supervisorsEmployees = 
+                    employeeRepo.RetrieveAllEmployees().Where(x => x.SupervisorId.Equals(supervisorId)).ToList();
+                List<int> supervisorsEmployeesIds = new List<int>();
+
+                foreach(EmployeeDTO emp in supervisorsEmployees)
+                {
+                    supervisorsEmployeesIds.Add(emp.EmpId);
+                }
+
                 int employeeCount = repo.GetEmployeeCount(departmentId, supervisorId);
-                //int supervisorCount = repo.GetSupervisorCount(departmentId, supervisorId);
+
+                //check if supervisor already assigned this employee (for modify employee use case)
+                if (supervisorsEmployeesIds.Contains(employeeId))
+                {
+                    return (employeeCount >= 11);
+                }
 
                 return (employeeCount >= 10);
             }
@@ -244,25 +261,28 @@ namespace VastVoyages.Service
                 employee.AddError(new ValidationError(e.ErrorMessage, ErrorType.Model));
             }
 
-            if (!IsValidatePostalCode(employee))
+            if (employee.PostalCode != null)
             {
-                if (employee.Country == "Canada")
-                    employee.AddError(new ValidationError("Postal Code must be in correct Canadian format.", ErrorType.Business));
-                else
-                    employee.AddError(new ValidationError("ZipCode must be in correct US format.", ErrorType.Business));
+                if (!IsValidatePostalCode(employee))
+                {
+                    if (employee.Country == "Canada")
+                        employee.AddError(new ValidationError("Postal Code must be in correct Canadian format.", ErrorType.Business));
+                    else
+                        employee.AddError(new ValidationError("ZipCode must be in correct US format.", ErrorType.Business));
+                }
             }
 
             if (IsBelowLegalAge(employee.DateOfBirth))
             {
-                employee.AddError(new ValidationError("The employee must be of legal.", ErrorType.Business));
+                employee.AddError(new ValidationError("The employee must be of legal age.", ErrorType.Business));
             }
 
             if (IsJobStartDateInValid(employee.JobStartDate, employee.SeniorityDate))
             {
-                employee.AddError(new ValidationError("Job Start Date cannot be prior to SeniorityDate", ErrorType.Business));
+                employee.AddError(new ValidationError("Job Start Date cannot be prior to Seniority Date", ErrorType.Business));
             }
 
-            if (IsSupervisorRatioExceeded(employee.DepartmentId, employee.SupervisorId))
+            if (IsSupervisorRatioExceeded(employee.EmployeeId, employee.DepartmentId, employee.SupervisorId))
             {
                 employee.AddError(new ValidationError("This supervisor already has 10 employees.", ErrorType.Business));
             }

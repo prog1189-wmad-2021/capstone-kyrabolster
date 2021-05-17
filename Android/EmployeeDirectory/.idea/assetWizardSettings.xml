@@ -79,7 +79,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\KyraB\OneDrive\Pictures\airport-39335_1280.png" />
+                                                <entry key="imagePath" value="C:\Users\KyraB\OneDrive\Pictures\vastvoyageslogo.png" />
+                                                <entry key="scalingPercent" value="134" />
                                               </map>
                                             </option>
                                           </PersistentState>
