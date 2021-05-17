@@ -172,6 +172,7 @@ namespace VastVoyages.WinFrontEnd
                         break;
                     default:
                         MessageBox.Show("Please select a category of information to modify.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        btnSave.Visible = false;
                         break;
                 }
 
