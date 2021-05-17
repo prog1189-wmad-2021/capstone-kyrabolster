@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [VastVoyages]    Script Date: 2021-05-16 9:44:48 PM ******/
+/****** Object:  Database [VastVoyages]    Script Date: 2021-05-16 9:56:36 PM ******/
 DROP DATABASE IF EXISTS [VastVoyages] 
 CREATE DATABASE [VastVoyages]
 ALTER DATABASE [VastVoyages] SET COMPATIBILITY_LEVEL = 140
@@ -74,7 +74,7 @@ ALTER DATABASE [VastVoyages] SET QUERY_STORE = OFF
 GO
 USE [VastVoyages]
 GO
-/****** Object:  Table [dbo].[Departments]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  Table [dbo].[Departments]    Script Date: 2021-05-16 9:56:36 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -91,7 +91,7 @@ CREATE TABLE [dbo].[Departments](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[EmployeeReviews]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  Table [dbo].[EmployeeReviews]    Script Date: 2021-05-16 9:56:36 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -109,7 +109,7 @@ CREATE TABLE [dbo].[EmployeeReviews](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Employees]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  Table [dbo].[Employees]    Script Date: 2021-05-16 9:56:36 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -146,7 +146,7 @@ CREATE TABLE [dbo].[Employees](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[EmployeeStatus]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  Table [dbo].[EmployeeStatus]    Script Date: 2021-05-16 9:56:36 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -160,7 +160,7 @@ CREATE TABLE [dbo].[EmployeeStatus](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Items]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  Table [dbo].[Items]    Script Date: 2021-05-16 9:56:36 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -183,7 +183,7 @@ CREATE TABLE [dbo].[Items](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ItemStatus]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  Table [dbo].[ItemStatus]    Script Date: 2021-05-16 9:56:36 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -197,7 +197,7 @@ CREATE TABLE [dbo].[ItemStatus](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[JobAssignment]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  Table [dbo].[JobAssignment]    Script Date: 2021-05-16 9:56:36 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -211,7 +211,7 @@ CREATE TABLE [dbo].[JobAssignment](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Login]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  Table [dbo].[Login]    Script Date: 2021-05-16 9:56:36 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -221,7 +221,7 @@ CREATE TABLE [dbo].[Login](
 	[Password] [nvarchar](max) NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[POs]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  Table [dbo].[POs]    Script Date: 2021-05-16 9:56:36 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -240,7 +240,7 @@ CREATE TABLE [dbo].[POs](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[POStatus]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  Table [dbo].[POStatus]    Script Date: 2021-05-16 9:56:36 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -254,7 +254,7 @@ CREATE TABLE [dbo].[POStatus](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Ratings]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  Table [dbo].[Ratings]    Script Date: 2021-05-16 9:56:36 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -268,7 +268,7 @@ CREATE TABLE [dbo].[Ratings](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ReviewReminderEmail]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  Table [dbo].[ReviewReminderEmail]    Script Date: 2021-05-16 9:56:36 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -292,9 +292,9 @@ INSERT [dbo].[Departments] ([DepartmentId], [DepartmentName], [DepartmentDescrip
 GO
 INSERT [dbo].[Departments] ([DepartmentId], [DepartmentName], [DepartmentDescription], [InvocationDate]) VALUES (4, N'SALES', N'Sales', CAST(N'2001-03-01T00:00:00.0000000' AS DateTime2))
 GO
-INSERT [dbo].[Departments] ([DepartmentId], [DepartmentName], [DepartmentDescription], [InvocationDate]) VALUES (6, N'CUSTOMER SERVICE', N'Customer service and account liasons.', CAST(N'2020-01-15T00:00:00.0000000' AS DateTime2))
+INSERT [dbo].[Departments] ([DepartmentId], [DepartmentName], [DepartmentDescription], [InvocationDate]) VALUES (5, N'CUSTOMER SERVICE', N'Customer service and account liasons.', CAST(N'2020-01-15T00:00:00.0000000' AS DateTime2))
 GO
-INSERT [dbo].[Departments] ([DepartmentId], [DepartmentName], [DepartmentDescription], [InvocationDate]) VALUES (7, N'RECRUITMENT', N'Employee recruitment', CAST(N'1980-06-07T00:00:00.0000000' AS DateTime2))
+INSERT [dbo].[Departments] ([DepartmentId], [DepartmentName], [DepartmentDescription], [InvocationDate]) VALUES (6, N'RECRUITMENT', N'Employee recruitment', CAST(N'1980-06-07T00:00:00.0000000' AS DateTime2))
 GO
 SET IDENTITY_INSERT [dbo].[Departments] OFF
 GO
@@ -640,7 +640,7 @@ REFERENCES [dbo].[POStatus] ([POStatusId])
 GO
 ALTER TABLE [dbo].[POs] CHECK CONSTRAINT [FK_POs_Status]
 GO
-/****** Object:  StoredProcedure [dbo].[spCheckDuplicateUsername]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spCheckDuplicateUsername]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -665,7 +665,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spCheckHeadSupervisorIdOfPO]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spCheckHeadSupervisorIdOfPO]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -699,7 +699,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spDeleteDepartment]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spDeleteDepartment]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -727,7 +727,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDeleteItemByItemId]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spDeleteItemByItemId]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -749,7 +749,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spFindDuplicatedItems]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spFindDuplicatedItems]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -781,7 +781,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetAllEmployees]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetAllEmployees]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -804,7 +804,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetCEO]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetCEO]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -825,7 +825,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetDepartmentById]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetDepartmentById]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -846,7 +846,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetDepartments]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetDepartments]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -867,7 +867,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetEmailSentToday]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetEmailSentToday]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -888,7 +888,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetEmployeeById]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetEmployeeById]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -918,7 +918,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetEmployeeReviews]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetEmployeeReviews]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -940,7 +940,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetEmployeesByDepartment]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetEmployeesByDepartment]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -962,7 +962,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetEmployeeStatus]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetEmployeeStatus]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -983,7 +983,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetEmployeeToModify]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetEmployeeToModify]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1003,7 +1003,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetHeadSupervisor]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetHeadSupervisor]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1025,7 +1025,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetHeadSupervisorId]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetHeadSupervisorId]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1047,7 +1047,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetItemByItemId]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetItemByItemId]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1083,7 +1083,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetItemByPONumber]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetItemByPONumber]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1110,7 +1110,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetItemStatusForLookup]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetItemStatusForLookup]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1121,7 +1121,7 @@ BEGIN
 	SELECT ItemStatusId, ItemStatus FROM ItemStatus
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetJobAssignments]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetJobAssignments]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1142,7 +1142,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetPOStatusForLookup]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetPOStatusForLookup]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1153,7 +1153,7 @@ BEGIN
 	SELECT POStatusId, POStatus FROM POStatus
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetPurchaseOrderByEmployee]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetPurchaseOrderByEmployee]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1190,7 +1190,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetPurchaseOrderByPOnumber]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetPurchaseOrderByPOnumber]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1231,7 +1231,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetPurchaseOrderBySupervisor]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetPurchaseOrderBySupervisor]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1305,7 +1305,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetReviewById]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetReviewById]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1330,7 +1330,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetSuperEmployeeCount]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetSuperEmployeeCount]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1361,7 +1361,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetSupervisors]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetSupervisors]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1386,7 +1386,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertDepartment]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spInsertDepartment]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1420,14 +1420,15 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertEmployee]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spInsertEmployee]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+
 --updated to add officelocation
-CREATE   PROCEDURE [dbo].[spInsertEmployee]
+CREATE     PROCEDURE [dbo].[spInsertEmployee]
 	@RecordVersion ROWVERSION OUTPUT,
 	@EmployeeId INT OUTPUT,
 	@UserName VARCHAR(100), 
@@ -1455,37 +1456,48 @@ CREATE   PROCEDURE [dbo].[spInsertEmployee]
 	@IsHeadSupervisor BIT,
 	@DepartmentId INT, 
 	@EmployeeStatusId INT, 
-	@JobAssignmentId INT
+	@JobAssignmentId INT,
+
+	@Password NVARCHAR(MAX)
 AS 
 
 BEGIN
 	BEGIN TRY			
-			
-		INSERT INTO Employees 
-			(
-				UserName, FirstName, MiddleInit, LastName, DateOfBirth, 
-				Street, City, Province, Country, PostalCode, WorkPhone, CellPhone, Email, OfficeLocation, JobStartDate, SeniorityDate, SIN, 
-				SupervisorId, IsHeadSupervisor, DepartmentId, EmployeeStatusId, JobAssignmentId
-			)
-		VALUES
-			(
-				@UserName, @FirstName, @MiddleInit, @LastName, @DateOfBirth, 
-				@Street, @City, @Province, @Country, @PostalCode, @WorkPhone, @CellPhone, @Email, @OfficeLocation, @JobStartDate, @SeniorityDate, 
-				@SIN, @SupervisorId, @IsHeadSupervisor, @DepartmentId, 1, @JobAssignmentId
-			);
+		BEGIN TRAN	
 
-		SET @EmployeeId = SCOPE_IDENTITY();
+			-- Insert Employee --
+			INSERT INTO Employees 
+				(
+					UserName, FirstName, MiddleInit, LastName, DateOfBirth, 
+					Street, City, Province, Country, PostalCode, WorkPhone, CellPhone, Email, OfficeLocation, JobStartDate, SeniorityDate, SIN, 
+					SupervisorId, IsHeadSupervisor, DepartmentId, EmployeeStatusId, JobAssignmentId
+				)
+			VALUES
+				(
+					@UserName, @FirstName, @MiddleInit, @LastName, @DateOfBirth, 
+					@Street, @City, @Province, @Country, @PostalCode, @WorkPhone, @CellPhone, @Email, @OfficeLocation, @JobStartDate, @SeniorityDate, 
+					@SIN, @SupervisorId, @IsHeadSupervisor, @DepartmentId, 1, @JobAssignmentId
+				);
 
-		SET @RecordVersion = (SELECT RecordVersion from Employees where EmployeeId = @EmployeeId);
+			SET @EmployeeId = SCOPE_IDENTITY();
+
+			-- Insert Password --
+			INSERT INTO Login (EmployeeId, Password)
+				VALUES (@EmployeeId, @Password);
+
+			SET @RecordVersion = (SELECT RecordVersion from Employees where EmployeeId = @EmployeeId);
 		
+		COMMIT TRAN;
 	END TRY
 	BEGIN CATCH
+		IF @@TRANCOUNT > 0
+			ROLLBACK TRAN;
 		;THROW
 	END CATCH
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertItems]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spInsertItems]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1530,7 +1542,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertPassword]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spInsertPassword]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1555,7 +1567,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertPurchaseOrder]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spInsertPurchaseOrder]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1599,7 +1611,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertReview]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spInsertReview]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1631,7 +1643,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertReviewReminderEmail]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spInsertReviewReminderEmail]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1654,7 +1666,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spLogin]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spLogin]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1686,34 +1698,11 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spSearchEmployeesById]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spSearchEmployeesById]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-
---CREATE OR ALTER PROCEDURE spSearchEmployees
---	@EmployeeId INT,
---	@LastName VARCHAR(40)
---AS 
-
---BEGIN
---	BEGIN TRY
-	
---		IF (@EmployeeId IS NOT NULL)
---			SELECT * FROM Employees WHERE EmployeeId = @EmployeeId ORDER BY LastName;
---		ELSE IF (@LastName IS NOT NULL)
---			SELECT * FROM Employees WHERE LastName = @LastName ORDER BY LastName;
---		ELSE
---			SELECT * FROM Employees ORDER BY LastName;
-	
---	END TRY
---	BEGIN CATCH
---		;THROW
---	END CATCH
---END
-
---GO
 
 CREATE   PROCEDURE [dbo].[spSearchEmployeesById]
 	@EmployeeId INT
@@ -1729,7 +1718,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSearchEmployeesByLastName]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spSearchEmployeesByLastName]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1749,7 +1738,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateDepartment]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateDepartment]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1767,7 +1756,7 @@ BEGIN
 	BEGIN TRY
 	--Concurrency. Compare record version--
 			IF(SELECT [RecordVersion] FROM Departments WHERE DepartmentId = @DepartmentId) <> @RecordVersion
-				THROW 53001, 'The employee record has been updated since last time you retrieved it', 1
+				THROW 53001, 'The department record has been updated since last time you retrieved it', 1
 
 			UPDATE Departments
 			SET
@@ -1785,7 +1774,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateEmployee]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateEmployee]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1852,7 +1841,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateItems]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateItems]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1907,7 +1896,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdatePersonalInfoWeb]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spUpdatePersonalInfoWeb]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1952,7 +1941,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdatePurchaseOrder]    Script Date: 2021-05-16 9:44:49 PM ******/
+/****** Object:  StoredProcedure [dbo].[spUpdatePurchaseOrder]    Script Date: 2021-05-16 9:56:37 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
