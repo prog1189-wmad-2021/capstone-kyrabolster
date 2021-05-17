@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [VastVoyages]    Script Date: 2021-05-16 9:21:59 PM ******/
+/****** Object:  Database [VastVoyages]    Script Date: 2021-05-16 9:44:48 PM ******/
 DROP DATABASE IF EXISTS [VastVoyages] 
 CREATE DATABASE [VastVoyages]
 ALTER DATABASE [VastVoyages] SET COMPATIBILITY_LEVEL = 140
@@ -74,7 +74,7 @@ ALTER DATABASE [VastVoyages] SET QUERY_STORE = OFF
 GO
 USE [VastVoyages]
 GO
-/****** Object:  Table [dbo].[Departments]    Script Date: 2021-05-16 9:21:59 PM ******/
+/****** Object:  Table [dbo].[Departments]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -91,7 +91,7 @@ CREATE TABLE [dbo].[Departments](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[EmployeeReviews]    Script Date: 2021-05-16 9:21:59 PM ******/
+/****** Object:  Table [dbo].[EmployeeReviews]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -109,7 +109,7 @@ CREATE TABLE [dbo].[EmployeeReviews](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Employees]    Script Date: 2021-05-16 9:21:59 PM ******/
+/****** Object:  Table [dbo].[Employees]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -146,7 +146,7 @@ CREATE TABLE [dbo].[Employees](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[EmployeeStatus]    Script Date: 2021-05-16 9:21:59 PM ******/
+/****** Object:  Table [dbo].[EmployeeStatus]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -160,7 +160,7 @@ CREATE TABLE [dbo].[EmployeeStatus](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Items]    Script Date: 2021-05-16 9:21:59 PM ******/
+/****** Object:  Table [dbo].[Items]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -183,7 +183,7 @@ CREATE TABLE [dbo].[Items](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ItemStatus]    Script Date: 2021-05-16 9:21:59 PM ******/
+/****** Object:  Table [dbo].[ItemStatus]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -197,7 +197,7 @@ CREATE TABLE [dbo].[ItemStatus](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[JobAssignment]    Script Date: 2021-05-16 9:21:59 PM ******/
+/****** Object:  Table [dbo].[JobAssignment]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -211,7 +211,7 @@ CREATE TABLE [dbo].[JobAssignment](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Login]    Script Date: 2021-05-16 9:21:59 PM ******/
+/****** Object:  Table [dbo].[Login]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -221,7 +221,7 @@ CREATE TABLE [dbo].[Login](
 	[Password] [nvarchar](max) NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[POs]    Script Date: 2021-05-16 9:21:59 PM ******/
+/****** Object:  Table [dbo].[POs]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -240,7 +240,7 @@ CREATE TABLE [dbo].[POs](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[POStatus]    Script Date: 2021-05-16 9:21:59 PM ******/
+/****** Object:  Table [dbo].[POStatus]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -254,7 +254,7 @@ CREATE TABLE [dbo].[POStatus](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Ratings]    Script Date: 2021-05-16 9:21:59 PM ******/
+/****** Object:  Table [dbo].[Ratings]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -268,7 +268,7 @@ CREATE TABLE [dbo].[Ratings](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ReviewReminderEmail]    Script Date: 2021-05-16 9:21:59 PM ******/
+/****** Object:  Table [dbo].[ReviewReminderEmail]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -291,8 +291,6 @@ GO
 INSERT [dbo].[Departments] ([DepartmentId], [DepartmentName], [DepartmentDescription], [InvocationDate]) VALUES (3, N'DEV', N'Development', CAST(N'2001-05-01T00:00:00.0000000' AS DateTime2))
 GO
 INSERT [dbo].[Departments] ([DepartmentId], [DepartmentName], [DepartmentDescription], [InvocationDate]) VALUES (4, N'SALES', N'Sales', CAST(N'2001-03-01T00:00:00.0000000' AS DateTime2))
-GO
-INSERT [dbo].[Departments] ([DepartmentId], [DepartmentName], [DepartmentDescription], [InvocationDate]) VALUES (5, N'Test', N'test', CAST(N'2021-05-15T00:00:00.0000000' AS DateTime2))
 GO
 INSERT [dbo].[Departments] ([DepartmentId], [DepartmentName], [DepartmentDescription], [InvocationDate]) VALUES (6, N'CUSTOMER SERVICE', N'Customer service and account liasons.', CAST(N'2020-01-15T00:00:00.0000000' AS DateTime2))
 GO
@@ -332,19 +330,19 @@ INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [
 GO
 INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000010, N'TorresJ', N'Joseph', N'M', N'Torres', CAST(N'1980-02-13T00:00:00.0000000' AS DateTime2), N'45 MacLaren Street', N'Moncton', N'NB', N'Canada', N'K1P 5M7', N'506-255-5648', N'506-127-5481', N'Torres@VastVoyages.ca', N'123 Mountain Road, Moncton, NB', CAST(N'2021-02-09T00:00:00.0000000' AS DateTime2), CAST(N'2021-02-09T00:00:00.0000000' AS DateTime2), NULL, N'657-518-548', 10000000, NULL, 2, 1, 2)
 GO
-INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000011, N'AndrewsM', N'Margaret', NULL, N'Andrews', CAST(N'1970-04-13T00:00:00.0000000' AS DateTime2), N'3549 Carling Avenue', N'Moncton', N'NB', N'Canada', N'E1E 7B5', N'506-750-0860', N'506-879-9753', N'MAndrews@VastVoyages.ca', NULL, CAST(N'2008-12-01T00:00:00.0000000' AS DateTime2), CAST(N'2007-12-01T00:00:00.0000000' AS DateTime2), NULL, N'874-287-364', 10000001, NULL, 2, 1, 6)
+INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000011, N'AndrewsM', N'Margaret', NULL, N'Andrews', CAST(N'1970-04-13T00:00:00.0000000' AS DateTime2), N'3549 Carling Avenue', N'Moncton', N'NB', N'Canada', N'E1E 7B5', N'506-750-0860', N'506-879-9753', N'MAndrews@VastVoyages.ca', N'123 Mountain Road, Moncton, NB', CAST(N'2008-12-01T00:00:00.0000000' AS DateTime2), CAST(N'2007-12-01T00:00:00.0000000' AS DateTime2), NULL, N'874-287-364', 10000001, NULL, 2, 1, 6)
 GO
-INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000012, N'Warner', N'Nadia', NULL, N'Andrews', CAST(N'1990-03-08T00:00:00.0000000' AS DateTime2), N'512 Robson St', N'Moncton', N'NB', N'Canada', N'E1E 2C3', N'506-962-1572', N'506-879-1845', N'warnern@VastVoyages.ca', NULL, CAST(N'2017-06-05T00:00:00.0000000' AS DateTime2), CAST(N'2010-09-25T00:00:00.0000000' AS DateTime2), NULL, N'214-956-251', 10000001, NULL, 2, 1, 6)
+INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000012, N'Warner', N'Nadia', NULL, N'Andrews', CAST(N'1990-03-08T00:00:00.0000000' AS DateTime2), N'512 Robson St', N'Moncton', N'NB', N'Canada', N'E1E 2C3', N'506-962-1572', N'506-879-1845', N'warnern@VastVoyages.ca', N'123 Mountain Road, Moncton, NB', CAST(N'2017-06-05T00:00:00.0000000' AS DateTime2), CAST(N'2010-09-25T00:00:00.0000000' AS DateTime2), NULL, N'214-956-251', 10000001, NULL, 2, 1, 6)
 GO
-INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000013, N'BurnsA', N'Armando', NULL, N'Burns', CAST(N'1993-11-04T00:00:00.0000000' AS DateTime2), N'85 Diamond St', N'Moncton', N'NB', N'Canada', N'E1E 4D5', N'506-654-8461', N'506-364-7952', N'theBurns@VastVoyages.ca', NULL, CAST(N'2020-03-09T00:00:00.0000000' AS DateTime2), CAST(N'2019-04-21T00:00:00.0000000' AS DateTime2), NULL, N'256-521-581', 10000001, NULL, 2, 1, 6)
+INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000013, N'BurnsA', N'Armando', NULL, N'Burns', CAST(N'1993-11-04T00:00:00.0000000' AS DateTime2), N'85 Diamond St', N'Moncton', N'NB', N'Canada', N'E1E 4D5', N'506-654-8461', N'506-364-7952', N'theBurns@VastVoyages.ca', N'123 Mountain Road, Moncton, NB', CAST(N'2020-03-09T00:00:00.0000000' AS DateTime2), CAST(N'2019-04-21T00:00:00.0000000' AS DateTime2), NULL, N'256-521-581', 10000001, NULL, 2, 1, 6)
 GO
-INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000014, N'RonnieL', N'Ronnie', N'F', N'Lewis', CAST(N'1986-10-14T00:00:00.0000000' AS DateTime2), N'1812  Eglinton Avenue', N'Moncton', N'NB', N'Canada', N'E1E 8K4', N'506-364-8541', N'506-365-8641', N'rlewis77@VastVoyages.ca', NULL, CAST(N'2015-07-02T00:00:00.0000000' AS DateTime2), CAST(N'2014-07-21T00:00:00.0000000' AS DateTime2), NULL, N'364-845-842', 10000001, NULL, 2, 1, 6)
+INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000014, N'RonnieL', N'Ronnie', N'F', N'Lewis', CAST(N'1986-10-14T00:00:00.0000000' AS DateTime2), N'1812  Eglinton Avenue', N'Moncton', N'NB', N'Canada', N'E1E 8K4', N'506-364-8541', N'506-365-8641', N'rlewis77@VastVoyages.ca', N'123 Mountain Road, Moncton, NB', CAST(N'2015-07-02T00:00:00.0000000' AS DateTime2), CAST(N'2014-07-21T00:00:00.0000000' AS DateTime2), NULL, N'364-845-842', 10000001, NULL, 2, 1, 6)
 GO
-INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000015, N'HutchisonG', N'Gladys', N'Q', N'Hutchison', CAST(N'1974-11-08T00:00:00.0000000' AS DateTime2), N'3694 Mountain Rd', N'Moncton', N'NB', N'Canada', N'E1C 1H6', N'506-961-2490', N'506-961-6978', N'ghutch@VastVoyages.ca', NULL, CAST(N'1990-08-02T00:00:00.0000000' AS DateTime2), CAST(N'1990-07-21T00:00:00.0000000' AS DateTime2), NULL, N'122-754-136', 10000001, NULL, 2, 1, 6)
+INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000015, N'HutchisonG', N'Gladys', N'Q', N'Hutchison', CAST(N'1974-11-08T00:00:00.0000000' AS DateTime2), N'3694 Mountain Rd', N'Moncton', N'NB', N'Canada', N'E1C 1H6', N'506-961-2490', N'506-961-6978', N'ghutch@VastVoyages.ca', N'123 Mountain Road, Moncton, NB', CAST(N'1990-08-02T00:00:00.0000000' AS DateTime2), CAST(N'1990-07-21T00:00:00.0000000' AS DateTime2), NULL, N'122-754-136', 10000001, NULL, 2, 1, 6)
 GO
-INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000016, N'PatelS', N'Sherry', NULL, N'Patel', CAST(N'1996-02-12T00:00:00.0000000' AS DateTime2), N'252 Coldstream Avenue', N'Vernon', N'BC', N'Canada', N'V1T 6N1', N'250-306-6830', N'250-306-6831', N'spatel@VastVoyages.ca', NULL, CAST(N'2003-12-01T00:00:00.0000000' AS DateTime2), CAST(N'2002-10-03T00:00:00.0000000' AS DateTime2), NULL, N'122-365-748', 10000001, NULL, 2, 1, 6)
+INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000016, N'PatelS', N'Sherry', NULL, N'Patel', CAST(N'1996-02-12T00:00:00.0000000' AS DateTime2), N'252 Coldstream Avenue', N'Vernon', N'BC', N'Canada', N'V1T 6N1', N'250-306-6830', N'250-306-6831', N'spatel@VastVoyages.ca', N'123 Mountain Road, Moncton, NB', CAST(N'2003-12-01T00:00:00.0000000' AS DateTime2), CAST(N'2002-10-03T00:00:00.0000000' AS DateTime2), NULL, N'122-365-748', 10000001, NULL, 2, 1, 6)
 GO
-INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000017, N'PalkoD', N'Dane', NULL, N'Palko', CAST(N'1983-01-24T00:00:00.0000000' AS DateTime2), N'1818 Mountain Rd', N'Moncton', N'NB', N'Canada', N'E1C 1H6', N'506-871-9208', N'506-871-9471', N'dpalko@VastVoyages.ca', NULL, CAST(N'2007-04-16T00:00:00.0000000' AS DateTime2), CAST(N'2006-01-23T00:00:00.0000000' AS DateTime2), NULL, N'135-456-817', 10000001, NULL, 2, 1, 6)
+INSERT [dbo].[Employees] ([EmployeeId], [UserName], [FirstName], [MiddleInit], [LastName], [DateOfBirth], [Street], [City], [Province], [Country], [PostalCode], [WorkPhone], [CellPhone], [Email], [OfficeLocation], [JobStartDate], [SeniorityDate], [EndDate], [SIN], [SupervisorId], [IsHeadSupervisor], [DepartmentId], [EmployeeStatusId], [JobAssignmentId]) VALUES (10000017, N'PalkoD', N'Dane', NULL, N'Palko', CAST(N'1983-01-24T00:00:00.0000000' AS DateTime2), N'1818 Mountain Rd', N'Moncton', N'NB', N'Canada', N'E1C 1H6', N'506-871-9208', N'506-871-9471', N'dpalko@VastVoyages.ca', N'123 Mountain Road, Moncton, NB', CAST(N'2007-04-16T00:00:00.0000000' AS DateTime2), CAST(N'2006-01-23T00:00:00.0000000' AS DateTime2), NULL, N'135-456-817', 10000001, NULL, 2, 1, 6)
 GO
 SET IDENTITY_INSERT [dbo].[Employees] OFF
 GO
@@ -642,7 +640,7 @@ REFERENCES [dbo].[POStatus] ([POStatusId])
 GO
 ALTER TABLE [dbo].[POs] CHECK CONSTRAINT [FK_POs_Status]
 GO
-/****** Object:  StoredProcedure [dbo].[spCheckDuplicateUsername]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spCheckDuplicateUsername]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -667,7 +665,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spCheckHeadSupervisorIdOfPO]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spCheckHeadSupervisorIdOfPO]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -701,7 +699,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spDeleteDepartment]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spDeleteDepartment]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -729,7 +727,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDeleteItemByItemId]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spDeleteItemByItemId]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -751,7 +749,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spFindDuplicatedItems]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spFindDuplicatedItems]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -783,7 +781,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetAllEmployees]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetAllEmployees]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -806,7 +804,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetCEO]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetCEO]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -827,7 +825,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetDepartmentById]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetDepartmentById]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -848,7 +846,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetDepartments]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetDepartments]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -869,7 +867,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetEmailSentToday]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetEmailSentToday]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -890,7 +888,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetEmployeeById]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetEmployeeById]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -920,7 +918,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetEmployeeReviews]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetEmployeeReviews]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -942,7 +940,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetEmployeesByDepartment]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetEmployeesByDepartment]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -964,7 +962,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetEmployeeStatus]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetEmployeeStatus]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -985,7 +983,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetEmployeeToModify]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetEmployeeToModify]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1005,7 +1003,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetHeadSupervisor]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetHeadSupervisor]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1027,7 +1025,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetHeadSupervisorId]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetHeadSupervisorId]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1049,7 +1047,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetItemByItemId]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetItemByItemId]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1085,7 +1083,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetItemByPONumber]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetItemByPONumber]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1112,7 +1110,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetItemStatusForLookup]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetItemStatusForLookup]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1123,7 +1121,7 @@ BEGIN
 	SELECT ItemStatusId, ItemStatus FROM ItemStatus
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetJobAssignments]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetJobAssignments]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1144,7 +1142,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetPOStatusForLookup]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetPOStatusForLookup]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1155,7 +1153,7 @@ BEGIN
 	SELECT POStatusId, POStatus FROM POStatus
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetPurchaseOrderByEmployee]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetPurchaseOrderByEmployee]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1192,7 +1190,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetPurchaseOrderByPOnumber]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetPurchaseOrderByPOnumber]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1233,7 +1231,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetPurchaseOrderBySupervisor]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetPurchaseOrderBySupervisor]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1307,7 +1305,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGetReviewById]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetReviewById]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1332,7 +1330,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetSuperEmployeeCount]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetSuperEmployeeCount]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1363,7 +1361,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGetSupervisors]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spGetSupervisors]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1388,7 +1386,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertDepartment]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spInsertDepartment]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1422,7 +1420,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertEmployee]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spInsertEmployee]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1487,7 +1485,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertItems]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spInsertItems]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1532,7 +1530,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertPassword]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spInsertPassword]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1557,7 +1555,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertPurchaseOrder]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spInsertPurchaseOrder]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1601,7 +1599,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertReview]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spInsertReview]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1633,7 +1631,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertReviewReminderEmail]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spInsertReviewReminderEmail]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1656,7 +1654,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spLogin]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spLogin]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1688,7 +1686,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spSearchEmployeesById]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spSearchEmployeesById]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1731,7 +1729,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSearchEmployeesByLastName]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spSearchEmployeesByLastName]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1751,7 +1749,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateDepartment]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateDepartment]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1787,7 +1785,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateEmployee]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateEmployee]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1854,7 +1852,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateItems]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateItems]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1909,7 +1907,7 @@ BEGIN
 	END CATCH
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdatePersonalInfoWeb]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spUpdatePersonalInfoWeb]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1954,7 +1952,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdatePurchaseOrder]    Script Date: 2021-05-16 9:22:00 PM ******/
+/****** Object:  StoredProcedure [dbo].[spUpdatePurchaseOrder]    Script Date: 2021-05-16 9:44:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
